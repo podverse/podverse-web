@@ -4,9 +4,9 @@ import Link from "next/link";
 import React from "react";
 import styles from "../../styles/components/SideBar/SideBarBrand.module.scss";
 import { useTheme } from "../../contexts/Theme";
-import Image from "next/image";
 import { getBrandLogoSrc } from "../../utils/brandLogo";
 import { config } from "../../config";
+import { Image } from "../Image/Image";
 
 const SideBarBrand: React.FC = () => {
   const { theme } = useTheme();
@@ -18,7 +18,7 @@ const SideBarBrand: React.FC = () => {
         alt={config.public.brand.name}
         width={144}
         height={25}
-        priority
+        skipProxy
       />
     </Link>
   );

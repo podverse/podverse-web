@@ -6,7 +6,7 @@ import { DTOChannel, DTOItem, DTOLiveItem, findDTOChannelImageBySize, findDTOIte
   LiveItemStatusEnum,
   stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
-import Image from "../../Image/Image";
+import { Image } from "../../Image/Image";
 import { LiveItemStatus } from "../../LiveItem/LiveItemStatus";
 import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
 import { ReadableDate } from "../../Time/ReadableDate";

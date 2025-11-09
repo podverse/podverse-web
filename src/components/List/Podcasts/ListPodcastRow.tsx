@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { DTOChannel, findDTOChannelImageBySize, formatDateAbbrev } from "podverse-helpers";
 import React from "react";
-import Image from "../../Image/Image";
+import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import styles from "../../../styles/components/List/Podcasts/ListPodcastRow.module.scss";
 import { IMAGES } from "../../../constants/images";

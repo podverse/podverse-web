@@ -13,15 +13,16 @@ interface ImageProps {
   width: number;
   height: number;
   className?: string;
-  noBorderRadius?: boolean;
+  skipProxy?: boolean;
 }
 
-const Image: React.FC<ImageProps> = ({
+export const Image: React.FC<ImageProps> = ({
   src,
   alt,
   width,
   height,
-  className
+  className,
+  skipProxy
 }) => {
   const [imageError, setImageError] = useState(false);
 
@@ -37,11 +38,11 @@ const Image: React.FC<ImageProps> = ({
     );
   }
 
-  const proxySrc = PROXY.PATH + src;
+  const finalSrc = skipProxy ? src : PROXY.PATH + src;
 
   return (
     <NextImage
-      src={proxySrc}
+      src={finalSrc}
       alt={alt}
       width={width}
       height={height}
@@ -50,5 +51,3 @@ const Image: React.FC<ImageProps> = ({
     />
   );
 };
-
-export default Image;

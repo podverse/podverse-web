@@ -3,7 +3,7 @@ import { DTOChannel, findDTOChannelImageBySize } from "podverse-helpers";
 import Link from "../../Link/Link";
 import { WEB } from "../../../constants/web";
 import { IMAGES } from "../../../constants/images";
-import Image from "../../Image/Image";
+import { Image } from "../../Image/Image";
 import styles from "../../../styles/components/Content/Podroll/ContentPodrollChannelRow.module.scss";
 
 type ContentPodrollChannelRowProps = {

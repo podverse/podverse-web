@@ -5,7 +5,7 @@ import Link from "next/link";
 import { DTOChannel, DTOItem, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import React from "react";
 import { FaGripLines } from "react-icons/fa6";
-import Image from "../../Image/Image";
+import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
 import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";

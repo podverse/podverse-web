@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../styles/components/MediaHeaderMini/MediaHeaderMini.module.scss";
 import { DTOChannel, DTOItem, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
-import Image from "../Image/Image";
+import { Image } from "../Image/Image";
 import { IMAGES } from "../../constants/images";
 import { useTranslations } from "next-intl";
 
