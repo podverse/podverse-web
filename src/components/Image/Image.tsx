@@ -3,8 +3,9 @@
 import classNames from 'classnames';
 import React, { useState } from "react";
 import NextImage from "next/image";
-import styles from "../../styles/components/Image/Image.module.scss";
 import { PROXY } from '../../constants/proxy';
+import { IMAGES } from '../../constants/images';
+import styles from "../../styles/components/Image/Image.module.scss";
 
 interface ImageProps {
   src?: string | null;
@@ -20,17 +21,18 @@ const Image: React.FC<ImageProps> = ({
   alt,
   width,
   height,
-  className,
-  noBorderRadius = false
+  className
 }) => {
   const [imageError, setImageError] = useState(false);
 
   if (!src || imageError) {
     return (
-      <div
+      <NextImage
+        src={IMAGES.SRC.PLACEHOLDER}
+        alt={alt}
+        width={width}
+        height={height}
         className={classNames(styles.imagePlaceholder, className)}
-        style={{ width, height }}
-        aria-label={alt}
       />
     );
   }
