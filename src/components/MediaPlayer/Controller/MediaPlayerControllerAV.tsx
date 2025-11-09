@@ -410,7 +410,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
         src={selectedItemEnclosureUrl}
         preload={preload}
         style={hidden ? { display: "none" } : style}
-        controls
+        controls={false}
       />
     );
   }
