@@ -16,7 +16,7 @@
   justify-content: center;
 }
 
-.itemTitle > a {
+.itemTitle > button {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-light);
   color: var(--text-color-primary) !important;
@@ -28,7 +28,7 @@
   justify-content: center;
 }
 
-.channelTitle > a {
+.channelTitle > button {
   font-weight: var(--font-weight-light);
   color: var(--text-color-accent) !important;
   @include line-clamp(1);
@@ -68,7 +68,7 @@
   justify-content: center;
 }
 
-.subtitle > a {
+.subtitle > button {
   color: var(--text-color-primary) !important;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-light);

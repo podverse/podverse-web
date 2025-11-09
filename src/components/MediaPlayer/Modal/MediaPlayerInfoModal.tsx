@@ -1,12 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { findDTOChannelImageBySize, findDTOItemImageBySize, MediumEnum } from "podverse-helpers";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Modal/MediaPlayerInfoModal.module.scss";
-import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
-import { useRouter } from "next/navigation";
+import { ImageNonReact } from "../../Image/ImageNonReact";
 import Link from "../../Link/Link";
+import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
+import styles from "../../../styles/components/MediaPlayer/Modal/MediaPlayerInfoModal.module.scss";
 
 function useLinkHelper({
   mpChannel,
@@ -51,20 +52,25 @@ function useLinkHelper({
 
 function ClickableTitle({
   title,
-  url,
   onClick,
   className,
   children,
+  setPlayerModalIsOpen
 }: {
   title: string;
-  url: string;
   onClick: () => void;
   className: string;
   children?: React.ReactNode;
+  setPlayerModalIsOpen: (isOpen: boolean) => void;
 }) {
+  const handleOnClick = () => {
+    setPlayerModalIsOpen(false);
+    onClick();
+  }
+
   return (
     <div className={className}>
-      <Link href={url} onClick={onClick}>
+      <Link onClick={handleOnClick}>
         {children || title}
       </Link>
     </div>
@@ -101,25 +107,19 @@ export const MediaPlayerInfoModal: React.FC = () => {
       <div className={styles.titleSection}>
         <ClickableTitle
           title={mpItem?.title || tMisc("untitled")}
-          url={itemLinkUrl}
           className={styles.itemTitle}
-          onClick={() => {
-            router.push(itemLinkUrl);
-            setPlayerModalIsOpen(false);
-          }}
+          onClick={() => router.push(itemLinkUrl)}
+          setPlayerModalIsOpen={setPlayerModalIsOpen}
         />
         <ClickableTitle
           title={mpChannel?.title || tMisc("untitled")}
-          url={channelLinkUrl}
           className={styles.channelTitle}
-          onClick={() => {
-            router.push(channelLinkUrl);
-            setPlayerModalIsOpen(false);
-          }}
+          onClick={() => router.push(channelLinkUrl)}
+          setPlayerModalIsOpen={setPlayerModalIsOpen}
         />
       </div>
       <div className={styles.imageWrapper}>
-        <img
+        <ImageNonReact
           className={styles.image}
           src={imageUrl}
           alt={tMediaPlayer("media_player_image")}
@@ -130,12 +130,9 @@ export const MediaPlayerInfoModal: React.FC = () => {
           <>
             <ClickableTitle
               title={mpClip?.title || tMisc("untitled")}
-              url={subsectionUrl}
               className={styles.subtitle}
-              onClick={() => {
-                router.push(subsectionUrl);
-                setPlayerModalIsOpen(false);
-              }}
+              onClick={() => router.push(subsectionUrl)}
+              setPlayerModalIsOpen={setPlayerModalIsOpen}
             />
             <div className={styles.timeRange}>
               <ReadableTimeRange
@@ -149,12 +146,9 @@ export const MediaPlayerInfoModal: React.FC = () => {
           <>
             <ClickableTitle
               title={mpItemSoundbite?.title || tMisc("untitled")}
-              url={subsectionUrl}
               className={styles.subtitle}
-              onClick={() => {
-                router.push(subsectionUrl);
-                setPlayerModalIsOpen(false);
-              }}
+              onClick={() => router.push(subsectionUrl)}
+              setPlayerModalIsOpen={setPlayerModalIsOpen}
             />
             <div className={styles.timeRange}>
               <ReadableTimeRange
@@ -168,12 +162,9 @@ export const MediaPlayerInfoModal: React.FC = () => {
           <>
             <ClickableTitle
               title={mpItemChapter?.title || tMisc("untitled")}
-              url={subsectionUrl}
               className={styles.subtitle}
-              onClick={() => {
-                router.push(subsectionUrl);
-                setPlayerModalIsOpen(false);
-              }}
+              onClick={() => router.push(subsectionUrl)}
+              setPlayerModalIsOpen={setPlayerModalIsOpen}
             />
             <div className={styles.timeRange}>
               <ReadableTimeRange
