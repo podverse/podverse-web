@@ -13,7 +13,7 @@ export const LiveItemStatus = ({ live_item }: LiveItemStatusProps) => {
   let statusText = tMedia("livestream.scheduled");
   let variant: ButtonVariant = 'miniGlow';
   if (live_item.live_item_status.id === LiveItemStatusEnum.Live) {
-    statusText = tMedia("livestream.live_now");
+    statusText = tMedia("livestream.live");
     variant = 'miniGlowDanger';
   } else if (live_item.live_item_status.id === LiveItemStatusEnum.Ended) {
     statusText = tMedia("livestream.ended");
