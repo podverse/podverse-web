@@ -13,6 +13,7 @@ import { PlaylistsFavoritesProvider } from '../contexts/PlaylistsFavorites';
 import { QueuesProvider } from '../contexts/Queue';
 import { QueueResourcesAbridgedIndexProvider } from '../contexts/QueueResourcesAbridgedIndex';
 import { AutoQueueProvider } from '../contexts/AutoQueue';
+import { MediaPlayerVideoProvider } from '../contexts/MediaPlayerVideo';
 
 export default function Providers({
   children,
@@ -32,7 +33,7 @@ export default function Providers({
   categories: DTOCategory[];
 }) {
   return (
-    <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/Chicago">
+    <NextIntlClientProvider locale={locale} messages={messages}>
       <ThemeProvider initialTheme={theme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <QueuesProvider>
@@ -40,13 +41,15 @@ export default function Providers({
               <PlaylistsFavoritesProvider>
                 <MediaPlayerCurrentTimeProvider>
                   <MediaPlayerProvider>
-                    <AutoQueueProvider>
-                      <ModalsProvider>
-                        <CategoriesProvider ssrCategories={categories}>
-                          {children}
-                        </CategoriesProvider>
-                      </ModalsProvider>
-                    </AutoQueueProvider>
+                    <MediaPlayerVideoProvider>
+                      <AutoQueueProvider>
+                        <ModalsProvider>
+                          <CategoriesProvider ssrCategories={categories}>
+                            {children}
+                          </CategoriesProvider>
+                        </ModalsProvider>
+                      </AutoQueueProvider>
+                    </MediaPlayerVideoProvider>
                   </MediaPlayerProvider>
                 </MediaPlayerCurrentTimeProvider>
               </PlaylistsFavoritesProvider>
