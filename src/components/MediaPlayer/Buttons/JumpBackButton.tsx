@@ -5,7 +5,7 @@ import React from "react"
 
 export const JumpBackButton = () => {
   const handleClick = () => {
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_BACK, { detail: { seconds: 15 } }))
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.JUMP_BACK, { detail: { seconds: 15 } }))
   }
   
   return (

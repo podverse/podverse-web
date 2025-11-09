@@ -4,7 +4,7 @@ import styles from "../../../styles/components/MediaPlayer/Buttons/JumpForwardBu
 
 export const JumpForwardButtonMobile = () => {
   const handleClick = () => {
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_FORWARD, { detail: { seconds: 30 } }))
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.JUMP_FORWARD, { detail: { seconds: 30 } }))
   }
   
   return (

@@ -4,7 +4,7 @@ import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPrevious
 
 export const TrackPreviousButton = () => {
   const onClick = () => {
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, { detail: { time: 0 } }))
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, { detail: { time: 0 } }))
   }
 
   return (

@@ -41,7 +41,7 @@ export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
     const x = (e instanceof MouseEvent ? e.clientX : e.nativeEvent.clientX) - rect.left;
     const percent = Math.min(Math.max(x / rect.width, 0), 1);
     const newTime = Math.round(percent * mpDuration);
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, { detail: { time: newTime } }));
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, { detail: { time: newTime } }));
   };
 
   const handleBarClick = (e: React.MouseEvent<HTMLDivElement>) => {

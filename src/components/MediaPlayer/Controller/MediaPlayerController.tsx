@@ -44,12 +44,12 @@ export const MediaPlayerController: React.FC = () => {
 
     if (e.key === "ArrowLeft") {
       const newTime = Math.max(0, mpCurrentTime - 10);
-      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, { detail: { time: newTime } }));
+      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, { detail: { time: newTime } }));
       e.preventDefault();
     }
     if (e.key === "ArrowRight") {
       const newTime = Math.min(mpDuration, mpCurrentTime + 10);
-      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, { detail: { time: newTime } }));
+      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, { detail: { time: newTime } }));
       e.preventDefault();
     }
   };

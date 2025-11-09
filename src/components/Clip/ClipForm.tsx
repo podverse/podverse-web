@@ -56,7 +56,7 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
   }
 
   const startTimeOnButtonClick = () => {
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, {
       detail: { time: hhmmssToSecondsNumber(startTimeString) }
     }));
     setMPIsPlaying(true);
@@ -66,10 +66,10 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
     if (endTimeString) {
       const endTimeInSeconds = hhmmssToSecondsNumber(endTimeString)
       const seekTime = endTimeInSeconds > 3 ? endTimeInSeconds - 3 : 0;
-      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
+      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, {
         detail: { time: seekTime }
       }));
-      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.PAUSE_AT, {
+      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.PAUSE_AT, {
         detail: { stopAt: endTimeInSeconds }
       }));
       setMPIsPlaying(true);

@@ -5,7 +5,7 @@ import styles from "../../../styles/components/MediaPlayer/Buttons/IncrementBack
 
 export const IncrementBackButton = () => {
   const handleClick = () => {
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_BACK, { detail: { seconds: 1 } }))
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.JUMP_BACK, { detail: { seconds: 1 } }))
   }
   
   return (

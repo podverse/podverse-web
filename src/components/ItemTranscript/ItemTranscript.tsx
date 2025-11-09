@@ -20,7 +20,7 @@ export const ItemTranscript = ({ rows, autoScrollOn }: ItemTranscriptProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleRowClick = (startTime: number) => {
-    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, {
       detail: { time: startTime }
     }));
   };
