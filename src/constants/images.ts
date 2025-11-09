@@ -84,5 +84,8 @@ export const IMAGES = {
       SIZE: 64,
       SIZE_FIND_TARGET: 128
     }
+  },
+  SRC: {
+    PLACEHOLDER: "/images/placeholder-image.png"
   }
 };
