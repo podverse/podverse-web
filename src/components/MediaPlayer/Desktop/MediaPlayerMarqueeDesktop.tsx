@@ -3,8 +3,8 @@
 import { useTranslations } from "next-intl";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerMarqueeDesktop.module.scss";
 import { getAdjacentChapter } from "../../../utils/itemChapter";
+import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerMarqueeDesktop.module.scss";
 
 export const MediaPlayerMarqueeDesktop = () => {
   const tMisc = useTranslations("misc");
