@@ -5,7 +5,7 @@ import { apiRequestService } from "../factories/apiRequestService";
 import { useQueueResourcesAbridgedIndexUpdate } from "./useQueueResourcesAbridgedIndexUpdate";
 import { DTOClip, DTOItem, DTOItemSoundbite } from "podverse-helpers";
 
-type MoveNowPlayingToHistoryCallbackParams = {
+export type MoveNowPlayingToHistoryCallbackParams = {
   completed?: boolean;
   mpClip: DTOClip | null;
   mpItem: DTOItem | null;
