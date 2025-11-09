@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
         pathname: '/api/proxy'
       },
       {
+        pathname: '/branding/**'
+      },
+      {
         pathname: '/images/**'
       }
     ]
