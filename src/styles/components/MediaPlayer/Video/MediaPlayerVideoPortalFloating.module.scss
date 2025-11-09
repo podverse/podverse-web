@@ -1,0 +1,13 @@
+
+.floatingVideoPortal {
+	position: fixed;
+	bottom: var(--media-player-height);
+	right: 0;
+  width: 400px;
+	z-index: 1000;
+	background: var(--background-color-secondary);
+}
+
+.floatingVideoPortal.hasMarquee {
+  bottom: calc(var(--media-player-height) + var(--media-player-height-top-section));
+}

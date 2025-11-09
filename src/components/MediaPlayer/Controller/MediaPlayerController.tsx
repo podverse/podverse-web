@@ -12,6 +12,7 @@ import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResou
 import { getAutoQueueChannelMedium, checkIsActiveRowHighestKey, useAutoQueue } from "../../../contexts/AutoQueue";
 import { updateLayoutForMediaPlayer } from "../../../utils/mediaPlayer/mediaPlayerLayout";
 import { useAutoQueueLoadResources } from "../../../hooks/useAutoQueueLoadResources";
+import { MediaPlayerVideoWrapper } from "../Video/MediaPlayerVideoWrapper";
 
 export const MediaPlayerController: React.FC = () => {
   const { mpChannel, mpItem, mpClip, mpItemSoundbite, mpDuration,
@@ -225,6 +226,9 @@ export const MediaPlayerController: React.FC = () => {
   }, [autoQueueActiveRow]);
 
   return (
-    <MediaPlayerControllerAudio />
+    <>
+      <MediaPlayerControllerAudio />
+      <MediaPlayerVideoWrapper />
+    </>
   )
 };
