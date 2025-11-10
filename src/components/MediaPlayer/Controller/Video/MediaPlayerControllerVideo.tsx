@@ -1,10 +1,10 @@
-import { MediaPlayerControllerAV } from "./MediaPlayerControllerAV";
-import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
-import { useQueueResourcesUpdateNowPlaying } from "../../../hooks/useQueueResourceUpdateNowPlaying";
-import { useQueueResourcesMoveNowPlayingToHistory } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
-import { useQueueResourcesLoadActive } from "../../../hooks/useQueueResourcesLoadActive";
-import { useQueueResourcesAbridgedIndex } from "../../../contexts/QueueResourcesAbridgedIndex";
+import { MediaPlayerControllerAV } from "../MediaPlayerControllerAV";
+import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
+import { useMediaPlayerCurrentTime } from "../../../../contexts/MediaPlayerCurrentTime";
+import { useQueueResourcesUpdateNowPlaying } from "../../../../hooks/useQueueResourceUpdateNowPlaying";
+import { useQueueResourcesMoveNowPlayingToHistory } from "../../../../hooks/useQueueResourceMoveNowPlayingToHistory";
+import { useQueueResourcesLoadActive } from "../../../../hooks/useQueueResourcesLoadActive";
+import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
 
 export function MediaPlayerControllerVideo() {
 	const mediaPlayer = useMediaPlayer();

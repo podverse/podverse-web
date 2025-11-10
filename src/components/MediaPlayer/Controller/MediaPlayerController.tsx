@@ -2,7 +2,7 @@
 
 import { DTOItemQueueItem, DTOQueueResource } from "podverse-helpers";
 import React, { useEffect, useRef } from "react";
-import { MediaPlayerControllerAudio } from "./MediaPlayerControllerAudio";
+import { MediaPlayerControllerAudio } from "./Audio/MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
@@ -12,7 +12,9 @@ import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResou
 import { getAutoQueueChannelMedium, checkIsActiveRowHighestKey, useAutoQueue } from "../../../contexts/AutoQueue";
 import { updateLayoutForMediaPlayer } from "../../../utils/mediaPlayer/mediaPlayerLayout";
 import { useAutoQueueLoadResources } from "../../../hooks/useAutoQueueLoadResources";
-import { MediaPlayerVideoWrapper } from "../Video/MediaPlayerVideoWrapper";
+import { MediaPlayerVideoWrapper } from "./Video/MediaPlayerVideoWrapper";
+import { MediaPlayerLiveStreamVideoWrapper } from "./LiveStream/MediaPlayerLiveStreamVideoWrapper";
+import { MediaPlayerControllerLiveStreamAudio } from "./LiveStream/MediaPlayerControllerLiveStreamAudio";
 
 export const MediaPlayerController: React.FC = () => {
   const { mpChannel, mpItem, mpClip, mpItemSoundbite, mpDuration,
@@ -229,6 +231,8 @@ export const MediaPlayerController: React.FC = () => {
     <>
       <MediaPlayerControllerAudio />
       <MediaPlayerVideoWrapper />
+      <MediaPlayerControllerLiveStreamAudio />
+      <MediaPlayerLiveStreamVideoWrapper />
     </>
   )
 };
