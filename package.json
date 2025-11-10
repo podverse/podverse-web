@@ -52,12 +52,14 @@
     "react-virtuoso": "^4.14.1",
     "sass": "^1.92.1",
     "transcriptator": "^1.1.4",
+    "video.js": "^8.23.4",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^24.5.0",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.2.2",
+    "@types/video.js": "^7.3.58",
     "axios": "^1.12.2",
     "dotenv": "^17.2.2",
     "nodemon": "^3.1.10",
