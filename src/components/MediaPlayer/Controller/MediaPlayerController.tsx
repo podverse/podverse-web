@@ -229,10 +229,10 @@ export const MediaPlayerController: React.FC = () => {
 
   return (
     <>
-      <MediaPlayerControllerAudio />
-      <MediaPlayerVideoWrapper />
-      <MediaPlayerControllerLiveStreamAudio />
-      <MediaPlayerLiveStreamVideoWrapper />
+      {/* <MediaPlayerControllerAudio /> */}
+      {/* <MediaPlayerVideoWrapper /> */}
+      {/* <MediaPlayerControllerLiveStreamAudio /> */}
+      {/* <MediaPlayerLiveStreamVideoWrapper /> */}
     </>
   )
 };

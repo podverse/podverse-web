@@ -1,18 +1,12 @@
-import { getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
-import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
+// import { getSelectedItemEnclosureUrl } from "podverse-helpers";
 import { MediaPlayerControllerLiveStreamVideo } from "./MediaPlayerControllerLiveStreamVideo";
 import { MediaPlayerLivestreamVideoPortalFloating } from "./MediaPlayerLivestreamVideoPortalFloating";
+// import { checkIfIsVideoFile, checkIsLiveItem } from "../../../../utils/mediaPlayer/mediaPlayerItemEnclosureType";
 
 export function MediaPlayerLiveStreamVideoWrapper() {
-  const { mpItem } = useMediaPlayer();
-
-  if (!mpItem || !mpItem.live_item) {
-    return null;
-  }
-
-  const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
-  const isVideoFile = selectedItemEnclosureUrl && getMediaTypeFromSource(selectedItemEnclosureUrl) === "video";
-  const isLiveItem = !!mpItem?.live_item;
+  // const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
+  // const isVideoFile = checkIfIsVideoFile(selectedItemEnclosureUrl);
+  // const isLiveItem = checkIsLiveItem(mpItem);
 
   return (
     <MediaPlayerLivestreamVideoPortalFloating>

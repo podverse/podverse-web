@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from "react";
-import { getSelectedItemEnclosureUrl, getMediaTypeFromSource, QueueResourcesAbridgedIndex,
+import { getSelectedItemEnclosureUrl, QueueResourcesAbridgedIndex,
   DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { MoveNowPlayingToHistoryCallbackParams } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { UpdateNowPlayingParams } from "../../../hooks/useQueueResourceUpdateNowPlaying";
+import { checkIfIsAudioFile, checkIfIsVideoFile, checkIsLiveItem } from "../../../utils/mediaPlayer/mediaPlayerItemEnclosureType";
 
 export interface MediaPlayerControllerAVProps {
   mediaType: "audio" | "video";
@@ -86,9 +87,9 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     const media = mediaRef.current;
     const mpItem = mpItemRef.current;
     if (media && selectedItemEnclosureUrl) {
-      const isAudioFile = getMediaTypeFromSource(selectedItemEnclosureUrl) === "audio";
-      const isVideoFile = getMediaTypeFromSource(selectedItemEnclosureUrl) === "video";
-      const isLiveItem = !!mpItem?.live_item;
+      const isAudioFile = checkIfIsAudioFile(selectedItemEnclosureUrl);
+      const isVideoFile = checkIfIsVideoFile(selectedItemEnclosureUrl);
+      const isLiveItem = checkIsLiveItem(mpItem);
       if ((mediaType === "audio" ? isAudioFile : isVideoFile) && !isLiveItem) {
         media.currentTime = 0;
         media.load();
