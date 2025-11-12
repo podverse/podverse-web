@@ -28,12 +28,6 @@
   flex: 1;
 }
 
-.endSection > button {
-  height: 36px;
-  width: 36px;
-  font-size: var(--font-size-md);
-}
-
 @media (min-width: $breakpoint-lg-min) and (max-width: $breakpoint-xl-max) {
   .buttons {
     flex-direction: column;

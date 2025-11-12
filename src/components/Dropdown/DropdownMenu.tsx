@@ -18,6 +18,7 @@ interface DropdownMenuProps {
   setOpen: (open: boolean) => void;
   position?: "left" | "right";
   fullWidth?: boolean;
+  verticalPosition?: "above" | "below";
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -29,7 +30,8 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   handleMenuKeyDown,
   setOpen,
   position,
-  fullWidth
+  fullWidth,
+  verticalPosition = "below"
 }) => {
   if (!open) return null;
 
@@ -42,7 +44,22 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   const fullWidthStyle = fullWidth ? { width: '100%' } : {};
 
-  const style = { ...positionStyle, ...fullWidthStyle };
+  const verticalStyle =
+    verticalPosition === "above"
+      ? {
+          top: "auto",
+          bottom: "100%",
+          marginTop: 0,
+          marginBottom: "0.25rem",
+        }
+      : {
+          top: "100%",
+          bottom: "auto",
+          marginTop: "0.25rem",
+          marginBottom: 0,
+        };
+
+  const style = { ...positionStyle, ...verticalStyle, ...fullWidthStyle };
 
   return (
     <ul

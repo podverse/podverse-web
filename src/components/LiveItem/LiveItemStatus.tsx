@@ -23,7 +23,8 @@ export const LiveItemStatus = ({ live_item }: LiveItemStatusProps) => {
   return (
     <Button
       className={styles.button}
-      variant={variant}>
+      variant={variant}
+      tabIndex={-1}>
       {statusText}
     </Button>
   );

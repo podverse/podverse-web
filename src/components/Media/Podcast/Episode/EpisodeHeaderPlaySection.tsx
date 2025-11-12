@@ -51,6 +51,7 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
         itemChapterShouldSeek: false,
         itemSoundbite: null,
         isPlaying: true,
+        enclosureRowSelected: 'use-active-item-or-default',
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),

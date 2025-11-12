@@ -1,0 +1,9 @@
+@use '../../../mixins/buttons.scss' as *;
+
+.settingsDropdownWrapper {
+  position: relative;
+}
+
+.settingsButton {
+  @include mediaPlayerButton;
+}

@@ -86,6 +86,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: item_soundbite,
+        enclosureRowSelected: 'use-active-item-or-default',
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {

@@ -44,6 +44,7 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
+        enclosureRowSelected: 'use-active-item-or-default',
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {

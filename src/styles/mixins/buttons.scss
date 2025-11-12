@@ -3,6 +3,9 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius-round);
+  height: 36px;
+  width: 36px;
+  font-size: var(--font-size-md);
 }
 
 @mixin mediaPlayerButtonMobile {

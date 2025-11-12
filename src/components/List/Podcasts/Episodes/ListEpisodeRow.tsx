@@ -64,6 +64,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
+        enclosureRowSelected: 'use-active-item-or-default',
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {

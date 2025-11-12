@@ -1,11 +1,29 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
-import styles from "../../../../styles/components/MediaPlayer/Controller/LiveStream/MediaPlayerLiveStreamVideoPortalFloating.module.scss";
+import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
+import styles from "../../../../styles/components/MediaPlayer/Controller/LiveStream/MediaPlayerLivestreamVideoPortalFloating.module.scss";
 
 export const MediaPlayerLivestreamVideoPortalFloating: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const { mpItemSoundbite, mpClip, mpItemChapter } = useMediaPlayer();
+  const hasMarquee = !!mpItemSoundbite || !!mpClip || !!mpItemChapter;
+
+  if (!mounted || typeof document === "undefined") {
+    return null;
+  }
+
   return ReactDOM.createPortal(
-    <div className={classNames(styles.floatingVideoPortal)}>
+    <div
+      className={classNames({
+        [styles.floatingVideoPortal]: true,
+        [styles.hasMarquee]: hasMarquee,
+      })}
+    >
       {children}
     </div>,
     document.body

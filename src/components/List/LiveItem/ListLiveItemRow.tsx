@@ -45,6 +45,7 @@ export const ListLiveItemRow: React.FC<Props> = ({ channel, item, live_item, sho
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
+        enclosureRowSelected: 'use-active-item-or-default',
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {

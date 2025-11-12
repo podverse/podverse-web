@@ -38,6 +38,7 @@ export const ItemChapterHeaderPlaySection: React.FC<ItemChapterHeaderPlaySection
         itemChapter: item_chapter,
         itemChapterShouldSeek: true,
         itemSoundbite: null,
+        enclosureRowSelected: 'use-active-item-or-default',
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {

@@ -115,6 +115,7 @@ export const MediaPlayerController: React.FC = () => {
             itemChapter: null,
             itemChapterShouldSeek: false,
             itemSoundbite: null,
+            enclosureRowSelected: 'use-active-item-or-default',
             skipMoveNowPlayingToHistory: true,
             newAutoQueueConfig: {
               aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -139,6 +140,7 @@ export const MediaPlayerController: React.FC = () => {
             itemChapter: null,
             itemChapterShouldSeek: false,
             itemSoundbite: null,
+            enclosureRowSelected: 'use-active-item-or-default',
             skipMoveNowPlayingToHistory: true,
             newAutoQueueConfig: {
               aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -165,6 +167,7 @@ export const MediaPlayerController: React.FC = () => {
               itemChapter: null,
               itemChapterShouldSeek: false,
               itemSoundbite: null,
+              enclosureRowSelected: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: true,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -192,6 +195,7 @@ export const MediaPlayerController: React.FC = () => {
               itemChapter: null,
               itemChapterShouldSeek: false,
               itemSoundbite: fullItemSoundbite,
+              enclosureRowSelected: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: true,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(fullChannel)

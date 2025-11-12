@@ -24,10 +24,11 @@ const ClipEditContext = createContext<ClipEditContextType | undefined>(undefined
 interface ClipEditContextProviderProps {
   children: ReactNode
   ssrClip: DTOClip
+  ssrEnclosureRowSelected: number
 }
 
 export const ClipEditContextProvider = (
-  { children, ssrClip }: ClipEditContextProviderProps) => {
+  { children, ssrClip, ssrEnclosureRowSelected }: ClipEditContextProviderProps) => {
   const [sharableStatus, setSharableStatus] = useState<string>(`${ssrClip.sharable_status.id}`);
   const [title, setTitle] = useState<string>(ssrClip.title || "");
   const [startTimeString, setStartTimeString] = useState<string>(formatNumericToHHMMSS(ssrClip.start_time));
@@ -49,6 +50,7 @@ export const ClipEditContextProvider = (
         itemSoundbite: null,
         isPlaying: false,
         skipMoveNowPlayingToHistory: false,
+        enclosureRowSelected: ssrEnclosureRowSelected,
         newAutoQueueConfig: {
           disabled: true
         },

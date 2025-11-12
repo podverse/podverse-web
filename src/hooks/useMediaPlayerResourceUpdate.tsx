@@ -16,10 +16,12 @@ export function useMediaPlayerResourceUpdate() {
     setMPItemChapter,
     setMPItemChapterShouldSeek,
     setMPItemSoundbite,
+    setMPEnclosureRowSelected,
     setMPIsPlaying
   } = useMediaPlayer();
   const { autoQueueConfig, setAutoQueueConfig, setAutoQueueResources,
     setAutoQueueActiveRow } = useAutoQueue();
+  const { mpEnclosureRowSelected, mpItem } = useMediaPlayer();
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
   const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
   const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
@@ -35,6 +37,16 @@ export function useMediaPlayerResourceUpdate() {
     autoQueueConfigRef.current = autoQueueConfig;
   }, [autoQueueConfig]);
 
+  const mpEnclosureRowSelectedRef = useRef(mpEnclosureRowSelected);
+  useEffect(() => {
+    mpEnclosureRowSelectedRef.current = mpEnclosureRowSelected;
+  }, [mpEnclosureRowSelected]);
+
+  const mpItemRef = useRef(mpItem);
+  useEffect(() => {
+    mpItemRef.current = mpItem;
+  }, [mpItem]);
+
   return ({
     shouldPlay,
     channel,
@@ -43,6 +55,7 @@ export function useMediaPlayerResourceUpdate() {
     itemChapter,
     itemChapterShouldSeek,
     itemSoundbite,
+    enclosureRowSelected,
     mpDuration,
     mpCurrentTime,
     isPlaying,
@@ -57,6 +70,7 @@ export function useMediaPlayerResourceUpdate() {
     itemChapter: DTOItemChapter | null,
     itemChapterShouldSeek: boolean,
     itemSoundbite: DTOItemSoundbite | null,
+    enclosureRowSelected: number | 'use-active-item-or-default',
     mpDuration?: number,
     mpCurrentTime?: number,
     isPlaying?: boolean,
@@ -64,6 +78,8 @@ export function useMediaPlayerResourceUpdate() {
     newAutoQueueConfig: AutoQueueConfig,
     autoQueueShouldClear: boolean
   }) => {
+    const previousItemId = mpItemRef.current?.id;
+
     if (!skipMoveNowPlayingToHistory) {
       moveNowPlayingToHistory({
         mpClip: clip,
@@ -88,12 +104,24 @@ export function useMediaPlayerResourceUpdate() {
     if (shouldPlay !== undefined) {
       setMPShouldPlay(shouldPlay);
     }
+    
     setMPChannel(channel);
     setMPClip(clip);
     setMPItem(item);
     setMPItemChapter(itemChapter);
     setMPItemChapterShouldSeek(itemChapterShouldSeek);
     setMPItemSoundbite(itemSoundbite);
+
+    if (enclosureRowSelected === 'use-active-item-or-default') {
+      if (previousItemId && item && item.id === previousItemId) {
+        setMPEnclosureRowSelected(mpEnclosureRowSelectedRef.current);
+      } else {
+        setMPEnclosureRowSelected(0);
+      }
+    } else {
+      setMPEnclosureRowSelected(enclosureRowSelected);
+    }
+
     if (isPlaying !== undefined) {
       setMPIsPlaying(isPlaying);
     }

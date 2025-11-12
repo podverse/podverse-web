@@ -153,6 +153,7 @@
     "media_player_image": "Media player image",
     "playback_speed": {
       "playback_speed": "Playback Speed",
+      "playback_speed_with_value": "Playback Speed: {speed}",
       "speeds": {
         "0-5": "0.5x",
         "0-75": "0.75x",
@@ -166,6 +167,20 @@
         "2-5": "2.5x",
         "3-0": "3x"
       }
+    },
+    "source": {
+      "source": "Source",
+      "source_with_format": "Source: {format}",
+      "video": "Video",
+      "video_with_resolution": "Video {resolution}p",
+      "video_with_ext": "Video {ext}",
+      "video_with_ext_resolution": "Video {ext} {resolution}p",
+      "audio": "Audio",
+      "audio_with_ext": "Audio {ext}",
+      "audio_with_bitrate_kbps": "Audio {bitrate}kbps",
+      "audio_with_bitrate_mbps": "Audio {bitrate}Mbps",
+      "audio_with_ext_bitrate_kbps": "Audio {ext} {bitrate}kbps",
+      "audio_with_ext_bitrate_mbps": "Audio {ext} {bitrate}Mbps"
     }
   },
   "value": {

@@ -17,6 +17,8 @@ type MediaPlayerContextType = {
   setMPItemChapterShouldSeek: (val: boolean) => void;
   mpItemSoundbite: DTOItemSoundbite | null;
   setMPItemSoundbite: (val: DTOItemSoundbite | null) => void;
+  mpEnclosureRowSelected: number;
+  setMPEnclosureRowSelected: (val: number) => void;
   mpIsPlaying: boolean;
   setMPIsPlaying: (val: boolean) => void;
   mpPlaybackMode: PlaybackMode;
@@ -49,6 +51,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpItemChapters, setMPItemChapters] = useState<DTOItemChapter[] | null>(null);
   const [mpItemChapterShouldSeek, setMPItemChapterShouldSeek] = useState<boolean>(false);
   const [mpItemSoundbite, setMPItemSoundbite] = useState<DTOItemSoundbite | null>(null);
+  const [mpEnclosureRowSelected, setMPEnclosureRowSelected] = useState<number>(0);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
   const [mpPlaybackMode, setMPPlaybackMode] = useState<PlaybackMode>("autoplay-next");
   const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeedValue>(1.0);
@@ -67,6 +70,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
       mpItemChapters, setMPItemChapters,
       mpItemChapterShouldSeek, setMPItemChapterShouldSeek,
       mpItemSoundbite, setMPItemSoundbite,
+      mpEnclosureRowSelected, setMPEnclosureRowSelected,
       mpIsPlaying, setMPIsPlaying,
       mpPlaybackMode, setMPPlaybackMode,
       mpPlaybackSpeed, setMPPlaybackSpeed,
