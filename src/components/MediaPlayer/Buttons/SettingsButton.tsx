@@ -42,8 +42,6 @@ export const SettingsButton = () => {
     }
   ];
 
-  console.log(tMediaPlayer(`playback_speed.speeds.${getPlaybackTranslationKey(mpPlaybackSpeed)}`));
-
   const {
     open,
     setOpen,
