@@ -171,10 +171,12 @@
     "source": {
       "source": "Source",
       "source_with_format": "Source: {format}",
+      "select_source": "Select Media Source",
       "video": "Video",
       "video_with_resolution": "Video {resolution}p",
       "video_with_ext": "Video {ext}",
       "video_with_ext_resolution": "Video {ext} {resolution}p",
+      "resolution": "{resolution}p",
       "audio": "Audio",
       "audio_with_ext": "Audio {ext}",
       "audio_with_bitrate_kbps": "Audio {bitrate}kbps",
