@@ -4,7 +4,6 @@ import {
   QUERY_PARAMS_CHANNEL_SORT_VALUES,
   DTOItem,
   DTOClip,
-  DTOLiveItem,
   ApiListResponse,
   getTotalPages,
   DTOItemSoundbite
