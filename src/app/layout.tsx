@@ -40,12 +40,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null = null;
 
   if (jwt) {
-    const ssrApiRequestService = getSSRApiRequestService(jwt);
-    const ssrQueueResourcesAbridgedIndexResponseData = await ssrApiRequestService
-      .reqQueueResourcesGetAllByAccountAbridged();
-    ssrQueueResourcesAbridgedIndex = generateQueueResourceAbridgedIndex(
-      ssrQueueResourcesAbridgedIndexResponseData
-    );
+    try {
+      const ssrApiRequestService = getSSRApiRequestService(jwt);
+      const ssrQueueResourcesAbridgedIndexResponseData = await ssrApiRequestService
+        .reqQueueResourcesGetAllByAccountAbridged();
+      ssrQueueResourcesAbridgedIndex = generateQueueResourceAbridgedIndex(
+        ssrQueueResourcesAbridgedIndexResponseData
+      );
+    } catch (err) {
+      // do nothing
+    }
   }
 
   const categoriesResponse = await apiRequestService.reqCategoryGetAll();
