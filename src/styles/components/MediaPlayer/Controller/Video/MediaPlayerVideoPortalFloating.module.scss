@@ -1,10 +1,12 @@
 .floatingVideoPortal {
 	position: fixed;
-	bottom: var(--media-player-height);
-	right: 0;
+	bottom: calc(var(--media-player-height) + 10px);
+	right: 10px;
   width: 400px;
 	z-index: 1000;
 	background: var(--background-color-secondary);
+	border-radius: var(--border-radius);
+	overflow: hidden;
 }
 
 .floatingVideoPortal.hasMarquee {

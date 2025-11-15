@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOItemQueueItem, DTOQueueResource } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource, getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 import React, { useEffect, useRef } from "react";
 import { MediaPlayerControllerAudio } from "./Audio/MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -18,7 +18,7 @@ import { MediaPlayerControllerLiveStreamAudio } from "./LiveStream/MediaPlayerCo
 
 export const MediaPlayerController: React.FC = () => {
   const { mpChannel, mpItem, mpClip, mpItemSoundbite, mpDuration,
-    setMPItemChapters } = useMediaPlayer();
+    setMPItemChapters, setMPItemLabeledItemEnclosures } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
   const { activeQueueUpcomingResources } = useQueues();
@@ -98,8 +98,14 @@ export const MediaPlayerController: React.FC = () => {
       }
     };
 
+    const fetchItemLabeledItemEnclosures = async () => {
+      const mpItemLabeledEnclosures = buildLabeledItemEnclosures(mpItem?.item_enclosures || []);
+      setMPItemLabeledItemEnclosures(mpItemLabeledEnclosures);
+    }
+
     fetchItemChapters();
     fetchAutoQueueResources();
+    fetchItemLabeledItemEnclosures();
   }, [mpItem])
 
   async function handleLoadAutoQueueItem(itemQueueItem: DTOItemQueueItem) {
@@ -115,7 +121,7 @@ export const MediaPlayerController: React.FC = () => {
             itemChapter: null,
             itemChapterShouldSeek: false,
             itemSoundbite: null,
-            enclosureRowSelected: 'use-active-item-or-default',
+            enclosureSelectedParams: 'use-active-item-or-default',
             skipMoveNowPlayingToHistory: true,
             newAutoQueueConfig: {
               aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -140,7 +146,7 @@ export const MediaPlayerController: React.FC = () => {
             itemChapter: null,
             itemChapterShouldSeek: false,
             itemSoundbite: null,
-            enclosureRowSelected: 'use-active-item-or-default',
+            enclosureSelectedParams: 'use-active-item-or-default',
             skipMoveNowPlayingToHistory: true,
             newAutoQueueConfig: {
               aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -167,7 +173,7 @@ export const MediaPlayerController: React.FC = () => {
               itemChapter: null,
               itemChapterShouldSeek: false,
               itemSoundbite: null,
-              enclosureRowSelected: 'use-active-item-or-default',
+              enclosureSelectedParams: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: true,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -195,7 +201,7 @@ export const MediaPlayerController: React.FC = () => {
               itemChapter: null,
               itemChapterShouldSeek: false,
               itemSoundbite: fullItemSoundbite,
-              enclosureRowSelected: 'use-active-item-or-default',
+              enclosureSelectedParams: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: true,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(fullChannel)
@@ -235,8 +241,8 @@ export const MediaPlayerController: React.FC = () => {
     <>
       {/* <MediaPlayerControllerAudio /> */}
       {/* <MediaPlayerVideoWrapper /> */}
-      {/* <MediaPlayerControllerLiveStreamAudio /> */}
-      {/* <MediaPlayerLiveStreamVideoWrapper /> */}
+      {/* <MediaPlayerControllerLiveStreamAudio />
+      <MediaPlayerLiveStreamVideoWrapper /> */}
     </>
   )
 };

@@ -1,11 +1,11 @@
-import { DTOItem, getMediaTypeFromSource } from "podverse-helpers";
+import { DTOItem, SelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 
-export const checkIfIsAudioFile = (selectedItemEnclosureUrl: string): boolean => {
-  return !!selectedItemEnclosureUrl && getMediaTypeFromSource(selectedItemEnclosureUrl) === "audio";
+export const checkIfIsAudioFile = (selectedItemEnclosureAndSource: SelectedLabeledItemEnclosureAndSource): boolean => {
+  return selectedItemEnclosureAndSource.labeledItemEnclosure?.mediaType === "audio";
 }
 
-export const checkIfIsVideoFile = (selectedItemEnclosureUrl: string): boolean => {
-  return !!selectedItemEnclosureUrl && getMediaTypeFromSource(selectedItemEnclosureUrl) === "video";
+export const checkIfIsVideoFile = (selectedItemEnclosureAndSource: SelectedLabeledItemEnclosureAndSource): boolean => {
+  return selectedItemEnclosureAndSource.labeledItemEnclosure?.mediaType === "video";
 }
 
 export const checkIsLiveItem = (mpItem: DTOItem | null): boolean => {

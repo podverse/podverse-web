@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 //  - Audio w/o bitrate => "Audio"
 //  - Video w/ height => "Video: <height>p"
 //  - Video w/o height => "Video"
-export function useEnclosureLabel(selectedEnclosure?: LabeledItemEnclosure) {
+export function useEnclosureLabel(selectedEnclosure?: LabeledItemEnclosure | null) {
 	const tMediaPlayer = useTranslations('media_player');
 
 	if (!selectedEnclosure) return undefined;

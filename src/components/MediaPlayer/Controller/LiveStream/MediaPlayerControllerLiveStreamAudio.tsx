@@ -2,12 +2,15 @@ import { MediaPlayerControllerLiveStreamAV } from "../MediaPlayerControllerLiveS
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 
 export function MediaPlayerControllerLiveStreamAudio() {
-  const { mpItem, mpIsPlaying } = useMediaPlayer();
+  const { mpItem, mpItemLabeledItemEnclosures, mpEnclosureSelectedParams,
+    mpIsPlaying } = useMediaPlayer();
   
   return (
     <MediaPlayerControllerLiveStreamAV
       mediaType="audio"
       mpItem={mpItem}
+      mpItemLabeledEnclosures={mpItemLabeledItemEnclosures}
+      mpEnclosureSelectedParams={mpEnclosureSelectedParams}
       mpIsPlaying={mpIsPlaying}
       hidden={true}
       style={{ display: "none" }}

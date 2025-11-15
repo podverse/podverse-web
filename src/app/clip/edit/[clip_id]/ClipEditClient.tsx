@@ -12,12 +12,16 @@ import { MainInnerContentWrapper } from "../../../../components/Main/MainInnerCo
 
 type ClipEditClientProps = {
   ssrClip: DTOClip;
+  ssrEnclosureTypeSelected: 'default' | 'audio' | 'video';
   ssrEnclosureRowSelected: number;
 }
 
-export function ClipEditClient({ ssrClip, ssrEnclosureRowSelected }: ClipEditClientProps) {
+export function ClipEditClient({ ssrClip, ssrEnclosureTypeSelected, ssrEnclosureRowSelected }: ClipEditClientProps) {
   return (
-    <ClipEditContextProvider ssrClip={ssrClip} ssrEnclosureRowSelected={ssrEnclosureRowSelected}>
+    <ClipEditContextProvider
+      ssrClip={ssrClip}
+      ssrEnclosureTypeSelected={ssrEnclosureTypeSelected}
+      ssrEnclosureRowSelected={ssrEnclosureRowSelected}>
       <ClipEditHeader />
       <MainWrapper>
         <MainInnerWrapper>

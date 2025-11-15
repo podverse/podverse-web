@@ -1,5 +1,6 @@
 import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite,
-  PlaybackMode, PlaybackSpeedValue } from "podverse-helpers";
+  EnclosureSelectedParams, LabeledItemEnclosure, PlaybackMode,
+  PlaybackSpeedValue } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type MediaPlayerContextType = {
@@ -7,6 +8,10 @@ type MediaPlayerContextType = {
   setMPChannel: (val: DTOChannel | null) => void;
   mpItem: DTOItem | null;
   setMPItem: (val: DTOItem | null) => void;
+  mpItemLabeledItemEnclosures: LabeledItemEnclosure[];
+  setMPItemLabeledItemEnclosures: (val: LabeledItemEnclosure[]) => void;
+  mpEnclosureSelectedParams: EnclosureSelectedParams;
+  setMPEnclosureSelectedParams: (val: EnclosureSelectedParams) => void;
   mpClip: DTOClip | null;
   setMPClip: (val: DTOClip | null) => void;
   mpItemChapter: DTOItemChapter | null;
@@ -17,8 +22,6 @@ type MediaPlayerContextType = {
   setMPItemChapterShouldSeek: (val: boolean) => void;
   mpItemSoundbite: DTOItemSoundbite | null;
   setMPItemSoundbite: (val: DTOItemSoundbite | null) => void;
-  mpEnclosureRowSelected: number;
-  setMPEnclosureRowSelected: (val: number) => void;
   mpIsPlaying: boolean;
   setMPIsPlaying: (val: boolean) => void;
   mpPlaybackMode: PlaybackMode;
@@ -46,12 +49,17 @@ type MediaPlayerProviderProps = {
 export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpChannel, setMPChannel] = useState<DTOChannel | null>(null);
   const [mpItem, setMPItem] = useState<DTOItem | null>(null);
+  const [mpItemLabeledItemEnclosures, setMPItemLabeledItemEnclosures] = useState<LabeledItemEnclosure[]>([]);
+  const [mpEnclosureSelectedParams, setMPEnclosureSelectedParams] = useState<EnclosureSelectedParams>({
+    type: "default",
+    enclosureRowSelected: null,
+    sourceRowSelected: null
+  });
   const [mpClip, setMPClip] = useState<DTOClip | null>(null);
   const [mpItemChapter, setMPItemChapter] = useState<DTOItemChapter | null>(null);
   const [mpItemChapters, setMPItemChapters] = useState<DTOItemChapter[] | null>(null);
   const [mpItemChapterShouldSeek, setMPItemChapterShouldSeek] = useState<boolean>(false);
   const [mpItemSoundbite, setMPItemSoundbite] = useState<DTOItemSoundbite | null>(null);
-  const [mpEnclosureRowSelected, setMPEnclosureRowSelected] = useState<number>(0);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
   const [mpPlaybackMode, setMPPlaybackMode] = useState<PlaybackMode>("autoplay-next");
   const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeedValue>(1.0);
@@ -65,12 +73,13 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
     <MediaPlayerContext.Provider value={{
       mpChannel, setMPChannel,
       mpItem, setMPItem,
+      mpItemLabeledItemEnclosures, setMPItemLabeledItemEnclosures,
+      mpEnclosureSelectedParams, setMPEnclosureSelectedParams,
       mpClip, setMPClip,
       mpItemChapter, setMPItemChapter,
       mpItemChapters, setMPItemChapters,
       mpItemChapterShouldSeek, setMPItemChapterShouldSeek,
       mpItemSoundbite, setMPItemSoundbite,
-      mpEnclosureRowSelected, setMPEnclosureRowSelected,
       mpIsPlaying, setMPIsPlaying,
       mpPlaybackMode, setMPPlaybackMode,
       mpPlaybackSpeed, setMPPlaybackSpeed,

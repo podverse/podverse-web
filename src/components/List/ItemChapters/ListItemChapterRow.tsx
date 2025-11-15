@@ -62,7 +62,7 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
         itemSoundbite: null,
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
-        enclosureRowSelected: 'use-active-item-or-default',
+        enclosureSelectedParams: 'use-active-item-or-default',
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
           playlist_id_text: null

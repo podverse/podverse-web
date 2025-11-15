@@ -12,6 +12,7 @@ export function MediaPlayerVideoWrapper() {
     return null
   };
 
+  // handle selected enclosure changes
   const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
   const isVideoFile = selectedItemEnclosureUrl && getMediaTypeFromSource(selectedItemEnclosureUrl) === "video";
   const isLiveItem = !!mpItem?.live_item;

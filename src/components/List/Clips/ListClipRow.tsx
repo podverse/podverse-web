@@ -79,7 +79,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
         isPlaying: true,
         shouldPlay: true,
         skipMoveNowPlayingToHistory: false,
-        enclosureRowSelected: 'use-active-item-or-default',
+        enclosureSelectedParams: 'use-active-item-or-default',
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
           playlist_id_text: playlist_id_text || null

@@ -51,7 +51,7 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
         itemChapterShouldSeek: false,
         itemSoundbite: null,
         isPlaying: true,
-        enclosureRowSelected: 'use-active-item-or-default',
+        enclosureSelectedParams: 'use-active-item-or-default',
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
@@ -116,6 +116,7 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   }
 
   const downloadEpisode = async () => {
+    // add modal selector if needed
     const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(item.item_enclosures);
     if (selectedItemEnclosureUrl) {
       showToastPromiseWithLoading(

@@ -1,11 +1,14 @@
-import React, { useRef, useEffect } from "react";
-import { DTOItem, getLiveItemEnclosureSource } from "podverse-helpers";
+import React, { useRef, useEffect, useMemo } from "react";
+import { DTOItem, EnclosureSelectedParams, getSelectedLabeledItemEnclosureAndSource,
+  LabeledItemEnclosure } from "podverse-helpers";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
 export interface MediaPlayerControllerLiveStreamAVProps {
   mediaType: "audio" | "video";
   mpItem: DTOItem | null;
+  mpItemLabeledEnclosures: LabeledItemEnclosure[];
+  mpEnclosureSelectedParams: EnclosureSelectedParams;
   style?: React.CSSProperties;
   hidden: boolean;
   mpIsPlaying: boolean;
@@ -14,6 +17,8 @@ export interface MediaPlayerControllerLiveStreamAVProps {
 export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLiveStreamAVProps> = ({
   mediaType,
   mpItem,
+  mpItemLabeledEnclosures,
+  mpEnclosureSelectedParams,
   style,
   hidden,
   mpIsPlaying
@@ -22,24 +27,57 @@ export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLi
   const mediaElRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
   const videoJsPlayerRef = useRef<any | null>(null);
 
-  const enclosureResult = getLiveItemEnclosureSource(mpItem);
+  const selectedItemEnclosureAndSource = useMemo(() =>
+    getSelectedLabeledItemEnclosureAndSource({
+      labeledItemEnclosures: mpItemLabeledEnclosures,
+      type: mpEnclosureSelectedParams.type,
+      enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
+      sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
+    }),
+    [mpItemLabeledEnclosures, mpEnclosureSelectedParams]
+  );
 
   // Recreate player whenever mpItem (or source) changes.
   useEffect(() => {
+    // Guard: container must exist.
     if (!containerRef.current) return;
 
-    const srcUrl = enclosureResult?.url;
-    const srcType = enclosureResult?.type;
-    if (!mpItem?.live_item || !srcUrl || !srcType) {
-      // Dispose if currently showing something but new item invalid.
+    const labeled = selectedItemEnclosureAndSource.labeledItemEnclosure;
+    const srcObj = selectedItemEnclosureAndSource.source;
+
+    // If enclosure missing basic data, dispose and bail.
+    if (!labeled?.enclosure?.type || !srcObj?.uri) {
       if (videoJsPlayerRef.current && !videoJsPlayerRef.current.isDisposed()) {
         videoJsPlayerRef.current.dispose();
         videoJsPlayerRef.current = null;
       }
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-        mediaElRef.current = null;
+      containerRef.current.innerHTML = "";
+      mediaElRef.current = null;
+      return;
+    }
+
+    // If mediaType mismatch, dispose and bail.
+    if (labeled.mediaType !== mediaType) {
+      if (videoJsPlayerRef.current && !videoJsPlayerRef.current.isDisposed()) {
+        videoJsPlayerRef.current.dispose();
+        videoJsPlayerRef.current = null;
       }
+      containerRef.current.innerHTML = "";
+      mediaElRef.current = null;
+      return;
+    }
+
+    const srcUrl = srcObj.uri;
+    const srcType = labeled.enclosure.type;
+
+    // If item not a live item or missing src data, dispose.
+    if (!mpItem?.live_item || !srcUrl || !srcType) {
+      if (videoJsPlayerRef.current && !videoJsPlayerRef.current.isDisposed()) {
+        videoJsPlayerRef.current.dispose();
+        videoJsPlayerRef.current = null;
+      }
+      containerRef.current.innerHTML = "";
+      mediaElRef.current = null;
       return;
     }
 
@@ -89,7 +127,7 @@ export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLi
         videoJsPlayerRef.current = null;
       }
     };
-  }, [mpItem?.id, enclosureResult?.url, enclosureResult?.type, mediaType]);
+  }, [selectedItemEnclosureAndSource]);
 
   // Play / pause sync.
   useEffect(() => {
@@ -99,13 +137,7 @@ export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLi
     else p.pause();
   }, [mpIsPlaying]);
 
-  const hiddenCommon =
-    hidden ||
-    !mpItem?.live_item ||
-    !enclosureResult?.url ||
-    (mediaType === "video"
-      ? !enclosureResult?.isVideoHLS
-      : !enclosureResult?.isAudioHLS);
+  const hiddenCommon = hidden || mediaType === "video";
 
   return (
     <div

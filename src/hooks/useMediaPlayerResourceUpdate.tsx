@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, EnclosureSelectedParams } from "podverse-helpers";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
 import { useQueueResourcesMoveNowPlayingToHistory } from "./useQueueResourceMoveNowPlayingToHistory";
 import { useQueueResourcesUpdateNowPlaying } from "./useQueueResourceUpdateNowPlaying";
@@ -16,12 +16,12 @@ export function useMediaPlayerResourceUpdate() {
     setMPItemChapter,
     setMPItemChapterShouldSeek,
     setMPItemSoundbite,
-    setMPEnclosureRowSelected,
+    setMPEnclosureSelectedParams,
     setMPIsPlaying
   } = useMediaPlayer();
   const { autoQueueConfig, setAutoQueueConfig, setAutoQueueResources,
     setAutoQueueActiveRow } = useAutoQueue();
-  const { mpEnclosureRowSelected, mpItem } = useMediaPlayer();
+  const { mpEnclosureSelectedParams, mpItem } = useMediaPlayer();
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
   const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
   const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
@@ -37,10 +37,10 @@ export function useMediaPlayerResourceUpdate() {
     autoQueueConfigRef.current = autoQueueConfig;
   }, [autoQueueConfig]);
 
-  const mpEnclosureRowSelectedRef = useRef(mpEnclosureRowSelected);
+  const mpEnclosureSelectedParamsRef = useRef(mpEnclosureSelectedParams);
   useEffect(() => {
-    mpEnclosureRowSelectedRef.current = mpEnclosureRowSelected;
-  }, [mpEnclosureRowSelected]);
+    mpEnclosureSelectedParamsRef.current = mpEnclosureSelectedParams;
+  }, [mpEnclosureSelectedParams]);
 
   const mpItemRef = useRef(mpItem);
   useEffect(() => {
@@ -55,7 +55,7 @@ export function useMediaPlayerResourceUpdate() {
     itemChapter,
     itemChapterShouldSeek,
     itemSoundbite,
-    enclosureRowSelected,
+    enclosureSelectedParams,
     mpDuration,
     mpCurrentTime,
     isPlaying,
@@ -70,7 +70,7 @@ export function useMediaPlayerResourceUpdate() {
     itemChapter: DTOItemChapter | null,
     itemChapterShouldSeek: boolean,
     itemSoundbite: DTOItemSoundbite | null,
-    enclosureRowSelected: number | 'use-active-item-or-default',
+    enclosureSelectedParams: EnclosureSelectedParams | 'use-active-item-or-default',
     mpDuration?: number,
     mpCurrentTime?: number,
     isPlaying?: boolean,
@@ -112,14 +112,18 @@ export function useMediaPlayerResourceUpdate() {
     setMPItemChapterShouldSeek(itemChapterShouldSeek);
     setMPItemSoundbite(itemSoundbite);
 
-    if (enclosureRowSelected === 'use-active-item-or-default') {
+    if (enclosureSelectedParams === 'use-active-item-or-default' || !enclosureSelectedParams) {
       if (previousItemId && item && item.id === previousItemId) {
-        setMPEnclosureRowSelected(mpEnclosureRowSelectedRef.current);
+        setMPEnclosureSelectedParams(mpEnclosureSelectedParamsRef.current);
       } else {
-        setMPEnclosureRowSelected(0);
+        setMPEnclosureSelectedParams({
+          type: "default",
+          enclosureRowSelected: null,
+          sourceRowSelected: null
+        });
       }
     } else {
-      setMPEnclosureRowSelected(enclosureRowSelected);
+      setMPEnclosureSelectedParams(enclosureSelectedParams);
     }
 
     if (isPlaying !== undefined) {
