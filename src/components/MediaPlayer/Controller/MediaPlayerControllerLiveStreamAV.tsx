@@ -91,8 +91,6 @@ export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLi
     containerRef.current.innerHTML = "";
     mediaElRef.current = null;
 
-    console.log("mediaType", mediaType)
-
     // Create new media element (not controlled by React).
     const el =
       document.createElement(mediaType === "video" ? "video" : "audio");
@@ -137,12 +135,12 @@ export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLi
     else p.pause();
   }, [mpIsPlaying]);
 
-  const hiddenCommon = hidden || mediaType === "video";
+  const hiddenCommon = hidden || mediaType === "audio";
 
   return (
     <div
       ref={containerRef}
-      data-vjs-player
+      {...{ [`data-vjs-player-${mediaType}`]: true }}
       hidden={hiddenCommon}
       style={style}
     />
