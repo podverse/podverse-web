@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import { getSelectedItemEnclosureUrl, QueueResourcesAbridgedIndex,
-  DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
+import React, { useRef, useEffect, useMemo } from "react";
+import { QueueResourcesAbridgedIndex, DTOClip, DTOItem, DTOItemChapter,
+  DTOItemSoundbite, LabeledItemEnclosure,
+  EnclosureSelectedParams,
+  getSelectedLabeledItemEnclosureAndSource} from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { MoveNowPlayingToHistoryCallbackParams } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { UpdateNowPlayingParams } from "../../../hooks/useQueueResourceUpdateNowPlaying";
@@ -14,6 +16,8 @@ export interface MediaPlayerControllerAVProps {
   mpClip: DTOClip | null;
   setMPClip: (clip: DTOClip | null) => void;
   mpItem: DTOItem | null;
+  mpItemLabeledEnclosures: LabeledItemEnclosure[];
+  mpEnclosureSelectedParams: EnclosureSelectedParams;
   mpItemChapter: DTOItemChapter | null;
   setMPItemChapter: (chapter: DTOItemChapter | null) => void;
   mpItemChapters: DTOItemChapter[] | null;
@@ -46,6 +50,8 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     hidden,
     mpClip, setMPClip,
     mpItem,
+    mpItemLabeledEnclosures,
+    mpEnclosureSelectedParams,
     mpItemChapter, setMPItemChapter,
     mpItemChapters,
     mpItemChapterShouldSeek, setMPItemChapterShouldSeek,
@@ -80,15 +86,26 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
 
   const playbackElapsedRef = useRef(0);
   const lastPlaybackTimeRef = useRef<number | null>(null);
-
-  const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
+  
+  const selectedItemEnclosureAndSource = useMemo(() =>
+    getSelectedLabeledItemEnclosureAndSource({
+      labeledItemEnclosures: mpItemLabeledEnclosures,
+      type: mpEnclosureSelectedParams.type,
+      enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
+      sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
+    }),
+    [mpItemLabeledEnclosures, mpEnclosureSelectedParams]
+  );
 
   useEffect(() => {
+    if (!selectedItemEnclosureAndSource.labeledItemEnclosure?.enclosure?.type) return;
+    if (!selectedItemEnclosureAndSource.source?.uri) return;
+
     const media = mediaRef.current;
     const mpItem = mpItemRef.current;
-    if (media && selectedItemEnclosureUrl) {
-      const isAudioFile = checkIfIsAudioFile(selectedItemEnclosureUrl);
-      const isVideoFile = checkIfIsVideoFile(selectedItemEnclosureUrl);
+    if (media && selectedItemEnclosureAndSource) {
+      const isAudioFile = checkIfIsAudioFile(selectedItemEnclosureAndSource);
+      const isVideoFile = checkIfIsVideoFile(selectedItemEnclosureAndSource);
       const isLiveItem = checkIsLiveItem(mpItem);
       if ((mediaType === "audio" ? isAudioFile : isVideoFile) && !isLiveItem) {
         media.currentTime = 0;
@@ -103,7 +120,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
         media.load();
       }
     }
-  }, [selectedItemEnclosureUrl]);
+  }, [selectedItemEnclosureAndSource]);
 
   useEffect(() => {
     const handleSeek = (e: Event) => {

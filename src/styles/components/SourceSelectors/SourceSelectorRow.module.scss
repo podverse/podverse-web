@@ -1,0 +1,22 @@
+@use '../../mixins/lineClamp' as *;
+
+.sourceSelectorRow {
+  text-align: left;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-weight: var(--font-weight-light);
+}
+
+.enclosureLabel {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
+  @include line-clamp(2);
+}
+
+.sourceUri {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  @include line-clamp(1);
+}

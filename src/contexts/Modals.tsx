@@ -1,5 +1,6 @@
-import { DTOChannel, DTOChannelFunding, DTOClip, DTOItem, DTOItemChapter, DTOItemFunding, DTOItemSoundbite } from 'podverse-helpers'
+import { DTOChannel, DTOChannelFunding, DTOClip, DTOItem, DTOItemChapter, DTOItemFunding, DTOItemSoundbite, LabeledItemEnclosure } from 'podverse-helpers'
 import React, { createContext, useContext, useState, ReactNode } from 'react'
+import { SourceSelectorActionType } from '../components/SourceSelectors/SourceSelectors';
 
 type ModalBasic = {
   isOpen: boolean;
@@ -32,6 +33,11 @@ type ModalBoost = {
   item: DTOItem | null;
 }
 
+type ModalSourceSelector = {
+  labeledItemEnclosures: LabeledItemEnclosure[];
+  actionType: SourceSelectorActionType;
+}
+
 export type ModalPlaylistAddToState = {
   channel: DTOChannel | null;
   item: DTOItem | null;
@@ -56,6 +62,8 @@ type ModalsContextType = {
   setModalShare: (val: ModalShare) => void;
   modalFunding: ModalFunding;
   setModalFunding: (val: ModalFunding) => void;
+  modalSourceSelector: ModalSourceSelector;
+  setModalSourceSelector: (val: ModalSourceSelector) => void;
   modalBoost: ModalBoost;
   setModalBoost: (val: ModalBoost) => void;
 }
@@ -88,6 +96,11 @@ const defaultModalFunding = {
   item_fundings: []
 }
 
+const defaultModalSourceSelector: ModalSourceSelector = {
+  labeledItemEnclosures: [],
+  actionType: null
+}
+
 const defaultModalShare = {
   channel: null,
   item: null,
@@ -105,6 +118,7 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalMediaPlayerIsOpen, setModalMediaPlayerIsOpen] = useState<boolean>(false)
   const [modalShare, setModalShare] = useState<ModalShare>(defaultModalShare)
   const [modalFunding, setModalFunding] = useState<ModalFunding>(defaultModalFunding)
+  const [modalSourceSelector, setModalSourceSelector] = useState<ModalSourceSelector>(defaultModalSourceSelector)
   const [modalBoost, setModalBoost] = useState<ModalBoost>(defaultModalBoost)
 
   return (
@@ -117,6 +131,7 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
       modalMediaPlayerIsOpen, setModalMediaPlayerIsOpen,
       modalShare, setModalShare,
       modalFunding, setModalFunding,
+      modalSourceSelector, setModalSourceSelector,
       modalBoost, setModalBoost
     }}>
       {children}

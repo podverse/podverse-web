@@ -1,38 +1,47 @@
 "use client";
 
-import { buildLabeledItemEnclosures, getNextPlaybackSpeed, getPlaybackTranslationKey } from "podverse-helpers";
+import { getNextPlaybackSpeed, getPlaybackTranslationKey, getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 import { useRef } from "react";
 import { FaGear } from "react-icons/fa6"
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { DropdownMenu } from "../../Dropdown/DropdownMenu";
-import { ROUTES } from "../../../constants/routes";
 import { useDropdownKeyboardNavigation } from "../../../hooks/useDropdownKeyboardNavigation";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { useEnclosureLabel } from "../../../utils/itemEnclosure";
 import styles from "../../../styles/components/MediaPlayer/Buttons/SettingsButton.module.scss";
+import { useModals } from "../../../contexts/Modals";
 
 export const SettingsButton = () => {
-  const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
-  const { mpItem, mpPlaybackSpeed, setMPPlaybackSpeed, mpEnclosureRowSelected } = useMediaPlayer();
+  const { mpPlaybackSpeed, setMPPlaybackSpeed, mpEnclosureSelectedParams,
+    mpItemLabeledItemEnclosures } = useMediaPlayer();
+  const { setModalSourceSelector } = useModals();
   const tMediaPlayer = useTranslations("media_player");
 
   const playbackSpeedOnClick = () => {
     setMPPlaybackSpeed(getNextPlaybackSpeed(mpPlaybackSpeed));
   };
 
-  const labeledItemEnclosures = buildLabeledItemEnclosures(mpItem?.item_enclosures || []);
+  const selectedItemEnclosureAndSource = getSelectedLabeledItemEnclosureAndSource({
+    labeledItemEnclosures: mpItemLabeledItemEnclosures,
+    type: mpEnclosureSelectedParams.type,
+    enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
+    sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
+  });
 
-  const selectedEnclosure = (mpEnclosureRowSelected != null && labeledItemEnclosures[mpEnclosureRowSelected])
-    ? labeledItemEnclosures[0]
-    : undefined;
-
-  const enclosureLabel = useEnclosureLabel(selectedEnclosure);
+  const enclosureLabel = useEnclosureLabel(selectedItemEnclosureAndSource.labeledItemEnclosure);
 
   const menuItems = [
-    { label: tMediaPlayer('source.source_with_format', { format: enclosureLabel ?? '' }), onClick: () => {} },
+    {
+      label: tMediaPlayer('source.source_with_format', { format: enclosureLabel ?? '' }),
+      onClick: () => {
+        setModalSourceSelector({
+          labeledItemEnclosures: mpItemLabeledItemEnclosures,
+          actionType: "load-in-player"
+        });
+      }
+    },
     {
       label: tMediaPlayer(
         'playback_speed.playback_speed_with_value',
