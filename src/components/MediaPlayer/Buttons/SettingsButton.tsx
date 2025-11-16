@@ -32,8 +32,10 @@ export const SettingsButton = () => {
 
   const enclosureLabel = useEnclosureLabel(selectedItemEnclosureAndSource.labeledItemEnclosure);
 
-  const menuItems = [
-    {
+  const menuItems: { label: string; onClick: () => void }[] = [];
+
+  if (mpItemLabeledItemEnclosures.length > 1) {
+    menuItems.push({
       label: tMediaPlayer('source.source_with_format', { format: enclosureLabel ?? '' }),
       onClick: () => {
         setModalSourceSelector({
@@ -42,15 +44,16 @@ export const SettingsButton = () => {
           itemTitle: mpItem?.title || null
         });
       }
-    },
-    {
-      label: tMediaPlayer(
-        'playback_speed.playback_speed_with_value',
-        { speed: tMediaPlayer(`playback_speed.speeds.${getPlaybackTranslationKey(mpPlaybackSpeed)}`) }
-      ),
-      onClick: playbackSpeedOnClick
-    }
-  ];
+    });
+  }
+
+  menuItems.push({
+    label: tMediaPlayer(
+      'playback_speed.playback_speed_with_value',
+      { speed: tMediaPlayer(`playback_speed.speeds.${getPlaybackTranslationKey(mpPlaybackSpeed)}`) }
+    ),
+    onClick: playbackSpeedOnClick
+  })
 
   const {
     open,
