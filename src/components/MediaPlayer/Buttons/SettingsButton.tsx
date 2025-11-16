@@ -15,7 +15,7 @@ export const SettingsButton = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const { mpPlaybackSpeed, setMPPlaybackSpeed, mpEnclosureSelectedParams,
-    mpItemLabeledItemEnclosures } = useMediaPlayer();
+    mpItemLabeledItemEnclosures, mpItem } = useMediaPlayer();
   const { setModalSourceSelector } = useModals();
   const tMediaPlayer = useTranslations("media_player");
 
@@ -38,7 +38,8 @@ export const SettingsButton = () => {
       onClick: () => {
         setModalSourceSelector({
           labeledItemEnclosures: mpItemLabeledItemEnclosures,
-          actionType: "load-in-player"
+          actionType: "load-in-player",
+          itemTitle: mpItem?.title || null
         });
       }
     },

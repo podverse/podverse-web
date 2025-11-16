@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, DTOItem, DTOItemChapter, getSelectedItemEnclosureUrl } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOChannel, DTOItem, DTOItemChapter,
+  getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -13,6 +14,7 @@ import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResou
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import styles from "../../../styles/components/Media/ItemChapter/ItemChapterHeaderPlaySection.module.scss";
+import { useModals } from "../../../contexts/Modals";
 
 type ItemChapterHeaderPlaySectionProps = {
   channel: DTOChannel;
@@ -24,6 +26,7 @@ export const ItemChapterHeaderPlaySection: React.FC<ItemChapterHeaderPlaySection
   const tFeatures = useTranslations("features");
   const tMediaPlayer = useTranslations("media_player");
   const { mpItemChapter, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const { setModalSourceSelector } = useModals();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
 
   const playButtonOnClick = () => {
@@ -51,17 +54,33 @@ export const ItemChapterHeaderPlaySection: React.FC<ItemChapterHeaderPlaySection
   };
 
   const downloadEpisode = async () => {
-    // add modal selector if needed
-    const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(item.item_enclosures);
-    if (selectedItemEnclosureUrl) {
-      showToastPromiseWithLoading(
-        downloadAndSaveFile(selectedItemEnclosureUrl, item.title || 'episode.mp3'),
-        {
-          loading: tFeatures("download.downloading_episode"),
-          success: tFeatures("download.episode_downloaded"),
-          error: tFeatures("download.download_error")
-        }
-      )
+    const labeledItemEnclosures = buildLabeledItemEnclosures(item.item_enclosures);
+    const hasMultipleEnclosures = labeledItemEnclosures && labeledItemEnclosures.length > 1;
+
+    if (hasMultipleEnclosures) {
+      setModalSourceSelector({
+        labeledItemEnclosures: labeledItemEnclosures,
+        actionType: 'download-episode',
+        itemTitle: item.title || null
+      });
+      return;
+    } else {
+      const selected = getSelectedLabeledItemEnclosureAndSource({
+        labeledItemEnclosures: labeledItemEnclosures,
+        type: "default",
+        enclosureRowIndex: null,
+        sourceRowIndex: null
+      });
+      if (selected?.source?.uri) {
+        showToastPromiseWithLoading(
+          downloadAndSaveFile(selected.source.uri, item.title || 'episode.mp3'),
+          {
+            loading: tFeatures("download.downloading_episode"),
+            success: tFeatures("download.episode_downloaded"),
+            error: tFeatures("download.download_error")
+          }
+        )
+      }
     }
   }
 

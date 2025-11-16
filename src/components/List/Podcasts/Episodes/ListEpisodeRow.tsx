@@ -2,8 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
-  getSelectedItemEnclosureUrl, stripAndDecodeHtml } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
+  getSelectedLabeledItemEnclosureAndSource,
+  stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import { FaGripLines } from "react-icons/fa6";
 import { Image } from "../../../Image/Image";
@@ -48,7 +49,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   const { queues } = useQueues();
   const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
-  const { setModalPlaylistAddTo } = useModals();
+  const { setModalPlaylistAddTo, setModalSourceSelector } = useModals();
   const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
   const { durationStr, positionStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
 
@@ -130,17 +131,33 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   }
 
   const downloadEpisode = async () => {
-    // add modal selector if needed
-    const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(item.item_enclosures);
-    if (selectedItemEnclosureUrl) {
-      showToastPromiseWithLoading(
-        downloadAndSaveFile(selectedItemEnclosureUrl, item.title || 'episode.mp3'),
-        {
-          loading: tFeatures("download.downloading_episode"),
-          success: tFeatures("download.episode_downloaded"),
-          error: tFeatures("download.download_error")
-        }
-      )
+    const labeledItemEnclosures = buildLabeledItemEnclosures(item.item_enclosures);
+    const hasMultipleEnclosures = labeledItemEnclosures && labeledItemEnclosures.length > 1;
+
+    if (hasMultipleEnclosures) {
+      setModalSourceSelector({
+        labeledItemEnclosures: labeledItemEnclosures,
+        actionType: 'download-episode',
+        itemTitle: item.title || null
+      });
+      return;
+    } else {
+      const selected = getSelectedLabeledItemEnclosureAndSource({
+        labeledItemEnclosures: labeledItemEnclosures,
+        type: "default",
+        enclosureRowIndex: null,
+        sourceRowIndex: null
+      });
+      if (selected?.source?.uri) {
+        showToastPromiseWithLoading(
+          downloadAndSaveFile(selected.source.uri, item.title || 'episode.mp3'),
+          {
+            loading: tFeatures("download.downloading_episode"),
+            success: tFeatures("download.episode_downloaded"),
+            error: tFeatures("download.download_error")
+          }
+        )
+      }
     }
   }
 

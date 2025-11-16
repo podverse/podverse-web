@@ -36,6 +36,7 @@ type ModalBoost = {
 type ModalSourceSelector = {
   labeledItemEnclosures: LabeledItemEnclosure[];
   actionType: SourceSelectorActionType;
+  itemTitle: string | null;
 }
 
 export type ModalPlaylistAddToState = {
@@ -98,7 +99,8 @@ const defaultModalFunding = {
 
 const defaultModalSourceSelector: ModalSourceSelector = {
   labeledItemEnclosures: [],
-  actionType: null
+  actionType: null,
+  itemTitle: null
 }
 
 const defaultModalShare = {
