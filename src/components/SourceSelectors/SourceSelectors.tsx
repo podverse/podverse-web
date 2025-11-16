@@ -1,9 +1,10 @@
 import { LabeledItemEnclosure } from "podverse-helpers";
-import { SourceSelectorRow } from "./SourceSelectorRow";
-import styles from "../../styles/components/SourceSelectors/SourceSelectors.module.scss";
-import { Divider } from "../Divider/Divider";
 import { Fragment } from "react";
+import { SourceSelectorRow } from "./SourceSelectorRow";
+import { Divider } from "../Divider/Divider";
 import { useMediaPlayer } from "../../contexts/MediaPlayer";
+import { useModals } from "../../contexts/Modals";
+import styles from "../../styles/components/SourceSelectors/SourceSelectors.module.scss";
 
 export type SourceSelectorActionType = "load-in-player" | null;
 
@@ -14,6 +15,7 @@ type SourceSelectorsProps = {
 
 export const SourceSelectors = ({ labeledItemEnclosures, actionType }: SourceSelectorsProps ) => {
   const { setMPEnclosureSelectedParams } = useMediaPlayer();
+  const { setModalSourceSelector } = useModals();
 
   const onClick = (enclosureIndex: number, sourceIndex: number) => {
     const labeledItemEnclosure = labeledItemEnclosures[enclosureIndex];
@@ -29,6 +31,11 @@ export const SourceSelectors = ({ labeledItemEnclosures, actionType }: SourceSel
       } else {
         console.log("SourceSelectors onClick with no actionType");
       }
+      
+      setModalSourceSelector({
+        labeledItemEnclosures: [],
+        actionType: null
+      })
     }
   }
 

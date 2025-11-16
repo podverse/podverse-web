@@ -28,22 +28,24 @@ export const SourceSelectorRow = ({ labeledItemEnclosure,
         className={styles.sourceSelectorRow}
         onClick={() => onClick(labeledItemEnclosureIndex, sourceIndex)}
       >
-        {
-          labeledItemEnclosure.enclosure.title && (
-            <div className={styles.enclosureLabel}>
-              {labeledItemEnclosure.enclosure.title}
-            </div>
-          )
-        }
-        <div className={styles.enclosureLabel}>
+        <div className={styles.textWrapper}>
           {
-            !labeledItemEnclosure.enclosure.title && (
-              enclosureLabel
+            labeledItemEnclosure.enclosure.title && (
+              <div className={styles.enclosureLabel}>
+                {labeledItemEnclosure.enclosure.title}
+              </div>
             )
           }
-        </div>
-        <div className={styles.sourceUri}>
-          {source.uri}
+          <div className={styles.enclosureLabel}>
+            {
+              !labeledItemEnclosure.enclosure.title && (
+                enclosureLabel
+              )
+            }
+          </div>
+          <div className={styles.sourceUri}>
+            {source.uri}
+          </div>
         </div>
       </Link>
     );

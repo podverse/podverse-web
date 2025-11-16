@@ -4,8 +4,13 @@
   text-align: left;
   display: flex;
   flex: 1;
-  flex-direction: column;
   font-weight: var(--font-weight-light);
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
 }
 
 .enclosureLabel {
