@@ -1,0 +1,56 @@
+@use '../../../mixins/lineClamp' as *;
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.listItem {
+  display: flex;
+  padding: 1rem 0.5rem;
+  border-radius: var(--border-radius);
+
+  &:hover,
+  &:focus {
+    background: var(--background-color-opaque);
+  }
+}
+
+.image {
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-right: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  @include line-clamp(1);
+  margin-bottom: 0.25rem;
+}
+
+.author {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  margin-bottom: 0.375rem;
+  @include line-clamp(1);
+}
+
+.lastPubDate {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-link);
+  margin-bottom: 0.5rem;
+  @include line-clamp(1);
+}
+
+.description {
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  @include line-clamp(2);
+}
