@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { TextInput } from './TextInput';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import styles from '../../styles/components/Form/SearchInput.module.scss';
 
 type SearchInputProps = {
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -82,7 +81,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 			aria-label={ariaLabel}
 			aria-describedby={ariaDescribedBy}
 			buttonIcon={{
-        className: styles.searchIcon,
+				position: "start",
 				icon: <FaMagnifyingGlass />,
 				onClick: handleButtonClick,
 			}}

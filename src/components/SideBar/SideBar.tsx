@@ -20,7 +20,7 @@ const SideBar: React.FC = () => {
         <SideBarBrand />
         <SideBarLink href={ROUTES.SEARCH}>
           <FaMagnifyingGlass className={styles.icon} />
-          {tFeatures("search")}
+          {tFeatures("search.search")}
         </SideBarLink>
       </div>
       <div className={styles.scrollable} tabIndex={-1}>

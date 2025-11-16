@@ -51,4 +51,15 @@
   height: 28px;
   width: 28px;
   border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.buttonIconStart {
+  margin-right: 0.5rem;
+}
+
+.buttonIconEnd {
+  margin-left: 0.5rem;
 }

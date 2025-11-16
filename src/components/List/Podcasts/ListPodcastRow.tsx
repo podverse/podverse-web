@@ -6,8 +6,8 @@ import { DTOChannel, findDTOChannelImageBySize, formatDateAbbrev } from "podvers
 import React from "react";
 import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
-import styles from "../../../styles/components/List/Podcasts/ListPodcastRow.module.scss";
 import { IMAGES } from "../../../constants/images";
+import styles from "../../../styles/components/List/Podcasts/ListPodcastRow.module.scss";
 
 interface Props {
   channel: DTOChannel;
@@ -33,7 +33,7 @@ const ListPodcastRow: React.FC<Props> = ({ channel }) => {
           {
             channel.channel_about?.last_pub_date && (
               <span className={styles.lastPubDate}>
-                {tMedia("last_updated", {
+                {tMedia("updated_with_date", {
                   date: formatDateAbbrev(channel.channel_about.last_pub_date, locale)
                 })}
               </span>

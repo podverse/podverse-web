@@ -37,6 +37,7 @@ export type TextInputButton = {
 }
 
 export type TextInputButtonIcon = {
+  position: "start" | "end"
   icon: React.ReactNode
   className?: string
   onClick: () => void
@@ -75,6 +76,21 @@ export const TextInput: React.FC<TextInputProps> = ({
   return (
     <div className={`${styles.textInput} ${className || ''}`} style={style}>
       <div className={styles.textInputWrapper}>
+        {buttonIcon?.position === "start" && (
+          <button
+            className={classNames(
+              styles.searchIcon,
+              styles.buttonIcon,
+              {
+                [styles.buttonIconStart]: true,
+                [styles.buttonIconEnd]: false,
+              },
+              buttonIcon.className
+            )}
+            onClick={buttonIcon.onClick}>
+            {buttonIcon.icon}
+          </button>
+        )}
         <div className={styles.textInnerInputWrapper}>
           {eyebrow && (
             <label htmlFor={inputId} className={styles.eyebrow}>
@@ -130,9 +146,17 @@ export const TextInput: React.FC<TextInputProps> = ({
             {button.label}
           </Button>
         )}
-        {buttonIcon && (
+        {buttonIcon?.position === "end" && (
           <button
-            className={classNames(styles.buttonIcon, buttonIcon.className)}
+            className={classNames(
+              styles.searchIcon,
+              styles.buttonIcon,
+              {
+                [styles.buttonIconStart]: true,
+                [styles.buttonIconEnd]: false,
+              },
+              buttonIcon.className
+            )}
             onClick={buttonIcon.onClick}>
             {buttonIcon.icon}
           </button>
