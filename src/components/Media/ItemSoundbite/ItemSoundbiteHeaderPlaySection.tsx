@@ -1,8 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { buildLabeledItemEnclosures, DTOChannel, DTOItem, DTOItemSoundbite,
-  getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemSoundbite } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -17,6 +16,7 @@ import { downloadAndSaveFile } from "../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
+import { downloadEpisodeWithModal } from "../../../utils/downloadEpisodeWithModal";
 import styles from "../../../styles/components/Media/ItemSoundbite/ItemSoundbiteHeaderPlaySection.module.scss";
 
 type ItemSoundbiteHeaderPlaySectionProps = {
@@ -114,34 +114,13 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
   }
 
   const downloadEpisode = async () => {
-    const labeledItemEnclosures = buildLabeledItemEnclosures(item.item_enclosures);
-    const hasMultipleEnclosures = labeledItemEnclosures && labeledItemEnclosures.length > 1;
-
-    if (hasMultipleEnclosures) {
-      setModalSourceSelector({
-        labeledItemEnclosures: labeledItemEnclosures,
-        actionType: 'download-episode',
-        itemTitle: item.title || null
-      });
-      return;
-    } else {
-      const selected = getSelectedLabeledItemEnclosureAndSource({
-        labeledItemEnclosures: labeledItemEnclosures,
-        type: "default",
-        enclosureRowIndex: null,
-        sourceRowIndex: null
-      });
-      if (selected?.source?.uri) {
-        showToastPromiseWithLoading(
-          downloadAndSaveFile(selected.source.uri, item.title || 'episode.mp3'),
-          {
-            loading: tFeatures("download.downloading_episode"),
-            success: tFeatures("download.episode_downloaded"),
-            error: tFeatures("download.download_error")
-          }
-        )
-      }
-    }
+    downloadEpisodeWithModal({
+      item,
+      setModalSourceSelector,
+      tFeatures,
+      showToastPromiseWithLoading,
+      downloadAndSaveFile
+    });
   }
 
   const moreButtonMenuItems = [

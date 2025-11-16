@@ -2,8 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { buildLabeledItemEnclosures, DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
-  getSelectedLabeledItemEnclosureAndSource,
+import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
   stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import { FaGripLines } from "react-icons/fa6";
@@ -24,6 +23,7 @@ import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
 import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
+import { downloadEpisodeWithModal } from "../../../../utils/downloadEpisodeWithModal";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 
 interface Props {
@@ -131,34 +131,13 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   }
 
   const downloadEpisode = async () => {
-    const labeledItemEnclosures = buildLabeledItemEnclosures(item.item_enclosures);
-    const hasMultipleEnclosures = labeledItemEnclosures && labeledItemEnclosures.length > 1;
-
-    if (hasMultipleEnclosures) {
-      setModalSourceSelector({
-        labeledItemEnclosures: labeledItemEnclosures,
-        actionType: 'download-episode',
-        itemTitle: item.title || null
-      });
-      return;
-    } else {
-      const selected = getSelectedLabeledItemEnclosureAndSource({
-        labeledItemEnclosures: labeledItemEnclosures,
-        type: "default",
-        enclosureRowIndex: null,
-        sourceRowIndex: null
-      });
-      if (selected?.source?.uri) {
-        showToastPromiseWithLoading(
-          downloadAndSaveFile(selected.source.uri, item.title || 'episode.mp3'),
-          {
-            loading: tFeatures("download.downloading_episode"),
-            success: tFeatures("download.episode_downloaded"),
-            error: tFeatures("download.download_error")
-          }
-        )
-      }
-    }
+    downloadEpisodeWithModal({
+      item,
+      setModalSourceSelector,
+      tFeatures,
+      showToastPromiseWithLoading,
+      downloadAndSaveFile
+    });
   }
 
   const removeFromQueueOnClick = async () => {

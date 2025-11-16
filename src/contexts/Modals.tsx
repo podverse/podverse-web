@@ -33,7 +33,7 @@ type ModalBoost = {
   item: DTOItem | null;
 }
 
-type ModalSourceSelector = {
+export type ModalSourceSelector = {
   labeledItemEnclosures: LabeledItemEnclosure[];
   actionType: SourceSelectorActionType;
   itemTitle: string | null;
