@@ -5,12 +5,16 @@
   display: flex;
   flex: 1;
   font-weight: var(--font-weight-light);
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
 }
 
 .textWrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 0.25rem;
+  min-width: 0;
 }
 
 .enclosureLabel {
@@ -23,5 +27,9 @@
 .sourceUri {
   font-size: var(--font-size-sm);
   color: var(--text-color-secondary);
-  @include line-clamp(1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
 }
