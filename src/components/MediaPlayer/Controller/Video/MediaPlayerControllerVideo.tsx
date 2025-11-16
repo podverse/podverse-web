@@ -22,6 +22,8 @@ export function MediaPlayerControllerVideo() {
 			mpClip={mediaPlayer.mpClip}
 			setMPClip={mediaPlayer.setMPClip}
 			mpItem={mediaPlayer.mpItem}
+			mpItemLabeledEnclosures={mediaPlayer.mpItemLabeledItemEnclosures}
+			mpEnclosureSelectedParams={mediaPlayer.mpEnclosureSelectedParams}
 			mpItemChapter={mediaPlayer.mpItemChapter}
 			setMPItemChapter={mediaPlayer.setMPItemChapter}
 			mpItemChapters={mediaPlayer.mpItemChapters}
