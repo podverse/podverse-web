@@ -25,7 +25,7 @@
     },
     "clips": "Clips",
     "livestreams": "Transmisiones en vivo",
-    "last_updated": "Última actualización: {date}"
+    "updated_with_date": "Última actualización: {date}"
   },
   "features": {
     "search": "Buscar",

@@ -33,10 +33,13 @@
       "scheduled": "Scheduled",
       "ended": "Ended"
     },
-    "last_updated": "Last updated: {date}"
+    "updated_with_date": "Updated: {date}"
   },
   "features": {
-    "search": "Search",
+    "search": {
+      "search": "Search",
+      "search_by_title": "Search by title..."
+    },
     "my_library": "My Library",
     "queue": {
       "queue": "Queue",

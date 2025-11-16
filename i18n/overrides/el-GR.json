@@ -25,7 +25,7 @@
     },
     "clips": "Κλιπς",
     "livestreams": "Ζωντανές μεταδόσεις",
-    "last_updated": "Τελευταία ενημέρωση: {date}"
+    "updated_with_date": "Τελευταία ενημέρωση: {date}"
   },
   "features": {
     "search": "Αναζήτηση",
