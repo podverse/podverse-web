@@ -90,6 +90,10 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  .customProgressBarInner {
+    border-radius: 0;
+  }
 }
 
 @media (min-width: breakpoints.$breakpoint-lg-min) {

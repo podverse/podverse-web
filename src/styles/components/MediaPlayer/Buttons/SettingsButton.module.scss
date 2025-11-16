@@ -1,3 +1,4 @@
+@use "../../../variables/breakpoints" as *;
 @use '../../../mixins/buttons.scss' as *;
 
 .settingsDropdownWrapper {
@@ -6,4 +7,14 @@
 
 .settingsButton {
   @include mediaPlayerButton;
+}
+
+@media (max-width: $breakpoint-md-max) {
+  .settingsDropdownWrapper {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
