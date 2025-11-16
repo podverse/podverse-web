@@ -1,14 +1,8 @@
 import React from "react";
-import { MainHeader } from "../../components/Main/MainHeader";
-import { MainWrapper } from "../../components/Main/MainWrapper";
+import { SearchClient } from "./SearchClient";
 
 export default function Search() {
   return (
-    <>
-      <MainHeader title="Search" />
-      <MainWrapper>
-        <p>Search</p>
-      </MainWrapper>
-    </>
+    <SearchClient />
   );
 }
