@@ -27,8 +27,9 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
     const activeQueue = activeQueueRef.current;
     const loggedInAccount = loggedInAccountRef.current;
     const { completed, mpClip, mpItem, mpItemSoundbite } = params;
+    const isLiveItem = !!mpItem?.live_item;
 
-    if (!loggedInAccount || !activeQueue) {
+    if (!loggedInAccount || !activeQueue || isLiveItem) {
       return;
     }
 
