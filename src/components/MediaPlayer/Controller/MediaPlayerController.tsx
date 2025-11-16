@@ -1,6 +1,6 @@
 "use client";
 
-import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource, getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource } from "podverse-helpers";
 import React, { useEffect, useRef } from "react";
 import { MediaPlayerControllerAudio } from "./Audio/MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -239,10 +239,10 @@ export const MediaPlayerController: React.FC = () => {
 
   return (
     <>
-      {/* <MediaPlayerControllerAudio /> */}
-      {/* <MediaPlayerVideoWrapper /> */}
-      {/* <MediaPlayerControllerLiveStreamAudio />
-      <MediaPlayerLiveStreamVideoWrapper /> */}
+      <MediaPlayerControllerAudio />
+      <MediaPlayerVideoWrapper />
+      <MediaPlayerControllerLiveStreamAudio />
+      <MediaPlayerLiveStreamVideoWrapper />
     </>
   )
 };
