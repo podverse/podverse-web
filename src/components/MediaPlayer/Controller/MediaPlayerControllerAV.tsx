@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useRef, useEffect, useMemo } from "react";
 import { QueueResourcesAbridgedIndex, DTOClip, DTOItem, DTOItemChapter,
   DTOItemSoundbite, LabeledItemEnclosure,
   EnclosureSelectedParams,
-  getSelectedLabeledItemEnclosureAndSource} from "podverse-helpers";
+  getSelectedLabeledItemEnclosureAndSource,
+  isEqual} from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { MoveNowPlayingToHistoryCallbackParams } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { UpdateNowPlayingParams } from "../../../hooks/useQueueResourceUpdateNowPlaying";
@@ -81,37 +84,52 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
   useEffect(() => { mpItemChapterRef.current = mpItemChapter; }, [mpItemChapter]);
   const mpItemChaptersRef = useRef<typeof mpItemChapters>(null);
   useEffect(() => { mpItemChaptersRef.current = mpItemChapters; }, [mpItemChapters]);
+  const mpShouldPlayRef = useRef<typeof mpShouldPlay>(null);
+  useEffect(() => { mpShouldPlayRef.current = mpShouldPlay; }, [mpShouldPlay]);
   const queueResourcesAbridgedIndexRef = useRef(queueResourcesAbridgedIndex);
   useEffect(() => { queueResourcesAbridgedIndexRef.current = queueResourcesAbridgedIndex; }, [queueResourcesAbridgedIndex]);
 
   const playbackElapsedRef = useRef(0);
   const lastPlaybackTimeRef = useRef<number | null>(null);
   
-  const selectedItemEnclosureAndSource = useMemo(() =>
-    getSelectedLabeledItemEnclosureAndSource({
+  const prevSelectedRef = useRef<any>(null);
+
+  const selectedItemEnclosureAndSource = useMemo(() => {
+    const next = getSelectedLabeledItemEnclosureAndSource({
       labeledItemEnclosures: mpItemLabeledEnclosures,
       type: mpEnclosureSelectedParams.type,
       enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
       sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
-    }),
-    [mpItemLabeledEnclosures, mpEnclosureSelectedParams]
-  );
+    });
+    if (isEqual(prevSelectedRef.current, next)) {
+      return prevSelectedRef.current;
+    }
+    prevSelectedRef.current = next;
+    return next;
+  }, [mpItemLabeledEnclosures, mpEnclosureSelectedParams]);
 
   useEffect(() => {
-    if (!selectedItemEnclosureAndSource.labeledItemEnclosure?.enclosure?.type) return;
-    if (!selectedItemEnclosureAndSource.source?.uri) return;
+    if (!selectedItemEnclosureAndSource.labeledItemEnclosure?.enclosure?.type) {
+      return;
+    }
+    if (!selectedItemEnclosureAndSource.source?.uri) {
+      return;
+    }
 
     const media = mediaRef.current;
     const mpItem = mpItemRef.current;
+    const mpShouldPlay = mpShouldPlayRef.current;
+
     if (media && selectedItemEnclosureAndSource) {
       const isAudioFile = checkIfIsAudioFile(selectedItemEnclosureAndSource);
       const isVideoFile = checkIfIsVideoFile(selectedItemEnclosureAndSource);
       const isLiveItem = checkIsLiveItem(mpItem);
+
       if ((mediaType === "audio" ? isAudioFile : isVideoFile) && !isLiveItem) {
         media.currentTime = 0;
         media.load();
         if (mpShouldPlay) {
-          media.play();
+          media.play().catch(e => console.error("media.play() error:", e));
           setMPShouldPlay(false);
         }
       } else {
@@ -349,7 +367,6 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     if (!media) return;
     if (mpIsPlaying) {
       media.play().catch(() => {});
-      setMPShouldPlay(false);
     } else {
       media.pause();
     }
@@ -374,6 +391,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
   }, [mpPlaybackSpeed]);
 
   useEffect(() => {
+    const mpShouldPlay = mpShouldPlayRef.current;
     if (mpClip && mediaRef.current) {
       const media = mediaRef.current;
       media.currentTime = Number(mpClip.start_time);
@@ -412,11 +430,13 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     }
   }, [mpClip, mpItemChapter, mpItemSoundbite]);
 
+  const sourceUri = selectedItemEnclosureAndSource.source?.uri || null;
+
   if (mediaType === "audio") {
     return (
       <audio
         ref={mediaRef}
-        src={selectedItemEnclosureUrl}
+        src={sourceUri}
         preload={preload}
         style={hidden ? { display: "none" } : style}
       />
@@ -425,7 +445,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     return (
       <video
         ref={mediaRef}
-        src={selectedItemEnclosureUrl}
+        src={sourceUri}
         preload={preload}
         style={hidden ? { display: "none" } : style}
         controls={false}

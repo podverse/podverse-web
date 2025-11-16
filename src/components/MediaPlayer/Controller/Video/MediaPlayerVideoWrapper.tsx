@@ -1,3 +1,5 @@
+"use client";
+
 import { getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { useMediaPlayerVideo } from "../../../../contexts/MediaPlayerVideo";

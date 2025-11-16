@@ -22,6 +22,8 @@ export function MediaPlayerControllerAudio() {
       mpClip={mediaPlayer.mpClip}
       setMPClip={mediaPlayer.setMPClip}
       mpItem={mediaPlayer.mpItem}
+      mpEnclosureSelectedParams={mediaPlayer.mpEnclosureSelectedParams}
+      mpItemLabeledEnclosures={mediaPlayer.mpItemLabeledItemEnclosures}
       mpItemChapter={mediaPlayer.mpItemChapter}
       setMPItemChapter={mediaPlayer.setMPItemChapter}
       mpItemChapters={mediaPlayer.mpItemChapters}

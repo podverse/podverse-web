@@ -16,6 +16,7 @@ export function useMediaPlayerResourceUpdate() {
     setMPItemChapter,
     setMPItemChapterShouldSeek,
     setMPItemSoundbite,
+    setMPItemLabeledItemEnclosures,
     setMPEnclosureSelectedParams,
     setMPIsPlaying
   } = useMediaPlayer();
@@ -121,6 +122,7 @@ export function useMediaPlayerResourceUpdate() {
           enclosureRowSelected: null,
           sourceRowSelected: null
         });
+        setMPItemLabeledItemEnclosures([]);
       }
     } else {
       setMPEnclosureSelectedParams(enclosureSelectedParams);

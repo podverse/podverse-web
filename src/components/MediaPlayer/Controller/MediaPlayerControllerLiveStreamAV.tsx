@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { DTOItem, EnclosureSelectedParams, getSelectedLabeledItemEnclosureAndSource,
+  isEqual,
   LabeledItemEnclosure } from "podverse-helpers";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -27,15 +28,21 @@ export const MediaPlayerControllerLiveStreamAV: React.FC<MediaPlayerControllerLi
   const mediaElRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
   const videoJsPlayerRef = useRef<any | null>(null);
 
-  const selectedItemEnclosureAndSource = useMemo(() =>
-    getSelectedLabeledItemEnclosureAndSource({
+  const prevSelectedRef = useRef<any>(null);
+
+  const selectedItemEnclosureAndSource = useMemo(() => {
+    const next = getSelectedLabeledItemEnclosureAndSource({
       labeledItemEnclosures: mpItemLabeledEnclosures,
       type: mpEnclosureSelectedParams.type,
       enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
       sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
-    }),
-    [mpItemLabeledEnclosures, mpEnclosureSelectedParams]
-  );
+    });
+    if (isEqual(prevSelectedRef.current, next)) {
+      return prevSelectedRef.current;
+    }
+    prevSelectedRef.current = next;
+    return next;
+  }, [mpItemLabeledEnclosures, mpEnclosureSelectedParams]);
 
   // Recreate player whenever mpItem (or source) changes.
   useEffect(() => {

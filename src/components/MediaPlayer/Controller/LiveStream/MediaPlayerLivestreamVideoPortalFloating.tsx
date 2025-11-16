@@ -20,11 +20,11 @@ export const MediaPlayerLivestreamVideoPortalFloating: React.FC<{ children: Reac
   }
 
   const selectedItemEnclosureAndSource = getSelectedLabeledItemEnclosureAndSource({
-      labeledItemEnclosures: mpItemLabeledItemEnclosures,
-      type: mpEnclosureSelectedParams.type,
-      enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
-      sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
-    })
+    labeledItemEnclosures: mpItemLabeledItemEnclosures,
+    type: mpEnclosureSelectedParams.type,
+    enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
+    sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
+  })
 
   let style = {};
   const labeled = selectedItemEnclosureAndSource.labeledItemEnclosure;

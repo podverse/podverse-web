@@ -28,8 +28,6 @@ export const SourceSelectors = ({ labeledItemEnclosures, actionType }: SourceSel
           enclosureRowSelected: enclosureIndex,
           sourceRowSelected: sourceIndex
         });
-      } else {
-        console.log("SourceSelectors onClick with no actionType");
       }
       
       setModalSourceSelector({
