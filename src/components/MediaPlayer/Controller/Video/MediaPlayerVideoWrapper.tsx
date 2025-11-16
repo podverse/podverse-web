@@ -1,4 +1,4 @@
-import { getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
+import { getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { useMediaPlayerVideo } from "../../../../contexts/MediaPlayerVideo";
 import { MediaPlayerControllerVideo } from "./MediaPlayerControllerVideo";
@@ -6,15 +6,20 @@ import { MediaPlayerVideoPortalFloating } from "./MediaPlayerVideoPortalFloating
 
 export function MediaPlayerVideoWrapper() {
   const { videoLocation } = useMediaPlayerVideo();
-  const { mpItem } = useMediaPlayer();
+  const { mpItem, mpItemLabeledItemEnclosures, mpEnclosureSelectedParams } = useMediaPlayer();
 
-  if (!mpItem) {
+  if (!mpItem || mpItem.live_item) {
     return null
   };
 
-  // handle selected enclosure changes
-  const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
-  const isVideoFile = selectedItemEnclosureUrl && getMediaTypeFromSource(selectedItemEnclosureUrl) === "video";
+  const selectedItemEnclosureAndSource = getSelectedLabeledItemEnclosureAndSource({
+    labeledItemEnclosures: mpItemLabeledItemEnclosures,
+    type: mpEnclosureSelectedParams.type,
+    enclosureRowIndex: mpEnclosureSelectedParams.enclosureRowSelected,
+    sourceRowIndex: mpEnclosureSelectedParams.sourceRowSelected
+  })
+
+  const isVideoFile = selectedItemEnclosureAndSource.labeledItemEnclosure?.mediaType === "video";
   const isLiveItem = !!mpItem?.live_item;
 
   if (isVideoFile && !isLiveItem) {
