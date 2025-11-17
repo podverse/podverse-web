@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.explanation {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+  margin-bottom: 1.25rem;
+}
+
+.addFeedButton {
+  max-width: 200px;
+}
+
+.image {
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin: 1.75rem 0 1.25rem 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 0.7rem;
+}
+
+.author {
+  font-weight: var(--font-weight-light);
+  margin-bottom: 0.375rem;
+}
+
+.lastUpdateTime {
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-sm);
+  color: var(--text-color-link);
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+}
