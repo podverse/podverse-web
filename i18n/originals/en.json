@@ -274,6 +274,10 @@
     "autoscroll": {
       "autoscroll_on": "Autoscroll: On",
       "autoscroll_off": "Autoscroll: Off"
+    },
+    "rate_limit": {
+      "generic": "Rate limited: please try again later.",
+      "until": "Rate limited: this action cannot be used again until {time}."
     }
   },
   "instructions": {
