@@ -22,6 +22,7 @@ export const ROUTES = {
   PLAYLISTS: '/playlists',
   PODCAST: '/podcast',
   PODCASTS: '/podcasts',
+  PODCAST_INDEX: '/podcast-index',
   MEMBERSHIP: '/membership',
   PROFILES: '/profiles',
   QUEUES: '/queues',
