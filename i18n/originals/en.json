@@ -277,7 +277,9 @@
     },
     "rate_limit": {
       "generic": "Rate limited: please try again later.",
-      "until": "Rate limited: this action cannot be used again until {time}."
+      "until": "Rate limited: this action cannot be used again until {time}.",
+      "minute_remaining": "Rate limited: {minutes} minute until you can use this action again.",
+      "minutes_remaining": "Rate limited: {minutes} minutes until you can use this action again."
     }
   },
   "instructions": {
