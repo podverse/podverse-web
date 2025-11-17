@@ -1,4 +1,10 @@
 export const IMAGES = {
+  ADD_FEED: {
+    SQUARE: {
+      SIZE: 300,
+      SIZE_FIND_TARGET: 600
+    }
+  },
   HEADER: {
     DESKTOP: {
       SQUARE: {
