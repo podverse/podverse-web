@@ -1,20 +1,23 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { apiRequestService } from "../../../factories/apiRequestService";
+import { redirectToChannelPageByMediumClient } from "../../../utils/redirect/redirectToChannelPageByMedium";
 import { formatDateAbbrev, SearchPodcastsFeed } from "podverse-helpers";
 import React from "react";
 import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
 import styles from "../../../styles/components/List/SearchResults/ListSearchResultPodcastIndexFeedRow.module.scss";
+import Link from "../../Link/Link";
 
 interface Props {
   searchResultPodcastIndexFeed: SearchPodcastsFeed;
 }
 
 const ListSearchResultPodcastIndexFeedRow: React.FC<Props> = ({ searchResultPodcastIndexFeed }) => {
-  const url = `${ROUTES.PODCAST_INDEX}/feed/${searchResultPodcastIndexFeed.id}`;
+  const router = useRouter();
   const imageUrl = searchResultPodcastIndexFeed.image || searchResultPodcastIndexFeed.artwork;
   const description = searchResultPodcastIndexFeed.description || ""; 
   const lastPubDate = searchResultPodcastIndexFeed.newestItemPubdate || null;
@@ -22,8 +25,19 @@ const ListSearchResultPodcastIndexFeedRow: React.FC<Props> = ({ searchResultPodc
   const tMedia = useTranslations("media");
   const locale = useLocale();
   
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const ssrChannel = await apiRequestService.reqChannelGetByPodcastIndexId(searchResultPodcastIndexFeed.id);
+    if (ssrChannel?.medium_id) {
+      redirectToChannelPageByMediumClient(router)(ssrChannel.medium_id, ssrChannel.id_text);
+    } else {
+      const url = `${ROUTES.PODCAST_INDEX}/feed/${searchResultPodcastIndexFeed.id}`;
+      router.push(url);
+    }
+  };
+
   return (
-    <Link href={url} className={styles.link}>
+    <Link className={styles.link} onClick={handleClick}>
       <div className={styles.listItem}>
         <Image
           src={imageUrl}
