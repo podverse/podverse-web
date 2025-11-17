@@ -14,39 +14,36 @@ export function handleRateLimitAlert(
     (error as any)?.body;
 
   if (status === 429 && data?.tooManyRequests) {
-    let raw =
-      data.timeUntilResetMs ??
-      data.timeRemainingMs ??
-      data.resetAt ??
-      data.timeRemaining;
-
-    if (raw == null) {
+    const minutesRemaining = data.minutesRemaining;
+    if (typeof minutesRemaining !== "number" || isNaN(minutesRemaining) || minutesRemaining < 1) {
       alert(
         tMisc
           ? tMisc("rate_limit.generic")
-          : "Rate limiting: please try again later."
+          : "Rate limited: please try again later."
       );
       return true;
     }
 
-    let epochMs: number;
-    if (typeof raw === "number") {
-      if (raw < Date.now() / 4) {
-        epochMs = Date.now() + raw;
+    let message: string;
+    if (tMisc) {
+      const key =
+        minutesRemaining === 1
+          ? "rate_limit.minute_remaining"
+          : "rate_limit.minutes_remaining";
+      const templated = tMisc(key, { minutes: minutesRemaining });
+      if (!templated || templated.includes(key)) {
+        // Fallback to generic if translation missing
+        message = tMisc("rate_limit.generic");
       } else {
-        epochMs = raw;
+        message = templated;
       }
     } else {
-      const parsed = Date.parse(raw);
-      epochMs = isNaN(parsed) ? Date.now() : parsed;
+      message =
+        minutesRemaining === 1
+          ? "Rate limited: 1 minute until you can use this action again."
+          : `Rate limited: ${minutesRemaining} minutes until you can use this action again.`;
     }
-
-    const localTime = new Date(epochMs).toLocaleString(locale || undefined);
-    alert(
-      tMisc
-        ? tMisc("rate_limit.until", { time: localTime })
-        : `Rate limiting: this action cannot be used until ${localTime}`
-    );
+    alert(message);
     return true;
   }
 
