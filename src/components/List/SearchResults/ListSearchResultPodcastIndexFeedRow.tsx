@@ -14,7 +14,7 @@ interface Props {
 }
 
 const ListSearchResultPodcastIndexFeedRow: React.FC<Props> = ({ searchResultPodcastIndexFeed }) => {
-  const url = `${ROUTES.SEARCH}/podcast-index/feed/${searchResultPodcastIndexFeed.id}`;
+  const url = `${ROUTES.PODCAST_INDEX}/feed/${searchResultPodcastIndexFeed.id}`;
   const imageUrl = searchResultPodcastIndexFeed.image || searchResultPodcastIndexFeed.artwork;
   const description = searchResultPodcastIndexFeed.description || ""; 
   const lastPubDate = searchResultPodcastIndexFeed.newestItemPubdate || null;

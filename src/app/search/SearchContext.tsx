@@ -37,7 +37,7 @@ export const SearchContextProvider = ({
       setIsLoading(true);
       if (trimmedQ) {
         try {
-          const response = await apiRequestService.reqSearchPodcasts({
+          const response = await apiRequestService.reqPodcastIndexSearchPodcasts({
             q: trimmedQ
           });
           setSearchResultFeeds(response.feeds);
