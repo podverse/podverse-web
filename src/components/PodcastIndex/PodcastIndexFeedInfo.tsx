@@ -1,9 +1,16 @@
+"use client";
+
 import { useLocale, useTranslations } from "next-intl";
 import { formatDateAbbrev, PodcastByIdFeed } from "podverse-helpers";
 import { Image } from "../Image/Image";
 import { IMAGES } from "../../constants/images";
 import { Button } from "../Button/Button";
 import styles from "../../styles/components/PodcastIndex/PodcastIndexFeedInfo.module.scss";
+import { useState, useRef, useEffect } from "react";
+import { apiRequestService } from "../../factories/apiRequestService";
+import { handleRateLimitAlert } from "../../utils/rateLimit/rateLimitAlert";
+import { useRouter } from "next/navigation";
+import { redirectToChannelPageByMediumClient } from "../../utils/redirect/redirectToChannelPageByMedium";
 
 type PodcastIndexFeedInfoProps = {
   podcastIndexFeed: PodcastByIdFeed;
@@ -12,11 +19,64 @@ type PodcastIndexFeedInfoProps = {
 export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podcastIndexFeed }) => {
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
+  const tMisc = useTranslations("misc");
+  const [isLoading, setIsLoading] = useState(false);
   const imageUrl = podcastIndexFeed.image || podcastIndexFeed.artwork || null;
   const description = podcastIndexFeed.description || ""; 
   const lastUpdateTime = podcastIndexFeed.lastUpdateTime || null;
   const author = podcastIndexFeed.author || null;
   const locale = useLocale();
+  const router = useRouter();
+  const redirectToChannel = redirectToChannelPageByMediumClient(router);
+  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hasRedirectedRef = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+    };
+  }, []);
+
+  const startPollingForChannel = (podcastIndexId: string | number) => {
+    if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+    const idText = String(podcastIndexId);
+    pollIntervalRef.current = setInterval(async () => {
+      if (hasRedirectedRef.current) return;
+      try {
+        const ssrChannel = await apiRequestService.reqChannelGetByPodcastIndexId(idText);
+        if (ssrChannel?.medium_id && ssrChannel?.id_text) {
+          hasRedirectedRef.current = true;
+          if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+          redirectToChannel(ssrChannel.medium_id, ssrChannel.id_text);
+        }
+      } catch (e) {
+        console.log("Checking for channel...not found yet.");
+      }
+    }, 2000);
+  };
+
+  const addFeedOnClick = async () => {
+    setIsLoading(true);
+
+    if (podcastIndexFeed?.url && podcastIndexFeed?.id) {
+      try {
+        await apiRequestService.reqMQRSSAddOnDemand({
+          url: podcastIndexFeed.url,
+          podcast_index_id: podcastIndexFeed.id
+        });
+        
+        startPollingForChannel(podcastIndexFeed.id);
+      } catch (error) {
+        const handled = handleRateLimitAlert(error, locale, tMisc);
+        if (!handled) {
+          console.error(error);
+          alert("Error performing action.");
+        }
+        setIsLoading(false);
+      }
+      return;
+    }
+  };
 
   return (
     <div>
@@ -26,8 +86,9 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
         </div>
         <Button
           variant="primary"
-          onClick={() => alert("Add feed functionality coming soon!")}
+          onClick={addFeedOnClick}
           className={styles.addFeedButton}
+          isLoading={isLoading}
         >
           {tFeatures("add_feed.add_feed")}
         </Button>

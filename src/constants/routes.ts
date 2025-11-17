@@ -1,5 +1,6 @@
 export const ROUTES = {
   ABOUT: '/about',
+  ALBUM: '/album',
   ALBUMS: '/albums',
   ARTISTS: '/artists',
   CHANNELS: '/channels',
@@ -30,5 +31,6 @@ export const ROUTES = {
   SETTINGS: '/settings',
   TERMS: '/terms',
   TRACKS: '/tracks',
+  VIDEO: '/video',
   VIDEOS: '/videos'
 };
