@@ -5,14 +5,16 @@
       "podcasting": "Podcasting",
       "podcast": "Podcast",
       "podcasts": "Podcasts",
+      "podcast_image": "Imagen del podcast",
       "episode": "Episodio",
       "episodes": "Episodios",
-      "podcast_image": "Imagen del podcast"
+      "episode_image": "Imagen del episodio"
     },
     "music": {
       "music": "Música",
       "artist": "Artista",
       "artists": "Artistas",
+      "album": "Álbum",
       "albums": "Álbumes",
       "track": "Rastrear",
       "tracks": "Pistas"
@@ -23,24 +25,209 @@
       "video": "Video",
       "videos": "Videos"
     },
-    "clips": "Clips",
-    "livestreams": "Transmisiones en vivo",
+    "livestream": {
+      "livestream": "Transmisión en vivo",
+      "livestreams": "Transmisiones en vivo",
+      "livestream_image": "Imagen de transmisión en vivo",
+      "live": "En vivo",
+      "scheduled": "Programado",
+      "ended": "Terminado"
+    },
     "updated_with_date": "Última actualización: {date}"
   },
   "features": {
-    "search": "Buscar",
+    "search": {
+      "search": "Buscar",
+      "search_by_title": "Buscar por título..."
+    },
+    "add_feed": {
+      "add_feed": "Agregar fuente",
+      "add_feed_explanation": "Este feed no está en el directorio de Podverse. Si desea agregarlo, presione el botón «Agregar Feed»."
+    },
     "my_library": "Mi Biblioteca",
-    "queue": "Cola",
-    "history": "Historia",
-    "playlist": "Lista de reproducción",
-    "playlists": "Listas de reproducción",
+    "queue": {
+      "queue": "Cola",
+      "queues": "Colas",
+      "queue_next": "Cola: Siguiente",
+      "queue_last": "Cola: Último",
+      "added_to_queue": "Añadido a la cola",
+      "add_error": "Error al agregar a la cola",
+      "remove_error": "Error al eliminar de la cola",
+      "remove_from_queue": "Eliminar de la cola",
+      "removed_from_queue": "Eliminado de la cola"
+    },
+    "history": {
+      "history": "Historia",
+      "delete_history": "Eliminar historial",
+      "mark_as_played": "Marcar como reproducido",
+      "marked_as_played": "Marcado como Reproducido",
+      "mark_as_played_error": "Error al marcar como reproducido"
+    },
+    "playlist": {
+      "playlist": "Lista de reproducción",
+      "playlists": "Listas de reproducción",
+      "my_playlists": "Mis listas de reproducción",
+      "create_playlist": "Crear lista de reproducción",
+      "edit_playlist": "Editar lista de reproducción",
+      "delete_playlist": "Eliminar lista de reproducción",
+      "delete_playlist_confirm": "¿Estás seguro de que quieres eliminar esta lista de reproducción?",
+      "add_to_playlist": "Agregar a la lista de reproducción",
+      "added_to_playlist": "Añadido a la lista de reproducción",
+      "add_error": "Error al agregar a la lista de reproducción",
+      "remove_from_playlist": "Eliminar de la lista de reproducción",
+      "removed_from_playlist": "Eliminado de la lista de reproducción",
+      "remove_error": "Error al eliminar de la lista de reproducción",
+      "item_count": "Artículos: {count}",
+      "playlist_type": "Tipo de lista de reproducción"
+    },
+    "clip": {
+      "clip": "Clip",
+      "clips": "Clips",
+      "create_clip": "Crear clip",
+      "edit_clip": "Editar clip",
+      "delete_clip": "Eliminar clip",
+      "delete_clip_confirm": "¿Estás seguro de que deseas eliminar este clip?",
+      "my_clips": "Mis Clips",
+      "clip_created": "Clip Creado",
+      "clip_updated": "Clip Actualizado",
+      "link_to_clip": "Enlace al clip",
+      "start_time": "Hora de inicio",
+      "start_time_aria": "Hora de inicio en horas, minutos y segundos (hh:mm:ss)",
+      "start_time_play_aria": "Reproducir desde el inicio del clip",
+      "end_time": "Hora de finalización",
+      "end_time_aria": "Hora de finalización en horas, minutos y segundos (hh:mm:ss)",
+      "end_time_play_aria": "Reproducir desde el tiempo final del clip",
+      "clip_time_range": "{hhmmssStart} a {hhmmssEnd}"
+    },
     "my_clips": "Mis Clips",
     "my_profile": "Mi Perfil",
     "profile": "Perfil",
-    "profiles": "Perfiles"
+    "profiles": "Perfiles",
+    "embed": "Incrustar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "subscribe": "Suscribirse",
+    "unsubscribe": "Darse de baja",
+    "share": "Compartir",
+    "download": {
+      "download_episode": "Descargar episodio",
+      "downloading_episode": "Descargando episodio",
+      "episode_downloaded": "Episodio descargado",
+      "download_error": "Error al descargar el episodio"
+    }
+  },
+  "info": {
+    "funding": "Financiación",
+    "website": "Sitio web",
+    "rss_feed": "Fuente RSS",
+    "about": "Acerca de",
+    "summary": {
+      "summary": "Resumen",
+      "no_summary": "No hay resumen disponible"
+    },
+    "podroll": "Podroll",
+    "transcript": {
+      "transcript": "Transcripción",
+      "search_transcript": "Buscar transcripción..."
+    },
+    "credits": "Créditos",
+    "people": {
+      "people": "Personas",
+      "person_image": "Imagen de la persona",
+      "link_to_persons_webpage": "Enlace a la página web de la persona"
+    },
+    "chapter": {
+      "chapter": "Capítulo",
+      "chapters": "Capítulos",
+      "chapter_image": "Imagen del capítulo"
+    },
+    "soundbite": {
+      "official_clip": "Clip oficial",
+      "official_clips": "Clips Oficiales"
+    },
+    "time": {
+      "left": "{timeRemaining} restante",
+      "last": "{timePosition} último",
+      "start": "{timeStart} hora de inicio",
+      "start_end": "{timeStart} a {timeEnd}"
+    }
+  },
+  "media_player": {
+    "play": "Jugar",
+    "pause": "Pausa",
+    "show_fullscreen_media_player": "Mostrar el reproductor de medios en pantalla completa",
+    "fullscreen_media_player": "Reproductor de medios en pantalla completa",
+    "media_player_image": "Imagen del reproductor multimedia",
+    "playback_speed": {
+      "playback_speed": "Velocidad de reproducción",
+      "playback_speed_with_value": "Velocidad de reproducción: {speed}",
+      "speeds": {
+        "0-5": "0.5x",
+        "0-75": "0,75x",
+        "0-87": "0.87x",
+        "1-0": "1x",
+        "1-12": "1.12x",
+        "1-25": "1.25x",
+        "1-5": "1,5x",
+        "1-75": "1.75x",
+        "2-0": "2x",
+        "2-5": "2.5x",
+        "3-0": "3x"
+      }
+    },
+    "source": {
+      "source": "Fuente",
+      "source_with_format": "Fuente: {format}",
+      "select_source": "Seleccionar fuente de medios",
+      "video": "Video",
+      "video_with_resolution": "Vídeo {resolution}p",
+      "video_with_ext": "Video {ext}",
+      "video_with_ext_resolution": "Vídeo {ext} {resolution}p",
+      "resolution": "{resolution}p",
+      "audio": "Audio",
+      "audio_with_ext": "Audio {ext}",
+      "audio_with_bitrate_kbps": "Audio {bitrate}kbps",
+      "audio_with_bitrate_mbps": "Audio {bitrate}Mbps",
+      "audio_with_ext_bitrate_kbps": "Audio {ext} {bitrate}kbps",
+      "audio_with_ext_bitrate_mbps": "Audio {ext} {bitrate}Mbps"
+    }
+  },
+  "value": {
+    "boost": "Impulsar",
+    "recipient": {
+      "creator_recipient": "Destinatario",
+      "creator_recipients": "Destinatarios",
+      "app_recipient": "Destinatario de la aplicación"
+    },
+    "total": "Total",
+    "message": "Mensaje",
+    "types": {
+      "lightning_keysend": {
+        "label": "Envió de clave Lightning de Bitcoin",
+        "denomination": "satoshis"
+      },
+      "paypal_send": {
+        "label": "PayPal",
+        "denomination": "USD"
+      },
+      "patreon_send": {
+        "label": "Patreon",
+        "denomination": "USD"
+      },
+      "buymeacoffee_send": {
+        "label": "Cómprame un café",
+        "denomination": "USD"
+      }
+    },
+    "send_to": {
+      "creator": "Enviar al Creador",
+      "app": "Enviar a {brand_name}"
+    },
+    "your_name": "Tu Nombre"
   },
   "filters": {
     "type": {
+      "global": "Global",
       "all": "Todo",
       "subscribed": "Suscrito",
       "category": "Categoría"
@@ -59,8 +246,48 @@
       "all_time": "Todo el tiempo"
     }
   },
+  "misc": {
+    "more_info": "Más información",
+    "info": "Información",
+    "items": "Artículos",
+    "increment": "Incrementar",
+    "decrement": "Decrementar",
+    "anonymous": "Anónimo",
+    "untitled": "Sin título",
+    "optional": "Opcional",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "title": "Título",
+    "description": "Descripción",
+    "required": "Requerido",
+    "edit": "Editar",
+    "done": "Hecho",
+    "id": "ID",
+    "unknown_date": "Fecha desconocida",
+    "sharable_status": {
+      "sharable_status": "Estado compartible",
+      "public": "Público",
+      "unlisted": "No listado",
+      "private": "Privado"
+    },
+    "autoscroll": {
+      "autoscroll_on": "Desplazamiento automático: Activado",
+      "autoscroll_off": "Desplazamiento automático: Desactivado"
+    },
+    "rate_limit": {
+      "generic": "Límite de velocidad alcanzado: por favor, inténtelo de nuevo más tarde.",
+      "until": "Límite de velocidad: esta acción no se puede usar nuevamente hasta {time}.",
+      "minute_remaining": "Límite de velocidad: {minutes} minuto hasta que puedas usar esta acción nuevamente.",
+      "minutes_remaining": "Límite de tasa: {minutes} minutos hasta que puedas usar esta acción nuevamente."
+    }
+  },
   "instructions": {
-    "login_for_subscriptions": "Por favor, inicie sesión para ver sus suscripciones."
+    "login_for_subscriptions": "Por favor, inicie sesión para ver sus suscripciones.",
+    "login_to_create_playlists": "Por favor, inicia sesión para crear listas de reproducción.",
+    "login_to_create_clips": "Por favor, inicia sesión para crear clips.",
+    "login_for_queues": "Por favor, inicie sesión para ver sus colas.",
+    "login_for_history": "Por favor, inicie sesión para ver su historial."
   },
   "authentication": {
     "login": "Iniciar sesión",
