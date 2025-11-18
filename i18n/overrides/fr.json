@@ -5,14 +5,16 @@
       "podcasting": "Podcasting",
       "podcast": "Podcast",
       "podcasts": "Podcasts",
+      "podcast_image": "Image du podcast",
       "episode": "Épisode",
       "episodes": "Épisodes",
-      "podcast_image": "Image du podcast"
+      "episode_image": "Image de l'épisode"
     },
     "music": {
       "music": "Musique",
       "artist": "Artiste",
       "artists": "Artistes",
+      "album": "Album",
       "albums": "Albums",
       "track": "Suivre",
       "tracks": "Pistes"
@@ -23,24 +25,209 @@
       "video": "Vidéo",
       "videos": "Vidéos"
     },
-    "clips": "Clips",
-    "livestreams": "Diffusions en direct",
+    "livestream": {
+      "livestream": "Diffusion en direct",
+      "livestreams": "Diffusions en direct",
+      "livestream_image": "Image en direct",
+      "live": "En direct",
+      "scheduled": "Planifié",
+      "ended": "Terminé"
+    },
     "updated_with_date": "Dernière mise à jour : {date}"
   },
   "features": {
-    "search": "Rechercher",
+    "search": {
+      "search": "Rechercher",
+      "search_by_title": "Rechercher par titre..."
+    },
+    "add_feed": {
+      "add_feed": "Ajouter un flux",
+      "add_feed_explanation": "Ce flux ne figure pas dans l'annuaire Podverse. Si vous souhaitez l'ajouter, appuyez sur le bouton « Ajouter le flux »."
+    },
     "my_library": "Ma bibliothèque",
-    "queue": "File d'attente",
-    "history": "Histoire",
-    "playlist": "Liste de lecture",
-    "playlists": "Listes de lecture",
+    "queue": {
+      "queue": "File d'attente",
+      "queues": "Files d'attente",
+      "queue_next": "File d'attente : Suivant",
+      "queue_last": "File d'attente : Dernier",
+      "added_to_queue": "Ajouté à la file d'attente",
+      "add_error": "Erreur lors de l'ajout à la file d'attente",
+      "remove_error": "Erreur lors de la suppression de la file d'attente",
+      "remove_from_queue": "Retirer de la file d'attente",
+      "removed_from_queue": "Retiré de la file d'attente"
+    },
+    "history": {
+      "history": "Histoire",
+      "delete_history": "Supprimer l'historique",
+      "mark_as_played": "Marquer comme joué",
+      "marked_as_played": "Marqué comme Joué",
+      "mark_as_played_error": "Erreur lors du marquage comme lu"
+    },
+    "playlist": {
+      "playlist": "Liste de lecture",
+      "playlists": "Listes de lecture",
+      "my_playlists": "Mes playlists",
+      "create_playlist": "Créer une playlist",
+      "edit_playlist": "Modifier la playlist",
+      "delete_playlist": "Supprimer la playlist",
+      "delete_playlist_confirm": "Êtes-vous sûr de vouloir supprimer cette playlist ?",
+      "add_to_playlist": "Ajouter à la playlist",
+      "added_to_playlist": "Ajouté à la playlist",
+      "add_error": "Erreur lors de l'ajout à la playlist",
+      "remove_from_playlist": "Supprimer de la playlist",
+      "removed_from_playlist": "Retiré de la playlist",
+      "remove_error": "Erreur lors de la suppression de la playlist",
+      "item_count": "Articles : {count}",
+      "playlist_type": "Type de playlist"
+    },
+    "clip": {
+      "clip": "Clip",
+      "clips": "Clips",
+      "create_clip": "Créer un clip",
+      "edit_clip": "Modifier le clip",
+      "delete_clip": "Supprimer le clip",
+      "delete_clip_confirm": "Êtes-vous sûr de vouloir supprimer ce clip ?",
+      "my_clips": "Mes Clips",
+      "clip_created": "Clip créé",
+      "clip_updated": "Clip mis à jour",
+      "link_to_clip": "Lien vers le clip",
+      "start_time": "Heure de début",
+      "start_time_aria": "Heure de début en heures, minutes et secondes (hh:mm:ss)",
+      "start_time_play_aria": "Jouer depuis le début du clip",
+      "end_time": "Heure de fin",
+      "end_time_aria": "Heure de fin en heures, minutes et secondes (hh:mm:ss)",
+      "end_time_play_aria": "Jouer à partir de la fin du clip",
+      "clip_time_range": "{hhmmssStart} à {hhmmssEnd}"
+    },
     "my_clips": "Mes Clips",
     "my_profile": "Mon Profil",
     "profile": "Profil",
-    "profiles": "Profils"
+    "profiles": "Profils",
+    "embed": "Intégrer",
+    "copy": "Copier",
+    "copied": "Copié",
+    "subscribe": "S'abonner",
+    "unsubscribe": "Se désabonner",
+    "share": "Partager",
+    "download": {
+      "download_episode": "Télécharger l'épisode",
+      "downloading_episode": "Téléchargement de l'épisode",
+      "episode_downloaded": "Épisode téléchargé",
+      "download_error": "Erreur lors du téléchargement de l'épisode"
+    }
+  },
+  "info": {
+    "funding": "Financement",
+    "website": "Site web",
+    "rss_feed": "Flux RSS",
+    "about": "À propos",
+    "summary": {
+      "summary": "Résumé",
+      "no_summary": "Aucun résumé disponible"
+    },
+    "podroll": "Podroll",
+    "transcript": {
+      "transcript": "Transcription",
+      "search_transcript": "Rechercher dans la transcription..."
+    },
+    "credits": "Crédits",
+    "people": {
+      "people": "Personnes",
+      "person_image": "Image de la personne",
+      "link_to_persons_webpage": "Lien vers la page Web de la personne"
+    },
+    "chapter": {
+      "chapter": "Chapitre",
+      "chapters": "Chapitres",
+      "chapter_image": "Image du chapitre"
+    },
+    "soundbite": {
+      "official_clip": "Clip officiel",
+      "official_clips": "Clips officiels"
+    },
+    "time": {
+      "left": "{timeRemaining} restant",
+      "last": "{timePosition} dernier",
+      "start": "{timeStart} heure de début",
+      "start_end": "{timeStart} à {timeEnd}"
+    }
+  },
+  "media_player": {
+    "play": "Jouer",
+    "pause": "Pause",
+    "show_fullscreen_media_player": "Afficher le lecteur multimédia en plein écran",
+    "fullscreen_media_player": "Lecteur multimédia en plein écran",
+    "media_player_image": "Image du lecteur multimédia",
+    "playback_speed": {
+      "playback_speed": "Vitesse de lecture",
+      "playback_speed_with_value": "Vitesse de lecture : {speed}",
+      "speeds": {
+        "0-5": "0,5x",
+        "0-75": "0,75x",
+        "0-87": "0,87x",
+        "1-0": "1x",
+        "1-12": "1,12x",
+        "1-25": "1,25x",
+        "1-5": "1,5x",
+        "1-75": "1,75x",
+        "2-0": "2x",
+        "2-5": "2,5x",
+        "3-0": "3x"
+      }
+    },
+    "source": {
+      "source": "Source",
+      "source_with_format": "Source : {format}",
+      "select_source": "Sélectionner la source média",
+      "video": "Vidéo",
+      "video_with_resolution": "Vidéo {resolution}p",
+      "video_with_ext": "Vidéo {ext}",
+      "video_with_ext_resolution": "Vidéo {ext} {resolution}p",
+      "resolution": "{resolution}p",
+      "audio": "Audio",
+      "audio_with_ext": "Audio {ext}",
+      "audio_with_bitrate_kbps": "Audio {bitrate} kbps",
+      "audio_with_bitrate_mbps": "Audio {bitrate}Mbps",
+      "audio_with_ext_bitrate_kbps": "Audio {ext} {bitrate} kbps",
+      "audio_with_ext_bitrate_mbps": "Audio {ext} {bitrate}Mbps"
+    }
+  },
+  "value": {
+    "boost": "Booster",
+    "recipient": {
+      "creator_recipient": "Destinataire",
+      "creator_recipients": "Destinataires",
+      "app_recipient": "Destinataire de l'application"
+    },
+    "total": "Total",
+    "message": "Message",
+    "types": {
+      "lightning_keysend": {
+        "label": "Bitcoin Lightning Keysend",
+        "denomination": "satoshis"
+      },
+      "paypal_send": {
+        "label": "PayPal",
+        "denomination": "USD"
+      },
+      "patreon_send": {
+        "label": "Patreon",
+        "denomination": "USD"
+      },
+      "buymeacoffee_send": {
+        "label": "Offrez-moi un café",
+        "denomination": "USD"
+      }
+    },
+    "send_to": {
+      "creator": "Envoyer au Créateur",
+      "app": "Envoyer à {brand_name}"
+    },
+    "your_name": "Votre Nom"
   },
   "filters": {
     "type": {
+      "global": "Global",
       "all": "Tous",
       "subscribed": "Abonné",
       "category": "Catégorie"
@@ -59,8 +246,48 @@
       "all_time": "Tout le temps"
     }
   },
+  "misc": {
+    "more_info": "Plus d'infos",
+    "info": "Info",
+    "items": "Articles",
+    "increment": "Incrémenter",
+    "decrement": "Décrémenter",
+    "anonymous": "Anonyme",
+    "untitled": "Sans titre",
+    "optional": "Optionnel",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "title": "Titre",
+    "description": "Description",
+    "required": "Requis",
+    "edit": "Modifier",
+    "done": "Terminé",
+    "id": "ID",
+    "unknown_date": "Date inconnue",
+    "sharable_status": {
+      "sharable_status": "Statut partageable",
+      "public": "Public",
+      "unlisted": "Non répertorié",
+      "private": "Privé"
+    },
+    "autoscroll": {
+      "autoscroll_on": "Défilement automatique : Activé",
+      "autoscroll_off": "Défilement automatique : Désactivé"
+    },
+    "rate_limit": {
+      "generic": "Limite de fréquence atteinte : veuillez réessayer plus tard.",
+      "until": "Limite de fréquence : cette action ne peut pas être utilisée à nouveau avant {time}.",
+      "minute_remaining": "Limite de fréquence : {minutes} minute avant de pouvoir utiliser cette action à nouveau.",
+      "minutes_remaining": "Limite de fréquence atteinte : {minutes} minutes avant de pouvoir utiliser cette action à nouveau."
+    }
+  },
   "instructions": {
-    "login_for_subscriptions": "Veuillez vous connecter pour voir vos abonnements."
+    "login_for_subscriptions": "Veuillez vous connecter pour voir vos abonnements.",
+    "login_to_create_playlists": "Veuillez vous connecter pour créer des listes de lecture.",
+    "login_to_create_clips": "Veuillez vous connecter pour créer des clips.",
+    "login_for_queues": "Veuillez vous connecter pour voir vos files d'attente.",
+    "login_for_history": "Veuillez vous connecter pour voir votre historique."
   },
   "authentication": {
     "login": "Connexion",

@@ -5,14 +5,16 @@
       "podcasting": "Δημιουργία podcast",
       "podcast": "Podcast",
       "podcasts": "Ποντκαστς",
+      "podcast_image": "Εικόνα Podcast",
       "episode": "Επεισόδιο",
       "episodes": "Επεισόδια",
-      "podcast_image": "Εικόνα Podcast"
+      "episode_image": "Εικόνα Επεισοδίου"
     },
     "music": {
       "music": "Μουσική",
       "artist": "Καλλιτέχνης",
       "artists": "Καλλιτέχνες",
+      "album": "Άλμπουμ",
       "albums": "Άλμπουμ",
       "track": "Παρακολούθηση",
       "tracks": "Κομμάτια"
@@ -23,24 +25,209 @@
       "video": "Βίντεο",
       "videos": "Βίντεο"
     },
-    "clips": "Κλιπς",
-    "livestreams": "Ζωντανές μεταδόσεις",
+    "livestream": {
+      "livestream": "Ζωντανή μετάδοση",
+      "livestreams": "Ζωντανές μεταδόσεις",
+      "livestream_image": "Εικόνα Ζωντανής Μετάδοσης",
+      "live": "Ζωντανά",
+      "scheduled": "Προγραμματισμένο",
+      "ended": "Ολοκληρώθηκε"
+    },
     "updated_with_date": "Τελευταία ενημέρωση: {date}"
   },
   "features": {
-    "search": "Αναζήτηση",
+    "search": {
+      "search": "Αναζήτηση",
+      "search_by_title": "Αναζήτηση κατά τίτλο..."
+    },
+    "add_feed": {
+      "add_feed": "Προσθήκη Ροής",
+      "add_feed_explanation": "Αυτή η ροή δεν βρίσκεται στον κατάλογο του Podverse. Εάν θέλετε να την προσθέσετε, πατήστε το κουμπί «Προσθήκη Ροής»."
+    },
     "my_library": "Η Βιβλιοθήκη μου",
-    "queue": "Ουρά",
-    "history": "Ιστορία",
-    "playlist": "Λίστα αναπαραγωγής",
-    "playlists": "Λίστες αναπαραγωγής",
+    "queue": {
+      "queue": "Ουρά",
+      "queues": "Ουρές",
+      "queue_next": "Ουρά: Επόμενο",
+      "queue_last": "Ουρά: Τελευταίο",
+      "added_to_queue": "Προστέθηκε στην ουρά",
+      "add_error": "Σφάλμα κατά την προσθήκη στην ουρά",
+      "remove_error": "Σφάλμα κατά την αφαίρεση από την Ουρά",
+      "remove_from_queue": "Αφαίρεση από τη σειρά αναμονής",
+      "removed_from_queue": "Αφαιρέθηκε από τη σειρά αναμονής"
+    },
+    "history": {
+      "history": "Ιστορία",
+      "delete_history": "Διαγραφή Ιστορικού",
+      "mark_as_played": "Σήμανση ως Αναπαραγμένο",
+      "marked_as_played": "Επισημάνθηκε ως Αναπαραχθέν",
+      "mark_as_played_error": "Σφάλμα κατά τη σήμανση ως αναπαραγμένο"
+    },
+    "playlist": {
+      "playlist": "Λίστα αναπαραγωγής",
+      "playlists": "Λίστες αναπαραγωγής",
+      "my_playlists": "Οι λίστες αναπαραγωγής μου",
+      "create_playlist": "Δημιουργία Λίστας Αναπαραγωγής",
+      "edit_playlist": "Επεξεργασία Λίστας Αναπαραγωγής",
+      "delete_playlist": "Διαγραφή Λίστας Αναπαραγωγής",
+      "delete_playlist_confirm": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτήν την λίστα αναπαραγωγής;",
+      "add_to_playlist": "Προσθήκη στη Λίστα Αναπαραγωγής",
+      "added_to_playlist": "Προστέθηκε στη Λίστα Αναπαραγωγής",
+      "add_error": "Σφάλμα κατά την προσθήκη στην Αναπαραγωγή",
+      "remove_from_playlist": "Αφαίρεση από τη Λίστα Αναπαραγωγής",
+      "removed_from_playlist": "Αφαιρέθηκε από τη Λίστα Αναπαραγωγής",
+      "remove_error": "Σφάλμα κατά την αφαίρεση από τη Λίστα Αναπαραγωγής",
+      "item_count": "Αντικείμενα: {count}",
+      "playlist_type": "Τύπος Λίστας Αναπαραγωγής"
+    },
+    "clip": {
+      "clip": "Κλιπ",
+      "clips": "Κλιπς",
+      "create_clip": "Δημιουργία Κλιπ",
+      "edit_clip": "Επεξεργασία Κλιπ",
+      "delete_clip": "Διαγραφή Κλιπ",
+      "delete_clip_confirm": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το απόσπασμα;",
+      "my_clips": "Τα Κλιπ μου",
+      "clip_created": "Απόσπασμα Δημιουργήθηκε",
+      "clip_updated": "Κλιπ Ενημερώθηκε",
+      "link_to_clip": "Σύνδεσμος προς το Απόσπασμα",
+      "start_time": "Ώρα Έναρξης",
+      "start_time_aria": "Ώρα έναρξης σε ώρες, λεπτά και δευτερόλεπτα (ωω:λλ:δδ)",
+      "start_time_play_aria": "Αναπαραγωγή από την ώρα έναρξης του κλιπ",
+      "end_time": "Τέλος Χρόνου",
+      "end_time_aria": "Τελικός χρόνος σε ώρες, λεπτά και δευτερόλεπτα (ωω:λλ:δδ)",
+      "end_time_play_aria": "Αναπαραγωγή από το τέλος του κλιπ",
+      "clip_time_range": "{hhmmssStart} έως {hhmmssEnd}"
+    },
     "my_clips": "Τα Κλιπ μου",
     "my_profile": "Το Προφίλ Μου",
     "profile": "Προφίλ",
-    "profiles": "Προφίλ"
+    "profiles": "Προφίλ",
+    "embed": "Ενσωμάτωση",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "subscribe": "Εγγραφή",
+    "unsubscribe": "Κατάργηση εγγραφής",
+    "share": "Κοινοποίηση",
+    "download": {
+      "download_episode": "Λήψη Επεισοδίου",
+      "downloading_episode": "Κατεβάζοντας το Επεισόδιο",
+      "episode_downloaded": "Επεισόδιο Κατεβασμένο",
+      "download_error": "Σφάλμα κατά τη λήψη του επεισοδίου"
+    }
+  },
+  "info": {
+    "funding": "Χρηματοδότηση",
+    "website": "Ιστοσελίδα",
+    "rss_feed": "Τροφοδοσία RSS",
+    "about": "Σχετικά",
+    "summary": {
+      "summary": "Περίληψη",
+      "no_summary": "Δεν υπάρχει διαθέσιμη περίληψη"
+    },
+    "podroll": "Podroll",
+    "transcript": {
+      "transcript": "Απόσπασμα",
+      "search_transcript": "Αναζήτηση απομαγνητοφώνησης..."
+    },
+    "credits": "Πιστώσεις",
+    "people": {
+      "people": "Άνθρωποι",
+      "person_image": "Εικόνα Προσώπου",
+      "link_to_persons_webpage": "Σύνδεσμος στη Σελίδα του {name}"
+    },
+    "chapter": {
+      "chapter": "Κεφάλαιο",
+      "chapters": "Κεφάλαια",
+      "chapter_image": "Εικόνα Κεφαλαίου"
+    },
+    "soundbite": {
+      "official_clip": "Επίσημο Απόσπασμα",
+      "official_clips": "Επίσημα Κλιπς"
+    },
+    "time": {
+      "left": "{timeRemaining} απομένουν",
+      "last": "{timePosition} τελευταίο",
+      "start": "Ώρα έναρξης {timeStart}",
+      "start_end": "{timeStart} έως {timeEnd}"
+    }
+  },
+  "media_player": {
+    "play": "Παίξε",
+    "pause": "Παύση",
+    "show_fullscreen_media_player": "Εμφάνιση του προγράμματος αναπαραγωγής πολυμέσων σε πλήρη οθόνη",
+    "fullscreen_media_player": "Πλήρης οθόνη αναπαραγωγής μέσων",
+    "media_player_image": "Εικόνα προγράμματος αναπαραγωγής μέσων",
+    "playback_speed": {
+      "playback_speed": "Ταχύτητα Αναπαραγωγής",
+      "playback_speed_with_value": "Ταχύτητα Αναπαραγωγής: {speed}",
+      "speeds": {
+        "0-5": "0,5x",
+        "0-75": "0,75x",
+        "0-87": "0,87x",
+        "1-0": "1x",
+        "1-12": "1,12x",
+        "1-25": "1,25x",
+        "1-5": "1,5x",
+        "1-75": "1,75x",
+        "2-0": "2x",
+        "2-5": "2,5x",
+        "3-0": "3x"
+      }
+    },
+    "source": {
+      "source": "Πηγή",
+      "source_with_format": "Πηγή: {format}",
+      "select_source": "Επιλέξτε Πηγή Μέσων",
+      "video": "Βίντεο",
+      "video_with_resolution": "Βίντεο {resolution}p",
+      "video_with_ext": "Βίντεο {ext}",
+      "video_with_ext_resolution": "Βίντεο {ext} {resolution}p",
+      "resolution": "{resolution}σ",
+      "audio": "Ήχος",
+      "audio_with_ext": "Ήχος {ext}",
+      "audio_with_bitrate_kbps": "Ήχος {bitrate}kbps",
+      "audio_with_bitrate_mbps": "Ήχος {bitrate}Mbps",
+      "audio_with_ext_bitrate_kbps": "Ήχος {ext} {bitrate}kbps",
+      "audio_with_ext_bitrate_mbps": "Ήχος {ext} {bitrate}Mbps"
+    }
+  },
+  "value": {
+    "boost": "Ενίσχυση",
+    "recipient": {
+      "creator_recipient": "Παραλήπτης",
+      "creator_recipients": "Παραλήπτες",
+      "app_recipient": "Παραλήπτης Εφαρμογής"
+    },
+    "total": "Σύνολο",
+    "message": "Μήνυμα",
+    "types": {
+      "lightning_keysend": {
+        "label": "Bitcoin Lightning Keysend",
+        "denomination": "σατόσις"
+      },
+      "paypal_send": {
+        "label": "PayPal",
+        "denomination": "USD"
+      },
+      "patreon_send": {
+        "label": "Patreon",
+        "denomination": "USD"
+      },
+      "buymeacoffee_send": {
+        "label": "Πλήρωσέ μου έναν καφέ",
+        "denomination": "USD"
+      }
+    },
+    "send_to": {
+      "creator": "Αποστολή στον Δημιουργό",
+      "app": "Αποστολή στο {brand_name}"
+    },
+    "your_name": "Το Όνομά Σας"
   },
   "filters": {
     "type": {
+      "global": "Παγκόσμιο",
       "all": "Όλα",
       "subscribed": "Εγγεγραμμένος",
       "category": "Κατηγορία"
@@ -59,8 +246,48 @@
       "all_time": "Όλων των εποχών"
     }
   },
+  "misc": {
+    "more_info": "Περισσότερες Πληροφορίες",
+    "info": "Πληροφορίες",
+    "items": "Αντικείμενα",
+    "increment": "Αύξηση",
+    "decrement": "Μείωση",
+    "anonymous": "Ανώνυμος",
+    "untitled": "Ανώνυμο",
+    "optional": "Προαιρετικό",
+    "submit": "Υποβολή",
+    "cancel": "Ακύρωση",
+    "close": "Κλείσιμο",
+    "title": "Τίτλος",
+    "description": "Περιγραφή",
+    "required": "Απαιτείται",
+    "edit": "Επεξεργασία",
+    "done": "Ολοκληρώθηκε",
+    "id": "Ταυτότητα",
+    "unknown_date": "Άγνωστη Ημερομηνία",
+    "sharable_status": {
+      "sharable_status": "Κατάσταση που μπορεί να κοινοποιηθεί",
+      "public": "Δημόσιο",
+      "unlisted": "Μη καταχωρημένο",
+      "private": "Ιδιωτικό"
+    },
+    "autoscroll": {
+      "autoscroll_on": "Αυτόματη κύλιση: Ενεργοποιημένη",
+      "autoscroll_off": "Αυτόματη κύλιση: Απενεργοποιημένη"
+    },
+    "rate_limit": {
+      "generic": "Περιορισμός ρυθμού: παρακαλώ δοκιμάστε ξανά αργότερα.",
+      "until": "Περιορισμός ρυθμού: αυτή η ενέργεια δεν μπορεί να χρησιμοποιηθεί ξανά μέχρι τις {time}.",
+      "minute_remaining": "Περιορισμός ρυθμού: {minutes} λεπτό μέχρι να μπορέσετε να χρησιμοποιήσετε ξανά αυτήν την ενέργεια.",
+      "minutes_remaining": "Περιορισμός ρυθμού: {minutes} λεπτά μέχρι να μπορέσετε να χρησιμοποιήσετε ξανά αυτήν την ενέργεια."
+    }
+  },
   "instructions": {
-    "login_for_subscriptions": "Παρακαλώ συνδεθείτε για να δείτε τις συνδρομές σας."
+    "login_for_subscriptions": "Παρακαλώ συνδεθείτε για να δείτε τις συνδρομές σας.",
+    "login_to_create_playlists": "Παρακαλώ συνδεθείτε για να δημιουργήσετε λίστες αναπαραγωγής.",
+    "login_to_create_clips": "Παρακαλώ συνδεθείτε για να δημιουργήσετε αποσπάσματα.",
+    "login_for_queues": "Παρακαλώ συνδεθείτε για να δείτε τις ουρές σας.",
+    "login_for_history": "Παρακαλώ συνδεθείτε για να δείτε το ιστορικό σας."
   },
   "authentication": {
     "login": "Σύνδεση",
