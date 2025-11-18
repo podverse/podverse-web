@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { apiRequestService } from "../factories/apiRequestService";
-import { generateQueueResourceAbridgedIndex } from "podverse-helpers/src/lib/queue/queueResourceAbridged";
+import { generateQueueResourceAbridgedIndex } from "podverse-helpers";
 import { useQueueResourcesAbridgedIndex } from "../contexts/QueueResourcesAbridgedIndex";
 import { useAccount } from "../contexts/Account";
 
