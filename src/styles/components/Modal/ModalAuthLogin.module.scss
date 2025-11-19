@@ -1,8 +1,14 @@
+@use '../../mixins/form' as *;
+
 .buttons {
+  @include formButtonsWrapper;
+}
+
+.verificationSection {
+  text-align: center;
   display: flex;
-  justify-content: flex-end;
-  gap: 1.5rem;
-  margin-top: 2.25rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .links {

@@ -2,6 +2,7 @@
   margin-bottom: 1.5rem;
   position: relative;
   display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
@@ -38,9 +39,17 @@
 }
 
 .textInputInfo {
-  margin-top: 0.25em;
-  font-size: 0.95em;
-  color: #666;
+  margin: 1rem 1rem 0 1rem;
+  font-size: var(--text-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+}
+
+.textInputInfoError {
+  margin: 1rem 1rem 0 1rem;
+  font-size: var(--text-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-danger);
 }
 
 .button {

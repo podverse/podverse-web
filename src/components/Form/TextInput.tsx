@@ -7,8 +7,10 @@ import classNames from 'classnames'
 type TextInputProps = {
   value: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
   eyebrow?: string
   info?: string
+  infoError?: string
   placeholder?: string
   type?: string
   disabled?: boolean
@@ -46,8 +48,10 @@ export type TextInputButtonIcon = {
 export const TextInput: React.FC<TextInputProps> = ({
   value,
   onChange,
+  onBlur,
   eyebrow,
   info,
+  infoError,
   placeholder,
   type = 'text',
   disabled = false,
@@ -72,6 +76,7 @@ export const TextInput: React.FC<TextInputProps> = ({
 }) => {
   const inputId = id || name || undefined
   const infoId = info ? `${inputId || 'textinput'}-info` : undefined
+  const infoErrorId = infoError ? `${inputId || 'textinput'}-error` : undefined
 
   return (
     <div className={`${styles.textInput} ${className || ''}`} style={style}>
@@ -103,6 +108,7 @@ export const TextInput: React.FC<TextInputProps> = ({
             type={type}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
             placeholder={placeholder}
             disabled={disabled}
             readOnly={readOnly}
@@ -120,11 +126,6 @@ export const TextInput: React.FC<TextInputProps> = ({
             style={type === 'number' ? { MozAppearance: 'textfield' } : undefined}
             {...rest}
           />
-          {info && (
-            <div id={infoId} className={styles.textInputInfo}>
-              {info}
-            </div>
-          )}
         </div>
         {type === 'number' && (
           <TextInputNumberIncrement
@@ -162,6 +163,16 @@ export const TextInput: React.FC<TextInputProps> = ({
           </button>
         )}
       </div>
+      {info && (
+        <div id={infoId} className={styles.textInputInfo}>
+          {info}
+        </div>
+      )}
+      {infoError && (
+        <div id={infoErrorId} className={styles.textInputInfoError}>
+          {infoError}
+        </div>
+      )}
     </div>
   )
 }

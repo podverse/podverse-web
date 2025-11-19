@@ -11,12 +11,16 @@ import { apiRequestService } from '../../factories/apiRequestService';
 import Form from '../Form/Form';
 import { FormErrorMessageText } from '../Form/FormErrorMessageText';
 import styles from '../../styles/components/Modal/ModalAuthLogin.module.scss'
+import { ERROR_MESSAGES } from 'podverse-helpers';
+import { FormInfoMessageText } from '../Form/FormInfoMessageText';
 
 export const ModalAuthLogin: React.FC = () => {
   const { modalAuthLogin, setModalAuthLogin } = useModals();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [accountNotVerified, setAccountNotVerified] = useState(false);
+  const [verificationEmailSent, setVerificationEmailSent] = useState(false);
   const tAuthentication = useTranslations("authentication");
   const tMisc = useTranslations("misc");
   const router = useRouter();
@@ -25,11 +29,29 @@ export const ModalAuthLogin: React.FC = () => {
     e.preventDefault();
     try {
       setShowErrorMessage(false);
+      setAccountNotVerified(false);
+      setVerificationEmailSent(false);
       await apiRequestService.reqAuthLogin({ email, password });
       window.location.reload();
+    } catch (err: any) {
+      const responseMessage = err?.response?.data?.message;
+      if (responseMessage === ERROR_MESSAGES.ACCOUNT.NOT_VERIFIED) {
+        setAccountNotVerified(true);
+        setShowErrorMessage(false);
+        console.error('Login failed (api message):', responseMessage);
+      } else {
+        setShowErrorMessage(true);
+        console.error('Login failed (raw error):', err);
+      }
+    }
+  };
+
+  const handleResendVerificationEmail = async () => {
+    try {
+      await apiRequestService.reqAccountSendVerificationEmail({ email });
+      setVerificationEmailSent(true);
     } catch (err) {
-      setShowErrorMessage(true);
-      console.error('Login failed:', err);
+      console.error('Resend verification email failed:', err);
     }
   };
 
@@ -64,7 +86,25 @@ export const ModalAuthLogin: React.FC = () => {
           placeholder={tAuthentication("password")}
           eyebrow={tAuthentication("password")}
         />
-        {showErrorMessage && (
+        {accountNotVerified && (
+          <div className={styles.verificationSection}>
+            {!verificationEmailSent ? (
+              <>
+                <FormInfoMessageText message={tAuthentication("account_not_verified")} />
+                <Button
+                  type="button"
+                  variant="link"
+                  onClick={handleResendVerificationEmail}
+                >
+                  {tAuthentication("resend_verification_email")}
+                </Button>
+              </>
+            ) : (
+              <FormInfoMessageText message={tAuthentication("verification_email_sent")} />
+            )}
+          </div>
+        )}
+        {!accountNotVerified && showErrorMessage && (
           <FormErrorMessageText message={tAuthentication("invalid_email_or_password")} />
         )}
         <div className={styles.buttons}>
