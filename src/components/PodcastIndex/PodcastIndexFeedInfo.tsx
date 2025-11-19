@@ -11,6 +11,8 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { handleRateLimitAlert } from "../../utils/rateLimit/rateLimitAlert";
 import { useRouter } from "next/navigation";
 import { redirectToChannelPageByMediumClient } from "../../utils/redirect/redirectToChannelPageByMedium";
+import { useAccount } from "../../contexts/Account";
+import { useModals } from "../../contexts/Modals";
 
 type PodcastIndexFeedInfoProps = {
   podcastIndexFeed: PodcastByIdFeed;
@@ -20,6 +22,7 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMisc = useTranslations("misc");
+  const tInstructions = useTranslations("instructions");
   const [isLoading, setIsLoading] = useState(false);
   const imageUrl = podcastIndexFeed.image || podcastIndexFeed.artwork || null;
   const description = podcastIndexFeed.description || ""; 
@@ -30,6 +33,8 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
   const redirectToChannel = redirectToChannelPageByMediumClient(router);
   const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const hasRedirectedRef = useRef(false);
+  const { loggedInAccount } = useAccount();
+  const { setModalLoginRequired } = useModals();
 
   useEffect(() => {
     return () => {
@@ -56,6 +61,14 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
   };
 
   const addFeedOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_feeds")
+      })
+      return;
+    }
+    
     setIsLoading(true);
 
     if (podcastIndexFeed?.url && podcastIndexFeed?.id) {

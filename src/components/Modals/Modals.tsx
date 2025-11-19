@@ -9,6 +9,7 @@ import { ModalShare } from '../Modal/ModalShare';
 import { ModalFunding } from '../Modal/ModalFunding';
 import { ModalBoost } from '../Modal/ModalBoost';
 import { ModalSourceSelector } from '../Modal/ModalSourceSelector';
+import { ModalLoginRequired } from '../Modal/ModalLoginRequired';
 
 export const Modals: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ export const Modals: React.FC = () => {
       <ModalFunding />
       <ModalBoost />
       <ModalSourceSelector />
+      <ModalLoginRequired />
     </>
   )
 }

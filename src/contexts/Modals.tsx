@@ -6,6 +6,11 @@ type ModalBasic = {
   isOpen: boolean;
 }
 
+type ModalMessage = {
+  title: string | null;
+  message: string | null;
+}
+
 type ModalClip = {
   channel: DTOChannel | null;
   item: DTOItem | null;
@@ -67,6 +72,8 @@ type ModalsContextType = {
   setModalSourceSelector: (val: ModalSourceSelector) => void;
   modalBoost: ModalBoost;
   setModalBoost: (val: ModalBoost) => void;
+  modalLoginRequired: ModalMessage;
+  setModalLoginRequired: (val: ModalMessage) => void;
 }
 
 const ModalsContext = createContext<ModalsContextType | undefined>(undefined)
@@ -111,6 +118,11 @@ const defaultModalShare = {
   item_soundbite: null
 };
 
+const defaultModalLoginRequired = {
+  title: null,
+  message: null
+};
+
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })
   const [modalSignUp, setModalSignUp] = useState<ModalBasic>({ isOpen: false })
@@ -122,6 +134,7 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalFunding, setModalFunding] = useState<ModalFunding>(defaultModalFunding)
   const [modalSourceSelector, setModalSourceSelector] = useState<ModalSourceSelector>(defaultModalSourceSelector)
   const [modalBoost, setModalBoost] = useState<ModalBoost>(defaultModalBoost)
+  const [modalLoginRequired, setModalLoginRequired] = useState<ModalMessage>(defaultModalLoginRequired)
 
   return (
     <ModalsContext.Provider value={{
@@ -134,7 +147,8 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
       modalShare, setModalShare,
       modalFunding, setModalFunding,
       modalSourceSelector, setModalSourceSelector,
-      modalBoost, setModalBoost
+      modalBoost, setModalBoost,
+      modalLoginRequired, setModalLoginRequired
     }}>
       {children}
     </ModalsContext.Provider>

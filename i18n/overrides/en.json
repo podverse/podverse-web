@@ -283,6 +283,7 @@
     }
   },
   "instructions": {
+    "login_required": "Login Required",
     "login_for_subscriptions": "Please login to view your subscriptions.",
     "login_to_create_playlists": "Please login to create playlists.",
     "login_to_create_clips": "Please login to create clips.",
