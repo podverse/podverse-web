@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import classNames from "classnames";
 import { getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
-import styles from "../../../../styles/components/MediaPlayer/Controller/LiveStream/MediaPlayerLivestreamVideoPortalFloating.module.scss";
+import styles from "../../../../styles/components/MediaPlayer/Controller/LiveStream/MediaPlayerLiveStreamVideoPortalFloating.module.scss";
 
 export const MediaPlayerLivestreamVideoPortalFloating: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
