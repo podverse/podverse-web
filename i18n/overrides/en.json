@@ -301,7 +301,11 @@
     "password": "Password",
     "confirm_password": "Confirm Password"
   },
+  "membership": {
+    "membership": "Membership"
+  },
   "settings": {
+    "settings": "Settings",
     "ui_theme": {
       "light": "☀️ Light",
       "dark": "🌙 Dark"

@@ -11,6 +11,7 @@ import { ROUTES } from "../../constants/routes";
 import { useModals } from '../../contexts/Modals'
 import { apiRequestService } from "../../factories/apiRequestService";
 import styles from "../../styles/components/NavBar/NavBarDropdownButton.module.scss";
+import { useTranslations } from "next-intl";
 
 const NavBarDropdownButton: React.FC = () => {
   const { loggedInAccount } = useAccount();
@@ -18,6 +19,10 @@ const NavBarDropdownButton: React.FC = () => {
   const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
+  const tFeatures = useTranslations("features");
+  const tMembership = useTranslations("membership");
+  const tSettings = useTranslations("settings");
+  const tAuthentication = useTranslations("authentication");
 
   async function handleLogout() {
     await apiRequestService.reqAuthLogout();
@@ -25,12 +30,12 @@ const NavBarDropdownButton: React.FC = () => {
   }
 
   const menuItems = [
-    { label: "My Profile", onClick: () => router.push(ROUTES.MY_PROFILE) },
-    { label: "Membership", onClick: () => router.push(ROUTES.MEMBERSHIP) },
-    { label: "Settings", onClick: () => router.push(ROUTES.SETTINGS) },
+    { label: tFeatures("my_profile"), onClick: () => router.push(ROUTES.MY_PROFILE) },
+    { label: tMembership("membership"), onClick: () => router.push(ROUTES.MEMBERSHIP) },
+    { label: tSettings("settings"), onClick: () => router.push(ROUTES.SETTINGS) },
     !!loggedInAccount
-      ? { label: "Logout", onClick: handleLogout }
-      : { label: "Login", onClick: () => setModalAuthLogin({ isOpen: true }) }
+      ? { label: tAuthentication("logout"), onClick: handleLogout }
+      : { label: tAuthentication("login"), onClick: () => setModalAuthLogin({ isOpen: true }) }
   ];
 
   const {
