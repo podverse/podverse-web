@@ -52,8 +52,8 @@ export type ModalPlaylistAddToState = {
 }
 
 type ModalsContextType = {
-  modalLogin: ModalBasic;
-  setModalLogin: (val: ModalBasic) => void;
+  modalAuthLogin: ModalBasic;
+  setModalAuthLogin: (val: ModalBasic) => void;
   modalSignUp: ModalBasic;
   setModalSignUp: (val: ModalBasic) => void;
   modalPlaylistAddTo: ModalPlaylistAddToState;
@@ -124,7 +124,7 @@ const defaultModalLoginRequired = {
 };
 
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
-  const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })
+  const [modalAuthLogin, setModalAuthLogin] = useState<ModalBasic>({ isOpen: false })
   const [modalSignUp, setModalSignUp] = useState<ModalBasic>({ isOpen: false })
   const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddToState>(defaultModalPlaylistAddTo)
   const [modalClip, setModalClip] = useState<ModalClip>(defaultModalClip)
@@ -138,7 +138,7 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ModalsContext.Provider value={{
-      modalLogin, setModalLogin,
+      modalAuthLogin, setModalAuthLogin,
       modalSignUp, setModalSignUp,
       modalPlaylistAddTo, setModalPlaylistAddTo,
       modalClip, setModalClip,

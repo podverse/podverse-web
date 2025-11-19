@@ -27,7 +27,7 @@ export const ListClips: React.FC<Props> = ({ page = 1, setPage,
   channel, item, clips, totalPages, showSubscribeMessage, showItemInfo }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
-  const { setModalLogin } = useModals();
+  const { setModalAuthLogin } = useModals();
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -42,7 +42,7 @@ export const ListClips: React.FC<Props> = ({ page = 1, setPage,
         <CallToActionMessage
           message={tInstructions("login_for_subscriptions")}
           buttonLabel={tAuthentication("login")}
-          onButtonClick={() => setModalLogin({ isOpen: true })}
+          onButtonClick={() => setModalAuthLogin({ isOpen: true })}
         />
       )}
       {

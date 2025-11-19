@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react'
-import { LoginModal } from '../Auth/LoginModal'
+import { ModalAuthLogin } from '../Modal/ModalAuthLogin'
 import { ModalPlaylistAddTo } from '../Modal/ModalPlaylistAddTo';
 import { ModalClip } from '../Modal/ModalClip';
 import { ModalClipCreated } from '../Modal/ModalClipCreated';
@@ -14,7 +14,7 @@ import { ModalLoginRequired } from '../Modal/ModalLoginRequired';
 export const Modals: React.FC = () => {
   return (
     <>
-      <LoginModal />
+      <ModalAuthLogin />
       <ModalPlaylistAddTo />
       <ModalClip />
       <ModalClipCreated />

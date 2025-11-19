@@ -25,7 +25,7 @@ type Props = {
 export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, totalPages, showLoginMessage, showCreator, onClick }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
-  const { setModalLogin } = useModals();
+  const { setModalAuthLogin } = useModals();
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -40,7 +40,7 @@ export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, t
         <CallToActionMessage
           message={tInstructions("login_for_playlists")}
           buttonLabel={tAuthentication("login")}
-          onButtonClick={() => setModalLogin({ isOpen: true })}
+          onButtonClick={() => setModalAuthLogin({ isOpen: true })}
         />
       )}
       {

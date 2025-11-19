@@ -21,7 +21,7 @@ type Props = {
 export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
-  const { setModalLogin } = useModals();
+  const { setModalAuthLogin } = useModals();
   const { activeQueue } = useQueues();
   const [isLoading, setIsLoading] = React.useState(true);
   const queueResourcesLoadActive = useQueueResourcesLoadActive();
@@ -154,7 +154,7 @@ export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginM
         <CallToActionMessage
           message={tInstructions("login_for_queues")}
           buttonLabel={tAuthentication("login")}
-          onButtonClick={() => setModalLogin({ isOpen: true })}
+          onButtonClick={() => setModalAuthLogin({ isOpen: true })}
         />
       )}
       {showPagination && !isLoading && (

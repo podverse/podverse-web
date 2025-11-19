@@ -23,7 +23,7 @@ export const ListLiveItems: React.FC<Props> = ({ page = 1, setPage, channel, ite
   totalPages, showSubscribeMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
-  const { setModalLogin } = useModals();
+  const { setModalAuthLogin } = useModals();
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -38,7 +38,7 @@ export const ListLiveItems: React.FC<Props> = ({ page = 1, setPage, channel, ite
         <CallToActionMessage
           message={tInstructions("login_for_subscriptions")}
           buttonLabel={tAuthentication("login")}
-          onButtonClick={() => setModalLogin({ isOpen: true })}
+          onButtonClick={() => setModalAuthLogin({ isOpen: true })}
         />
       )}
       {

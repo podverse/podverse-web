@@ -23,7 +23,7 @@ export const ListHistoryResources: React.FC<Props> = ({
   queueResources, showLoginMessage, page, setPage, totalPages }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
-  const { setModalLogin } = useModals();
+  const { setModalAuthLogin } = useModals();
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -38,7 +38,7 @@ export const ListHistoryResources: React.FC<Props> = ({
         <CallToActionMessage
           message={tInstructions("login_for_history")}
           buttonLabel={tAuthentication("login")}
-          onButtonClick={() => setModalLogin({ isOpen: true })}
+          onButtonClick={() => setModalAuthLogin({ isOpen: true })}
         />
       )}
       {

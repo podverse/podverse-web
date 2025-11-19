@@ -36,7 +36,7 @@ export const ModalPlaylistAddTo: React.FC = () => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const header = tFeatures("playlist.add_to_playlist");
-  const { modalPlaylistAddTo, setModalPlaylistAddTo, setModalLogin } = useModals();
+  const { modalPlaylistAddTo, setModalPlaylistAddTo, setModalAuthLogin } = useModals();
   const [playlists, setPlaylists] = React.useState<DTOPlaylist[]>([]);
   const [totalPages, setTotalPages] = React.useState(0);
   const { loggedInAccount } = useAccount();
@@ -141,7 +141,7 @@ export const ModalPlaylistAddTo: React.FC = () => {
             buttonLabel={tAuthentication("login")}
             onButtonClick={() => {
               setModalPlaylistAddTo({ channel: null, item: null, clip: null, item_soundbite: null });
-              setModalLogin({ isOpen: true })
+              setModalAuthLogin({ isOpen: true })
             }}
           />
         )

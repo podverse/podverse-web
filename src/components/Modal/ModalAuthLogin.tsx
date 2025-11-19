@@ -3,15 +3,15 @@
 import { useTranslations } from 'next-intl';
 import React, { useState } from 'react'
 import { Button } from '../Button/Button'
-import { Modal } from '../Modal/Modal'
+import { Modal } from './Modal'
 import { TextInput } from '../Form/TextInput'
 import { useModals } from '../../contexts/Modals'
-import styles from '../../styles/components/Auth/LoginModal.module.scss'
+import styles from '../../styles/components/Modal/ModalAuthLogin.module.scss'
 import { apiRequestService } from '../../factories/apiRequestService';
 import Form from '../Form/Form';
 
-export const LoginModal: React.FC = () => {
-  const { modalLogin, setModalLogin } = useModals()
+export const ModalAuthLogin: React.FC = () => {
+  const { modalAuthLogin, setModalAuthLogin } = useModals()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const tAuthentication = useTranslations("authentication");
@@ -30,8 +30,8 @@ export const LoginModal: React.FC = () => {
   return (
     <Modal
       header={tAuthentication("login")}
-      isOpen={modalLogin.isOpen}
-      onClose={() => setModalLogin({ isOpen: false })}
+      isOpen={modalAuthLogin.isOpen}
+      onClose={() => setModalAuthLogin({ isOpen: false })}
       ariaLabel={tAuthentication("login")}
       modalContentMaxWidth={500}
     >
@@ -54,7 +54,7 @@ export const LoginModal: React.FC = () => {
           eyebrow={tAuthentication("password")}
         />
         <div className={styles.buttons}>
-          <Button type="button" onClick={() => setModalLogin({ isOpen: false })} variant="secondary">
+          <Button type="button" onClick={() => setModalAuthLogin({ isOpen: false })} variant="secondary">
             {tMisc("cancel")}
           </Button>
           <Button type="submit" variant="primary">

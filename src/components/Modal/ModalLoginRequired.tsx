@@ -12,7 +12,7 @@ export const ModalLoginRequired: React.FC = () => {
   const header = tInstructions("login_required");
   const {
     modalLoginRequired, setModalLoginRequired,
-    setModalLogin
+    setModalAuthLogin
   } = useModals();
 
   const clearModalLoginRequired = () => {
@@ -24,7 +24,7 @@ export const ModalLoginRequired: React.FC = () => {
 
   const showLoginOnClick = () => {
     clearModalLoginRequired();
-    setModalLogin({ isOpen: true });
+    setModalAuthLogin({ isOpen: true });
   }
   
   return (

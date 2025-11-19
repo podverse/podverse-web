@@ -42,7 +42,7 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
   setEndTimeString, onCancel, isUpdating, edit_clip_id_text }) => {
   const { setMPIsPlaying } = useMediaPlayer();
   const { loggedInAccount } = useAccount();
-  const { setModalClip, setModalLogin } = useModals();
+  const { setModalClip, setModalAuthLogin } = useModals();
   const tFeatures = useTranslations("features");
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
@@ -97,7 +97,7 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
             buttonLabel={tAuthentication("login")}
             onButtonClick={() => {
               setModalClip({ channel: null, item: null });
-              setModalLogin({ isOpen: true })
+              setModalAuthLogin({ isOpen: true })
             }}
           />
         )
