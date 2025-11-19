@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { Button } from '../Button/Button'
@@ -13,6 +13,7 @@ import { FormErrorMessageText } from '../Form/FormErrorMessageText';
 import styles from '../../styles/components/Modal/ModalAuthLogin.module.scss'
 import { ERROR_MESSAGES } from 'podverse-helpers';
 import { FormInfoMessageText } from '../Form/FormInfoMessageText';
+import { handleRateLimitAlert } from '../../utils/rateLimit/rateLimitAlert';
 
 export const ModalAuthLogin: React.FC = () => {
   const { modalAuthLogin, setModalAuthLogin } = useModals();
@@ -20,13 +21,16 @@ export const ModalAuthLogin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [accountNotVerified, setAccountNotVerified] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [verificationEmailSent, setVerificationEmailSent] = useState(false);
   const tAuthentication = useTranslations("authentication");
   const tMisc = useTranslations("misc");
   const router = useRouter();
+  const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       setShowErrorMessage(false);
       setAccountNotVerified(false);
@@ -34,16 +38,18 @@ export const ModalAuthLogin: React.FC = () => {
       await apiRequestService.reqAuthLogin({ email, password });
       window.location.reload();
     } catch (err: any) {
-      const responseMessage = err?.response?.data?.message;
-      if (responseMessage === ERROR_MESSAGES.ACCOUNT.NOT_VERIFIED) {
-        setAccountNotVerified(true);
-        setShowErrorMessage(false);
-        console.error('Login failed (api message):', responseMessage);
-      } else {
-        setShowErrorMessage(true);
-        console.error('Login failed (raw error):', err);
+      const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+      if (!rateLimitErrorHandled) {
+        const responseMessage = err?.response?.data?.message;
+        if (responseMessage === ERROR_MESSAGES.ACCOUNT.NOT_VERIFIED) {
+          setAccountNotVerified(true);
+          setShowErrorMessage(false);
+        } else {
+          setShowErrorMessage(true);
+        }
       }
     }
+      setIsSubmitting(false);
   };
 
   const handleResendVerificationEmail = async () => {
@@ -51,7 +57,10 @@ export const ModalAuthLogin: React.FC = () => {
       await apiRequestService.reqAccountSendVerificationEmail({ email });
       setVerificationEmailSent(true);
     } catch (err) {
-      console.error('Resend verification email failed:', err);
+      const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+      if (!rateLimitErrorHandled) {
+        console.error('Resend verification email failed:', err);
+      }
     }
   };
 
@@ -111,7 +120,7 @@ export const ModalAuthLogin: React.FC = () => {
           <Button type="button" onClick={() => setModalAuthLogin({ isOpen: false })} variant="secondary">
             {tMisc("cancel")}
           </Button>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" disabled={isSubmitting}>
             {tMisc("submit")}
           </Button>
         </div>

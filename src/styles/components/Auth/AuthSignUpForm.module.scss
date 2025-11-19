@@ -1,0 +1,14 @@
+@use '../../mixins/form' as *;
+
+.authSignUpForm {
+  max-width: var(--form-max-width);
+}
+
+.buttons {
+  @include formButtonsWrapper;
+}
+
+.passwordInfo {
+  // font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+}
