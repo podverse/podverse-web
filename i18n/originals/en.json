@@ -287,7 +287,8 @@
     "login_to_create_playlists": "Please login to create playlists.",
     "login_to_create_clips": "Please login to create clips.",
     "login_for_queues": "Please login to view your queues.",
-    "login_for_history": "Please login to view your history."
+    "login_for_history": "Please login to view your history.",
+    "login_to_add_feeds": "Please login to add feeds to our directory."
   },
   "authentication": {
     "login": "Login",
