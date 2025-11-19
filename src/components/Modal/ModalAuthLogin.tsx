@@ -2,34 +2,41 @@
 
 import { useTranslations } from 'next-intl';
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation';
 import { Button } from '../Button/Button'
 import { Modal } from './Modal'
 import { TextInput } from '../Form/TextInput'
 import { useModals } from '../../contexts/Modals'
-import styles from '../../styles/components/Modal/ModalAuthLogin.module.scss'
 import { apiRequestService } from '../../factories/apiRequestService';
 import Form from '../Form/Form';
 import { FormErrorMessageText } from '../Form/FormErrorMessageText';
+import styles from '../../styles/components/Modal/ModalAuthLogin.module.scss'
 
 export const ModalAuthLogin: React.FC = () => {
-  const { modalAuthLogin, setModalAuthLogin } = useModals()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { modalAuthLogin, setModalAuthLogin } = useModals();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const tAuthentication = useTranslations("authentication");
   const tMisc = useTranslations("misc");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       setShowErrorMessage(false);
-      await apiRequestService.reqAuthLogin({ email, password })
+      await apiRequestService.reqAuthLogin({ email, password });
       window.location.reload();
     } catch (err) {
       setShowErrorMessage(true);
-      console.error('Login failed:', err)
+      console.error('Login failed:', err);
     }
-  }
+  };
+
+  const handleNavAndClose = (path: string) => {
+    setModalAuthLogin({ isOpen: false });
+    router.push(path);
+  };
 
   return (
     <Modal
@@ -57,11 +64,9 @@ export const ModalAuthLogin: React.FC = () => {
           placeholder={tAuthentication("password")}
           eyebrow={tAuthentication("password")}
         />
-        {
-          showErrorMessage && (
-            <FormErrorMessageText message={tAuthentication("invalid_email_or_password")} />            
-          )
-        }
+        {showErrorMessage && (
+          <FormErrorMessageText message={tAuthentication("invalid_email_or_password")} />
+        )}
         <div className={styles.buttons}>
           <Button type="button" onClick={() => setModalAuthLogin({ isOpen: false })} variant="secondary">
             {tMisc("cancel")}
@@ -71,14 +76,14 @@ export const ModalAuthLogin: React.FC = () => {
           </Button>
         </div>
         <div className={styles.links}>
-          <Button type='button' variant='link' onClick={() => console.log('Forgot password clicked')}>
+          <Button type='button' variant='link' onClick={() => handleNavAndClose('/forgot-password')}>
             {tAuthentication("forgot_password")}
           </Button>
-          <Button type='button' variant='link' onClick={() => console.log('Sign up clicked')}>
+          <Button type='button' variant='link' onClick={() => handleNavAndClose('/sign-up')}>
             {tAuthentication("sign_up")}
           </Button>
         </div>
       </Form>
     </Modal>
-  )
-}
+  );
+};
