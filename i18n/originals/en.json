@@ -299,7 +299,8 @@
     "reset_password": "Reset Password",
     "email": "Email",
     "password": "Password",
-    "confirm_password": "Confirm Password"
+    "confirm_password": "Confirm Password",
+    "invalid_email_or_password": "Invalid email or password."
   },
   "membership": {
     "membership": "Membership"
