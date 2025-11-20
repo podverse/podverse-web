@@ -265,6 +265,7 @@
     "done": "Done",
     "id": "ID",
     "unknown_date": "Unknown Date",
+    "redirecting": "Redirecting...",
     "sharable_status": {
       "sharable_status": "Sharable Status",
       "public": "Public",
@@ -310,7 +311,11 @@
     "password_mismatch": "Passwords do not match",
     "account_not_verified": "Account not verified. Please check your email for a verification link.",
     "resend_verification_email": "Resend Verification Email",
-    "verification_email_sent": "Verification email sent. If it does not arrive within a few minutes, please check your spam folder, or contact support."
+    "verification_email_sent": "Verification email sent. If it does not arrive within a few minutes, please check your spam folder, or contact support.",
+    "verify_email": "Verify Email",
+    "verifying_email_address": "Verifying email address...",
+    "email_verified": "Email verified successfully.",
+    "verification_failed": "Email verification failed. The verification link may have expired. Please try to login again to resend the verification email."
   },
   "membership": {
     "membership": "Membership"
