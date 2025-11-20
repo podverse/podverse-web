@@ -1,0 +1,14 @@
+.contentWrapper {
+  margin: 1rem 0;
+}
+
+.messageSection {
+  display: flex;
+  flex: 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  gap: 1.5rem;
+}

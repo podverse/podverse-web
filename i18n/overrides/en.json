@@ -318,7 +318,13 @@
     "verify_email": "Verify Email",
     "verifying_email_address": "Verifying email address...",
     "email_verified": "Email verified successfully.",
-    "verification_failed": "Email verification failed. The verification link may have expired. Please try to login again to resend the verification email."
+    "verification_failed": "Email verification failed. The verification link may have expired. Please try to login again to resend the verification email.",
+    "change_email_address_email": "Change Email",
+    "change_email_address_email_sent": "A verification email address has been sent to your new email address. Please check your new email for a confirmation link. If it does not arrive within a few minutes, please check your spam folder, or contact support.",
+    "change_email_verification": "Change Email Verification",
+    "changing_email_address": "Changing email address...",
+    "change_email_address_email_failed": "Change email failed. The confirmation link may have expired. Please try again.",
+    "change_email_address_email_success": "Email address changed successfully. You may now login with your new email address."
   },
   "membership": {
     "membership": "Membership"

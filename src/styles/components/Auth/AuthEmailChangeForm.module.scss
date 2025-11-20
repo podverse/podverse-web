@@ -1,0 +1,9 @@
+@use '../../mixins/form' as *;
+
+.authEmailChangeForm {
+  max-width: var(--form-max-width);
+}
+
+.buttons {
+  @include formButtonsWrapper;
+}
