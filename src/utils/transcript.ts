@@ -22,7 +22,7 @@ export const getTranscriptRowsFromTranscriptString = async (data?: string | null
       }
     }
   } catch (error) {
-    console.log('getParsedTranscript error:', error)
+    console.error('getParsedTranscript error:', error)
   }
 
   return parsedTranscript || [];

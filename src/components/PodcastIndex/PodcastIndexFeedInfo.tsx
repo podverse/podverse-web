@@ -55,7 +55,7 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
           redirectToChannel(ssrChannel.medium_id, ssrChannel.id_text);
         }
       } catch (e) {
-        console.log("Checking for channel...not found yet.");
+        console.warn("Checking for channel...not found yet.");
       }
     }, 2000);
   };

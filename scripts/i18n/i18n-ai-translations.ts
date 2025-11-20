@@ -131,10 +131,10 @@ async function run() {
     const outputPath = path.resolve(`./i18n/originals/${target.code}.json`);
     const existingTranslated = loadExistingTranslations(outputPath);
 
-    console.log(`\n🌍 Translating to ${target.name}...`);
+    console.info(`\n🌍 Translating to ${target.name}...`);
     const translated = await translateObject(enData, target.name, [], existingTranslated);
     fs.writeFileSync(outputPath, JSON.stringify(translated, null, 2), 'utf-8');
-    console.log(`✅ Saved: ${outputPath}`);
+    console.info(`✅ Saved: ${outputPath}`);
   }
 }
 

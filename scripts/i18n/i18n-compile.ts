@@ -84,5 +84,5 @@ for (const locale of locales) {
 
   const merged = deepMerge(originals, filledOverrides);
   fs.writeFileSync(compiledPath, JSON.stringify(merged, null, 2), 'utf8');
-  console.log(`Compiled ${locale}.json`);
+  console.info(`Compiled ${locale}.json`);
 }
