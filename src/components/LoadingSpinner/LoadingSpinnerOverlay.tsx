@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../../styles/components/LoadingSpinner/LoadingSpinnerOverlay.module.scss";
 import LoadingSpinner from "./LoadingSpinner";
+import styles from "../../styles/components/LoadingSpinner/LoadingSpinnerOverlay.module.scss";
 
 type Props = {
   size?: "small" | "medium" | "large";

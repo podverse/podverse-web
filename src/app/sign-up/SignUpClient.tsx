@@ -5,11 +5,7 @@ import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainWrapper } from "../../components/Main/MainWrapper";
 import { AuthSignUpForm } from "../../components/Auth/AuthSignUpForm";
 
-type SignUpClientProps = {
-  
-}
-
-export function SignUpClient(props: SignUpClientProps) {
+export function SignUpClient() {
   const tAuthentication = useTranslations("authentication");
 
   return (
