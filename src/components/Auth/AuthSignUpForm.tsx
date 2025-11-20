@@ -11,6 +11,7 @@ import Form from '../Form/Form';
 import styles from '../../styles/components/Auth/AuthSignUpForm.module.scss'
 import { apiRequestService } from '../../factories/apiRequestService';
 import { handleRateLimitAlert } from '../../utils/rateLimit/rateLimitAlert';
+import { FormInfoMessageText } from '../Form/FormInfoMessageText';
 
 export const AuthSignUpForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,6 +23,7 @@ export const AuthSignUpForm: React.FC = () => {
   const [emailTouched, setEmailTouched] = useState(false);
   const [password1Touched, setPassword1Touched] = useState(false);
   const [password2Touched, setPassword2Touched] = useState(false);
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const tAuthentication = useTranslations("authentication");
   const tMisc = useTranslations("misc");
@@ -34,10 +36,11 @@ export const AuthSignUpForm: React.FC = () => {
       setIsLoading(true);
       try {
         await apiRequestService.reqAccountCreate({ email, password: password1 });
+        setIsAccountCreated(true);
       } catch (err) {
         const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
         if (!rateLimitErrorHandled) {
-          console.error('Resend verification email failed:', err);
+          console.error('Sign up failed:', err);
           alert(tMisc("errors.generic"));
         }
       }
@@ -66,7 +69,6 @@ export const AuthSignUpForm: React.FC = () => {
     }
   };
 
-  // Clear errors on change when values become valid
   const onEmailChange = (value: string) => {
     setEmail(value);
     setEmailTouched(value !== '');
@@ -76,6 +78,7 @@ export const AuthSignUpForm: React.FC = () => {
     }
     if (value === '') setEmailErrorKey(undefined);
   };
+
   const onPassword1Change = (value: string) => {
     setPassword1(value);
     setPassword1Touched(value !== '');
@@ -89,6 +92,7 @@ export const AuthSignUpForm: React.FC = () => {
       if (!pwd2Key) setPassword2ErrorKey(undefined); else setPassword2ErrorKey(pwd2Key);
     }
   };
+
   const onPassword2Change = (value: string) => {
     setPassword2(value);
     setPassword2Touched(value !== '');
@@ -103,55 +107,64 @@ export const AuthSignUpForm: React.FC = () => {
 
   return (
     <div className={styles.authSignUpForm}>
-      <Form onSubmit={handleSubmit}>
-        <TextInput
-          type="email"
-          name="email"
-          value={email}
-          onChange={e => onEmailChange(e.target.value)}
-          onBlur={handleEmailBlur}
-          autoFocus
-          placeholder={tAuthentication("email")}
-          eyebrow={tAuthentication("email")}
-          infoError={emailErrorKey ? tAuthentication(emailErrorKey) : undefined}
-        />
-        <TextInput
-          type="password"
-          name="password1"
-          value={password1}
-          onChange={e => onPassword1Change(e.target.value)}
-          onBlur={handlePassword1Blur}
-          placeholder={tAuthentication("password")}
-          eyebrow={tAuthentication("password")}
-          infoError={password1ErrorKey ? tAuthentication(password1ErrorKey) : undefined}
-        />
-        <TextInput
-          type="password"
-          name="password2"
-          value={password2}
-          onChange={e => onPassword2Change(e.target.value)}
-          onBlur={handlePassword2Blur}
-          placeholder={tAuthentication("password")}
-          eyebrow={tAuthentication("confirm_password")}
-          infoError={password2ErrorKey ? tAuthentication(password2ErrorKey) : undefined}
-        />
-        <div className={styles.passwordInfo}>
-          {tAuthentication(getPasswordRequirementsInfoKey())}
-        </div>
-        <div className={styles.buttons}>
-          <Button type="button" onClick={() => router.push('/')} variant="secondary">
-            {tMisc("cancel")}
-          </Button>
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={!isFormValid || isLoading}
-            isLoading={isLoading}
-          >
-            {tMisc("submit")}
-          </Button>
-        </div>
-      </Form>
+      {
+        !isAccountCreated && (
+          <Form onSubmit={handleSubmit}>
+            <TextInput
+              type="email"
+              name="email"
+              value={email}
+              onChange={e => onEmailChange(e.target.value)}
+              onBlur={handleEmailBlur}
+              autoFocus
+              placeholder={tAuthentication("email")}
+              eyebrow={tAuthentication("email")}
+              infoError={emailErrorKey ? tAuthentication(emailErrorKey) : undefined}
+            />
+            <TextInput
+              type="password"
+              name="password1"
+              value={password1}
+              onChange={e => onPassword1Change(e.target.value)}
+              onBlur={handlePassword1Blur}
+              placeholder={tAuthentication("password")}
+              eyebrow={tAuthentication("password")}
+              infoError={password1ErrorKey ? tAuthentication(password1ErrorKey) : undefined}
+            />
+            <TextInput
+              type="password"
+              name="password2"
+              value={password2}
+              onChange={e => onPassword2Change(e.target.value)}
+              onBlur={handlePassword2Blur}
+              placeholder={tAuthentication("password")}
+              eyebrow={tAuthentication("confirm_password")}
+              infoError={password2ErrorKey ? tAuthentication(password2ErrorKey) : undefined}
+            />
+            <div className={styles.passwordInfo}>
+              {tAuthentication(getPasswordRequirementsInfoKey())}
+            </div>
+            <div className={styles.buttons}>
+              <Button type="button" onClick={() => router.push('/')} variant="secondary">
+                {tMisc("cancel")}
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={!isFormValid || isLoading}
+                isLoading={isLoading}
+              >
+                {tMisc("submit")}
+              </Button>
+            </div>
+          </Form>
+        )
+      }
+      {
+        isAccountCreated && (
+          <FormInfoMessageText message={tAuthentication("account_created_message")} />
+        )
+      }
     </div>
   );
 };

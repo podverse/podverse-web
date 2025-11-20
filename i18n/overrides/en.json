@@ -309,6 +309,7 @@
     "invalid_password": "Invalid password",
     "password_requirements": "Password must be at least 8 characters, and include at least one non-lowercase character.",
     "password_mismatch": "Passwords do not match",
+    "account_created_message": "Account created successfully. Please check your email for a verification link.",
     "account_not_verified": "Account not verified. Please check your email for a verification link.",
     "resend_verification_email": "Resend Verification Email",
     "verification_email_sent": "Verification email sent. If it does not arrive within a few minutes, please check your spam folder, or contact support.",
