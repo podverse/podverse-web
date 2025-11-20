@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { getEmailErrorKey, getPasswordErrorKey, getPassword2ErrorKey,
   getPasswordRequirementsInfoKey } from 'podverse-helpers';
 import React, { useState } from 'react'
@@ -10,6 +10,7 @@ import { TextInput } from '../Form/TextInput'
 import Form from '../Form/Form';
 import styles from '../../styles/components/Auth/AuthSignUpForm.module.scss'
 import { apiRequestService } from '../../factories/apiRequestService';
+import { handleRateLimitAlert } from '../../utils/rateLimit/rateLimitAlert';
 
 export const AuthSignUpForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -25,6 +26,7 @@ export const AuthSignUpForm: React.FC = () => {
   const tAuthentication = useTranslations("authentication");
   const tMisc = useTranslations("misc");
   const router = useRouter();
+  const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +35,11 @@ export const AuthSignUpForm: React.FC = () => {
       try {
         await apiRequestService.reqAccountCreate({ email, password: password1 });
       } catch (err) {
-        alert(tMisc("errors.generic"));
+        const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+        if (!rateLimitErrorHandled) {
+          console.error('Resend verification email failed:', err);
+          alert(tMisc("errors.generic"));
+        }
       }
     }
     setIsLoading(false);
