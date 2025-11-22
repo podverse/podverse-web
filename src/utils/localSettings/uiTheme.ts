@@ -14,5 +14,4 @@ export const getCurrentUITheme = (): string | undefined => {
 
 export function setUIThemeOnDocument(uiTheme: string) {
   document.documentElement.setAttribute('data-ui-theme', uiTheme);
-  document.cookie = `ui-theme=${uiTheme}; path=/; max-age=31536000`;
 }
