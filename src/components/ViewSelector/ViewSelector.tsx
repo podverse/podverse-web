@@ -7,7 +7,7 @@ import React, { useRef } from "react";
 import { DropdownMenu } from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 
-export type ViewSelectedOption = "grid" | "grid-mini" | "rows";
+export type ViewSelectedOption = "grid" | "rows";
 
 type ViewSelectorProps = {
   viewSelected: ViewSelectedOption;
@@ -22,7 +22,6 @@ export function ViewSelector({ viewSelected, setViewSelected }: ViewSelectorProp
 
   const viewOptions: { key: ViewSelectorProps['viewSelected']; label: string }[] = [
     { key: "grid", label: tLayouts("grid_view") },
-    { key: "grid-mini", label: tLayouts("grid_mini_view") },
     { key: "rows", label: tLayouts("list_view") }
   ];
 

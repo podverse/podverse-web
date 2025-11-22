@@ -30,16 +30,14 @@ const ListPodcastRow: React.FC<Props> = ({ channel }) => {
           className={styles.image}
         />
         <div className={styles.content}>
+          <h3 className={styles.title}>{channel.title}</h3>
           {
             channel.channel_about?.last_pub_date && (
               <span className={styles.lastPubDate}>
-                {tMedia("updated_with_date", {
-                  date: formatDateAbbrev(channel.channel_about.last_pub_date, locale)
-                })}
+                {formatDateAbbrev(channel.channel_about.last_pub_date, locale)}
               </span>
             )
           }
-          <h3>{channel.title}</h3>
         </div>
       </div>
     </Link>

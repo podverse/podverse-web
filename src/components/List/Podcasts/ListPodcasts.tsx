@@ -10,9 +10,9 @@ import Pagination from "../../Pagination/Pagination";
 import { useModals } from "../../../contexts/Modals";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../utils/scroll";
-import styles from "../../../styles/components/List/Podcasts/ListPodcasts.module.scss";
 import { Divider } from "../../Divider/Divider";
 import { usePodcastsContext } from "../../../app/podcasts/PodcastsContext";
+import styles from "../../../styles/components/List/Podcasts/ListPodcasts.module.scss";
 
 type Props = {
   page: number;

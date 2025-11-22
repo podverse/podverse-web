@@ -1,9 +1,51 @@
+@use "breakpoints";
+
 .paginationControls {
   margin-top: 1.5rem;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1.25rem;
+}
+
+@media (min-width: breakpoints.$breakpoint-xs-min) and (max-width: breakpoints.$breakpoint-xs-max) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-sm-min) and (max-width: breakpoints.$breakpoint-sm-max) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-md-min) and (max-width: breakpoints.$breakpoint-md-max) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-lg-min) and (max-width: breakpoints.$breakpoint-lg-max) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-xl-min) and (max-width: breakpoints.$breakpoint-xl-max) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-xxl-min) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
 }
