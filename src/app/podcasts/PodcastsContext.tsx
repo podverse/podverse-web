@@ -1,12 +1,14 @@
 "use client";
 
-import { DTOChannel, getTotalPages, QueryParamsChannels } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { DTOChannel, getTotalPages, QueryParamsChannels } from "podverse-helpers";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
-import { useRouter } from "next/navigation";
+import { useLocalSettings } from "../../contexts/LocalSettings";
+import { ViewSelectedOption } from "../../components/ViewSelector/ViewSelector";
 
 interface PodcastsContextType {
   filterParams: QueryParamsChannels;
@@ -19,6 +21,8 @@ interface PodcastsContextType {
   setIsLoading: (isLoading: boolean) => void;
   showSubscribeMessage: boolean;
   setShowSubscribeMessage: (show: boolean) => void;
+  viewSelected: ViewSelectedOption;
+  setViewSelected: (view: ViewSelectedOption) => void;
 };
 
 const PodcastsContext = createContext<PodcastsContextType | undefined>(undefined);
@@ -43,6 +47,7 @@ export const PodcastsContextProvider = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+  const { viewSelected, setViewSelected } = useLocalSettings();
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {
@@ -55,14 +60,14 @@ export const PodcastsContextProvider = ({
       }
 
       setIsLoading(true);
-
+      
       const { currentSort, currentRange, currentType } = getPodcastsFilterParams({
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range,
         category: filterParams.category
       });
-
+            
       const response = await apiRequestService.reqChannelGetMany({
         ...filterParams,
         type: currentType,
@@ -85,12 +90,12 @@ export const PodcastsContextProvider = ({
 
   return (
     <PodcastsContext.Provider value={{
-      filterParams,
-      setFilterParams,
+      filterParams, setFilterParams,
       channels, setChannels,
       totalPages, setTotalPages,
       isLoading, setIsLoading,
       showSubscribeMessage, setShowSubscribeMessage,
+      viewSelected, setViewSelected
     }}>
       {children}
     </PodcastsContext.Provider>

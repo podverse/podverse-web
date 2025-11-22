@@ -1,5 +1,5 @@
 import { ASSETS } from "../constants/assets";
-import { UITheme } from "./uiTheme";
+import { UITheme } from "./localSettings/uiTheme";
 
 export const getBrandLogoSrc = ((uiTheme: UITheme) => {
   switch (uiTheme) {

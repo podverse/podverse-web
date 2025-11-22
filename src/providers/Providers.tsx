@@ -5,7 +5,6 @@ import { DTOAccount, DTOCategory, QueueResourcesAbridgedIndex } from 'podverse-h
 import { AccountProvider } from '../contexts/Account';
 import { LocalSettingsProvider } from '../contexts/LocalSettings';
 import { ModalsProvider } from '../contexts/Modals';
-import { UITheme } from '../utils/uiTheme';
 import { CategoriesProvider } from '../contexts/Categories';
 import { MediaPlayerProvider } from '../contexts/MediaPlayer';
 import { MediaPlayerCurrentTimeProvider } from '../contexts/MediaPlayerCurrentTime';
@@ -14,19 +13,20 @@ import { QueuesProvider } from '../contexts/Queue';
 import { QueueResourcesAbridgedIndexProvider } from '../contexts/QueueResourcesAbridgedIndex';
 import { AutoQueueProvider } from '../contexts/AutoQueue';
 import { MediaPlayerVideoProvider } from '../contexts/MediaPlayerVideo';
+import { LocalSettingsState } from '../utils/localSettings/localSettings';
 
 export default function Providers({
   children,
-  ssrUITheme,
   locale,
+  ssrLocalSettings,
   ssrLoggedInAccount,
   ssrQueueResourcesAbridgedIndex,
   messages,
   categories
 }: {
   children: React.ReactNode;
-  ssrUITheme: UITheme;
   locale: string;
+  ssrLocalSettings: LocalSettingsState;
   ssrLoggedInAccount: DTOAccount | null;
   ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null;
   messages: Record<string, any>;
@@ -34,7 +34,7 @@ export default function Providers({
 }) {
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/Chicago">
-      <LocalSettingsProvider ssrUITheme={ssrUITheme}>
+      <LocalSettingsProvider ssrLocalSettings={ssrLocalSettings}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <QueuesProvider>
             <QueueResourcesAbridgedIndexProvider ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}>

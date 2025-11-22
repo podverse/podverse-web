@@ -55,12 +55,10 @@ async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boo
 
   if (data.category) {
     data.type = "category";
-    data.sort = "top";
-    data.range = "day";
+    data.sort = "recent";
   } else if (!data.type) {
     data.type = isAuthenticated ? "subscribed" : "global";
-    data.sort = isAuthenticated ? "a_z" : "top";
-    data.range = "day";
+    data.sort = isAuthenticated ? "a_z" : "recent";
   }
   return data;
 }

@@ -7,6 +7,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'd
   | 'outline' | 'link'
   | 'mini' | 'miniSelected'
   | 'miniGlow' | 'miniGlowWarning' | 'miniGlowDanger'
+  | 'unstyled';
 
 type ButtonProps = {
   children: React.ReactNode

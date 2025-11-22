@@ -15,9 +15,11 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { MainHeader } from "../../components/Main/MainHeader";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
+import { ViewSelector } from "../../components/ViewSelector/ViewSelector";
 
 export const PodcastsHeader: React.FC = () => {
-  const { filterParams, setFilterParams } = usePodcastsContext();
+  const { filterParams, setFilterParams, viewSelected, setViewSelected
+    } = usePodcastsContext();
   const { type, sort, range, category } = filterParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
@@ -39,11 +41,11 @@ export const PodcastsHeader: React.FC = () => {
   const handleTypeChange = (value: string) => {
     if (isChannelType(value)) {
       if (value === "global") {
-        setFilterParams({ ...filterParams, type: value, sort: "top", page: 1, category: undefined });
+        setFilterParams({ ...filterParams, type: value, sort: "recent", page: 1, category: undefined });
       } else if (value === "category") {
         router.push("/podcasts/categories");
       } else {
-        setFilterParams({ ...filterParams, type: value, sort: "a_z", page: 1, category: undefined });
+        setFilterParams({ ...filterParams, type: value, sort: "recent", page: 1, category: undefined });
       }
     }
   };
@@ -82,6 +84,10 @@ export const PodcastsHeader: React.FC = () => {
           onChange={handleRangeChange}
         />
       )}
+      <ViewSelector
+        viewSelected={viewSelected}
+        setViewSelected={setViewSelected}
+      />
     </>
   );
 

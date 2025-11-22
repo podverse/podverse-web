@@ -4,12 +4,15 @@ import { useTranslations } from "next-intl";
 import { CategoryMappingKeys, DTOChannel, QueryParamsChannelsType } from "podverse-helpers";
 import React from "react";
 import ListPodcastRow from "./ListPodcastRow";
+import ListPodcastGridNode from "./ListPodcastGridNode";
 import { CallToActionMessage } from "../../CallToActionMessage/CallToActionMessage";
 import Pagination from "../../Pagination/Pagination";
 import { useModals } from "../../../contexts/Modals";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../utils/scroll";
 import styles from "../../../styles/components/List/Podcasts/ListPodcasts.module.scss";
+import { Divider } from "../../Divider/Divider";
+import { usePodcastsContext } from "../../../app/podcasts/PodcastsContext";
 
 type Props = {
   page: number;
@@ -25,6 +28,7 @@ export const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, tot
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalAuthLogin } = useModals();
+  const { viewSelected } = usePodcastsContext();
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -32,6 +36,25 @@ export const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, tot
   
   const showCallToAction = showSubscribeMessage;
   const showPagination = !showSubscribeMessage;
+
+  let listNodes: React.ReactNode[] = [];
+
+  if (viewSelected === "rows") {
+    listNodes = channels.map((channel, idx) => (
+      <React.Fragment key={channel.id}>
+        <ListPodcastRow channel={channel} />
+        {idx < channels.length - 1 && <Divider />}
+      </React.Fragment>
+    ));
+  } else if (viewSelected === "grid") {
+    listNodes = [
+      <div key="grid" className={styles.grid}>
+        {channels.map(channel => (
+          <ListPodcastGridNode key={channel.id} channel={channel} />
+        ))}
+      </div>
+    ];
+  }
 
   return (
     <>
@@ -50,9 +73,7 @@ export const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, tot
             totalPages={totalPages}
             setPage={setPage}
             paginationControlsClassName={styles.paginationControls}>
-            {channels.map((channel) => (
-              <ListPodcastRow key={channel.id} channel={channel} />
-            ))}
+            {listNodes}
           </Pagination>
         )
       }

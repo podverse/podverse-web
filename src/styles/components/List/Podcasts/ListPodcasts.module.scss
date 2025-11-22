@@ -1,3 +1,9 @@
 .paginationControls {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.25rem;
 }

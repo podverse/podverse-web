@@ -1,32 +1,37 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { UITheme, toUITheme, setUIThemeOnDocument } from "../utils/uiTheme";
+import { UITheme, toUITheme } from "../utils/localSettings/uiTheme";
+import { ViewSelectedOption } from "../components/ViewSelector/ViewSelector";
+import { handleLocalSettingsUpdate, LocalSettingsState } from "../utils/localSettings/localSettings";
 
 type LocalSettingsContextType = {
   uiTheme: UITheme;
   setUITheme: (uiTheme: UITheme) => void;
+  viewSelected: ViewSelectedOption;
+  setViewSelected: (view: ViewSelectedOption) => void;
 };
 
 type LocalSettingsProps = {
-  ssrUITheme: UITheme;
+  ssrLocalSettings: LocalSettingsState;
   children: React.ReactNode
 }
 
 const LocalSettingsContext = createContext<LocalSettingsContextType | undefined>(undefined);
 
 export const LocalSettingsProvider: React.FC<LocalSettingsProps> = ({
-  ssrUITheme,
+  ssrLocalSettings,
   children,
 }) => {
-  const [uiTheme, setUIThemeState] = useState<UITheme>(toUITheme(ssrUITheme));
-
+  const [uiTheme, setUITheme] = useState<UITheme>(toUITheme(ssrLocalSettings.uiTheme));
+  const [viewSelected, setViewSelected] = useState<ViewSelectedOption>(ssrLocalSettings.viewSelected);
+  
   useEffect(() => {
-    setUIThemeOnDocument(uiTheme);
-  }, [uiTheme]);
-  const setUITheme = (newUITheme: UITheme) => setUIThemeState(newUITheme);
+    handleLocalSettingsUpdate({ uiTheme, viewSelected });
+  }, [uiTheme, viewSelected]);
 
   return (
     <LocalSettingsContext.Provider value={{
-      uiTheme, setUITheme
+      uiTheme, setUITheme,
+      viewSelected, setViewSelected
     }}>
       {children}
     </LocalSettingsContext.Provider>

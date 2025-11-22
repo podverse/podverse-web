@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocalSettings } from '../../contexts/LocalSettings'
-import { UITheme } from '../../utils/uiTheme'
+import { UITheme } from '../../utils/localSettings/uiTheme'
 import styles from '../../styles/components/SideBar/SideBarLink.module.scss'
 import { useTranslations } from 'next-intl';
 

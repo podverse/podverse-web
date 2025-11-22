@@ -26,6 +26,10 @@ export const IMAGES = {
     }
   },
   LIST: {
+    GRID: {
+      SIZE: 600,
+      SIZE_FIND_TARGET: 1200
+    },
     LIVESTREAMS: {
       DESKTOP: {
         SIZE: 106,

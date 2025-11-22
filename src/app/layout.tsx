@@ -12,7 +12,7 @@ import PageWrapper from '../components/PageWrapper/PageWrapper';
 import { SideBar } from '../components/SideBar/SideBar';
 import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
-import { toUITheme } from '../utils/uiTheme';
+import { toUITheme } from '../utils/localSettings/uiTheme';
 import { Modals } from '../components/Modals/Modals';
 import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
@@ -22,6 +22,7 @@ import { MediaPlayerController } from '../components/MediaPlayer/Controller/Medi
 import { Toast } from '../components/Toast/Toast';
 import { QueueController } from '../components/Queue/QueueController';
 import { QueueResourcesAbridgedController } from '../components/Queue/QueueResourcesAbridgedController';
+import { getParsedLocalSettings } from '../utils/localSettings/localSettings';
 
 export const metadata = {
   title: `${config.private.brand.name || config.public.brand.name}`,
@@ -30,8 +31,8 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
-  const cookieUITheme = cookieStore.get('ui-theme')?.value;
-  const ssrUITheme = toUITheme(cookieUITheme);
+  const ssrLocalSettings = getParsedLocalSettings(cookieStore);
+  const ssrUITheme = toUITheme(ssrLocalSettings.uiTheme);
 
   const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
@@ -69,8 +70,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers
           locale={locale}
           ssrLoggedInAccount={ssrLoggedInAccount}
+          ssrLocalSettings={ssrLocalSettings}
           ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}
-          ssrUITheme={ssrUITheme}
           messages={messages}
           categories={categories}>
           <WindowWrapper>
