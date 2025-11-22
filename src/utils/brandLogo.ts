@@ -1,8 +1,8 @@
 import { ASSETS } from "../constants/assets";
-import { UITheme } from "./theme";
+import { UITheme } from "./uiTheme";
 
-export const getBrandLogoSrc = ((theme: UITheme) => {
-  switch (theme) {
+export const getBrandLogoSrc = ((uiTheme: UITheme) => {
+  switch (uiTheme) {
     case "dark":
       return ASSETS.IMAGES.BRANDING.BRAND.WHITE;
     case "light":
