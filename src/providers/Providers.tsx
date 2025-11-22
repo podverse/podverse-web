@@ -3,9 +3,9 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { DTOAccount, DTOCategory, QueueResourcesAbridgedIndex } from 'podverse-helpers';
 import { AccountProvider } from '../contexts/Account';
-import { ThemeProvider } from '../contexts/Theme';
+import { LocalSettingsProvider } from '../contexts/LocalSettings';
 import { ModalsProvider } from '../contexts/Modals';
-import { UITheme } from '../utils/theme';
+import { UITheme } from '../utils/uiTheme';
 import { CategoriesProvider } from '../contexts/Categories';
 import { MediaPlayerProvider } from '../contexts/MediaPlayer';
 import { MediaPlayerCurrentTimeProvider } from '../contexts/MediaPlayerCurrentTime';
@@ -17,7 +17,7 @@ import { MediaPlayerVideoProvider } from '../contexts/MediaPlayerVideo';
 
 export default function Providers({
   children,
-  theme,
+  ssrUITheme,
   locale,
   ssrLoggedInAccount,
   ssrQueueResourcesAbridgedIndex,
@@ -25,7 +25,7 @@ export default function Providers({
   categories
 }: {
   children: React.ReactNode;
-  theme: UITheme;
+  ssrUITheme: UITheme;
   locale: string;
   ssrLoggedInAccount: DTOAccount | null;
   ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null;
@@ -34,7 +34,7 @@ export default function Providers({
 }) {
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/Chicago">
-      <ThemeProvider initialTheme={theme}>
+      <LocalSettingsProvider ssrUITheme={ssrUITheme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <QueuesProvider>
             <QueueResourcesAbridgedIndexProvider ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}>
@@ -56,7 +56,7 @@ export default function Providers({
             </QueueResourcesAbridgedIndexProvider>
           </QueuesProvider>
         </AccountProvider>
-      </ThemeProvider>
+      </LocalSettingsProvider>
     </NextIntlClientProvider>
   );
 }

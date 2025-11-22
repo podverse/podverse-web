@@ -1,5 +1,5 @@
 :root,
-[data-theme="dark"] {
+[data-ui-theme="dark"] {
   --background-color-primary: #030626;
   --background-color-secondary: #000000;
   --background-color-tertiary: #0f1235;
@@ -35,7 +35,7 @@
 }
 
 :root,
-[data-theme="dark"] {
+[data-ui-theme="dark"] {
   --background-gradient-primary: linear-gradient(90deg, rgba(23,59,140,.81) -3%, var(--background-color-tertiary));
   
   --button-primary-bg: var(--border-color-primary);

@@ -2,15 +2,15 @@ import React from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
 import { ROUTES } from "../../constants/routes";
-import styles from "../../styles/components/SideBar/SideBar.module.scss";
 import SideBarDivider from "./SideBarDivider";
 import SideBarBrand from "./SideBarBrand";
 import SideBarLink from "./SideBarLink";
 import SideBarHeader from "./SideBarHeader";
-import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import { UIThemeToggle } from "../UIThemeToggle/UIThemeToggle";
 import Accordion from "../Accordian/Accordian";
+import styles from "../../styles/components/SideBar/SideBar.module.scss";
 
-const SideBar: React.FC = () => {
+export const SideBar: React.FC = () => {
   const tMedia = useTranslations("media");
   const tFeatures = useTranslations("features");
 
@@ -89,10 +89,8 @@ const SideBar: React.FC = () => {
           open
         />
         <SideBarDivider />
-        <ThemeToggle />
+        <UIThemeToggle />
       </div>
     </nav>
   );
 };
-
-export default SideBar;

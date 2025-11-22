@@ -2,19 +2,19 @@
 
 import Link from "next/link";
 import React from "react";
-import styles from "../../styles/components/SideBar/SideBarBrand.module.scss";
-import { useTheme } from "../../contexts/Theme";
+import { useLocalSettings } from "../../contexts/LocalSettings";
 import { getBrandLogoSrc } from "../../utils/brandLogo";
 import { config } from "../../config";
 import { Image } from "../Image/Image";
+import styles from "../../styles/components/SideBar/SideBarBrand.module.scss";
 
 const SideBarBrand: React.FC = () => {
-  const { theme } = useTheme();
+  const { uiTheme } = useLocalSettings();
 
   return (
     <Link href="/" className={styles.brand}>
       <Image
-        src={getBrandLogoSrc(theme)}
+        src={getBrandLogoSrc(uiTheme)}
         alt={config.public.brand.name}
         width={144}
         height={25}
