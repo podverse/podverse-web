@@ -329,11 +329,18 @@
   "membership": {
     "membership": "Membership"
   },
+  "layouts": {
+    "change_layout_view": "Change Layout View",
+    "grid_view": "Grid View",
+    "grid_mini_view": "Grid Mini View",
+    "list_view": "List View"
+  },
   "settings": {
     "settings": "Settings",
     "ui_theme": {
       "light": "☀️ Light",
-      "dark": "🌙 Dark"
+      "dark": "🌙 Dark",
+      "select_ui_theme": "Select UI Theme"
     }
   },
   "categories": {
