@@ -14,6 +14,13 @@
   overflow: hidden;
 }
 
+.button.unstyled {
+  min-width: auto;
+  padding: 0;
+  height: auto;
+  border-radius: 0;
+}
+
 .buttonContent {
   display: flex;
   align-items: center;
