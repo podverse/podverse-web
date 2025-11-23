@@ -246,6 +246,16 @@
       "all_time": "All Time"
     }
   },
+  "legal": {
+    "takedown_notice": "Takedown Notice",
+    "takedown_notice_explanation": "",
+    "spam_policy": "Spam Policy",
+    "spam_policy_explanation": "This content has been automatically flagged as spam according to our system. If you think this is an error, please contact support.",
+    "archive_policy": "Archive Policy",
+    "archive_policy_explanation": "This content is in the process of being archived and removed. This often happens with content that changes its RSS feed URL. If you think this is an error and would like this content to be added, please contact support.",
+    "takedown_policy": "Takedown Policy",
+    "takedown_policy_explanation": "This content has been removed in response to a takedown request by the copyright holder."
+  },
   "misc": {
     "more_info": "More Info",
     "info": "Info",
