@@ -42,9 +42,9 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
     };
   }, []);
 
-  const startPollingForChannel = (podcastIndexId: string | number) => {
+  const startPollingForChannel = (podcast_index_id: string | number) => {
     if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
-    const idText = String(podcastIndexId);
+    const idText = String(podcast_index_id);
     pollIntervalRef.current = setInterval(async () => {
       if (hasRedirectedRef.current) return;
       try {
