@@ -23,6 +23,7 @@ export const PodcastsHeader: React.FC = () => {
   const { type, sort, range, category } = filterParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
+  const tCategories = useTranslations('categories');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getPodcastsDropdownConfig({ type, sort, category, tFilters });
 
@@ -90,9 +91,13 @@ export const PodcastsHeader: React.FC = () => {
     </>
   );
 
+  const headerTitle = filterParams.category ?
+    `${tMedia("podcast.podcasts")} > ${tCategories(filterParams.category)}` :
+    tMedia("podcast.podcasts");
+
   return (
     <MainHeader
-      title={tMedia("podcast.podcasts")}
+      title={headerTitle}
       buttonsNode={buttonsNode}
     />
   );
