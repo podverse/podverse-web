@@ -22,7 +22,7 @@ export const onClickCategory = ({
       ...filterParams,
       type: "category",
       sort: QUERY_PARAMS_GLOBAL_GET_MANY_SORT_VALUES
-        .includes(filterParams.sort) ? filterParams.sort : "top",
+        .includes(filterParams.sort) ? filterParams.sort : "recent",
       category: category.mapping_key,
       page: 1
     });
