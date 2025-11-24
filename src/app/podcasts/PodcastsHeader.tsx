@@ -16,10 +16,11 @@ import { MainHeader } from "../../components/Main/MainHeader";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
 import { ViewSelector } from "../../components/ViewSelector/ViewSelector";
+import { useLocalSettings } from "../../contexts/LocalSettings";
 
 export const PodcastsHeader: React.FC = () => {
-  const { filterParams, setFilterParams, viewSelected, setViewSelected
-    } = usePodcastsContext();
+  const { filterParams, setFilterParams } = usePodcastsContext();
+  const { viewSelected, setViewSelected } = useLocalSettings();
   const { type, sort, range, category } = filterParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');

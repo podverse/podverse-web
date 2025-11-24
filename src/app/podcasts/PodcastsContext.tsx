@@ -7,8 +7,6 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
-import { useLocalSettings } from "../../contexts/LocalSettings";
-import { ViewSelectedOption } from "../../components/ViewSelector/ViewSelector";
 
 interface PodcastsContextType {
   filterParams: QueryParamsChannels;
@@ -21,8 +19,6 @@ interface PodcastsContextType {
   setIsLoading: (isLoading: boolean) => void;
   showSubscribeMessage: boolean;
   setShowSubscribeMessage: (show: boolean) => void;
-  viewSelected: ViewSelectedOption;
-  setViewSelected: (view: ViewSelectedOption) => void;
 };
 
 const PodcastsContext = createContext<PodcastsContextType | undefined>(undefined);
@@ -47,7 +43,6 @@ export const PodcastsContextProvider = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
-  const { viewSelected, setViewSelected } = useLocalSettings();
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {
@@ -94,8 +89,7 @@ export const PodcastsContextProvider = ({
       channels, setChannels,
       totalPages, setTotalPages,
       isLoading, setIsLoading,
-      showSubscribeMessage, setShowSubscribeMessage,
-      viewSelected, setViewSelected
+      showSubscribeMessage, setShowSubscribeMessage
     }}>
       {children}
     </PodcastsContext.Provider>
