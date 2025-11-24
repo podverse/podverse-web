@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 import { DTOCategory } from "podverse-helpers";
 import React from "react";
 import Link from "../Link/Link";
-// import SubHeader from "../List/ListHeader";
 import { useCategories } from "../../contexts/Categories";
 import styles from "../../styles/components/Category/CategoriesList.module.scss";
 
@@ -40,22 +39,15 @@ function CategoryListItems({
   );
 }
 
-const CategoriesList = ({ onCategoryClick }: CategoriesListProps) => {
+export const CategoriesList = ({ onCategoryClick }: CategoriesListProps) => {
   const { categories } = useCategories();
   const tCategories = useTranslations("categories");
 
   return (
-    <section aria-labelledby="categories-heading">
-      {/* <SubHeader title={tCategories("categories")} /> */}
-      <nav>
-        <CategoryListItems
-          categories={categories}
-          tCategories={tCategories}
-          onCategoryClick={onCategoryClick}
-        />
-      </nav>
-    </section>
+    <CategoryListItems
+      categories={categories}
+      tCategories={tCategories}
+      onCategoryClick={onCategoryClick}
+    />
   );
 };
-
-export default CategoriesList;
