@@ -1,0 +1,17 @@
+.infoWrapper {
+  padding: 1rem;
+  background-color: var(--background-color-glow);
+}
+
+.infoWrapper p {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+}
+
+.infoWrapper a {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-link);
+  text-decoration: underline;
+}
