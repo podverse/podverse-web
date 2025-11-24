@@ -36,11 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   const menuItemsWithHandlers = menuItems.map((item) => ({
     label: item.label,
-    onClick: () => {
-      if (item.value !== value) {
-        onChange(item.value);
-      }
-    },
+    onClick: () => onChange(item.value),
   }));
   
   const {
