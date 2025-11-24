@@ -1,8 +1,15 @@
+@use '../../mixins/lineClamp' as *;
+
+
 .header {
   background-color: var(--background-color-secondary);
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
+}
+
+.header h1 {
+  @include line-clamp(1);
 }
 
 .headerContent {
