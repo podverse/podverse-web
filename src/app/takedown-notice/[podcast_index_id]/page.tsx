@@ -1,6 +1,6 @@
 import React from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
-import TakedownNoticeClient from "./TakedownNoticeClient";
+import { TakedownNoticeClient } from "./TakedownNoticeClient";
 
 export default async function TakedownNotice({ params }: {
   params: { podcast_index_id: string }
