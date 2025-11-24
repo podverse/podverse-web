@@ -2,11 +2,12 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { DTOChannel, getTotalPages, QueryParamsChannels } from "podverse-helpers";
+import { DTOChannel, getTotalPages, QueryParamsChannels, removeQueryParamByPattern } from "podverse-helpers";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
+import { ROUTES } from "../../constants/routes";
 
 interface PodcastsContextType {
   filterParams: QueryParamsChannels;
@@ -19,6 +20,8 @@ interface PodcastsContextType {
   setIsLoading: (isLoading: boolean) => void;
   showSubscribeMessage: boolean;
   setShowSubscribeMessage: (show: boolean) => void;
+  showCategoriesModal: boolean;
+  setShowCategoriesModal: (show: boolean) => void;
 };
 
 const PodcastsContext = createContext<PodcastsContextType | undefined>(undefined);
@@ -42,6 +45,7 @@ export const PodcastsContextProvider = ({
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
+  const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
 
   useSkipInitialEffect(() => {
@@ -62,7 +66,6 @@ export const PodcastsContextProvider = ({
         range: filterParams.range,
         category: filterParams.category
       });
-            
       const response = await apiRequestService.reqChannelGetMany({
         ...filterParams,
         type: currentType,
@@ -71,7 +74,7 @@ export const PodcastsContextProvider = ({
       });
 
       if (!filterParams.category) {
-        router.replace("/podcasts");
+        router.replace(removeQueryParamByPattern(ROUTES.PODCASTS, "category"));
       }
 
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);
@@ -89,7 +92,8 @@ export const PodcastsContextProvider = ({
       channels, setChannels,
       totalPages, setTotalPages,
       isLoading, setIsLoading,
-      showSubscribeMessage, setShowSubscribeMessage
+      showSubscribeMessage, setShowSubscribeMessage,
+      showCategoriesModal, setShowCategoriesModal
     }}>
       {children}
     </PodcastsContext.Provider>

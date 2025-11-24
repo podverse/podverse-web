@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import {
   QUERY_PARAMS_CHANNELS_TYPE_VALUES,
   QUERY_PARAMS_CHANNELS_SORT_VALUES,
@@ -19,7 +18,7 @@ import { ViewSelector } from "../../components/ViewSelector/ViewSelector";
 import { useLocalSettings } from "../../contexts/LocalSettings";
 
 export const PodcastsHeader: React.FC = () => {
-  const { filterParams, setFilterParams } = usePodcastsContext();
+  const { filterParams, setFilterParams, setShowCategoriesModal } = usePodcastsContext();
   const { viewSelected, setViewSelected } = useLocalSettings();
   const { type, sort, range, category } = filterParams;
   const tMedia = useTranslations('media');
@@ -27,7 +26,6 @@ export const PodcastsHeader: React.FC = () => {
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getPodcastsDropdownConfig({ type, sort, category, tFilters });
 
-  const router = useRouter();
 
   function isChannelType(val: string): val is QueryParamsChannelsType {
     return QUERY_PARAMS_CHANNELS_TYPE_VALUES.includes(val as QueryParamsChannelsType);
@@ -44,7 +42,7 @@ export const PodcastsHeader: React.FC = () => {
       if (value === "global") {
         setFilterParams({ ...filterParams, type: value, sort: "recent", page: 1, category: undefined });
       } else if (value === "category") {
-        router.push("/podcasts/categories");
+        setShowCategoriesModal(true);
       } else {
         setFilterParams({ ...filterParams, type: value, sort: "recent", page: 1, category: undefined });
       }
