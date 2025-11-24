@@ -358,6 +358,7 @@
   },
   "categories": {
     "categories": "Categories",
+    "select_a_category": "Select a Category",
     "arts": "Arts",
     "business": "Business",
     "comedy": "Comedy",
