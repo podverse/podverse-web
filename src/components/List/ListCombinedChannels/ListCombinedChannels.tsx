@@ -29,6 +29,10 @@ export const ListCombinedChannels: React.FC<ListCombinedChannelsProps> = ({
   
   if (medium === 'all' || medium === 'podcasts') {
     listNodes = ListPodcastNodes({ channels, viewSelected });
+  } else if (medium === 'videos') {
+    listNodes = ListPodcastNodes({ channels, viewSelected });
+  } else if (medium === 'music') {
+    listNodes = ListPodcastNodes({ channels, viewSelected });
   }
 
   return (

@@ -68,6 +68,7 @@ export const PodcastsContextProvider = ({
       });
       const response = await apiRequestService.reqChannelGetMany({
         ...filterParams,
+        medium: "podcasts",
         type: currentType,
         sort: currentSort,
         range: currentRange

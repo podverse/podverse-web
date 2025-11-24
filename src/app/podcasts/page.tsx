@@ -1,5 +1,6 @@
 import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES,
-  QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages } from "podverse-helpers";
+  QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, 
+  QueryParamsMedium} from "podverse-helpers";
 import { z } from "zod";
 import { PodcastsClient } from "./PodcastsClient";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
@@ -26,12 +27,15 @@ export default async function PodcastsPage({ searchParams }: PodcastsPageProps) 
   const { page = 1, sort, type, range, category } = await parseSearchParams(queryParams, isValidAuthSession);
   const { currentType, currentSort, currentRange } = getPodcastsFilterParams({ type, sort, range, category });
   
+  const medium: QueryParamsMedium = "podcasts";
+
   const response = await apiRequestService.reqChannelGetMany({
     page,
     sort: currentSort,
     type: currentType,
     range: currentRange,
-    category
+    category,
+    medium
   });
   
   const ssrChannels = response.data;
@@ -39,7 +43,7 @@ export default async function PodcastsPage({ searchParams }: PodcastsPageProps) 
   
   return (
     <PodcastsClient
-      initialQueryParams={{ page, type, sort, range, category }}
+      initialQueryParams={{ page, type, sort, range, category, medium }}
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
     />

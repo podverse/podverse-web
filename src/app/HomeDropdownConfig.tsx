@@ -25,7 +25,7 @@ export function getHomeDropdownConfig({ tMedia, tFilters }: {
 }
 
 type QueryParamConfig = {
-  medium?: QueryParamsMedium;
+  medium: QueryParamsMedium;
   sort?: QueryParamsHomeSort;
 }
 
