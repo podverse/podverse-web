@@ -13,7 +13,7 @@ type TakedownNoticeClientProps = {
   ssrFeed: DTOFeed | null;
 };
 
-export default function TakedownNoticeClient({ ssrFeed }: TakedownNoticeClientProps) {
+export function TakedownNoticeClient({ ssrFeed }: TakedownNoticeClientProps) {
   const tLegal = useTranslations("legal");
   const router = useRouter();
 
