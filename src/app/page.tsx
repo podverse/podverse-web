@@ -22,7 +22,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
 
   const queryParams = searchParams ? await searchParams : {};
-  const { page = 1, sort, medium } = await parseSearchParams(queryParams);
+  const { page = 1, sort, medium = "all" } = await parseSearchParams(queryParams);
   const { currentMedium, currentSort } = getHomeFilterParams({ medium, sort });
 
   let ssrChannels: DTOChannel[] = [];
