@@ -304,6 +304,10 @@
     "login_for_history": "Please login to view your history.",
     "login_to_add_feeds": "Please login to add feeds to our directory."
   },
+  "subscriptions": {
+    "subscriptions": "Subscriptions",
+    "how_to_start_message": "Try <searchLink>searching</searchLink> for your favorite content, or browse <podcastsLink>podcasts</podcastsLink>, <videosLink>videos</videosLink>, or <musicLink>music</musicLink>."
+  },
   "authentication": {
     "login": "Login",
     "logout": "Logout",
