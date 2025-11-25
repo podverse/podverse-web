@@ -1,6 +1,13 @@
-import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES,
-  QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, 
-  QueryParamsMedium} from "podverse-helpers";
+import {
+  CATEGORY_MAPPING_KEYS,
+  QUERY_PARAMS_STATS_RANGE_VALUES,
+  getTotalPages, 
+  QueryParamsMedium,
+  getValidQueryParam,
+  QUERY_PARAMS_GLOBAL_SORT_VALUES,
+  QUERY_PARAMS_SUBSCRIBED_TYPE,
+  QUERY_PARAMS_SUBSCRIBED_FULL_SORT
+} from "podverse-helpers";
 import { z } from "zod";
 import { PodcastsClient } from "./PodcastsClient";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
@@ -8,8 +15,8 @@ import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional(),
-  type: z.enum(QUERY_PARAMS_CHANNELS_TYPE_VALUES).optional(),
-  sort: z.enum(QUERY_PARAMS_CHANNELS_SORT_VALUES).optional(),
+  type: z.enum(QUERY_PARAMS_SUBSCRIBED_TYPE).optional(),
+  sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional(),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional(),
   category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional(),
 });
@@ -57,12 +64,23 @@ async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boo
   }
   const data = parsed.data;
 
-  if (data.category) {
+  if (data.category || data.type === "category") {
     data.type = "category";
-    data.sort = "recent";
+    data.sort = getValidQueryParam(
+      QUERY_PARAMS_GLOBAL_SORT_VALUES,
+      data.sort,
+      "recent"
+    )
+  } else if (data.type === "global") {
+    data.sort = getValidQueryParam(
+      QUERY_PARAMS_GLOBAL_SORT_VALUES,
+      data.sort,
+      "recent"
+    )
   } else if (!data.type) {
     data.type = isAuthenticated ? "subscribed" : "global";
     data.sort = isAuthenticated ? "a_z" : "recent";
   }
+
   return data;
 }

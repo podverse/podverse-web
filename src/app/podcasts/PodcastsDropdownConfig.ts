@@ -1,10 +1,16 @@
-import { QueryParamsChannelsType, QueryParamsChannelsSort, QueryParamsStatsRange,
-  CategoryMappingKeys } from "podverse-helpers";
+import { QueryParamsStatsRange,
+  CategoryMappingKeys, 
+  getValidQueryParam,
+  QUERY_PARAMS_GLOBAL_SORT_VALUES,
+  QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+  QueryParamsSubscribedFullSort,
+  QueryParamsSubscribedType
+} from "podverse-helpers";
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 
 export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
-  sort?: QueryParamsChannelsSort,
-  type?: QueryParamsChannelsType,
+  sort?: QueryParamsSubscribedFullSort,
+  type?: QueryParamsSubscribedType,
   category?: CategoryMappingKeys | null,
   tFilters: (key: string) => string
 }) {
@@ -44,8 +50,8 @@ export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
 }
 
 type QueryParamConfig = {
-  type?: QueryParamsChannelsType;
-  sort?: QueryParamsChannelsSort;
+  type?: QueryParamsSubscribedType;
+  sort?: QueryParamsSubscribedFullSort;
   range?: QueryParamsStatsRange;
   category?: CategoryMappingKeys | null;
 }
@@ -55,13 +61,25 @@ export function getPodcastsFilterParams({ type, sort, range, category }: QueryPa
   let currentRange = range;
   let currentType = type;
 
-  if (category) {
+  if (category || type === "category") {
     currentType = "category";
-    currentSort = currentSort || "recent";
+    currentSort = getValidQueryParam(
+      QUERY_PARAMS_GLOBAL_SORT_VALUES,
+      currentSort,
+      "recent"
+    )
   } else if (type === "global") {
-    currentSort = currentSort || "recent";
+    currentSort = getValidQueryParam(
+      QUERY_PARAMS_GLOBAL_SORT_VALUES,
+      currentSort,
+      "recent"
+    )
   } else if (type === "subscribed") {
-    currentSort = currentSort || "recent";
+    currentSort = getValidQueryParam(
+      QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+      currentSort,
+      "a_z"
+    )
   }
 
   return { currentSort, currentRange, currentType };
