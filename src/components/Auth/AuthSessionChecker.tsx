@@ -9,12 +9,9 @@ interface AuthSessionCheckerProps {
 
 const AuthSessionChecker = ({ ssrShouldLogout }: AuthSessionCheckerProps) => {
   useEffect(() => {
-    console.log('AuthSessionChecker SSR Should Logout:', ssrShouldLogout);
     if (ssrShouldLogout) {
       (async () => {
-        console.log('AuthSessionChecker logging out due to invalid SSR session');
         await apiRequestService.reqAuthLogout();
-        console.log('AuthSessionChecker after logout');
       })();
     }
   }, [ssrShouldLogout]);
