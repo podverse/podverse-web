@@ -4,7 +4,7 @@ import styles from '../../styles/components/Modal/Modal.module.scss'
 
 type ModalProps = {
   isOpen: boolean
-  onClose: () => void
+  onClose?: () => void
   ariaLabel: string
   children: ReactNode
   header?: string
@@ -69,13 +69,17 @@ export const Modal = ({
             >
               {header}
             </span>
-            <button
-              onClick={onClose}
-              aria-label="Close modal"
-              className={styles.modalCloseButton}
-            >
-              <FaTimes />
-            </button>
+            {
+              onClose && (
+                <button
+                  onClick={onClose}
+                  aria-label="Close modal"
+                  className={styles.modalCloseButton}
+                >
+                  <FaTimes />
+                </button>
+              )
+            }
           </div>
         )}
         {!header && (

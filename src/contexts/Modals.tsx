@@ -74,6 +74,8 @@ type ModalsContextType = {
   setModalBoost: (val: ModalBoost) => void;
   modalLoginRequired: ModalMessage;
   setModalLoginRequired: (val: ModalMessage) => void;
+  modalDisclaimer: ModalBasic;
+  setModalDisclaimer: (val: ModalBasic) => void;
 }
 
 const ModalsContext = createContext<ModalsContextType | undefined>(undefined)
@@ -135,6 +137,7 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalSourceSelector, setModalSourceSelector] = useState<ModalSourceSelector>(defaultModalSourceSelector)
   const [modalBoost, setModalBoost] = useState<ModalBoost>(defaultModalBoost)
   const [modalLoginRequired, setModalLoginRequired] = useState<ModalMessage>(defaultModalLoginRequired)
+  const [modalDisclaimer, setModalDisclaimer] = useState<ModalBasic>({ isOpen: false })
 
   return (
     <ModalsContext.Provider value={{
@@ -148,7 +151,8 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
       modalFunding, setModalFunding,
       modalSourceSelector, setModalSourceSelector,
       modalBoost, setModalBoost,
-      modalLoginRequired, setModalLoginRequired
+      modalLoginRequired, setModalLoginRequired,
+      modalDisclaimer, setModalDisclaimer
     }}>
       {children}
     </ModalsContext.Provider>

@@ -9,9 +9,13 @@ import { ModalShare } from '../Modal/ModalShare';
 import { ModalFunding } from '../Modal/ModalFunding';
 import { ModalBoost } from '../Modal/ModalBoost';
 import { ModalSourceSelector } from '../Modal/ModalSourceSelector';
+import { ModalDisclaimer } from '../Modal/ModalDisclaimer';
 import { ModalLoginRequired } from '../Modal/ModalLoginRequired';
+import { useLocalSettings } from '../../contexts/LocalSettings';
 
 export const Modals: React.FC = () => {
+  const { serverEnvironmentDisclaimerAccepted } = useLocalSettings();
+  
   return (
     <>
       <ModalAuthLogin />
@@ -23,6 +27,7 @@ export const Modals: React.FC = () => {
       <ModalBoost />
       <ModalSourceSelector />
       <ModalLoginRequired />
+      <ModalDisclaimer isOpen={!serverEnvironmentDisclaimerAccepted} />
     </>
   )
 }

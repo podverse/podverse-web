@@ -5,7 +5,6 @@ import { getSSRApiRequestService } from '../../factories/apiRequestService';
 export async function getSSRJwtFromCookies(): Promise<string | undefined> {
   const cookieStore = await cookies();
   const jwt = cookieStore.get(AuthCookieName)?.value;
-  console.log('SSR JWT from cookies:', jwt);
   return jwt;
 }
 

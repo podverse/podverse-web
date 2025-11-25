@@ -5,6 +5,7 @@ import { clearCookie, readCookie, writeCookie } from "../cookie";
 export interface LocalSettingsState {
 	uiTheme: UITheme;
 	viewSelected: ViewSelectedOption;
+  serverEnvironmentDisclaimerAccepted: boolean;
 }
 
 export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
@@ -27,6 +28,7 @@ export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
 const defaultLocalSettings: LocalSettingsState = {
   uiTheme: "dark",
   viewSelected: "grid",
+  serverEnvironmentDisclaimerAccepted: false
 };
 
 export function getParsedLocalSettings(cookieStore?: any): LocalSettingsState {

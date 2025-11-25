@@ -8,6 +8,8 @@ type LocalSettingsContextType = {
   setUITheme: (uiTheme: UITheme) => void;
   viewSelected: ViewSelectedOption;
   setViewSelected: (view: ViewSelectedOption) => void;
+  serverEnvironmentDisclaimerAccepted: boolean;
+  setServerEnvironmentDisclaimerAccepted: (accepted: boolean) => void;
 };
 
 type LocalSettingsProps = {
@@ -21,17 +23,26 @@ export const LocalSettingsProvider: React.FC<LocalSettingsProps> = ({
   ssrLocalSettings,
   children,
 }) => {
+  console.log(ssrLocalSettings);
+
   const [uiTheme, setUITheme] = useState<UITheme>(toUITheme(ssrLocalSettings.uiTheme));
   const [viewSelected, setViewSelected] = useState<ViewSelectedOption>(ssrLocalSettings.viewSelected);
+  const [serverEnvironmentDisclaimerAccepted, setServerEnvironmentDisclaimerAccepted] =
+    useState<boolean>(ssrLocalSettings.serverEnvironmentDisclaimerAccepted);
   
   useEffect(() => {
-    handleLocalSettingsUpdate({ uiTheme, viewSelected });
-  }, [uiTheme, viewSelected]);
+    handleLocalSettingsUpdate({
+      uiTheme,
+      viewSelected,
+      serverEnvironmentDisclaimerAccepted
+    });
+  }, [uiTheme, viewSelected, serverEnvironmentDisclaimerAccepted]);
 
   return (
     <LocalSettingsContext.Provider value={{
       uiTheme, setUITheme,
-      viewSelected, setViewSelected
+      viewSelected, setViewSelected, 
+      serverEnvironmentDisclaimerAccepted, setServerEnvironmentDisclaimerAccepted
     }}>
       {children}
     </LocalSettingsContext.Provider>
