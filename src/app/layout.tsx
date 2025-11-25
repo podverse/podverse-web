@@ -35,11 +35,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const ssrUITheme = toUITheme(ssrLocalSettings.uiTheme);
 
   const jwt = await getSSRJwtFromCookies();
-  console.log('RootLayout SSR JWT:', jwt);
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
-  console.log('RootLayout SSR Logged In Account:', ssrLoggedInAccount);
   const ssrShouldLogout = !!(jwt && !ssrLoggedInAccount);
-  console.log('RootLayout SSR Should Logout:', ssrShouldLogout);
 
   let ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null = null;
 
