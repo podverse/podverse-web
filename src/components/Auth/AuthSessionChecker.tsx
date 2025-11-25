@@ -12,7 +12,6 @@ const AuthSessionChecker = ({ ssrShouldLogout }: AuthSessionCheckerProps) => {
     if (ssrShouldLogout) {
       (async () => {
         await apiRequestService.reqAuthLogout();
-        window.location.reload();
       })();
     }
   }, [ssrShouldLogout]);
