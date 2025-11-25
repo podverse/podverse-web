@@ -4,7 +4,7 @@ import { getSSRApiRequestService } from '../../factories/apiRequestService';
 
 export async function getSSRJwtFromCookies(): Promise<string | undefined> {
   const cookieStore = await cookies();
-  const jwt = cookieStore.get("jwt")?.value;
+  const jwt = cookieStore.get('__Host-jwt')?.value || cookieStore.get('jwt')?.value;
   return jwt;
 }
 
