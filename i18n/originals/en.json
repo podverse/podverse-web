@@ -273,6 +273,8 @@
     "edit": "Edit",
     "done": "Done",
     "id": "ID",
+    "continue": "Continue",
+    "i_have_read_and_agree": "I have read and agree to the terms.",
     "unknown_date": "Unknown Date",
     "redirecting": "Redirecting...",
     "sharable_status": {
@@ -354,6 +356,14 @@
       "light": "☀️ Light",
       "dark": "🌙 Dark",
       "select_ui_theme": "Select UI Theme"
+    }
+  },
+  "disclaimers": {
+    "environment_warning": {
+      "alpha": {
+        "header": "Alpha Warning ⚠️",
+        "message": "This is the alpha version of the website. It is unfinished, may contain bugs, and your alpha data may be periodically reset or deleted."
+      }
     }
   },
   "categories": {
