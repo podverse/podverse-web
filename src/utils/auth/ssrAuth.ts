@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers';
-import { AuthCookieNameDevelopment, AuthCookieNameProduction, DTOAccount } from 'podverse-helpers';
+import { AuthCookieName, DTOAccount } from 'podverse-helpers';
 import { getSSRApiRequestService } from '../../factories/apiRequestService';
 
 export async function getSSRJwtFromCookies(): Promise<string | undefined> {
   const cookieStore = await cookies();
-  const jwt = cookieStore.get(AuthCookieNameProduction)?.value
-    || cookieStore.get(AuthCookieNameDevelopment)?.value;
+  const jwt = cookieStore.get(AuthCookieName)?.value;
+  console.log('SSR JWT from cookies:', jwt);
   return jwt;
 }
 
