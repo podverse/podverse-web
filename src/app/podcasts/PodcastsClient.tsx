@@ -1,7 +1,7 @@
 
 "use client";
 
-import { DTOChannel, QueryParamsChannels } from "podverse-helpers";
+import { DTOChannel, QueryParamsGetMany } from "podverse-helpers";
 import React from "react";
 import { PodcastsContextProvider } from "./PodcastsContext";
 import { MainWrapper } from "../../components/Main/MainWrapper";
@@ -11,7 +11,7 @@ import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentWrapper";
 
 interface PodcastsClientProps {
-  initialQueryParams: QueryParamsChannels;
+  initialQueryParams: QueryParamsGetMany;
   ssrChannels: DTOChannel[];
   ssrTotalPages: number;
 }

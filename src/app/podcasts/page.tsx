@@ -3,22 +3,22 @@ import {
   QUERY_PARAMS_STATS_RANGE_VALUES,
   getTotalPages, 
   QueryParamsMedium,
-  getValidQueryParam,
-  QUERY_PARAMS_GLOBAL_SORT_VALUES,
   QUERY_PARAMS_SUBSCRIBED_TYPE,
-  QUERY_PARAMS_SUBSCRIBED_FULL_SORT
+  QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+  ApiListResponse,
+  DTOChannel
 } from "podverse-helpers";
 import { z } from "zod";
 import { PodcastsClient } from "./PodcastsClient";
-import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
+import { getPodcastsFilterParams, PodcastsDropdownConfigCurrentParams } from "./PodcastsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
-  page: z.string().transform((v) => parseInt(v, 10)).optional(),
-  type: z.enum(QUERY_PARAMS_SUBSCRIBED_TYPE).optional(),
-  sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional(),
-  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional(),
-  category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional(),
+  type: z.enum(QUERY_PARAMS_SUBSCRIBED_TYPE).optional().nullable().default(null),
+  sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional().nullable().default(null),
+  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
+  category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional().nullable().default(null),
+  page: z.string().transform((v) => parseInt(v, 10)).optional().default("1")
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -30,57 +30,54 @@ export type PodcastsPageProps = {
 export default async function PodcastsPage({ searchParams }: PodcastsPageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
     
-  const queryParams = searchParams ? await searchParams : {};
-  const { page = 1, sort, type, range, category } = await parseSearchParams(queryParams, isValidAuthSession);
-  const { currentType, currentSort, currentRange } = getPodcastsFilterParams({ type, sort, range, category });
+  const queryParams = await searchParams;
+  const { currentType, currentSort, currentRange, currentCategory, currentPage } =
+    await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "podcasts";
-
-  const response = await apiRequestService.reqChannelGetMany({
-    page,
-    sort: currentSort,
+  let response: ApiListResponse<DTOChannel> = await apiRequestService.reqChannelGetMany({
+    page: currentPage,
+    medium,
     type: currentType,
+    sort: currentSort,
     range: currentRange,
-    category,
-    medium
+    category: currentCategory
   });
-  
+
   const ssrChannels = response.data;
   const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
   
   return (
     <PodcastsClient
-      initialQueryParams={{ page, type, sort, range, category, medium }}
+      initialQueryParams={{
+        page: currentPage,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange,
+        category: currentCategory,
+        medium
+      }}
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
     />
   );
 }
 
-async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boolean) {
+function parseSearchParams(queryParams: SearchParams,
+  isAuthenticated: boolean): PodcastsDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
+
   if (!parsed.success) {
-    return {};
+    return {
+      currentType: isAuthenticated ? "subscribed" : "global",
+      currentSort: isAuthenticated ? "a_z" : "recent",
+      currentRange: null,
+      currentCategory: null,
+      currentPage: 1
+    };
   }
+
   const data = parsed.data;
 
-  if (data.category || data.type === "category") {
-    data.type = "category";
-    data.sort = getValidQueryParam(
-      QUERY_PARAMS_GLOBAL_SORT_VALUES,
-      data.sort,
-      "recent"
-    )
-  } else if (data.type === "global") {
-    data.sort = getValidQueryParam(
-      QUERY_PARAMS_GLOBAL_SORT_VALUES,
-      data.sort,
-      "recent"
-    )
-  } else if (!data.type) {
-    data.type = isAuthenticated ? "subscribed" : "global";
-    data.sort = isAuthenticated ? "a_z" : "recent";
-  }
-
-  return data;
+  return getPodcastsFilterParams(data, isAuthenticated);
 }

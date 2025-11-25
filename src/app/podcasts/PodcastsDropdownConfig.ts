@@ -49,19 +49,33 @@ export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
   };
 }
 
-type QueryParamConfig = {
-  type?: QueryParamsSubscribedType;
-  sort?: QueryParamsSubscribedFullSort;
-  range?: QueryParamsStatsRange;
-  category?: CategoryMappingKeys | null;
+type PodcastsDropdownConfigParams = {
+  type: QueryParamsSubscribedType | null;
+  sort: QueryParamsSubscribedFullSort | null;
+  range: QueryParamsStatsRange | null;
+  category: CategoryMappingKeys | null;
+  page: number;
 }
 
-export function getPodcastsFilterParams({ type, sort, range, category }: QueryParamConfig) {
+export type PodcastsDropdownConfigCurrentParams = {
+  currentType: QueryParamsSubscribedType;
+  currentSort: QueryParamsSubscribedFullSort;
+  currentRange: QueryParamsStatsRange | null;
+  currentCategory: CategoryMappingKeys | null;
+  currentPage: number;
+}
+
+export function getPodcastsFilterParams(
+  { type, sort, range, category, page }: PodcastsDropdownConfigParams,
+  isValidAuthSession: boolean
+): PodcastsDropdownConfigCurrentParams {
+  let currentType = type;
   let currentSort = sort;
   let currentRange = range;
-  let currentType = type;
+  let currentCategory = category;
+  let currentPage = page;
 
-  if (category || type === "category") {
+  if (category) {
     currentType = "category";
     currentSort = getValidQueryParam(
       QUERY_PARAMS_GLOBAL_SORT_VALUES,
@@ -69,18 +83,42 @@ export function getPodcastsFilterParams({ type, sort, range, category }: QueryPa
       "recent"
     )
   } else if (type === "global") {
+    currentType = "global";
     currentSort = getValidQueryParam(
       QUERY_PARAMS_GLOBAL_SORT_VALUES,
       currentSort,
       "recent"
     )
   } else if (type === "subscribed") {
+    currentType = "subscribed";
     currentSort = getValidQueryParam(
       QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
       currentSort,
       "a_z"
     )
-  }
+  } else {
+    if (isValidAuthSession) {
+      currentType = "subscribed";
+      currentSort = getValidQueryParam(
+        QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+        currentSort,
+        "a_z"
+      );
+      currentRange = null;
+      currentCategory = null;
+      currentPage = 1;
+    } else {
+      currentType = "global";
+      currentSort = getValidQueryParam(
+        QUERY_PARAMS_GLOBAL_SORT_VALUES,
+        currentSort,
+        "recent"
+      )
+      currentRange = null;
+      currentCategory = null;
+      currentPage = 1;
+    }
+  } 
 
-  return { currentSort, currentRange, currentType };
+  return { currentType, currentSort, currentRange, currentCategory, currentPage };
 }

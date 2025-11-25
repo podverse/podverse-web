@@ -1,4 +1,4 @@
-import { DTOCategory, QUERY_PARAMS_GLOBAL_GET_MANY_SORT_VALUES } from "podverse-helpers";
+import { DTOCategory, QUERY_PARAMS_GLOBAL_SORT_VALUES } from "podverse-helpers";
 
 type OnClickCategoryParams = {
   category: DTOCategory,
@@ -21,7 +21,7 @@ export const onClickCategory = ({
     setFilterParams({
       ...filterParams,
       type: "category",
-      sort: QUERY_PARAMS_GLOBAL_GET_MANY_SORT_VALUES
+      sort: QUERY_PARAMS_GLOBAL_SORT_VALUES
         .includes(filterParams.sort) ? filterParams.sort : "recent",
       category: category.mapping_key,
       page: 1

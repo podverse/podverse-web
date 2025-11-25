@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { DTOChannel, getTotalPages, QueryParamsChannels, removeQueryParamByPattern } from "podverse-helpers";
+import { DTOChannel, getTotalPages, QueryParamsGetMany, removeQueryParamByPattern } from "podverse-helpers";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
@@ -10,8 +10,8 @@ import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
 import { ROUTES } from "../../constants/routes";
 
 interface PodcastsContextType {
-  filterParams: QueryParamsChannels;
-  setFilterParams: (params: QueryParamsChannels) => void;
+  filterParams: QueryParamsGetMany;
+  setFilterParams: (params: QueryParamsGetMany) => void;
   channels: DTOChannel[];
   setChannels: (channels: DTOChannel[]) => void;
   totalPages: number;
@@ -28,7 +28,7 @@ const PodcastsContext = createContext<PodcastsContextType | undefined>(undefined
 
 interface PodcastsContextProviderProps {
   children: ReactNode,
-  initialQueryParams: QueryParamsChannels,
+  initialQueryParams: QueryParamsGetMany,
   ssrChannels: DTOChannel[],
   ssrTotalPages: number
 }
@@ -40,7 +40,7 @@ export const PodcastsContextProvider = ({
   ssrTotalPages
 }: PodcastsContextProviderProps) => {
   const router = useRouter();
-  const [filterParams, setFilterParams] = useState<QueryParamsChannels>(initialQueryParams);
+  const [filterParams, setFilterParams] = useState<QueryParamsGetMany>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -61,17 +61,20 @@ export const PodcastsContextProvider = ({
       setIsLoading(true);
       
       const { currentSort, currentRange, currentType } = getPodcastsFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range,
         category: filterParams.category
-      });
+      }, !!loggedInAccount);
+
       const response = await apiRequestService.reqChannelGetMany({
-        ...filterParams,
+        page: filterParams.page,
         medium: "podcasts",
         type: currentType,
         sort: currentSort,
-        range: currentRange
+        range: currentRange,
+        category: filterParams.category
       });
 
       if (!filterParams.category) {
