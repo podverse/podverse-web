@@ -38,6 +38,7 @@ export const config = {
         custom_key: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_CUSTOM_KEY || "",
         custom_value: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_CUSTOM_VALUE || ""
       }
-    }
+    },
+    server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
   }
 };
