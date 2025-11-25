@@ -7,7 +7,7 @@ export default function Profiles() {
     <>
       <MainHeader title="Profiles" />
       <MainWrapper>
-        <p>Profiles</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

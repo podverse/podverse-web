@@ -7,7 +7,7 @@ export default function Embed() {
     <>
       <MainHeader title="Embed" />
       <MainWrapper>
-        <p>Embed</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

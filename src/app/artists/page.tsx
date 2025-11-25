@@ -7,7 +7,7 @@ export default function Artists() {
     <>
       <MainHeader title="Artists" />
       <MainWrapper>
-        <p>Artists</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

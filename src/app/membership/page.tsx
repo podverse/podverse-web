@@ -7,7 +7,7 @@ export default function Membership() {
     <>
       <MainHeader title="Membership" />
       <MainWrapper>
-        <p>Membership</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

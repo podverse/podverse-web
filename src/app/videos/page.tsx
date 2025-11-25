@@ -7,7 +7,7 @@ export default function Videos() {
     <>
       <MainHeader title="Videos" />
       <MainWrapper>
-        <p>Videos</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

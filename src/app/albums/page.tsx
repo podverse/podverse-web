@@ -7,7 +7,7 @@ export default function Albums() {
     <>
       <MainHeader title="Albums" />
       <MainWrapper>
-        <p>Albums</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

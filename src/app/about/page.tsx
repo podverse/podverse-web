@@ -7,7 +7,7 @@ export default function About() {
     <>
       <MainHeader title="About" />
       <MainWrapper>
-        <p>About</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

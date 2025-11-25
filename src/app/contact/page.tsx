@@ -7,7 +7,7 @@ export default function Contact() {
     <>
       <MainHeader title="Contact" />
       <MainWrapper>
-        <p>Contact</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

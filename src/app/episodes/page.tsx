@@ -7,7 +7,7 @@ export default function Episodes() {
     <>
       <MainHeader title="Episodes" />
       <MainWrapper>
-        <p>Episodes</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

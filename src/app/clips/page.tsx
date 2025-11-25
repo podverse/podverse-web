@@ -7,7 +7,7 @@ export default function Clips() {
     <>
       <MainHeader title="Clips" />
       <MainWrapper>
-        <p>Clips</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

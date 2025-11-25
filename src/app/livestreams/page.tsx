@@ -7,7 +7,7 @@ export default function Livestreams() {
     <>
       <MainHeader title="Livestreams" />
       <MainWrapper>
-        <p>Livestreams</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

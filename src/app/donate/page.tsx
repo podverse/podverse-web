@@ -7,7 +7,7 @@ export default function Donate() {
     <>
       <MainHeader title="Donate" />
       <MainWrapper>
-        <p>Donate</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

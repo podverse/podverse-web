@@ -7,7 +7,7 @@ export default function MobileApp() {
     <>
       <MainHeader title="Mobile App" />
       <MainWrapper>
-        <p>Mobile App</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

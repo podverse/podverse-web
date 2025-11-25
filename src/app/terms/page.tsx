@@ -7,7 +7,7 @@ export default function Terms() {
     <>
       <MainHeader title="Terms" />
       <MainWrapper>
-        <p>Terms</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

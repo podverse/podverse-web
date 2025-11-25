@@ -7,7 +7,7 @@ export default function Settings() {
     <>
       <MainHeader title="Settings" />
       <MainWrapper>
-        <p>Settings</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

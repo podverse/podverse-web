@@ -7,7 +7,7 @@ export default function Channels() {
     <>
       <MainHeader title="Channels" />
       <MainWrapper>
-        <p>Channels</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );

@@ -7,7 +7,7 @@ export default function Tracks() {
     <>
       <MainHeader title="Tracks" />
       <MainWrapper>
-        <p>Tracks</p>
+        <p>Coming Soon</p>
       </MainWrapper>
     </>
   );
