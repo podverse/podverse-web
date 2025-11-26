@@ -33,6 +33,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             channel={ssrChannel}
             items={items}
             totalPages={totalPages}
+            viewSelected="rows"
           />
         )
       }

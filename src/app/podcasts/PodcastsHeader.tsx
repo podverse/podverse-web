@@ -20,12 +20,12 @@ import { useLocalSettings } from "../../contexts/LocalSettings";
 export const PodcastsHeader: React.FC = () => {
   const { filterParams, setFilterParams, setShowCategoriesModal } = usePodcastsContext();
   const { viewSelected, setViewSelected } = useLocalSettings();
-  const { type, sort, range, category } = filterParams;
+  const { type, sort, range } = filterParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
   const tCategories = useTranslations('categories');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getPodcastsDropdownConfig({ type, sort, category, tFilters });
+    } = getPodcastsDropdownConfig({ type, sort, tFilters });
 
   function isChannelType(val: string): val is QueryParamsSubscribedType {
     return QUERY_PARAMS_SUBSCRIBED_TYPE.includes(val as QueryParamsSubscribedType);

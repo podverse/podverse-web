@@ -25,7 +25,7 @@ export const ListCombinedChannels: React.FC<ListCombinedChannelsProps> = ({
     scrollMainToTop();
   }, [channels]);
   
-  let listNodes: React.ReactNode[] = [];
+  let listNodes: React.ReactNode = null;
   
   if (medium === 'all' || medium === 'podcasts') {
     listNodes = ListPodcastNodes({ channels, viewSelected });
