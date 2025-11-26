@@ -25,7 +25,7 @@ type EpisodeListHeaderProps = {
 
 export const EpisodeListHeader: React.FC<EpisodeListHeaderProps> = ({
   ssrHasChapters, ssrHasSoundbites, ssrHasTranscripts }) => {
-  const { filterParams, setFilterParams, setTotalPages, autoScrollOn,
+  const { filterParams, setFilterParams, autoScrollOn,
     setAutoScrollOn } = useEpisodeContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
