@@ -14,7 +14,7 @@ import { ListLiveItemRow } from "../../LiveItem/ListLiveItemRow";
 type Props = {
   page: number;
   setPage: (page: number) => void;
-  channel: DTOChannel;
+  channel: DTOChannel | null;
   items: DTOItem[];
   totalPages: number;
   showSubscribeMessage?: boolean;
@@ -50,13 +50,16 @@ const ListEpisodes: React.FC<Props> = ({ page, setPage, channel, items, totalPag
             maxButtons={5}
             totalPages={totalPages}
             setPage={setPage}>
-            {items.map((item) => {
-              if (item.live_item) {
-                return <ListLiveItemRow key={item.id} channel={channel} item={item} live_item={item.live_item} />;
-              } else {
-                return <ListEpisodeRow key={item.id} channel={channel} item={item} />
-              }
-            })}
+            {items
+              .filter((item): item is DTOItem & { channel: DTOChannel } => channel ? true : !!item.channel)
+              .map((item) => {
+                const rowChannel = channel || item.channel;
+                if (item.live_item) {
+                  return <ListLiveItemRow key={item.id} channel={rowChannel} item={item} live_item={item.live_item} />;
+                } else {
+                  return <ListEpisodeRow key={item.id} channel={rowChannel} item={item} />
+                }
+              })}
           </Pagination>
         )
       }
