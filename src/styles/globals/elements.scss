@@ -79,6 +79,7 @@ p {
 
 img {
   display: block;
+  font-size: 0; // hide alt text
 }
 
 input[type="number"]::-webkit-inner-spin-button,
