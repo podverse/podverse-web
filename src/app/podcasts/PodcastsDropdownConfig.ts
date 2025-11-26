@@ -9,10 +9,9 @@ import { QueryParamsStatsRange,
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 import { DropdownMenuItem } from "../../components/Dropdown/Dropdown";
 
-export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
+export function getPodcastsDropdownConfig({ type, sort, tFilters }: {
   sort: QueryParamsSubscribedFullSort,
   type: QueryParamsSubscribedType,
-  category: CategoryMappingKeys | null,
   tFilters: (key: string) => string
 }) {
 
