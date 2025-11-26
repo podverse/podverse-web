@@ -248,14 +248,16 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         <Link href={url}>
           <div className={styles.topSection}>
             <h3>{item.title}</h3>
-              <div className={styles.subtitle}>
-                {
-                  !showChannelInfo && stripAndDecodeHtml(item.item_description?.value)
-                }
-                {
-                  showChannelInfo && channel.title
-                }
-              </div>
+            {
+              showChannelInfo && (
+                <div className={styles.channelTitle}>
+                  {channel.title}
+                </div>
+              )
+            }
+            <div className={styles.subtitle}>
+              {stripAndDecodeHtml(item.item_description?.value)}
+            </div>
           </div>
         </Link>
         <div className={styles.bottomSection}>

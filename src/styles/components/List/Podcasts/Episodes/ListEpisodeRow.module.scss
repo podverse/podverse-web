@@ -30,24 +30,26 @@
   color: var(--text-color-secondary);
 }
 
-.description {
-  @include line-clamp(2);
+.channelTitle {
+  @include line-clamp(1);
   font-weight: var(--font-weight-light);
-  margin-top: 0.375rem;
+  color: var(--text-color-secondary);
   font-size: var(--font-size-sm);
+  margin: 0.25rem 0;
 }
 
 .subtitle {
   @include line-clamp(2);
   color: var(--text-color-secondary);
   margin: 0.25rem 0 0 0;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-light);
 }
 
 .bottomSection {
   display: flex;
   flex: 0;
-  margin-top: 0.5rem;
+  margin-top: 0.675rem;
 }
 
 .bottomSectionStart {

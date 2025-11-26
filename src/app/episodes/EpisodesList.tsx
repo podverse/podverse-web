@@ -39,6 +39,7 @@ export const EpisodesList: React.FC = () => {
         type={type}
         category={category}
         viewSelected={viewSelected}
+        showChannelInfo
       />
       <LoadingSpinnerOverlay isLoading={isLoading} />
       <ModalCategoriesSelect

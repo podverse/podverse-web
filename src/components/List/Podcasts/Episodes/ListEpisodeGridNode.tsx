@@ -13,9 +13,10 @@ import styles from "../../../../styles/components/List/ListGridNode.module.scss"
 interface Props {
   channel: DTOChannel;
 	item: DTOItem;
+	showChannelInfo?: boolean;
 }
 
-export const ListEpisodeGridNode: React.FC<Props> = ({ channel, item }) => {
+export const ListEpisodeGridNode: React.FC<Props> = ({ channel, item, showChannelInfo }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
@@ -33,6 +34,11 @@ export const ListEpisodeGridNode: React.FC<Props> = ({ channel, item }) => {
 					className={styles.image}
 				/>
         <div className={styles.title}>{item.title}</div>
+				{showChannelInfo && (
+					<div className={styles.channelTitle}>
+						{channel?.title}
+					</div>
+				)}
 				{item.pub_date && (
 					<span className={styles.lastPubDate}>
 						{formatDateAbbrev(item.pub_date, locale)}

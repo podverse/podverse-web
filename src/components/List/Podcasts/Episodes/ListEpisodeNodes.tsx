@@ -13,9 +13,10 @@ interface Params {
   channel: DTOChannel | null;
   items: DTOItem[];
   viewSelected: ViewSelectedOption;
+  showChannelInfo?: boolean;
 }
 
-export function ListEpisodeNodes({ channel, items, viewSelected }: Params): React.ReactNode {
+export function ListEpisodeNodes({ channel, items, viewSelected, showChannelInfo }: Params): React.ReactNode {
   const filteredItems = items.filter((item): item is DTOItem & { channel: DTOChannel } => (channel ? true : !!item.channel));
 
   if (viewSelected === "rows") {
@@ -27,9 +28,9 @@ export function ListEpisodeNodes({ channel, items, viewSelected }: Params): Reac
             return (
               <React.Fragment key={item.id}>
                 {item.live_item ? (
-                  <ListLiveItemRow channel={rowChannel} item={item} live_item={item.live_item} />
+                  <ListLiveItemRow channel={rowChannel} item={item} live_item={item.live_item} showChannelInfo={showChannelInfo} />
                 ) : (
-                  <ListEpisodeRow channel={rowChannel} item={item} />
+                  <ListEpisodeRow channel={rowChannel} item={item} showChannelInfo={showChannelInfo} />
                 )}
                 {idx < items.length - 1 && <Divider />}
               </React.Fragment>
@@ -45,7 +46,14 @@ export function ListEpisodeNodes({ channel, items, viewSelected }: Params): Reac
       <div key="grid" className={styles.grid}>
         {filteredItems.map(item => {
           const rowChannel = channel || item.channel;
-          return <ListEpisodeGridNode key={item.id} channel={rowChannel} item={item} />;
+          return (
+            <ListEpisodeGridNode
+              key={item.id}
+              channel={rowChannel}
+              item={item}
+              showChannelInfo={showChannelInfo}
+            />
+          );
         })}
       </div>
     );

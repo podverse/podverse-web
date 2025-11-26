@@ -1,3 +1,9 @@
+
+const SIZE_BASE = {
+  SIZE: 112,
+  SIZE_FIND_TARGET: 224
+}
+
 export const IMAGES = {
   ADD_FEED: {
     SQUARE: {
@@ -20,8 +26,8 @@ export const IMAGES = {
     },
     MOBILE: {
       SQUARE: {
-        SIZE: 106,
-        SIZE_FIND_TARGET: 212
+        SIZE: SIZE_BASE.SIZE,
+        SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
       }
     }
   },
@@ -32,35 +38,35 @@ export const IMAGES = {
     },
     LIVESTREAMS: {
       DESKTOP: {
-        SIZE: 106,
-        SIZE_FIND_TARGET: 212
+        SIZE: SIZE_BASE.SIZE,
+        SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
       },
       MOBILE: {
-        SIZE: 106,
-        SIZE_FIND_TARGET: 212
+        SIZE: SIZE_BASE.SIZE,
+        SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
       }
     },
     EPISODES: {
       DESKTOP: {
-        SIZE: 106,
-        SIZE_FIND_TARGET: 212
+        SIZE: SIZE_BASE.SIZE,
+        SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
       },
       MOBILE: {
-        SIZE: 106,
-        SIZE_FIND_TARGET: 212
+        SIZE: SIZE_BASE.SIZE,
+        SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
       }
     },
     PODCASTS: {
-      SIZE: 106,
-      SIZE_FIND_TARGET: 212
+      SIZE: SIZE_BASE.SIZE,
+      SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
     },
     CLIPS: {
-      SIZE: 106,
-      SIZE_FIND_TARGET: 212
+      SIZE: SIZE_BASE.SIZE,
+      SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
     },
     ITEM_CHAPTERS: {
-      SIZE: 106,
-      SIZE_FIND_TARGET: 212
+      SIZE: SIZE_BASE.SIZE,
+      SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
     }
   },
   MEDIA_HEADER_MINI: {

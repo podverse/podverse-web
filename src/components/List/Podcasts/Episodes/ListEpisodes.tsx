@@ -22,6 +22,7 @@ type Props = {
   type?: QueryParamsItemsType;
   category?: CategoryMappingKeys | null;
   viewSelected: ViewSelectedOption;
+  showChannelInfo?: boolean;
 };
 
 const ListEpisodes: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const ListEpisodes: React.FC<Props> = ({
   totalPages,
   showSubscribeMessage,
   viewSelected,
+  showChannelInfo
 }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
@@ -44,7 +46,7 @@ const ListEpisodes: React.FC<Props> = ({
   const showCallToAction = showSubscribeMessage;
   const showPagination = !showSubscribeMessage;
 
-  const listNodes = ListEpisodeNodes({ channel, items, viewSelected });
+  const listNodes = ListEpisodeNodes({ channel, items, viewSelected, showChannelInfo });
 
   return (
     <>
