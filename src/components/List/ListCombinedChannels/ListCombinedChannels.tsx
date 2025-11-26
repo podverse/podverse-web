@@ -19,7 +19,7 @@ type ListCombinedChannelsProps = {
 };
 
 export const ListCombinedChannels: React.FC<ListCombinedChannelsProps> = ({
-  page = 1, setPage, channels, totalPages, medium, viewSelected }) => {
+  page, setPage, channels, totalPages, medium, viewSelected }) => {
   
   useSkipInitialEffect(() => {
     scrollMainToTop();

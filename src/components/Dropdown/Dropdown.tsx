@@ -6,14 +6,14 @@ import { DropdownMenu } from "./DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { Button } from "../Button/Button";
 
-export interface MenuItem {
+export interface DropdownMenuItem {
   label: string;
   param: string;
   value: string;
 }
 
 export interface DropdownProps {
-  menuItems: MenuItem[];
+  menuItems: DropdownMenuItem[];
   value: string;
   onChange: (value: string) => void;
   position?: "left" | "right";

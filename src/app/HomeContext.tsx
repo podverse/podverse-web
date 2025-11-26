@@ -47,16 +47,19 @@ export const HomeContextProvider = ({
 
       setIsLoading(true);
       
-      const { currentSort, currentMedium } = getHomeFilterParams({
+      const { currentSort, currentMedium, currentPage } = getHomeFilterParams({
+        page: filterParams.page,
         medium: filterParams.medium,
         sort: filterParams.sort
       });
       
       const response = await apiRequestService.reqChannelGetMany({
+        page: currentPage,
         medium: currentMedium,
-        sort: currentSort,
         type: "subscribed",
-        page: filterParams.page
+        sort: currentSort,
+        range: null,
+        category: null
       });
 
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);

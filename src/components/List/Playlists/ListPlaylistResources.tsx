@@ -24,7 +24,7 @@ export const ListPlaylistResources: React.FC<Props> = ({
   playlist,
   playlistResources,
   isEditMode = false,
-  page = 1,
+  page,
   setPage,
   totalPages = 1
 }) => {
@@ -201,9 +201,9 @@ export const ListPlaylistResources: React.FC<Props> = ({
       <>
       <div className={styles.listWrapper}>
         <Pagination
-          currentPage={page}
+          currentPage={page ?? 1}
           maxButtons={5}
-          totalPages={totalPages}
+          totalPages={totalPages ?? 1}
           setPage={setPage}
         >
           {resources.map((playlistResource) => (

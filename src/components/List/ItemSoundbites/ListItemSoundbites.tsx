@@ -20,7 +20,7 @@ type Props = {
   showItemInfo?: boolean;
 };
 
-export const ListItemSoundbites: React.FC<Props> = ({ page = 1, setPage,
+export const ListItemSoundbites: React.FC<Props> = ({ page, setPage,
   channel, item, itemSoundbites, totalPages, showSubscribeMessage, showItemInfo }) => {
 
   useSkipInitialEffect(() => {

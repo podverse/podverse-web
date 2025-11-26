@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOPlaylist, getTotalPages, getUndeterminedTotalPages, QueryParamsPlaylists } from "podverse-helpers";
+import { DTOPlaylist, getTotalPages, QueryParamsPlaylists } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
@@ -44,7 +44,7 @@ export const PlaylistsContextProvider = ({
 
   useSkipInitialEffect(() => {
     async function fetchPlaylists() {
-      if (filterParams.type === "my_playlists" || filterParams.type === "subscribed") {
+      if (filterParams.type === "private" || filterParams.type === "private_followed") {
         if (!loggedInAccount) {
           setPlaylists([]);
           setShowLoginMessage(true);
@@ -54,44 +54,24 @@ export const PlaylistsContextProvider = ({
 
       setIsLoading(true);
 
-      const { currentSort, currentRange, currentType, currentMediumId } = getPlaylistsFilterParams({
+      const { currentSort, currentRange, currentType, currentMedium } = getPlaylistsFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range,
-        medium_id: filterParams.medium_id
+        medium: filterParams.medium
+      }, !!loggedInAccount);
+      
+      const response = await apiRequestService.reqPlaylistGetMany({
+        page: filterParams.page,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange,
+        medium: currentMedium
       });
 
-      let playlists: DTOPlaylist[] = [];
-      let totalPages = 0;
-      
-      if (currentType === "global") {
-        const response = await apiRequestService.reqPlaylistGetManyPublic({
-          page: filterParams.page,
-          sort: currentSort,
-          range: currentRange,
-          medium_id: currentMediumId
-        });
-        playlists = response.data;
-        totalPages = getUndeterminedTotalPages();
-      } else if (currentType === "my_playlists") {
-        const response = await apiRequestService.reqPlaylistGetManyPrivate({
-          page: filterParams.page,
-          sort: currentSort,
-          range: currentRange,
-          medium_id: currentMediumId
-        });
-        playlists = response.data;
-        totalPages = getTotalPages(response.meta?.count, response.meta?.limit);
-      } else if (currentType === "subscribed") {
-        const response = await apiRequestService.reqPlaylistGetManyPrivateFollowed({
-          page: filterParams.page,
-          sort: currentSort,
-          range: currentRange,
-          medium_id: currentMediumId
-        });
-        playlists = response.data;
-        totalPages = getTotalPages(response.meta?.count, response.meta?.limit);
-      }
+      const playlists = response.data;
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
 
       setTotalPages(totalPages);
       setPlaylists(playlists);

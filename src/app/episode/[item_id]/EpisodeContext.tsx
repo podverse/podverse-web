@@ -74,6 +74,7 @@ export const EpisodeContextProvider = ({
 
     async function fetchSoundbites() {
       const { currentSort } = getEpisodeFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range
@@ -94,6 +95,7 @@ export const EpisodeContextProvider = ({
 
     async function fetchClips() {
       const { currentSort, currentRange } = getEpisodeFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range

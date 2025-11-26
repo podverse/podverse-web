@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { MediumEnum } from "podverse-helpers";
+import { getQueryParamFromMediumId, MediumEnum } from "podverse-helpers";
 import React from "react";
 import { Modal } from "./Modal";
 import { MEDIUM } from "../../constants/medium";
@@ -47,10 +47,13 @@ export const ModalPlaylistAddTo: React.FC = () => {
   });
 
   const fetchPlaylists = async (page: number, mediumId: number | null) => {
-    const response = await apiRequestService.reqPlaylistGetManyPrivate({
+    const medium = getQueryParamFromMediumId(mediumId);
+    const response = await apiRequestService.reqPlaylistGetMany({
       page,
+      type: "private",
       sort: "a_z",
-      medium_id: mediumId || MediumEnum.Podcast
+      medium,
+      range: null
     });
     return {
       playlists: response.data,

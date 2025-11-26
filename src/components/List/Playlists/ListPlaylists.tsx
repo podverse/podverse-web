@@ -22,7 +22,7 @@ type Props = {
   onClick?: (playlist: DTOPlaylist) => void;
 };
 
-export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, totalPages, showLoginMessage, showCreator, onClick }) => {
+export const ListPlaylists: React.FC<Props> = ({ page, setPage, playlists, totalPages, showLoginMessage, showCreator, onClick }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalAuthLogin } = useModals();

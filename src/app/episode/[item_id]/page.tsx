@@ -6,12 +6,13 @@ import {
 import { z } from "zod";
 import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 import { EpisodeClient } from "./EpisodeClient";
+import { EpisodeDropdownConfigCurrentParams, getEpisodeFilterParams } from "./EpisodeDropdownConfig";
 
 const searchParamsSchema = z.object({
-  page: z.string().transform((v) => parseInt(v, 10)).optional(),
-  type: z.enum(QUERY_PARAMS_ITEM_TYPE_VALUES).optional(),
-  sort: z.enum(QUERY_PARAMS_ITEM_SORT_VALUES).optional(),
-  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional(),
+  page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
+  type: z.enum(QUERY_PARAMS_ITEM_TYPE_VALUES).optional().default("summary"),
+  sort: z.enum(QUERY_PARAMS_ITEM_SORT_VALUES).optional().default("recent"),
+  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null)
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>;
@@ -23,11 +24,11 @@ export type EpisodePageProps = {
 
 export default async function EpisodePage({ params, searchParams }: EpisodePageProps) {
   const { item_id } = await params;
-  const queryParams = searchParams ? await searchParams : {};
+  const queryParams = await searchParams;
   
   const { apiRequestService } = await getSSRAuthService();
     
-  const { page = 1, sort, type, range } = await parseSearchParams(queryParams);
+  const { currentPage, currentType, currentSort, currentRange } = parseSearchParams(queryParams);
 
   const ssrItem = await apiRequestService.reqItemGetByIdOrIdText(item_id);
   const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
@@ -39,7 +40,12 @@ export default async function EpisodePage({ params, searchParams }: EpisodePageP
 
   return (
     <EpisodeClient
-      initialQueryParams={{ page, type, sort, range }}
+      initialQueryParams={{
+        page: currentPage,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange
+      }}
       ssrChannel={ssrChannel}
       ssrItem={ssrItem}
       ssrHasChapters={ssrHasChapters}
@@ -49,17 +55,19 @@ export default async function EpisodePage({ params, searchParams }: EpisodePageP
   );
 }
 
-async function parseSearchParams(searchParams: SearchParams) {
+function parseSearchParams(searchParams: SearchParams): EpisodeDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(searchParams);
+
   if (!parsed.success) {
-    return {};
+    return {
+      currentType: "summary",
+      currentSort: "recent",
+      currentRange: null,
+      currentPage: 1
+    };
   }
+
   const data = parsed.data;
 
-  if (!data.type) {
-    data.type = "summary";
-    data.sort = "recent";
-    data.range = "all-time";
-  }
-  return data;
+  return getEpisodeFilterParams(data);
 }

@@ -1,13 +1,10 @@
-import { DTOQueue } from "podverse-helpers";
+import { DTOQueue, QUERY_PARAMS_MEDIUMS, QueryParamsMedium } from "podverse-helpers";
 import { z } from "zod";
 import { QueuesClient } from "./QueuesClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
-  medium_id: z.string()
-    .transform((v) => parseInt(v, 10))
-    .refine((v) => !isNaN(v), { message: "medium_id must be a number" })
-    .optional(),
+  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional().default("all"),
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -19,8 +16,8 @@ export type QueuePageProps = {
 export default async function QueuePage({ searchParams }: QueuePageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
     
-  const queryParams = searchParams ? await searchParams : {};
-  const { medium_id } = await parseSearchParams(queryParams);
+  const queryParams = await searchParams;
+  const { currentMedium } = await parseSearchParams(queryParams);
 
   let ssrQueues: DTOQueue[] = [];
 
@@ -31,18 +28,26 @@ export default async function QueuePage({ searchParams }: QueuePageProps) {
 
   return (
     <QueuesClient
-      initialQueryParams={{ medium_id }}
+      initialQueryParams={{ medium: currentMedium }}
       ssrQueues={ssrQueues}
     />
   );
 }
 
-async function parseSearchParams(queryParams: SearchParams) {
+type ParseSearchParams = {
+  currentMedium: QueryParamsMedium;
+}
+
+function parseSearchParams(queryParams: SearchParams): ParseSearchParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
+
   if (!parsed.success) {
-    return {};
+    return {
+      currentMedium: "all"
+    };
   }
+
   const data = parsed.data;
 
-  return data;
+  return { currentMedium: data.medium }
 }

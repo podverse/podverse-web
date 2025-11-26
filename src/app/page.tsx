@@ -4,12 +4,12 @@ import React from "react";
 import z from "zod";
 import { HomeClient } from "./HomeClient";
 import { getSSRAuthService } from "../utils/auth/ssrAuth";
-import { getHomeFilterParams } from "./HomeDropdownConfig";
+import { getHomeFilterParams, HomeDropdownConfigCurrentParams } from "./HomeDropdownConfig";
 
 const searchParamsSchema = z.object({
-  page: z.string().transform((v) => parseInt(v, 10)).optional(),
-  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional(),
-  sort: z.enum(QUERY_PARAMS_HOME_SORT_VALUES).optional()
+  page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
+  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional().default("all"),
+  sort: z.enum(QUERY_PARAMS_HOME_SORT_VALUES).optional().default("recent")
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -21,19 +21,21 @@ export type HomePageProps = {
 export default async function HomePage({ searchParams }: HomePageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
 
-  const queryParams = searchParams ? await searchParams : {};
-  const { page = 1, sort, medium = "all" } = await parseSearchParams(queryParams);
-  const { currentMedium, currentSort } = getHomeFilterParams({ medium, sort });
+  const queryParams = await searchParams;
+  const { currentPage, currentMedium, currentSort } = await parseSearchParams(queryParams);
+  
 
   let ssrChannels: DTOChannel[] = [];
   let ssrTotalPages = 1;
   
   if (isValidAuthSession) {
     const response = await apiRequestService.reqChannelGetMany({
-      page,
+      page: currentPage,
       sort: currentSort,
       type: "subscribed",
-      medium: currentMedium
+      medium: currentMedium,
+      range: null,
+      category: null
     });
     ssrChannels = response.data;
     ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
@@ -42,26 +44,29 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   return (
     <HomeClient
       isValidAuthSession={isValidAuthSession}
-      initialQueryParams={{ page, medium, sort }}
+      initialQueryParams={{
+        page: currentPage,
+        medium: currentMedium,
+        sort: currentSort
+      }}
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
     />
   );
 }
 
-async function parseSearchParams(queryParams: SearchParams) {
+function parseSearchParams(queryParams: SearchParams): HomeDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
-  
+
   if (!parsed.success) {
-    return {};
+    return {
+      currentMedium: "all",
+      currentSort: "recent",
+      currentPage: 1
+    };
   }
-  
+
   const data = parsed.data;
 
-  if (!data.medium && !data.sort) {
-    data.medium = "all";
-    data.sort = "recent";
-  }
-
-  return data;
+  return getHomeFilterParams(data);
 }

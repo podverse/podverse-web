@@ -11,7 +11,7 @@ type PlaylistListProps = {
 
 export const PlaylistList: React.FC<PlaylistListProps> = ({ ssrPlaylist }) => {
   const { playlistResources, totalPages, filterParams, setFilterParams } = usePlaylistContext();
-  const { page = 1 } = filterParams;
+  const { page } = filterParams;
 
   return (
     <>

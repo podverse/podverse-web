@@ -23,7 +23,7 @@ type Props = {
   showItemInfo?: boolean;
 };
 
-export const ListClips: React.FC<Props> = ({ page = 1, setPage,
+export const ListClips: React.FC<Props> = ({ page, setPage,
   channel, item, clips, totalPages, showSubscribeMessage, showItemInfo }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");

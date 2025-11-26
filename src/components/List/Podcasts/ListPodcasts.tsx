@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CategoryMappingKeys, DTOChannel, QueryParamsChannelsType } from "podverse-helpers";
+import { CategoryMappingKeys, DTOChannel, QueryParamsSubscribedType } from "podverse-helpers";
 import React from "react";
 import { ListPodcastNodes } from "./ListPodcastNodes";
 import { CallToActionMessage } from "../../CallToActionMessage/CallToActionMessage";
@@ -18,12 +18,12 @@ type Props = {
   channels: DTOChannel[];
   totalPages: number;
   showSubscribeMessage: boolean;
-  type?: QueryParamsChannelsType;
-  category?: CategoryMappingKeys | null;
+  type: QueryParamsSubscribedType;
+  category: CategoryMappingKeys | null;
   viewSelected: ViewSelectedOption;
 };
 
-export const ListPodcasts: React.FC<Props> = ({ page = 1, setPage,
+export const ListPodcasts: React.FC<Props> = ({ page, setPage,
   channels, totalPages, showSubscribeMessage, viewSelected }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");

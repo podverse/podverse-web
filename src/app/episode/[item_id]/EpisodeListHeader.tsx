@@ -49,19 +49,22 @@ export const EpisodeListHeader: React.FC<EpisodeListHeaderProps> = ({
   const handleTypeChange = (value: string) => {
     if (isItemType(value)) {
       setFilterParams({ ...filterParams, type: value, page: 1 });
-      setTotalPages(1);
     }
   };
 
   const handleSortChange = (value: string) => {
     if (isItemSort(value)) {
-      setFilterParams({ ...filterParams, sort: value });
+      if (value === "top") {
+        setFilterParams({ ...filterParams, sort: value, range: "week", page: 1 });
+      } else {
+        setFilterParams({ ...filterParams, sort: value, page: 1 });
+      }
     }
   };
 
   const handleRangeChange = (value: string) => {
     if (isStatsRange(value)) {
-      setFilterParams({ ...filterParams, range: value });
+      setFilterParams({ ...filterParams, range: value, page: 1 });
     }
   };
 

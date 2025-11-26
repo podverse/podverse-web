@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { MediumEnum } from "podverse-helpers";
+import { getMediumFromQueryParam, MediumEnum } from "podverse-helpers";
 import React from "react";
 import { ListHeader } from "../../components/List/ListHeader";
 import { useHistoryPageContext } from "./HistoryPageContext";
@@ -9,24 +9,23 @@ import { ButtonTabs } from "../../components/Tabs/ButtonTabs";
 
 export const HistoryListHeader: React.FC = () => {
   const { filterParams, setFilterParams } = useHistoryPageContext();
-  const { medium_id } = filterParams;
   const tMedia = useTranslations('media');
 
   const belowButtons = [
     {
       key: MediumEnum.Podcast,
       label: tMedia("podcast.podcasts"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Podcast })
+      onClick: () => setFilterParams({ ...filterParams, medium: "podcasts" })
     },
     {
       key: MediumEnum.Video,
       label: tMedia("video.videos"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Video })
+      onClick: () => setFilterParams({ ...filterParams, medium: "videos" })
     },
     {
       key: MediumEnum.Music,
       label: tMedia("music.music"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Music })
+      onClick: () => setFilterParams({ ...filterParams, medium: "music" })
     }
   ]
 
@@ -35,7 +34,7 @@ export const HistoryListHeader: React.FC = () => {
       belowButtons={(
         <ButtonTabs
           buttonTabs={belowButtons}
-          selectedKey={medium_id ?? MediumEnum.Podcast}
+          selectedKey={getMediumFromQueryParam(filterParams.medium) ?? MediumEnum.Podcast}
         />
       )}
     />

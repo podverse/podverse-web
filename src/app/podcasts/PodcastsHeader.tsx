@@ -65,14 +65,25 @@ export const PodcastsHeader: React.FC = () => {
 
   const handleSortChange = (value: string) => {
     if (isChannelSort(value)) {
-      setFilterParams({
-        page: 1,
-        medium: "podcasts",
-        type: filterParams.type,
-        sort: value,
-        range: filterParams.range,
-        category: filterParams.category
-      });
+      if (value === "top") {
+        setFilterParams({
+          page: 1,
+          medium: "podcasts",
+          type: filterParams.type,
+          sort: value,
+          range: "week",
+          category: filterParams.category
+        });
+      } else {
+        setFilterParams({
+          page: 1,
+          medium: "podcasts",
+          type: filterParams.type,
+          sort: value,
+          range: filterParams.range,
+          category: filterParams.category
+        });
+      }
     }
   };
 

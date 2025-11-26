@@ -22,7 +22,7 @@ type Props = {
   category?: CategoryMappingKeys | null;
 };
 
-const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, channel, items, totalPages, showSubscribeMessage }) => {
+const ListEpisodes: React.FC<Props> = ({ page, setPage, channel, items, totalPages, showSubscribeMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalAuthLogin } = useModals();

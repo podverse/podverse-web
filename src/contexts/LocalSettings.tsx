@@ -23,8 +23,6 @@ export const LocalSettingsProvider: React.FC<LocalSettingsProps> = ({
   ssrLocalSettings,
   children,
 }) => {
-  console.log(ssrLocalSettings);
-
   const [uiTheme, setUITheme] = useState<UITheme>(toUITheme(ssrLocalSettings.uiTheme));
   const [viewSelected, setViewSelected] = useState<ViewSelectedOption>(ssrLocalSettings.viewSelected);
   const [serverEnvironmentDisclaimerAccepted, setServerEnvironmentDisclaimerAccepted] =

@@ -6,7 +6,7 @@ import { ListHistoryResources } from "../../components/List/Queues/ListHistoryRe
 export const HistoryList: React.FC = () => {
   const { filterParams, setFilterParams, queueResources, isLoading, showLoginMessage,
     totalPages } = useHistoryPageContext();
-  const { page = 1 } = filterParams;
+  const { page } = filterParams;
 
   return (
     <>

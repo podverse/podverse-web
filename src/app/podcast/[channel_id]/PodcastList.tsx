@@ -19,7 +19,7 @@ type PodcastListProps = {
 export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel }) => {
   const { filterParams, setFilterParams, items, itemSoundbites, clips,
     totalPages, isLoading } = usePodcastContext();
-  const { page = 1 } = filterParams;
+  const { page } = filterParams;
 
   const { type } = filterParams;
 

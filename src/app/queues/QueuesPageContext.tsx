@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOQueue, DTOQueueResource, MediumEnum, QueryParamsQueues } from "podverse-helpers";
+import { DTOQueue, DTOQueueResource, getMediumFromQueryParam, MediumEnum, QueryParamsQueues } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
@@ -48,7 +48,8 @@ export const QueuesPageContextProvider = ({
       
       setIsLoading(true);
       
-      const currentMediumId = filterParams.medium_id || MediumEnum.Podcast;
+      
+      const currentMediumId = getMediumFromQueryParam(filterParams.medium) || MediumEnum.Podcast;
       const currentQueue = ssrQueues.find(q => q.medium_id === currentMediumId);
       
       const queueData = await apiRequestService.reqQueueGetAllForAccountPrivate();

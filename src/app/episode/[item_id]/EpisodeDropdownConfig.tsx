@@ -2,7 +2,7 @@ import { QueryParamsStatsRange, QueryParamsItemType, QueryParamsItemSort } from 
 import { getRangeDropdownItems } from "../../../utils/dropdownMenuItems";
 
 export function getEpisodeDropdownConfig({ sort, tFilters }: {
-  sort?: QueryParamsItemSort,
+  sort: QueryParamsItemSort,
   tFilters: (key: string) => string
 }) {
   const sortDropdownMenuItems = [
@@ -22,16 +22,25 @@ export function getEpisodeDropdownConfig({ sort, tFilters }: {
   };
 }
 
-type QueryParamConfig = {
-  type?: QueryParamsItemType;
-  sort?: QueryParamsItemSort;
-  range?: QueryParamsStatsRange;
+type EpisodeDropdownConfigParams = {
+  type: QueryParamsItemType;
+  sort: QueryParamsItemSort;
+  range: QueryParamsStatsRange | null;
+  page: number;
 }
 
-export function getEpisodeFilterParams({ type, sort, range }: QueryParamConfig) {
+export type EpisodeDropdownConfigCurrentParams = {
+  currentType: QueryParamsItemType;
+  currentSort: QueryParamsItemSort;
+  currentRange: QueryParamsStatsRange | null;
+  currentPage: number;
+}
+
+export function getEpisodeFilterParams({ type, sort, range, page }: EpisodeDropdownConfigParams): EpisodeDropdownConfigCurrentParams {
   let currentSort = sort;
   let currentRange = range;
   let currentType = type;
+  let currentPage = page;
 
   if (type === "soundbites") {
     if (sort === "top") {
@@ -39,5 +48,5 @@ export function getEpisodeFilterParams({ type, sort, range }: QueryParamConfig) 
     }
   }
 
-  return { currentSort, currentRange, currentType };
+  return { currentSort, currentRange, currentType, currentPage };
 }

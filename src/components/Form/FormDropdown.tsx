@@ -3,13 +3,13 @@
 import React, { useRef, useMemo } from "react";
 import { DropdownMenu } from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
-import { MenuItem } from "../Dropdown/Dropdown";
+import { DropdownMenuItem } from "../Dropdown/Dropdown";
 import styles from "../../styles/components/Form/FormDropdown.module.scss";
 import { FaChevronDown } from "react-icons/fa6";
 
 export interface FormDropdownProps {
   eyebrow: string;
-  menuItems: MenuItem[];
+  menuItems: DropdownMenuItem[];
   value: string;
   onChange: (value: string) => void;
 };

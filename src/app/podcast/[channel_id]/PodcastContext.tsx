@@ -62,16 +62,19 @@ export const PodcastContextProvider = ({
     }
 
     async function fetchItems() {
-      const { currentSort, currentRange } = getPodcastFilterParams({
+      console.log("Fetching items for podcast context...", filterParams);
+
+      const { currentPage, currentSort, currentRange } = getPodcastFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range
       });
 
-      const response = await apiRequestService.reqItemGetManyWithoutLiveItemByChannel(
-        channel_id,
+      const response = await apiRequestService.reqItemGetManyByChannel(
         {
-          page: filterParams.page,
+          idOrIdText: channel_id,
+          page: currentPage,
           sort: currentSort,
           range: currentRange
         }
@@ -88,6 +91,7 @@ export const PodcastContextProvider = ({
 
     async function fetchItemSoundbites() {
       const { currentSort } = getPodcastFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range
@@ -107,7 +111,8 @@ export const PodcastContextProvider = ({
     }
 
     async function fetchClips() {
-      const { currentSort, currentRange } = getPodcastFilterParams({
+      const { currentPage, currentSort, currentRange } = getPodcastFilterParams({
+        page: filterParams.page,
         type: filterParams.type,
         sort: filterParams.sort,
         range: filterParams.range
@@ -116,7 +121,7 @@ export const PodcastContextProvider = ({
       const response = await apiRequestService.reqClipGetManyByChannelIdTextPublic(
         channel_id,
         {
-          page: filterParams.page,
+          page: currentPage,
           sort: currentSort,
           range: currentRange
         }

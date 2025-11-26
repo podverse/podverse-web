@@ -7,36 +7,42 @@ import { QueryParamsStatsRange,
   QueryParamsSubscribedType
 } from "podverse-helpers";
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
+import { DropdownMenuItem } from "../../components/Dropdown/Dropdown";
 
 export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
-  sort?: QueryParamsSubscribedFullSort,
-  type?: QueryParamsSubscribedType,
-  category?: CategoryMappingKeys | null,
+  sort: QueryParamsSubscribedFullSort,
+  type: QueryParamsSubscribedType,
+  category: CategoryMappingKeys | null,
   tFilters: (key: string) => string
 }) {
-  const sortRecent = { label: tFilters("sort.recent"), param: "sort", value: "recent" };
-  const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
 
-  let typeDropdownMenuItems = [
+  const typeDropdownMenuItems: DropdownMenuItem[] = [
     { label: tFilters("type.global"), param: "type", value: "global" },
     { label: tFilters("type.subscribed"), param: "type", value: "subscribed" },
     { label: tFilters("type.category"), param: "type", value: "category" }
   ];
-
-  let sortDropdownMenuItems = [
-    sortRecent,
-    { label: tFilters("sort.oldest"), param: "sort", value: "oldest" },
-    { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
-    sortTop
-  ];
-
+  let sortDropdownMenuItems: DropdownMenuItem[] = [];
   let rangeDropdownMenuItems = getRangeDropdownItems(tFilters);
-  
   let showRangeDropdown = false;
-  if (type === "global" || category) {
-    sortDropdownMenuItems = [sortRecent, sortTop];
+
+  if (type === "global") {
+    sortDropdownMenuItems = [
+      { label: tFilters("sort.recent"), param: "sort", value: "recent" },
+      { label: tFilters("sort.top"), param: "sort", value: "top" }
+    ];
+  } else if (type === "subscribed") {
+    sortDropdownMenuItems = [
+      { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
+      { label: tFilters("sort.recent"), param: "sort", value: "recent" },
+      { label: tFilters("sort.top"), param: "sort", value: "top" }
+    ];
+  } else if (type === "category") {
+    sortDropdownMenuItems = [
+      { label: tFilters("sort.recent"), param: "sort", value: "recent" },
+      { label: tFilters("sort.top"), param: "sort", value: "top" }
+    ];
   }
-  
+
   if (sort === "top") {
     showRangeDropdown = true;
   }

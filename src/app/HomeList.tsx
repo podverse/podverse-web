@@ -16,7 +16,7 @@ export const HomeList: React.FC = () => {
   const { loggedInAccount } = useAccount();
   const { viewSelected } = useLocalSettings();
   const tSubscriptions = useTranslations("subscriptions");
-  const { page = 1, medium = "all" } = filterParams;
+  const { page, medium } = filterParams;
 
   return (
     <>

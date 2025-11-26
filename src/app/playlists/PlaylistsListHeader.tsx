@@ -6,9 +6,9 @@ import {
   QUERY_PARAMS_STATS_RANGE_VALUES,
   QUERY_PARAMS_PLAYLISTS_TYPE_VALUES,
   QueryParamsPlaylistsType,
-  QueryParamsPlaylistsSort,
-  QUERY_PARAMS_PLAYLISTS_SORT_VALUES,
   MediumEnum,
+  QueryParamsSubscribedFullSort,
+  QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -31,8 +31,8 @@ export const PlaylistsListHeader: React.FC = () => {
     return QUERY_PARAMS_PLAYLISTS_TYPE_VALUES.includes(val as QueryParamsPlaylistsType);
   }
 
-  function isPlaylistSort(val: string): val is QueryParamsPlaylistsSort {
-    return QUERY_PARAMS_PLAYLISTS_SORT_VALUES.includes(val as QueryParamsPlaylistsSort);
+  function isPlaylistSort(val: string): val is QueryParamsSubscribedFullSort {
+    return QUERY_PARAMS_SUBSCRIBED_FULL_SORT.includes(val as QueryParamsSubscribedFullSort);
   }
   
   function isStatsRange(val: string): val is QueryParamsStatsRange {
@@ -40,12 +40,13 @@ export const PlaylistsListHeader: React.FC = () => {
   }
 
   const handleTypeChange = (value: string) => {
+    console.log("handleTypeChange", value);
     if (isPlaylistType(value)) {
-      if (value === "global") {
-        setFilterParams({ ...filterParams, type: value, sort: "top", page: 1 });
-      } else if (value === "my_playlists") {
+      if (value === "public") {
+        setFilterParams({ ...filterParams, type: value, sort: "top", range: "week", page: 1 });
+      } else if (value === "private") {
         setFilterParams({ ...filterParams, type: value, sort: "a_z", page: 1 });
-      } else if (value === "subscribed") {
+      } else if (value === "private_followed") {
         setFilterParams({ ...filterParams, type: value, sort: "a_z", page: 1 });
       }
     }
@@ -53,33 +54,37 @@ export const PlaylistsListHeader: React.FC = () => {
 
   const handleSortChange = (value: string) => {
     if (isPlaylistSort(value)) {
-      setFilterParams({ ...filterParams, sort: value });
+      if (value === "top") {
+        setFilterParams({ ...filterParams, sort: value, range: "week", page: 1 });
+      } else {
+        setFilterParams({ ...filterParams, sort: value, page: 1 });
+      }
     }
   };
 
   const handleRangeChange = (value: string) => {
     if (isStatsRange(value)) {
-      setFilterParams({ ...filterParams, range: value });
+      setFilterParams({ ...filterParams, range: value, page: 1 });
     }
   };
 
   const tabData = [
     {
-      key: "my_playlists",
+      key: "private",
       label: tFeatures("playlist.my_playlists"),
-      onClick: () => handleTypeChange("my_playlists"),
+      onClick: () => handleTypeChange("private"),
       zIndex: 3
     },
     {
-      key: "subscribed",
+      key: "private_followed",
       label: tFilters("type.subscribed"),
-      onClick: () => handleTypeChange("subscribed"),
+      onClick: () => handleTypeChange("private_followed"),
       zIndex: 2
     },
     {
-      key: "global",
+      key: "public",
       label: tFilters("type.global"),
-      onClick: () => handleTypeChange("global"),
+      onClick: () => handleTypeChange("public"),
       zIndex: 1
     }
   ]
@@ -111,22 +116,22 @@ export const PlaylistsListHeader: React.FC = () => {
     {
       key: "all",
       label: tFilters("type.all"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: null })
+      onClick: () => setFilterParams({ ...filterParams, medium: "all" })
     },
     {
       key: MediumEnum.Podcast,
       label: tMedia("podcast.podcasts"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Podcast })
+      onClick: () => setFilterParams({ ...filterParams, medium: "podcasts" })
     },
     {
       key: MediumEnum.Video,
       label: tMedia("video.videos"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Video })
+      onClick: () => setFilterParams({ ...filterParams, medium: "videos" })
     },
     {
       key: MediumEnum.Music,
       label: tMedia("music.music"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Music })
+      onClick: () => setFilterParams({ ...filterParams, medium: "music" })
     }
   ]
 
@@ -142,7 +147,7 @@ export const PlaylistsListHeader: React.FC = () => {
       belowButtons={(
         <ButtonTabs
           buttonTabs={belowButtons}
-          selectedKey={filterParams.medium_id ?? "all"}
+          selectedKey={filterParams.medium ?? "all"}
         />
       )}
     />

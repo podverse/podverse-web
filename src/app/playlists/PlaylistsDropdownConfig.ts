@@ -1,26 +1,26 @@
-import { QueryParamsStatsRange, QueryParamsPlaylistsType, QueryParamsPlaylistsSort, MediumEnum } from "podverse-helpers";
+import { QueryParamsStatsRange, QueryParamsPlaylistsType, QueryParamsMedium,
+  getValidQueryParam, QUERY_PARAMS_SUBSCRIBED_FULL_SORT, 
+  QueryParamsSubscribedFullSort} from "podverse-helpers";
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 
 type GetPlaylistsDropdownConfig = {
-  sort?: QueryParamsPlaylistsSort,
-  type?: QueryParamsPlaylistsType,
+  sort: QueryParamsSubscribedFullSort,
+  type: QueryParamsPlaylistsType,
   tFilters: (key: string) => string
 }
 
 export function getPlaylistsDropdownConfig({ sort, type, tFilters }: GetPlaylistsDropdownConfig) {
-  const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
-
   let sortDropdownMenuItems = [
-    sortTop,
+    { label: tFilters("sort.top"), param: "sort", value: "top" }
   ];
 
-  if (type === "global") {
+  if (type === "public") {
     sortDropdownMenuItems = [
-      sortTop
+      { label: tFilters("sort.top"), param: "sort", value: "top" }
     ]
-  } else if (type === "my_playlists" || type === "subscribed") {
+  } else if (type === "private" || type === "private_followed") {
     sortDropdownMenuItems = [
-      sortTop,
+      { label: tFilters("sort.top"), param: "sort", value: "top" },
       { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
       { label: tFilters("sort.recent"), param: "sort", value: "recent" },
       { label: tFilters("sort.oldest"), param: "sort", value: "oldest" }
@@ -41,18 +41,70 @@ export function getPlaylistsDropdownConfig({ sort, type, tFilters }: GetPlaylist
   };
 }
 
-type QueryParamConfig = {
-  type?: QueryParamsPlaylistsType;
-  sort?: QueryParamsPlaylistsSort;
-  range?: QueryParamsStatsRange;
-  medium_id?: MediumEnum | null;
+type PlaylistsDropdownConfigParams = {
+  type: QueryParamsPlaylistsType | null;
+  sort: QueryParamsSubscribedFullSort | null;
+  range: QueryParamsStatsRange | null;
+  medium: QueryParamsMedium;
+  page: number;
 }
 
-export function getPlaylistsFilterParams({ type, sort, range, medium_id }: QueryParamConfig) {
-  const currentSort = sort;
-  const currentRange = range;
-  const currentType = type;
-  const currentMediumId = medium_id;
+export type PlaylistsDropdownConfigCurrentParams = {
+  currentType: QueryParamsPlaylistsType;
+  currentSort: QueryParamsSubscribedFullSort;
+  currentRange: QueryParamsStatsRange | null;
+  currentMedium: QueryParamsMedium;
+  currentPage: number;
+}
 
-  return { currentSort, currentRange, currentType, currentMediumId };
+export function getPlaylistsFilterParams(
+  { type, sort, range, medium, page }: PlaylistsDropdownConfigParams,
+  isValidAuthSession: boolean
+): PlaylistsDropdownConfigCurrentParams {
+  let currentType = type;
+  let currentSort = sort;
+  let currentRange = range;
+  let currentMedium = medium;
+  let currentPage = page;
+
+  if (type === "private") {
+    currentType = "private";
+    currentSort = getValidQueryParam(
+      QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+      currentSort,
+      "a_z"
+    );
+  } else if (type === "public") {
+    currentType = "public";
+    currentSort = getValidQueryParam(
+      QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+      currentSort,
+      "recent"
+    )
+  } else if (type === "private_followed") {
+    currentType = "private_followed";
+    currentSort = getValidQueryParam(
+      QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+      currentSort,
+      "a_z"
+    )
+  } else {
+    if (isValidAuthSession) {
+      currentType = "private";
+      currentSort = getValidQueryParam(
+        QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+        currentSort,
+        "a_z"
+      );
+    } else {
+      currentType = "public";
+      currentSort = getValidQueryParam(
+        QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+        currentSort,
+        "recent"
+      )
+    }
+  }
+
+  return { currentType, currentSort, currentRange, currentMedium, currentPage };
 }

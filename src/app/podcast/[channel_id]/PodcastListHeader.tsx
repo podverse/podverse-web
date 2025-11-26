@@ -21,7 +21,7 @@ type PodcastListHeaderProps = {
 };
 
 export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItemSoundbites }) => {
-  const { filterParams, setFilterParams, setTotalPages } = usePodcastContext();
+  const { filterParams, setFilterParams } = usePodcastContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
   const tMedia = useTranslations('media');
@@ -29,7 +29,7 @@ export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItem
   const tFeatures = useTranslations('features');
 
   const { sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getPodcastDropdownConfig({ type, sort, tFilters, tMedia });
+    } = getPodcastDropdownConfig({ sort, tFilters, tMedia });
 
   function isChannelType(val: string): val is QueryParamsChannelType {
     return QUERY_PARAMS_CHANNEL_TYPE_VALUES.includes(val as QueryParamsChannelType);
@@ -44,19 +44,22 @@ export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItem
   const handleTypeChange = (value: string) => {
     if (isChannelType(value)) {
       setFilterParams({ ...filterParams, type: value, page: 1 });
-      setTotalPages(1);
     }
   };
 
   const handleSortChange = (value: string) => {
     if (isChannelSort(value)) {
-      setFilterParams({ ...filterParams, sort: value });
+      if (value === "top") {
+        setFilterParams({ ...filterParams, sort: value, range: "week", page: 1 });
+      } else {
+        setFilterParams({ ...filterParams, sort: value, page: 1 });
+      }
     }
   };
 
   const handleRangeChange = (value: string) => {
     if (isStatsRange(value)) {
-      setFilterParams({ ...filterParams, range: value });
+      setFilterParams({ ...filterParams, range: value, page: 1 });
     }
   };
 

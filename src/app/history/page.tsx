@@ -1,14 +1,11 @@
-import { DTOQueue } from "podverse-helpers";
+import { DTOQueue, QUERY_PARAMS_MEDIUMS, QueryParamsMedium } from "podverse-helpers";
 import { z } from "zod";
 import { HistoryClient } from "./HistoryClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
-  medium_id: z.string()
-    .transform((v) => parseInt(v, 10))
-    .refine((v) => !isNaN(v), { message: "medium_id must be a number" })
-    .optional(),
-  page: z.string().transform((v) => parseInt(v, 10)).optional(),
+  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional().default("all"),
+  page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -20,8 +17,8 @@ export type HistoryPageProps = {
 export default async function HistoryPage({ searchParams }: HistoryPageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
     
-  const queryParams = searchParams ? await searchParams : {};
-  const { medium_id, page } = await parseSearchParams(queryParams);
+  const queryParams = await searchParams;
+  const { currentMedium, currentPage } = parseSearchParams(queryParams);
 
   let ssrQueues: DTOQueue[] = [];
 
@@ -32,18 +29,28 @@ export default async function HistoryPage({ searchParams }: HistoryPageProps) {
 
   return (
     <HistoryClient
-      initialQueryParams={{ medium_id, page }}
+      initialQueryParams={{ medium: currentMedium, page: currentPage }}
       ssrQueues={ssrQueues}
     />
   );
 }
 
-async function parseSearchParams(queryParams: SearchParams) {
+type ParseSearchParams = {
+  currentMedium: QueryParamsMedium;
+  currentPage: number;
+}
+
+function parseSearchParams(queryParams: SearchParams): ParseSearchParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
+
   if (!parsed.success) {
-    return {};
+    return {
+      currentMedium: "podcasts",
+      currentPage: 1
+    };
   }
+
   const data = parsed.data;
 
-  return data;
+  return { currentMedium: data.medium, currentPage: data.page }
 }

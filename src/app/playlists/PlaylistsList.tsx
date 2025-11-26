@@ -5,10 +5,10 @@ import LoadingSpinnerOverlay from "../../components/LoadingSpinner/LoadingSpinne
 
 export const PlaylistsList: React.FC = () => {
   const { filterParams, setFilterParams, playlists, totalPages, isLoading, showLoginMessage } = usePlaylistsContext();
-  const { page = 1, type } = filterParams;
+  const { page, type } = filterParams;
 
-  const showCreator = filterParams.type === "global"
-    || filterParams.type === "subscribed";
+  const showCreator = filterParams.type === "public"
+    || filterParams.type === "private_followed";
 
   return (
     <>

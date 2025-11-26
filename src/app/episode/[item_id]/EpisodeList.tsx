@@ -19,7 +19,7 @@ type EpisodeListProps = {
 export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem }) => {
   const { filterParams, setFilterParams, isLoading, clips, itemChapters,
     itemSoundbites, totalPages, transcriptRows, autoScrollOn } = useEpisodeContext();
-  const { page = 1, type } = filterParams;
+  const { page, type } = filterParams;
 
   return (
     <div className={styles.list}>

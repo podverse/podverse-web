@@ -22,7 +22,7 @@ interface PlaylistContextProviderProps {
 
 export const PlaylistContextProvider = (
   { children, ssrPlaylist }: PlaylistContextProviderProps) => {
-  const [filterParams, setFilterParams] = useState<QueryParamsPlaylistResources>({});
+  const [filterParams, setFilterParams] = useState<QueryParamsPlaylistResources>({ page: 1 });
   const [playlistResources, setPlaylistResources] = useState<DTOPlaylistResource[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
 

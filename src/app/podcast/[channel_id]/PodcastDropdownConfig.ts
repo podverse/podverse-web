@@ -1,9 +1,9 @@
-import { QueryParamsChannelType, QueryParamsChannelSort, QueryParamsStatsRange } from "podverse-helpers";
+import { QueryParamsChannelType, QueryParamsChannelSort, QueryParamsStatsRange,
+  QueryParamsGlobalSort } from "podverse-helpers";
 import { getRangeDropdownItems } from "../../../utils/dropdownMenuItems";
 
 export function getPodcastDropdownConfig({ sort, tFilters }: {
-  sort?: QueryParamsChannelSort,
-  type?: QueryParamsChannelType,
+  sort: QueryParamsChannelSort,
   tFilters: (key: string) => string,
   tMedia: (key: string) => string
 }) {
@@ -24,16 +24,25 @@ export function getPodcastDropdownConfig({ sort, tFilters }: {
   };
 }
 
-type QueryParamConfig = {
-  type?: QueryParamsChannelType;
-  sort?: QueryParamsChannelSort;
-  range?: QueryParamsStatsRange;
+type PodcastDropdownConfigParams = {
+  type: QueryParamsChannelType;
+  sort: QueryParamsGlobalSort;
+  range: QueryParamsStatsRange | null;
+  page: number;
 }
 
-export function getPodcastFilterParams({ type, sort, range }: QueryParamConfig) {
+export type PodcastDropdownConfigCurrentParams = {
+  currentType: QueryParamsChannelType;
+  currentSort: QueryParamsGlobalSort;
+  currentRange: QueryParamsStatsRange | null;
+  currentPage: number;
+}
+
+export function getPodcastFilterParams({ type, sort, range, page }: PodcastDropdownConfigParams): PodcastDropdownConfigCurrentParams {
+  let currentType = type;
   let currentSort = sort;
   let currentRange = range;
-  let currentType = type;
+  let currentPage = page;
 
-  return { currentSort, currentRange, currentType };
+  return { currentSort, currentRange, currentType, currentPage };
 }

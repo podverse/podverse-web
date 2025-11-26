@@ -17,7 +17,7 @@ type ListItemChaptersProps = {
 };
 
 export const ListItemChapters: React.FC<ListItemChaptersProps> = ({
-  page = 1, setPage, channel, item, item_chapters, totalPages }) => {
+  page, setPage, channel, item, item_chapters, totalPages }) => {
 
   useSkipInitialEffect(() => {
     scrollMainToTop();

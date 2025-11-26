@@ -2,14 +2,14 @@ import classNames from "classnames";
 import React, { RefObject } from "react";
 import styles from "../../styles/components/Dropdown/DropdownMenu.module.scss";
 
-export interface DropdownMenuItem {
+interface DropdownMenuItemsWithHandlers {
   label: string;
   onClick: () => void;
   variant?: "primary" | "warning" | "danger";
 }
 
 interface DropdownMenuProps {
-  menuItems: DropdownMenuItem[];
+  menuItems: DropdownMenuItemsWithHandlers[];
   open: boolean;
   menuRef: RefObject<HTMLUListElement | null>;
   focusedIndex: number;

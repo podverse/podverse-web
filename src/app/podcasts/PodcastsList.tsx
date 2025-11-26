@@ -13,7 +13,7 @@ export const PodcastsList: React.FC = () => {
   const { filterParams, setFilterParams, channels, totalPages, isLoading,
     showSubscribeMessage, showCategoriesModal, setShowCategoriesModal } = usePodcastsContext();
   const { viewSelected } = useLocalSettings();
-  const { page = 1, type, category } = filterParams;
+  const { page, type, category } = filterParams;
   const router = useRouter();
 
   const handleOnClickCategory = (category: DTOCategory) => {
