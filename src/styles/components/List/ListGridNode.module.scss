@@ -1,4 +1,4 @@
-@use '../../../mixins/lineClamp' as *;
+@use '../../mixins/lineClamp' as *;
 
 .link {
 	text-decoration: none;
@@ -9,7 +9,7 @@
 .gridNode {
 	display: flex;
 	flex-direction: column;
-	padding: 0.75rem;
+	padding: 0.5rem;
 	border-radius: var(--border-radius);
 
 	&:hover,
@@ -37,5 +37,5 @@
 .title {
   font-weight: var(--font-weight-light);
 	margin: 0;
-  @include line-clamp(1);
+  @include line-clamp(2);
 }

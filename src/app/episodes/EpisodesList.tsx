@@ -38,6 +38,7 @@ export const EpisodesList: React.FC = () => {
         showSubscribeMessage={showSubscribeMessage}
         type={type}
         category={category}
+        viewSelected={viewSelected}
       />
       <LoadingSpinnerOverlay isLoading={isLoading} />
       <ModalCategoriesSelect

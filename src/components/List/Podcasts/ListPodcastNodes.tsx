@@ -6,32 +6,38 @@ import { ListPodcastRow } from "./ListPodcastRow";
 import { ListPodcastGridNode } from "./ListPodcastGridNode";
 import { ViewSelectedOption } from "../../ViewSelector/ViewSelector";
 import { Divider } from "../../Divider/Divider";
-import styles from "../../../styles/components/List/Podcasts/ListPodcasts.module.scss";
+import styles from "../../../styles/components/List/ListNodes.module.scss";
 
 interface Params {
   channels: DTOChannel[];
   viewSelected: ViewSelectedOption;
 }
 
-export function ListPodcastNodes({ channels, viewSelected }: Params): React.ReactNode[] {
+export function ListPodcastNodes({ channels, viewSelected }: Params): React.ReactNode {
   if (viewSelected === "rows") {
-    return channels.map((channel, idx) => (
-      <React.Fragment key={channel.id}>
-        <ListPodcastRow channel={channel} />
-        {idx < channels.length - 1 && <Divider />}
-      </React.Fragment>
-    ));
+    return (
+      <div key="list" className={styles.list} style={{ gap: '0.125rem' }}>
+        {
+          channels.map((channel, idx) => (
+            <React.Fragment key={channel.id}>
+              <ListPodcastRow channel={channel} />
+              {idx < channels.length - 1 && <Divider />}
+            </React.Fragment>
+          ))
+        }
+      </div>
+    );
   }
 
   if (viewSelected === "grid") {
-    return [
+    return (
       <div key="grid" className={styles.grid}>
         {channels.map(channel => (
           <ListPodcastGridNode key={channel.id} channel={channel} />
         ))}
       </div>
-    ];
+    );
   }
 
-  return [];
+  return null;
 }

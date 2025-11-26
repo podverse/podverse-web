@@ -7,7 +7,7 @@ import { DTOChannel, findDTOChannelImageBySize, formatDateAbbrev } from "podvers
 import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
-import styles from "../../../styles/components/List/Podcasts/ListPodcastGridNode.module.scss";
+import styles from "../../../styles/components/List/ListGridNode.module.scss";
 
 interface Props {
 	channel: DTOChannel;
