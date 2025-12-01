@@ -15,17 +15,13 @@ const Footer: React.FC = () => (
     </div>
     <div className={styles.footerBottom}>
       <div className={styles.footerLinks}>
-        <div className={styles.footerLinksTop}>
-          <Link href={ROUTES.CONTACT}>Contact</Link>
-          <Link href={ROUTES.ABOUT}>About</Link>
-          <Link href={ROUTES.TERMS}>Terms</Link>
-          <Link href={ROUTES.MEMBERSHIP}>Premium</Link>
-        </div>
-        <div className={styles.footerLinksBottom}>
-          <Link href={ROUTES.MOBILE_APP}>Mobile</Link>
-          <Link href={ROUTES.EMBED}>Embed</Link>
-          <Link href={ROUTES.DONATE}>Donate</Link>
-        </div>
+        <Link href={ROUTES.CONTACT}>Contact</Link>
+        <Link href={ROUTES.ABOUT}>About</Link>
+        <Link href={ROUTES.TERMS}>Terms</Link>
+        <Link href={ROUTES.MEMBERSHIP}>Premium</Link>
+        <Link href={ROUTES.MOBILE_APP}>Mobile</Link>
+        <Link href={ROUTES.EMBED}>Embed</Link>
+        <Link href={ROUTES.DONATE}>Donate</Link>
       </div>
       <div className={styles.footerSocialLinks}>
         <Link href={SOCIALS.DISCORD} target="_blank" rel="noopener noreferrer" aria-label="Discord">

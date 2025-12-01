@@ -1,3 +1,5 @@
+@use "breakpoints";
+
 .footer {
   margin: var(--header-padding);
 }
@@ -21,18 +23,15 @@
 
 .footerLinks {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
   margin-right: 2rem;
+  gap: 1.25rem;
+  flex: 1;
+  flex-wrap: wrap;
 }
 
 .footerLinks a {
   padding: 0.75rem 0;
-}
-
-.footerLinksTop, .footerLinksBottom {
-  display: flex;
-  gap: 1.25rem;
 }
 
 .footerSocialLinks {
@@ -48,4 +47,16 @@
   flex: 0 0 auto;
   line-height: 1;
   height: auto;
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .footerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footerLinks {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 }
