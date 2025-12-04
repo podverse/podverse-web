@@ -277,6 +277,11 @@
     "i_have_read_and_agree": "I have read and agree to the terms.",
     "unknown_date": "Unknown Date",
     "redirecting": "Redirecting...",
+    "contact": "Contact",
+    "terms": "Terms",
+    "mobile": "Mobile",
+    "donate": "Donate",
+    "updates": "Updates",
     "sharable_status": {
       "sharable_status": "Sharable Status",
       "public": "Public",
@@ -342,7 +347,8 @@
     "change_email_address_email_success": "Email address changed successfully. You may now login with your new email address."
   },
   "membership": {
-    "membership": "Membership"
+    "membership": "Membership",
+    "premium": "Premium"
   },
   "layouts": {
     "change_layout_view": "Change Layout View",
@@ -357,6 +363,13 @@
       "dark": "🌙 Dark",
       "select_ui_theme": "Select UI Theme"
     }
+  },
+  "socials": {
+    "discord": "Discord",
+    "mastodon": "Mastodon",
+    "x": "X",
+    "matrix": "Matrix",
+    "github": "GitHub"
   },
   "disclaimers": {
     "environment_warning": {
