@@ -6,7 +6,7 @@ import SideBarDivider from "./SideBarDivider";
 import SideBarBrand from "./SideBarBrand";
 import SideBarLink from "./SideBarLink";
 import SideBarHeader from "./SideBarHeader";
-import { UIThemeToggle } from "../UIThemeToggle/UIThemeToggle";
+// import { UIThemeToggle } from "../UIThemeToggle/UIThemeToggle";
 import Accordion from "../Accordian/Accordian";
 import styles from "../../styles/components/SideBar/SideBar.module.scss";
 
