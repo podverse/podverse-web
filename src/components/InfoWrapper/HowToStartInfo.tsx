@@ -1,4 +1,3 @@
-import { DTOAccount, DTOChannel } from "podverse-helpers";
 import { useTranslations } from "next-intl";
 import { Link } from "../Link/Link";
 import { ROUTES } from "../../constants/routes";
