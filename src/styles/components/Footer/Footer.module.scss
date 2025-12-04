@@ -14,7 +14,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 0 1.5rem 0;
 }
 
 .footerBottom a {
@@ -25,7 +24,7 @@
   display: flex;
   align-items: flex-start;
   margin-right: 2rem;
-  gap: 1.25rem;
+  gap: 0 1.25rem;
   flex: 1;
   flex-wrap: wrap;
 }
@@ -37,7 +36,7 @@
 .footerSocialLinks {
   display: flex;
   flex: 0 0 auto;
-  gap: 1.25rem;
+  gap: 0 1.25rem;
   align-items: flex-start;
 }
 
