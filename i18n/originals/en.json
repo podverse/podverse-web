@@ -313,7 +313,7 @@
   },
   "subscriptions": {
     "subscriptions": "Subscriptions",
-    "how_to_start_message": "Try <searchLink>searching</searchLink> for your favorite content, or browse <podcastsLink>podcasts</podcastsLink>, <videosLink>videos</videosLink>, or <musicLink>music</musicLink>."
+    "how_to_start_message": "Try <searchLink>searching</searchLink> for your favorite content, or browse <podcastsLink>podcasts</podcastsLink>, <videosLink>videos</videosLink>, or <musicLink>music</musicLink>. Your subscriptions will appear here."
   },
   "authentication": {
     "login": "Login",
