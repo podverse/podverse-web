@@ -13,6 +13,7 @@ export function SearchListHeader() {
           setSearchParams({ q: value });
         }}
         placeholder={tFeatures("search.search_by_title")}
+        autoFocus
       />
     </div>
   )
