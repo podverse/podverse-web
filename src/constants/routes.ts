@@ -31,6 +31,7 @@ export const ROUTES = {
   SETTINGS: '/settings',
   TERMS: '/terms',
   TRACKS: '/tracks',
+  UPDATES: '/updates',
   VIDEO: '/video',
   VIDEOS: '/videos'
 };
