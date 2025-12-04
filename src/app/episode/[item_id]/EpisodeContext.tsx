@@ -101,9 +101,9 @@ export const EpisodeContextProvider = ({
         range: filterParams.range
       });
 
-      const response = await apiRequestService.reqClipGetManyByItemIdTextPublic(
-        item_id,
+      const response = await apiRequestService.reqClipGetManyByItemPublic(
         {
+          idOrIdText: item_id,
           page: filterParams.page,
           sort: currentSort,
           range: currentRange
