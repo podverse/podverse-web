@@ -8,6 +8,7 @@ import { ModalCategoriesSelect } from "../../components/Modal/ModalCategoriesSel
 import { onClickCategory } from "../../utils/categories";
 import { ROUTES } from "../../constants/routes";
 import { useRouter } from "next/navigation";
+import { HowToStartInfo } from "../../components/InfoWrapper/HowToStartInfo";
 
 export const PodcastsList: React.FC = () => {
   const { filterParams, setFilterParams, channels, totalPages, isLoading,
@@ -29,6 +30,10 @@ export const PodcastsList: React.FC = () => {
 
   return (
     <>
+      <HowToStartInfo
+        rows={channels}
+        totalPages={totalPages}
+      />
       <ListPodcasts
         page={page}
         setPage={(page) => setFilterParams({ ...filterParams, page })}

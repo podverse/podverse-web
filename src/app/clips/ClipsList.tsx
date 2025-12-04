@@ -7,6 +7,7 @@ import { onClickCategory } from "../../utils/categories";
 import { ROUTES } from "../../constants/routes";
 import { ListClips } from "../../components/List/Clips/ListClips";
 import { useClipsContext } from "./ClipsContext";
+import { HowToStartInfo } from "../../components/InfoWrapper/HowToStartInfo";
 
 export const ClipsList: React.FC = () => {
   const { filterParams, setFilterParams, clips, totalPages, isLoading,
@@ -27,6 +28,7 @@ export const ClipsList: React.FC = () => {
 
   return (
     <>
+      <HowToStartInfo rows={clips} totalPages={totalPages} />
       <ListClips
         page={page}
         setPage={(page) => setFilterParams({ ...filterParams, page })}

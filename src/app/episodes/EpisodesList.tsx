@@ -8,6 +8,7 @@ import { ROUTES } from "../../constants/routes";
 import { useRouter } from "next/navigation";
 import { useEpisodesContext } from "./EpisodesContext";
 import { ListEpisodes } from "../../components/List/Podcasts/Episodes/ListEpisodes";
+import { HowToStartInfo } from "../../components/InfoWrapper/HowToStartInfo";
 
 export const EpisodesList: React.FC = () => {
   const { filterParams, setFilterParams, items, totalPages, isLoading,
@@ -29,6 +30,10 @@ export const EpisodesList: React.FC = () => {
 
   return (
     <>
+      <HowToStartInfo
+        rows={items}
+        totalPages={totalPages}
+      />
       <ListEpisodes
         page={page}
         setPage={(page) => setFilterParams({ ...filterParams, page })}
