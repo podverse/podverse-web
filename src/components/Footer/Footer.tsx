@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { SiMatrix } from "react-icons/si";
-import styles from "../../styles/components/Footer/Footer.module.scss";
+import { useTranslations } from "next-intl";
 import FooterBrand from "./FooterBrand";
 import FooterCopyright from "./FooterCopyright";
 import { ROUTES } from "../../constants/routes";
 import { FaDiscord, FaGithub, FaMastodon, FaXTwitter } from "react-icons/fa6";
 import { SOCIALS } from "../../constants/socials";
-import { useTranslations } from "next-intl";
+import { Link } from "../Link/Link";
+import styles from "../../styles/components/Footer/Footer.module.scss";
 
 export const Footer: React.FC = () => {
   const tMisc = useTranslations("misc");
@@ -25,13 +25,13 @@ export const Footer: React.FC = () => {
       </div>
       <div className={styles.footerBottom}>
         <div className={styles.footerLinks}>
-          <Link href={ROUTES.CONTACT}>{tMisc("contact")}</Link>
-          <Link href={ROUTES.ABOUT}>{tInfo("about")}</Link>
-          <Link href={ROUTES.TERMS}>{tMisc("terms")}</Link>
-          <Link href={ROUTES.MEMBERSHIP}>{tMembership("premium")}</Link>
-          <Link href={ROUTES.MOBILE_APP}>{tMisc("mobile")}</Link>
-          <Link href={ROUTES.EMBED}>{tFeatures("embed")}</Link>
-          <Link href={ROUTES.DONATE}>{tMisc("donate")}</Link>
+          <Link disabled href={ROUTES.CONTACT}>{tMisc("contact")}</Link>
+          <Link disabled href={ROUTES.ABOUT}>{tInfo("about")}</Link>
+          <Link disabled href={ROUTES.TERMS}>{tMisc("terms")}</Link>
+          <Link disabled href={ROUTES.MEMBERSHIP}>{tMembership("premium")}</Link>
+          <Link disabled href={ROUTES.MOBILE_APP}>{tMisc("mobile")}</Link>
+          <Link disabled href={ROUTES.EMBED}>{tFeatures("embed")}</Link>
+          <Link disabled href={ROUTES.DONATE}>{tMisc("donate")}</Link>
           <Link href={ROUTES.UPDATES}>{tMisc("updates")}</Link>
         </div>
         <div className={styles.footerSocialLinks}>

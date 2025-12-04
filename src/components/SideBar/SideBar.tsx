@@ -33,7 +33,7 @@ export const SideBar: React.FC = () => {
               <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
               <SideBarLink href={ROUTES.EPISODES}>{tMedia("podcast.episodes")}</SideBarLink>
               <SideBarLink href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
-              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
           }
           color="link"
@@ -46,10 +46,10 @@ export const SideBar: React.FC = () => {
           headerClass={styles.accordianHeader}
           content={
             <>
-              <SideBarLink href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
-              <SideBarLink href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
-              <SideBarLink href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
-              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
           }
           color="link"
@@ -62,9 +62,9 @@ export const SideBar: React.FC = () => {
           headerClass={styles.accordianHeader}
           content={
             <>
-              <SideBarLink href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
-              <SideBarLink href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
-              <SideBarLink href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
             </>
           }
           color="link"
@@ -80,16 +80,16 @@ export const SideBar: React.FC = () => {
               <SideBarLink href={ROUTES.QUEUES}>{tFeatures("queue.queues")}</SideBarLink>
               <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history.history")}</SideBarLink>
               <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlist.playlists")}</SideBarLink>
-              <SideBarLink href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
-              <SideBarLink href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>
             </>
           }
           color="link"
           size="small"
           open
         />
-        <SideBarDivider />
-        <UIThemeToggle />
+        {/* <SideBarDivider /> */}
+        {/* <UIThemeToggle /> */}
       </div>
     </nav>
   );
