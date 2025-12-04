@@ -19,7 +19,7 @@ type CustomLinkProps = {
   title?: string;
 };
 
-const Link: React.FC<CustomLinkProps> = ({
+export const Link: React.FC<CustomLinkProps> = ({
   href,
   onClick,
   children,
@@ -37,6 +37,18 @@ const Link: React.FC<CustomLinkProps> = ({
   const linkClassName = color === 'primary' ? styles.link : styles.linkSecondary;
 
   if (href) {
+    if (disabled) {
+      return (
+        <span
+          className={classNames(linkClassName, className, styles.disabled)}
+          aria-disabled="true"
+          style={style}
+          title={title}
+        >
+          {children}
+        </span>
+      );
+    }
     return (
       <NextLink
         href={href}
@@ -67,5 +79,3 @@ const Link: React.FC<CustomLinkProps> = ({
     </button>
   );
 };
-
-export default Link;

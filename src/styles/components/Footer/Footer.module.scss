@@ -17,7 +17,7 @@
 }
 
 .footerBottom a {
-  color: var(--text-color-secondary);
+  color: var(--text-color-primary);
 }
 
 .footerLinks {
@@ -29,7 +29,7 @@
   flex-wrap: wrap;
 }
 
-.footerLinks a {
+.footerLinks a, .footerLinks span {
   padding: 0.75rem 0;
 }
 

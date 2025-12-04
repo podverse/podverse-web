@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { findDTOChannelImageBySize, findDTOItemImageBySize, MediumEnum } from "podverse-helpers";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ImageNonReact } from "../../Image/ImageNonReact";
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import styles from "../../../styles/components/MediaPlayer/Modal/MediaPlayerInfoModal.module.scss";
 

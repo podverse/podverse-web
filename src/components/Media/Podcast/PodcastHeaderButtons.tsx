@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
 import React from "react";
 import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa6";
-import Link from "../../../components/Link/Link";
+import { Link } from "../../../components/Link/Link";
 import { useModals } from "../../../contexts/Modals";
 import styles from "../../../styles/components/Media/Podcast/PodcastHeaderButtons.module.scss";
 

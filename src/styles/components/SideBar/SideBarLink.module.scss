@@ -2,7 +2,7 @@
 
 .link {
   color: var(--text-color-primary);
-  text-decoration: none;
+  text-decoration: none !important;
   padding: 0.75rem;
   margin: 0.25rem 0.5rem;
   font-size: var(--font-size-base);
@@ -10,6 +10,7 @@
 
 .link:hover {
   background: var(--background-color-opaque);
+  text-decoration: none;
 }
 
 @media (max-width: breakpoints.$breakpoint-md-max) {

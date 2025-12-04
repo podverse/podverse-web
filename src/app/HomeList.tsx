@@ -7,7 +7,7 @@ import LoadingSpinnerOverlay from "../components/LoadingSpinner/LoadingSpinnerOv
 import { InfoWrapper } from "../components/InfoWrapper/InfoWrapper";
 import { useHomeContext } from "./HomeContext";
 import { useAccount } from "../contexts/Account";
-import Link from "../components/Link/Link";
+import { Link } from "../components/Link/Link";
 import { ROUTES } from "../constants/routes";
 import { useLocalSettings } from "../contexts/LocalSettings";
 

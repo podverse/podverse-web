@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeader.module.scss";
 import { Divider } from "../../../Divider/Divider";
 import { EpisodeHeaderPlaySection } from "./EpisodeHeaderPlaySection";
-import Link from "../../../Link/Link";
+import { Link } from "../../../Link/Link";
 import { ROUTES } from "../../../../constants/routes";
 
 type EpisodeHeaderProps = {

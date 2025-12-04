@@ -4,7 +4,7 @@ import { PodcastHeaderImage } from "./PodcastHeaderImage"
 import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection"
 import PodcastHeaderSubtitle from "./PodcastHeaderSubtitle"
 import styles from "../../../styles/components/Media/Podcast/PodcastHeaderViewTablet.module.scss";
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 import { ROUTES } from "../../../constants/routes";
 
 type PodcastHeaderViewTabletProps = {

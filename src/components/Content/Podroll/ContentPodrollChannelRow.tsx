@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { DTOChannel, findDTOChannelImageBySize } from "podverse-helpers";
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 import { WEB } from "../../../constants/web";
 import { IMAGES } from "../../../constants/images";
 import { Image } from "../../Image/Image";

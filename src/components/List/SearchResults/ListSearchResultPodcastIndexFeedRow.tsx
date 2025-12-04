@@ -10,7 +10,7 @@ import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
 import styles from "../../../styles/components/List/SearchResults/ListSearchResultPodcastIndexFeedRow.module.scss";
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 
 interface Props {
   searchResultPodcastIndexFeed: SearchPodcastsFeed;

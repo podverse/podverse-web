@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import React from "react";
 import { Modal } from "./Modal";
-import Link from "../Link/Link";
+import { Link } from "../Link/Link";
 import styles from "../../styles/components/Modal/ModalFunding.module.scss";
 import { useModals } from "../../contexts/Modals";
 

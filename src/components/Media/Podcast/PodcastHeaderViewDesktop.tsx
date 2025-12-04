@@ -3,7 +3,7 @@ import PodcastHeaderButtons from "./PodcastHeaderButtons"
 import { PodcastHeaderImage } from "./PodcastHeaderImage"
 import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection"
 import PodcastHeaderSubtitle from "./PodcastHeaderSubtitle"
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 import { ROUTES } from "../../../constants/routes";
 import styles from "../../../styles/components/Media/Podcast/PodcastHeaderViewDesktop.module.scss";
 

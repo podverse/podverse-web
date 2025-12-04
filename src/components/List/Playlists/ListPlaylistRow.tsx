@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { DTOPlaylist } from "podverse-helpers";
 import React from "react";
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 import { ROUTES } from "../../../constants/routes";
 import styles from "../../../styles/components/List/Playlists/ListPlaylistRow.module.scss";
 

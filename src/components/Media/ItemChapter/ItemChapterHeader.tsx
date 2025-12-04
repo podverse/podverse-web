@@ -1,6 +1,6 @@
 import { DTOChannel, DTOItem, DTOItemChapter } from "podverse-helpers";
 import React from "react";
-import Link from "../../Link/Link";
+import { Link } from "../../Link/Link";
 import { ROUTES } from "../../../constants/routes";
 import { ItemChapterHeaderPlaySection } from "./ItemChapterHeaderPlaySection";
 import styles from "../../../styles/components/Media/ItemChapter/ItemChapterHeader.module.scss";
