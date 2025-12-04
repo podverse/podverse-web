@@ -25,7 +25,7 @@ type Props = {
   showChannelInfo?: boolean;
 };
 
-const ListEpisodes: React.FC<Props> = ({
+export const ListEpisodes: React.FC<Props> = ({
   page,
   setPage,
   channel,
@@ -71,5 +71,3 @@ const ListEpisodes: React.FC<Props> = ({
     </>
   );
 };
-
-export default ListEpisodes;

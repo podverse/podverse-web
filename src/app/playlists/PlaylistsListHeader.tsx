@@ -40,7 +40,6 @@ export const PlaylistsListHeader: React.FC = () => {
   }
 
   const handleTypeChange = (value: string) => {
-    console.log("handleTypeChange", value);
     if (isPlaylistType(value)) {
       if (value === "public") {
         setFilterParams({ ...filterParams, type: value, sort: "top", range: "week", page: 1 });

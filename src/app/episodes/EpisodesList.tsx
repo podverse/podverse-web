@@ -7,7 +7,7 @@ import { onClickCategory } from "../../utils/categories";
 import { ROUTES } from "../../constants/routes";
 import { useRouter } from "next/navigation";
 import { useEpisodesContext } from "./EpisodesContext";
-import ListEpisodes from "../../components/List/Podcasts/Episodes/ListEpisodes";
+import { ListEpisodes } from "../../components/List/Podcasts/Episodes/ListEpisodes";
 
 export const EpisodesList: React.FC = () => {
   const { filterParams, setFilterParams, items, totalPages, isLoading,

@@ -62,8 +62,6 @@ export const PodcastContextProvider = ({
     }
 
     async function fetchItems() {
-      console.log("Fetching items for podcast context...", filterParams);
-
       const { currentPage, currentSort, currentRange } = getPodcastFilterParams({
         page: filterParams.page,
         type: filterParams.type,
@@ -118,9 +116,9 @@ export const PodcastContextProvider = ({
         range: filterParams.range
       });
 
-      const response = await apiRequestService.reqClipGetManyByChannelIdTextPublic(
-        channel_id,
+      const response = await apiRequestService.reqClipGetManyByChannelPublic(
         {
+          idOrIdText: channel_id,
           page: currentPage,
           sort: currentSort,
           range: currentRange

@@ -4,7 +4,7 @@ import { DTOChannel, DTOPodroll } from "podverse-helpers";
 import React from "react";
 import { usePodcastContext } from "./PodcastContext";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
-import ListEpisodes from "../../../components/List/Podcasts/Episodes/ListEpisodes";
+import { ListEpisodes } from "../../../components/List/Podcasts/Episodes/ListEpisodes";
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
