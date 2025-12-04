@@ -17,6 +17,7 @@ type CustomLinkProps = {
   target?: '_blank';
   rel?: string;
   title?: string;
+  fullPageLoad?: boolean;
 };
 
 export const Link: React.FC<CustomLinkProps> = ({
@@ -32,7 +33,8 @@ export const Link: React.FC<CustomLinkProps> = ({
   color = 'primary',
   target,
   rel,
-  title
+  title,
+  fullPageLoad = false
 }) => {
   const linkClassName = color === 'primary' ? styles.link : styles.linkSecondary;
 
@@ -49,6 +51,24 @@ export const Link: React.FC<CustomLinkProps> = ({
         </span>
       );
     }
+
+    if (fullPageLoad) {
+      return (
+        <a
+          href={href}
+          className={classNames(linkClassName, className)}
+          tabIndex={tabIndex}
+          aria-label={ariaLabel}
+          title={title}
+          style={style}
+          target={target}
+          rel={rel}
+        >
+          {children}
+        </a>
+      );
+    }
+
     return (
       <NextLink
         href={href}
