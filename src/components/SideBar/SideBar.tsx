@@ -26,30 +26,14 @@ export const SideBar: React.FC = () => {
       <div className={styles.scrollable} tabIndex={-1}>
         <SideBarDivider noMarginTop />
         <Accordion
-          header={<SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>}
+          header={<SideBarHeader>{tMedia("podcast.podcasts")}</SideBarHeader>}
           headerClass={styles.accordianHeader}
           content={
             <>
               <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
               <SideBarLink href={ROUTES.EPISODES}>{tMedia("podcast.episodes")}</SideBarLink>
               <SideBarLink href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
-              <SideBarLink disabled href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
-            </>
-          }
-          color="link"
-          size="small"
-          open
-        />
-        <SideBarDivider />
-        <Accordion
-          header={<SideBarHeader>{tMedia("video.video")}</SideBarHeader>}
-          headerClass={styles.accordianHeader}
-          content={
-            <>
-              <SideBarLink disabled href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
-              <SideBarLink disabled href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
-              <SideBarLink disabled href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
-              <SideBarLink disabled href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
+              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
           }
           color="link"
@@ -65,6 +49,7 @@ export const SideBar: React.FC = () => {
               <SideBarLink disabled href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
               <SideBarLink disabled href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
               <SideBarLink disabled href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
+              <SideBarLink disabled href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
           }
           color="link"

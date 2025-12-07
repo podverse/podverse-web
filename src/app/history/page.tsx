@@ -1,10 +1,10 @@
-import { DTOQueue, QUERY_PARAMS_MEDIUMS, QueryParamsMedium } from "podverse-helpers";
+import { DTOQueue, QUERY_PARAMS_QUEUE_MEDIUMS, QueryParamsQueueMedium } from "podverse-helpers";
 import { z } from "zod";
 import { HistoryClient } from "./HistoryClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
-  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional().default("all"),
+  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().default("av"),
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
 });
 
@@ -36,7 +36,7 @@ export default async function HistoryPage({ searchParams }: HistoryPageProps) {
 }
 
 type ParseSearchParams = {
-  currentMedium: QueryParamsMedium;
+  currentMedium: QueryParamsQueueMedium;
   currentPage: number;
 }
 
@@ -45,7 +45,7 @@ function parseSearchParams(queryParams: SearchParams): ParseSearchParams {
 
   if (!parsed.success) {
     return {
-      currentMedium: "podcasts",
+      currentMedium: "av",
       currentPage: 1
     };
   }

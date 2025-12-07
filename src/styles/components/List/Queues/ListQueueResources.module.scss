@@ -1,3 +1,9 @@
 .listWrapper {
   margin: 1.5rem 0;
 }
+
+.queueList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

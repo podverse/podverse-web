@@ -28,7 +28,14 @@ export const ClipsList: React.FC = () => {
 
   return (
     <>
-      <HowToStartInfo rows={clips} totalPages={totalPages} />
+      {
+        filterParams.type === "subscribed" && (
+          <HowToStartInfo
+            rows={clips}
+            totalPages={totalPages}
+          />
+        )
+      }
       <ListClips
         page={page}
         setPage={(page) => setFilterParams({ ...filterParams, page })}

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { getQueryParamFromQueueMediumId } from "podverse-helpers";
 import React from "react";
 import { usePlaylistCreateContext } from "./PlaylistCreateContext";
 import { apiRequestService } from "../../../factories/apiRequestService";
@@ -31,7 +32,7 @@ export const PlaylistCreateForm: React.FC = () => {
     const playlist = await apiRequestService.reqPlaylistCreate({
       title,
       description,
-      medium_id: Number(medium),
+      medium: getQueryParamFromQueueMediumId(Number(medium)),
       sharable_status_id: Number(sharableStatus)
     })
 

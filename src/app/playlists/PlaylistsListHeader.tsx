@@ -6,7 +6,6 @@ import {
   QUERY_PARAMS_STATS_RANGE_VALUES,
   QUERY_PARAMS_PLAYLISTS_TYPE_VALUES,
   QueryParamsPlaylistsType,
-  MediumEnum,
   QueryParamsSubscribedFullSort,
   QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
 } from "podverse-helpers";
@@ -118,17 +117,12 @@ export const PlaylistsListHeader: React.FC = () => {
       onClick: () => setFilterParams({ ...filterParams, medium: "all" })
     },
     {
-      key: MediumEnum.Podcast,
+      key: "av",
       label: tMedia("podcast.podcasts"),
-      onClick: () => setFilterParams({ ...filterParams, medium: "podcasts" })
+      onClick: () => setFilterParams({ ...filterParams, medium: "av" })
     },
     {
-      key: MediumEnum.Video,
-      label: tMedia("video.videos"),
-      onClick: () => setFilterParams({ ...filterParams, medium: "videos" })
-    },
-    {
-      key: MediumEnum.Music,
+      key: "music",
       label: tMedia("music.music"),
       onClick: () => setFilterParams({ ...filterParams, medium: "music" })
     }

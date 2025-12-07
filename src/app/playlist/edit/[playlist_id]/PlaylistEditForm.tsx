@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { DTOPlaylist } from "podverse-helpers";
+import { DTOPlaylist, getQueryParamFromQueueMediumId } from "podverse-helpers";
 import React from "react";
 import { usePlaylistEditContext } from "./PlaylistEditContext";
 import { apiRequestService } from "../../../../factories/apiRequestService";
@@ -42,7 +42,7 @@ export const PlaylistEditForm: React.FC<PlaylistEditFormProps> = ({ ssrPlaylist 
       id_text: ssrPlaylist.id_text,
       title,
       description,
-      medium_id: Number(medium),
+      medium: getQueryParamFromQueueMediumId(Number(medium)),
       sharable_status_id: Number(sharableStatus)
     })
 

@@ -36,7 +36,7 @@ export function useQueueResourcesLoadActive() {
     let activeQueue = queueData.find(queue => queue.is_active_queue);
 
     if (!activeQueue) {
-      activeQueue = queueData.find(queue => queue.medium_id === MediumEnum.Podcast);
+      activeQueue = queueData.find(queue => queue.medium_id === MediumEnum.AV);
     }
 
     if (activeQueue) {

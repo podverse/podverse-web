@@ -2,20 +2,11 @@ import { MediumEnum } from "podverse-helpers";
 
 export const MEDIUM = {
   menuItems: (tMedia: any) => [
-    { label: tMedia("podcast.podcast"), param: "medium", value: `${MediumEnum.Podcast}` },
-    { label: tMedia("video.video"), param: "medium", value: `${MediumEnum.Video}` },
+    { label: tMedia("podcast.podcasts"), param: "medium", value: `${MediumEnum.AV}` },
     { label: tMedia("music.music"), param: "medium", value: `${MediumEnum.Music}` }
   ],
   buttonTabs: (mediumId: number, tMedia: any, onClick: (id: number) => void) => {
-    if (mediumId === MediumEnum.Video) {
-      return [
-        {
-          key: MediumEnum.Video,
-          label: tMedia("video.videos"),
-          onClick: () => onClick(MediumEnum.Video)
-        }
-      ];
-    } else if (mediumId === MediumEnum.Music) {
+    if (mediumId === MediumEnum.Music) {
       return [
         {
           key: MediumEnum.Music,
@@ -26,15 +17,17 @@ export const MEDIUM = {
     } else {
       return [
         {
-          key: MediumEnum.Podcast,
+          key: MediumEnum.AV,
           label: tMedia("podcast.podcasts"),
-          onClick: () => onClick(MediumEnum.Podcast)
+          onClick: () => onClick(MediumEnum.AV)
         }
       ];
     }
   },
   getMediumTranslation: (mediumId: number, tMedia: any) => {
-    if (mediumId === MediumEnum.Podcast) {
+    if (mediumId === MediumEnum.AV) {
+      return tMedia("podcast.podcasts");
+    } else if (mediumId === MediumEnum.Podcast) {
       return tMedia("podcast.podcasts");
     } else if (mediumId === MediumEnum.Video) {
       return tMedia("video.videos");

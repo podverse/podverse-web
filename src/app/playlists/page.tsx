@@ -1,9 +1,10 @@
 import { QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_PLAYLISTS_TYPE_VALUES,
   getTotalPages, DTOPlaylist,
   QueryParamsPlaylistsType, QueryParamsStatsRange,
-  QueryParamsMedium, QUERY_PARAMS_MEDIUMS,
   QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
-  QueryParamsSubscribedFullSort
+  QueryParamsSubscribedFullSort,
+  QUERY_PARAMS_QUEUE_MEDIUMS,
+  QueryParamsQueueMedium
 } from "podverse-helpers";
 import { z } from "zod";
 import { PlaylistsClient } from "./PlaylistsClient";
@@ -15,7 +16,7 @@ const searchParamsSchema = z.object({
   type: z.enum(QUERY_PARAMS_PLAYLISTS_TYPE_VALUES).optional().nullable().default(null),
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional().nullable().default(null),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
-  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional().default("all")
+  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().default("all")
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -62,7 +63,7 @@ type ParseSearchParams = {
   currentType: QueryParamsPlaylistsType;
   currentSort: QueryParamsSubscribedFullSort;
   currentRange: QueryParamsStatsRange | null;
-  currentMedium: QueryParamsMedium;
+  currentMedium: QueryParamsQueueMedium;
 }
 
 function parseSearchParams(queryParams: SearchParams, isAuthenticated: boolean): ParseSearchParams  {
@@ -74,7 +75,7 @@ function parseSearchParams(queryParams: SearchParams, isAuthenticated: boolean):
       currentType: isAuthenticated ? "private" : "public",
       currentSort: isAuthenticated ? "a_z" : "top",
       currentRange: "week",
-      currentMedium: "podcasts"
+      currentMedium: "all"
     };
   }
 

@@ -162,7 +162,7 @@ export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginM
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="queue-list">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
+                <div ref={provided.innerRef} className={styles.queueList} {...provided.droppableProps}>
                   {resources.map((queueResource, idx) => (
                     <Draggable key={queueResource.id} draggableId={String(queueResource.id)} index={idx}>
                       {(providedDraggable) => (

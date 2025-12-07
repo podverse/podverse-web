@@ -1,10 +1,10 @@
-import { DTOQueue, QUERY_PARAMS_MEDIUMS, QueryParamsMedium } from "podverse-helpers";
+import { DTOQueue, QUERY_PARAMS_QUEUE_MEDIUMS, QueryParamsQueueMedium } from "podverse-helpers";
 import { z } from "zod";
 import { QueuesClient } from "./QueuesClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
-  medium: z.enum(QUERY_PARAMS_MEDIUMS).optional().default("all"),
+  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().default("av"),
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -35,7 +35,7 @@ export default async function QueuePage({ searchParams }: QueuePageProps) {
 }
 
 type ParseSearchParams = {
-  currentMedium: QueryParamsMedium;
+  currentMedium: QueryParamsQueueMedium;
 }
 
 function parseSearchParams(queryParams: SearchParams): ParseSearchParams {
@@ -43,7 +43,7 @@ function parseSearchParams(queryParams: SearchParams): ParseSearchParams {
 
   if (!parsed.success) {
     return {
-      currentMedium: "all"
+      currentMedium: "av"
     };
   }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOChannel, DTOItem } from "podverse-helpers";
+import { DTOChannel, DTOItem, getQueueForMedium } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
@@ -9,7 +9,6 @@ import { getDurationAndPositionStr, ReadableDuration } from "../../../Time/Reada
 import { MoreButton } from "../../../MoreButton/MoreButton";
 import { useTranslations } from "next-intl";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
-import { getQueueForMedium } from "../../../../utils/queue";
 import { apiRequestService } from "../../../../factories/apiRequestService";
 import { useQueues } from "../../../../contexts/Queue";
 import { useModals } from "../../../../contexts/Modals";

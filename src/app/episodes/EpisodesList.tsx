@@ -30,10 +30,14 @@ export const EpisodesList: React.FC = () => {
 
   return (
     <>
-      <HowToStartInfo
-        rows={items}
-        totalPages={totalPages}
-      />
+      {
+        filterParams.type === "subscribed" && (
+          <HowToStartInfo
+            rows={items}
+            totalPages={totalPages}
+          />
+        )
+      }
       <ListEpisodes
         page={page}
         setPage={(page) => setFilterParams({ ...filterParams, page })}

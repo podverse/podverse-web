@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOQueue, DTOQueueResource, getMediumFromQueryParam, getTotalPages, QueryParamsHistory } from "podverse-helpers";
+import { DTOQueue, DTOQueueResource, getQueueMediumIdFromType, getTotalPages, QueryParamsHistory } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
@@ -51,7 +51,7 @@ export const HistoryPageContextProvider = ({
       
       setIsLoading(true);
       
-      const currentMediumId = getMediumFromQueryParam(filterParams.medium);
+      const currentMediumId = getQueueMediumIdFromType(filterParams.medium);
       const currentQueue = ssrQueues.find(q => q.medium_id === currentMediumId);
       
       if (currentQueue) {

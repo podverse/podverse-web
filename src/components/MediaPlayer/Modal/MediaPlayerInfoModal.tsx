@@ -21,15 +21,10 @@ function useLinkHelper({
   let subsectionUrl = "";
 
   if (mpChannel?.medium_id) {
-    if (mpChannel.medium_id === MediumEnum.Podcast) {
+    if (mpChannel.medium_id === MediumEnum.Podcast || mpChannel.medium_id === MediumEnum.Video) {
       channelLinkUrl = `/podcast/${mpChannel.id_text}`;
       if (mpItem) {
         itemLinkUrl = `/episode/${mpItem.id_text}`;
-      }
-    } else if (mpChannel.medium_id === MediumEnum.Video) {
-      channelLinkUrl = `/channel/${mpChannel.id_text}`;
-      if (mpItem) {
-        itemLinkUrl = `/video/${mpItem.id_text}`;
       }
     } else if (mpChannel.medium_id === MediumEnum.Music) {
       channelLinkUrl = `/album/${mpChannel.id_text}`;

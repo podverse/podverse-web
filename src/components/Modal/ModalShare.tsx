@@ -47,7 +47,7 @@ export const ModalShare: React.FC = () => {
   
   const shareInputs: ModalShareInput[] = [];
 
-  if (modalShare.channel.medium_id === MediumEnum.Podcast) {
+  if (modalShare.channel.medium_id === MediumEnum.Podcast || modalShare.channel.medium_id === MediumEnum.Video) {
     shareInputs.push({
       name: "podcast",
       value: `${WEB.origin}/podcast/${modalShare.channel.id_text}`,
@@ -59,20 +59,6 @@ export const ModalShare: React.FC = () => {
         name: "episode",
         value: `${WEB.origin}/episode/${modalShare.item.id_text}`,
         eyebrow: tMedia("podcast.episode"),
-      });
-    }
-  } else if (modalShare.channel.medium_id === MediumEnum.Video) {
-    shareInputs.push({
-      name: "channel",
-      value: `${WEB.origin}/channel/${modalShare.channel.id_text}`,
-      eyebrow: tMedia("video.channel"),
-    });
-
-    if (modalShare.item) {
-      shareInputs.push({
-        name: "video",
-        value: `${WEB.origin}/video/${modalShare.item.id_text}`,
-        eyebrow: tMedia("video.video"),
       });
     }
   } else if (modalShare.channel.medium_id === MediumEnum.Music) {

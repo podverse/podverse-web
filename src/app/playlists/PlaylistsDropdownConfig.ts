@@ -1,6 +1,7 @@
-import { QueryParamsStatsRange, QueryParamsPlaylistsType, QueryParamsMedium,
+import { QueryParamsStatsRange, QueryParamsPlaylistsType,
   getValidQueryParam, QUERY_PARAMS_SUBSCRIBED_FULL_SORT, 
-  QueryParamsSubscribedFullSort} from "podverse-helpers";
+  QueryParamsSubscribedFullSort,
+  QueryParamsQueueMedium} from "podverse-helpers";
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 
 type GetPlaylistsDropdownConfig = {
@@ -45,7 +46,7 @@ type PlaylistsDropdownConfigParams = {
   type: QueryParamsPlaylistsType | null;
   sort: QueryParamsSubscribedFullSort | null;
   range: QueryParamsStatsRange | null;
-  medium: QueryParamsMedium;
+  medium: QueryParamsQueueMedium;
   page: number;
 }
 
@@ -53,7 +54,7 @@ export type PlaylistsDropdownConfigCurrentParams = {
   currentType: QueryParamsPlaylistsType;
   currentSort: QueryParamsSubscribedFullSort;
   currentRange: QueryParamsStatsRange | null;
-  currentMedium: QueryParamsMedium;
+  currentMedium: QueryParamsQueueMedium;
   currentPage: number;
 }
 

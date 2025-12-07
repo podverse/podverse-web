@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
+  getQueueForMedium,
   stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import { FaGripLines } from "react-icons/fa6";
@@ -15,7 +16,6 @@ import { MoreButton, MoreButtonMenuItem } from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
 import { useModals } from "../../../../contexts/Modals";
-import { getQueueForMedium } from "../../../../utils/queue";
 import { useQueues } from "../../../../contexts/Queue";
 import { apiRequestService } from "../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";

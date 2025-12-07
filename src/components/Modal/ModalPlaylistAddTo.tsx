@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { getQueryParamFromMediumId, MediumEnum } from "podverse-helpers";
+import { getQueryParamFromQueueMediumId, getQueueMediumIdForChannelMediumId, MediumEnum,
+  QueryParamsQueueMedium } from "podverse-helpers";
 import React from "react";
 import { Modal } from "./Modal";
 import { MEDIUM } from "../../constants/medium";
@@ -17,7 +18,7 @@ import { showToastPromise } from "../Toast/Toast";
 import { CallToActionMessage } from "../CallToActionMessage/CallToActionMessage";
 
 type FilterParams = {
-  mediumId: number | null;
+  medium: QueryParamsQueueMedium | null;
   page: number;
 }
 
@@ -25,9 +26,9 @@ const getCurrentMediumId = (
   filterParams: FilterParams,
   modalPlaylistAddTo: ModalPlaylistAddToState
 ) => {
-  return filterParams.mediumId
-    || modalPlaylistAddTo?.channel?.medium_id
-    || MediumEnum.Podcast;
+  return filterParams.medium
+    || getQueryParamFromQueueMediumId(modalPlaylistAddTo?.channel?.medium_id || null)
+    || getQueryParamFromQueueMediumId(MediumEnum.AV);
 }
 
 export const ModalPlaylistAddTo: React.FC = () => {
@@ -42,12 +43,11 @@ export const ModalPlaylistAddTo: React.FC = () => {
   const { loggedInAccount } = useAccount();
   
   const [filterParams, setFilterParams] = React.useState<FilterParams>({
-    mediumId: null,
+    medium: null,
     page: 1
   });
 
-  const fetchPlaylists = async (page: number, mediumId: number | null) => {
-    const medium = getQueryParamFromMediumId(mediumId);
+  const fetchPlaylists = async (page: number, medium: QueryParamsQueueMedium) => {
     const response = await apiRequestService.reqPlaylistGetMany({
       page,
       type: "private",
@@ -92,13 +92,13 @@ export const ModalPlaylistAddTo: React.FC = () => {
       clip: null,
       item_soundbite: null
     });
-    setFilterParams({ mediumId: null, page: 1 });
+    setFilterParams({ medium: null, page: 1 });
   }
 
   const buttonTabs = MEDIUM.buttonTabs(
-    modalPlaylistAddTo?.channel?.medium_id ?? MediumEnum.Podcast,
+    getQueueMediumIdForChannelMediumId(modalPlaylistAddTo?.channel?.medium_id) ?? MediumEnum.AV,
     tMedia,
-    (mediumId: number) => setFilterParams({ mediumId, page: 1 })
+    (mediumId: number) => setFilterParams({ medium: getQueryParamFromQueueMediumId(mediumId), page: 1 })
   );
 
   const onClick = async (playlist: DTOPlaylist) => {

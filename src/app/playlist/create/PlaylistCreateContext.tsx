@@ -24,7 +24,7 @@ interface PlaylistCreateContextProviderProps {
 
 export const PlaylistCreateContextProvider = (
   { children }: PlaylistCreateContextProviderProps) => {
-  const [medium, setMedium] = useState<string>(`${MediumEnum.Podcast}`);
+  const [medium, setMedium] = useState<string>(`${MediumEnum.AV}`);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [sharableStatus, setSharableStatus] = useState<string>(`${SharableStatusEnum.Private}`);

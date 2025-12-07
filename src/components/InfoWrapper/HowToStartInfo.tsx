@@ -13,7 +13,7 @@ export const HowToStartInfo = ({ rows, totalPages }: HowToStartInfoProps) => {
   const tSubscriptions = useTranslations("subscriptions");
   const { loggedInAccount } = useAccount();
 
-  if (!loggedInAccount || (rows.length === 0 && totalPages === 1)) {
+  if (!loggedInAccount || (loggedInAccount && rows.length === 0 && totalPages === 1)) {
     return (
       <InfoWrapper>
         <p>
