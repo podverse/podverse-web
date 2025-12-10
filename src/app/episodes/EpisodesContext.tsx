@@ -81,7 +81,7 @@ export const EpisodesContextProvider = ({
         router.replace(removeQueryParamByPattern(ROUTES.EPISODES, "category"));
       }
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
       setTotalPages(totalPages);
       setItems(response.data);
       setShowSubscribeMessage(false);

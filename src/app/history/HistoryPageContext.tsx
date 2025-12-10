@@ -58,7 +58,7 @@ export const HistoryPageContextProvider = ({
         const response = await apiRequestService
           .reqQueueResourcesGetHistoryByQueueIdTextPaginated(currentQueue.id_text, filterParams.page);
         setQueueResources(response.data);
-        const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+        const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
         setTotalPages(totalPages);
       }
 

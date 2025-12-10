@@ -71,7 +71,7 @@ export const PlaylistsContextProvider = ({
       });
 
       const playlists = response.data;
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, playlists.length, filterParams.page);
 
       setTotalPages(totalPages);
       setPlaylists(playlists);

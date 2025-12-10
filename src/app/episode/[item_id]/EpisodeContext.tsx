@@ -65,7 +65,7 @@ export const EpisodeContextProvider = ({
     async function fetchItemChapters() {
       const response = await apiRequestService.reqItemParseAndGetChapters(item_id);
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, 1);
       setTotalPages(totalPages);
       
       const tocChapters = response.data.filter((ch: DTOItemChapter) => ch.table_of_contents !== false);
@@ -88,7 +88,7 @@ export const EpisodeContextProvider = ({
         }
       );
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
       setTotalPages(totalPages);
       setItemSoundbites(response.data);
     }
@@ -110,7 +110,7 @@ export const EpisodeContextProvider = ({
         }
       );
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
       setTotalPages(totalPages);
       setClips(response.data);
     }

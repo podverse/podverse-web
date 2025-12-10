@@ -41,7 +41,7 @@ export default async function ClipsPage({ searchParams }: ClipsPageProps) {
   });
 
   const ssrClips = response.data;
-  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
+  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
 
   return (
     <ClipsClient

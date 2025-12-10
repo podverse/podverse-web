@@ -55,7 +55,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   if (currentType === "clips") {
     ssrClips = [];
   } else if (currentType === "soundbites" && currentSort !== "top") {
-    ssrTotalPages = getCurrentTotalPages({ currentType, responseItemSoundbites });
+    ssrTotalPages = getCurrentTotalPages({ currentType, responseItemSoundbites, currentPage });
   } else {
     const responseItems = await apiRequestService.reqItemGetManyByChannel({
       idOrIdText: ssrChannel.id_text,
@@ -65,7 +65,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
     });
 
     ssrItems = [...ssrItemsWithLiveItem, ...responseItems.data];
-    ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
+    ssrTotalPages = getCurrentTotalPages({ currentType, responseItems, currentPage });
   }
 
   let ssrPodroll = null;
@@ -98,24 +98,31 @@ type GetPodcastCurrentTotalPages = {
   responseItems?: ApiListResponse<DTOItem>;
   responseItemSoundbites?: ApiListResponse<DTOItemSoundbite>;
   responseClips?: ApiListResponse<DTOClip>;
+  currentPage: number;
 };
 
 const getCurrentTotalPages = ({ currentType, responseItems,
-  responseItemSoundbites, responseClips }: GetPodcastCurrentTotalPages) => {
+  responseItemSoundbites, responseClips, currentPage }: GetPodcastCurrentTotalPages) => {
   if (currentType === "soundbites" && responseItemSoundbites) {
     return getTotalPages(
       responseItemSoundbites.meta.count,
-      responseItemSoundbites.meta.limit
+      responseItemSoundbites.meta.limit,
+      responseItemSoundbites.data.length,
+      currentPage
     );
   } else if (currentType === "clips" && responseClips) {
     return getTotalPages(
       responseClips.meta.count,
-      responseClips.meta.limit
+      responseClips.meta.limit,
+      responseClips.data.length,
+      currentPage
     );
   } else if (currentType === "episodes" && responseItems) {
     return getTotalPages(
       responseItems.meta.count,
-      responseItems.meta.limit
+      responseItems.meta.limit,
+      responseItems.data.length,
+      currentPage
     );
   }
 

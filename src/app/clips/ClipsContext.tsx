@@ -81,7 +81,7 @@ export const ClipsContextProvider = ({
         router.replace(removeQueryParamByPattern(ROUTES.CLIPS, "category"));
       }
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
       setTotalPages(totalPages);
       setClips(response.data);
       setShowSubscribeMessage(false);

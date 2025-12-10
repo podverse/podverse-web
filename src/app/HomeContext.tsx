@@ -62,7 +62,7 @@ export const HomeContextProvider = ({
         category: null
       });
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
       setTotalPages(totalPages);
       setChannels(response.data);
       setIsLoading(false);

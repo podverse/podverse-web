@@ -38,7 +38,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       category: null
     });
     ssrChannels = response.data;
-    ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
+    ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
   }
   
   return (

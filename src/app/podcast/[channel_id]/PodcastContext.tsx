@@ -82,7 +82,7 @@ export const PodcastContextProvider = ({
         ? [...ssrItemsWithLiveItem, ...response.data]
         : response.data;
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
       setTotalPages(totalPages);
       setItems(items);
     }
@@ -103,7 +103,7 @@ export const PodcastContextProvider = ({
         }
       );
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
       setTotalPages(totalPages);
       setItemSoundbites(response.data);
     }
@@ -125,7 +125,7 @@ export const PodcastContextProvider = ({
         }
       );
 
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
       setTotalPages(totalPages);
       setClips(response.data);
     }

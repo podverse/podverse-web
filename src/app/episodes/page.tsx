@@ -39,7 +39,7 @@ export default async function EpisodesPage({ searchParams }: EpisodesPageProps) 
   });
 
   const ssrItems = response.data;
-  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
+  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
   
   return (
     <EpisodesClient

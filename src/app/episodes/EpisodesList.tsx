@@ -14,7 +14,7 @@ export const EpisodesList: React.FC = () => {
   const { filterParams, setFilterParams, items, totalPages, isLoading,
     showSubscribeMessage, showCategoriesModal, setShowCategoriesModal } = useEpisodesContext();
   const { viewSelected } = useLocalSettings();
-  const { page, type, category } = filterParams;
+  const { page, type } = filterParams;
   const router = useRouter();
 
   const handleOnClickCategory = (category: DTOCategory) => {
@@ -31,7 +31,7 @@ export const EpisodesList: React.FC = () => {
   return (
     <>
       {
-        filterParams.type === "subscribed" && (
+        type === "subscribed" && (
           <HowToStartInfo
             rows={items}
             totalPages={totalPages}
@@ -45,8 +45,6 @@ export const EpisodesList: React.FC = () => {
         items={items}
         totalPages={totalPages}
         showSubscribeMessage={showSubscribeMessage}
-        type={type}
-        category={category}
         viewSelected={viewSelected}
         showChannelInfo
       />

@@ -35,7 +35,7 @@ export const PlaylistContextProvider = (
         }
       );
       
-      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, filterParams.page);
       setTotalPages(totalPages);
       setPlaylistResources(response.data);
     }

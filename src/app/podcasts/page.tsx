@@ -45,7 +45,7 @@ export default async function PodcastsPage({ searchParams }: PodcastsPageProps) 
   });
 
   const ssrChannels = response.data;
-  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
+  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
   
   return (
     <PodcastsClient
