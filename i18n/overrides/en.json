@@ -30,7 +30,7 @@
       "livestreams": "Livestreams",
       "livestream_image": "Livestream Image",
       "live": "Live",
-      "scheduled": "Scheduled",
+      "pending": "Scheduled",
       "ended": "Ended"
     },
     "updated_with_date": "Updated: {date}"

@@ -30,7 +30,7 @@
       "livestreams": "Transmisiones en vivo",
       "livestream_image": "Imagen de transmisión en vivo",
       "live": "En vivo",
-      "scheduled": "Programado",
+      "pending": "Programado",
       "ended": "Terminado"
     },
     "updated_with_date": "Última actualización: {date}"
