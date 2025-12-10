@@ -28,7 +28,7 @@ interface Props {
 
 export const ListLiveItemRow: React.FC<Props> = ({ channel, item, live_item, showChannelInfo, showLiveItemStatus }) => {
   const medium = getQueryParamFromQueueMediumId(channel.medium_id) || "av";
-  const url = medium === "av" ? `${ROUTES.EPISODE}/${item.id_text}` : `${ROUTES.TRACK}/${item.id_text}`;
+  const url = medium === "av" ? `${ROUTES.PODCAST_LIVESTREAM}/${item.id_text}` : `${ROUTES.MUSIC_LIVESTREAM}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.LIVESTREAMS.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.LIVESTREAMS.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const tMedia = useTranslations("media");
