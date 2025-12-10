@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CategoryMappingKeys, DTOChannel, DTOItem, QueryParamsItemsType } from "podverse-helpers";
+import { DTOChannel, DTOItem } from "podverse-helpers";
 import React from "react";
 import { CallToActionMessage } from "../../../CallToActionMessage/CallToActionMessage";
 import Pagination from "../../../Pagination/Pagination";
@@ -19,8 +19,6 @@ type Props = {
   items: DTOItem[];
   totalPages: number;
   showSubscribeMessage?: boolean;
-  type?: QueryParamsItemsType;
-  category?: CategoryMappingKeys | null;
   viewSelected: ViewSelectedOption;
   showChannelInfo?: boolean;
 };

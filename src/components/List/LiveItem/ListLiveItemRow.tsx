@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOItem, DTOLiveItem, findDTOChannelImageBySize, findDTOItemImageBySize,
-  LiveItemStatusEnum,
+import { DTOChannel, DTOItem, DTOLiveItem, findDTOChannelImageBySize,
+  findDTOItemImageBySize, getQueryParamFromQueueMediumId, LiveItemStatusEnum,
   stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import { Image } from "../../Image/Image";
@@ -23,10 +23,12 @@ interface Props {
   item: DTOItem;
   live_item: DTOLiveItem;
   showChannelInfo?: boolean;
+  showLiveItemStatus?: boolean
 }
 
-export const ListLiveItemRow: React.FC<Props> = ({ channel, item, live_item, showChannelInfo }) => {
-  const url = `${ROUTES.LIVESTREAM}/${item.id_text}`;
+export const ListLiveItemRow: React.FC<Props> = ({ channel, item, live_item, showChannelInfo, showLiveItemStatus }) => {
+  const medium = getQueryParamFromQueueMediumId(channel.medium_id) || "av";
+  const url = medium === "av" ? `${ROUTES.EPISODE}/${item.id_text}` : `${ROUTES.TRACK}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.LIVESTREAMS.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.LIVESTREAMS.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const tMedia = useTranslations("media");
@@ -99,7 +101,11 @@ export const ListLiveItemRow: React.FC<Props> = ({ channel, item, live_item, sho
                 />
               )
             }
-            <LiveItemStatus live_item={live_item} />
+            {
+              showLiveItemStatus && (
+                <LiveItemStatus live_item={live_item} />
+              )
+            }
             <div className={styles.timeSection}>
               <ReadableDate date={live_item.start_time} />
               {" • "}

@@ -10,7 +10,7 @@ type LiveItemStatusProps = {
 export const LiveItemStatus = ({ live_item }: LiveItemStatusProps) => {
   const tMedia = useTranslations("media");
 
-  let statusText = tMedia("livestream.scheduled");
+  let statusText = tMedia("livestream.pending");
   let variant: ButtonVariant = 'miniGlow';
   if (live_item.live_item_status.id === LiveItemStatusEnum.Live) {
     statusText = tMedia("livestream.live");

@@ -28,7 +28,7 @@ export function ListEpisodeNodes({ channel, items, viewSelected, showChannelInfo
             return (
               <React.Fragment key={item.id}>
                 {item.live_item ? (
-                  <ListLiveItemRow channel={rowChannel} item={item} live_item={item.live_item} showChannelInfo={showChannelInfo} />
+                  <ListLiveItemRow channel={rowChannel} item={item} live_item={item.live_item} showChannelInfo={showChannelInfo} showLiveItemStatus />
                 ) : (
                   <ListEpisodeRow channel={rowChannel} item={item} showChannelInfo={showChannelInfo} />
                 )}
