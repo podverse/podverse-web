@@ -57,7 +57,7 @@ export const ModalPlaylistAddTo: React.FC = () => {
     });
     return {
       playlists: response.data,
-      totalPages: getTotalPages(response.meta?.count, response.meta?.limit)
+      totalPages: getTotalPages(response.meta?.count, response.meta?.limit, response.data.length, page)
     };
   };
 
