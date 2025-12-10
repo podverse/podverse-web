@@ -30,6 +30,7 @@ export const ROUTES = {
   SEARCH: '/search',
   SETTINGS: '/settings',
   TERMS: '/terms',
+  TRACK: '/track',
   TRACKS: '/tracks',
   UPDATES: '/updates',
   VIDEO: '/video',
