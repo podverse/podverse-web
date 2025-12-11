@@ -12,10 +12,11 @@ export const LiveItemStatus = ({ live_item }: LiveItemStatusProps) => {
 
   let statusText = tMedia("livestream.pending");
   let variant: ButtonVariant = 'miniGlow';
-  if (live_item.live_item_status.id === LiveItemStatusEnum.Live) {
+  const live_item_status_id = live_item.live_item_status?.id || live_item.live_item_status_id;
+  if (live_item_status_id === LiveItemStatusEnum.Live) {
     statusText = tMedia("livestream.live");
     variant = 'miniGlowDanger';
-  } else if (live_item.live_item_status.id === LiveItemStatusEnum.Ended) {
+  } else if (live_item_status_id === LiveItemStatusEnum.Ended) {
     statusText = tMedia("livestream.ended");
     variant = 'miniGlowWarning';
   }
