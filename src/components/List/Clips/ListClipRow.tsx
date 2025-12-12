@@ -53,9 +53,10 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
+  const tInstructions = useTranslations("instructions");
   const { mpClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const { loggedInAccount } = useAccount();
-  const { setModalPlaylistAddTo } = useModals();
+  const { setModalPlaylistAddTo, setModalLoginRequired } = useModals();
   const { queues } = useQueues();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
 
@@ -89,6 +90,14 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
   };
 
   const addToQueueNextOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     if (channel) {
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
@@ -104,6 +113,14 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
   }
 
   const addToQueueLastOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     if (channel) {
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
@@ -119,6 +136,14 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
   };
 
   const addToPlaylistOnClick = () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_playlist")
+      })
+      return;
+    }
+
     setModalPlaylistAddTo({
       channel: channel || clip.item?.channel || null,
       item: item || clip.item,

@@ -6,6 +6,7 @@ import React from "react";
 import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa6";
 import { Link } from "../../../components/Link/Link";
 import { useModals } from "../../../contexts/Modals";
+import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection";
 import styles from "../../../styles/components/Media/Podcast/PodcastHeaderButtons.module.scss";
 
 type PodcastHeaderButtonsProps = {
@@ -16,7 +17,7 @@ type PodcastHeaderButtonsProps = {
   item_soundbite?: DTOItemSoundbite;
 };
 
-const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel,
+export const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel,
   item = null, clip = null, item_chapter = null, item_soundbite = null }) => {
   const tFeatures = useTranslations("features");
   const tInfo = useTranslations("info");
@@ -30,6 +31,11 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel,
 
   return (
     <div className={styles.buttons}>
+      {
+        channel && (
+          <PodcastHeaderSubscribeSection channel={channel} />
+        )
+      }
       {
         channel?.feed?.url && (
           <Link
@@ -96,5 +102,3 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel,
     </div>
   )
 };
-
-export default PodcastHeaderButtons;

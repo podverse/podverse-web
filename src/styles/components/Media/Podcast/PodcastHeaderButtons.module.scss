@@ -1,13 +1,16 @@
 .buttons {
   margin-top: 0.875rem;
+  display: flex;
+  gap: 1.125rem;
 }
 
 .button {
-  margin-right: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttonGold {
-  margin-right: 1.125rem;
   color: var(--button-highlight-bg) !important;
 }
 

@@ -21,6 +21,7 @@ import { useModals } from "../../../contexts/Modals";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import styles from "../../../styles/components/List/ItemSoundbites/ListItemSoundbiteRow.module.scss";
+import { useAccount } from "../../../contexts/Account";
 
 interface ListItemSoundbiteProps {
   channel: DTOChannel | null;
@@ -62,9 +63,11 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
+  const tInstructions = useTranslations("instructions");
   const { mpItemSoundbite,mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
-  const { setModalPlaylistAddTo } = useModals();
+  const { setModalPlaylistAddTo, setModalLoginRequired } = useModals();
+  const { loggedInAccount } = useAccount();
   const { queues } = useQueues();
 
   const itemSoundbiteTitle = item_soundbite.title || tMisc("untitled");
@@ -99,6 +102,14 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   };
 
   const addToQueueNextOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     if (channel) {
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
@@ -114,6 +125,14 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   }
 
   const addToQueueLastOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     if (channel) {
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
@@ -129,6 +148,14 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   };
 
   const addToPlaylistOnClick = () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_playlist")
+      })
+      return;
+    }
+    
     setModalPlaylistAddTo({
       channel: channel,
       item: item || item_soundbite.item || null,

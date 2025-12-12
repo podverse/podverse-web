@@ -1,4 +1,8 @@
 .button {
   align-self: center;
-  margin-left: 1rem;
+  height: 1.75rem;
+}
+
+.button span {
+  font-size: var(--font-size-sm);
 }

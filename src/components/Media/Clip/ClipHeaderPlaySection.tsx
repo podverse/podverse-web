@@ -17,6 +17,7 @@ import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { downloadEpisodeWithModal } from "../../../utils/downloadEpisodeWithModal";
 import styles from "../../../styles/components/Media/Clip/ClipHeaderPlaySection.module.scss";
+import { useAccount } from "../../../contexts/Account";
 
 type ClipHeaderPlaySectionProps = {
   clip: DTOClip;
@@ -27,8 +28,10 @@ type ClipHeaderPlaySectionProps = {
 export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ clip, item, channel }) => {
   const tFeatures = useTranslations("features");
   const tMediaPlayer = useTranslations("media_player");
+  const tInstructions = useTranslations("instructions");
   const { queues } = useQueues();
-  const { setModalPlaylistAddTo, setModalSourceSelector } = useModals();
+  const { setModalPlaylistAddTo, setModalSourceSelector, setModalLoginRequired } = useModals();
+  const { loggedInAccount } = useAccount();
   const { mpClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   
@@ -57,6 +60,14 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
   };
 
   const addToQueueNextOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -70,6 +81,14 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
   }
 
   const addToQueueLastOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -83,6 +102,14 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
   }
 
   const addToPlaylistOnClick = () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_playlist")
+      })
+      return;
+    }
+
     setModalPlaylistAddTo({
       channel: channel,
       item: item,
@@ -92,6 +119,14 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
   }
 
   const markAsPlayedOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_mark_as_played")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(

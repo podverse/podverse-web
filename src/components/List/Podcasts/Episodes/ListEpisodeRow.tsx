@@ -25,6 +25,7 @@ import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResour
 import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
 import { downloadEpisodeWithModal } from "../../../../utils/downloadEpisodeWithModal";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
+import { useAccount } from "../../../../contexts/Account";
 
 interface Props {
   channel: DTOChannel;
@@ -46,10 +47,12 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
+  const tInstructions = useTranslations("instructions");
   const { queues } = useQueues();
+  const { loggedInAccount } = useAccount();
   const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
-  const { setModalPlaylistAddTo, setModalSourceSelector } = useModals();
+  const { setModalPlaylistAddTo, setModalSourceSelector, setModalLoginRequired } = useModals();
   const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
   const { durationStr, positionStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
 
@@ -78,6 +81,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   };
 
   const addToQueueNextOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -91,6 +102,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   }
 
   const addToQueueLastOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -104,6 +123,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   }
 
   const addToPlaylistOnClick = () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_playlist")
+      })
+      return;
+    }
+
     setModalPlaylistAddTo({
       channel: channel,
       item: item,
@@ -113,6 +140,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   }
 
   const markAsPlayedOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_mark_as_played")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(

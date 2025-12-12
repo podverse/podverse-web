@@ -16,6 +16,7 @@ import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResou
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { downloadEpisodeWithModal } from "../../../utils/downloadEpisodeWithModal";
+import { useAccount } from "../../../contexts/Account";
 import styles from "../../../styles/components/Media/ItemSoundbite/ItemSoundbiteHeaderPlaySection.module.scss";
 
 type ItemSoundbiteHeaderPlaySectionProps = {
@@ -27,10 +28,12 @@ type ItemSoundbiteHeaderPlaySectionProps = {
 export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySectionProps> = ({ item_soundbite, item, channel }) => {
   const tFeatures = useTranslations("features");
   const tMediaPlayer = useTranslations("media_player");
+  const tInstructions = useTranslations("instructions");
   const { queues } = useQueues();
-  const { setModalPlaylistAddTo, setModalSourceSelector } = useModals();
+  const { setModalPlaylistAddTo, setModalSourceSelector, setModalLoginRequired } = useModals();
   const { mpItemSoundbite, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { loggedInAccount } = useAccount();
 
   const startTime = item_soundbite.start_time;
   const endTime = `${Number(item_soundbite.start_time) + Number(item_soundbite.duration)}`;
@@ -60,6 +63,14 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
   };
 
   const addToQueueNextOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -73,6 +84,14 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
   }
 
   const addToQueueLastOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -86,6 +105,14 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
   }
 
   const addToPlaylistOnClick = () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_playlist")
+      })
+      return;
+    }
+
     setModalPlaylistAddTo({
       channel: channel,
       item: item,
@@ -95,6 +122,14 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
   }
 
   const markAsPlayedOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_mark_as_played")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(

@@ -6,7 +6,7 @@ type PodcastHeaderSubtitleProps = {
   channel: DTOChannel;
 };
 
-const PodcastHeaderSubtitle: React.FC<PodcastHeaderSubtitleProps> = ({ channel }) => {
+export const PodcastHeaderSubtitle: React.FC<PodcastHeaderSubtitleProps> = ({ channel }) => {
   const channel_about = channel.channel_about;
   const author = channel_about?.author;
   const channel_categories = channel.channel_categories;
@@ -20,5 +20,3 @@ const PodcastHeaderSubtitle: React.FC<PodcastHeaderSubtitleProps> = ({ channel }
     </div>
   )
 };
-
-export default PodcastHeaderSubtitle;

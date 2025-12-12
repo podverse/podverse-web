@@ -17,6 +17,7 @@ import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerRe
 import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
 import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
 import { downloadEpisodeWithModal } from "../../../../utils/downloadEpisodeWithModal";
+import { useAccount } from "../../../../contexts/Account";
 import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
 
 type EpisodeHeaderPlaySectionProps = {
@@ -27,10 +28,12 @@ type EpisodeHeaderPlaySectionProps = {
 export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> = ({ item, channel }) => {
   const tFeatures = useTranslations("features");
   const tMediaPlayer = useTranslations("media_player");
+  const tInstructions = useTranslations("instructions");
   const { queues } = useQueues();
-  const { setModalPlaylistAddTo, setModalSourceSelector } = useModals();
+  const { setModalPlaylistAddTo, setModalSourceSelector, setModalLoginRequired } = useModals();
   const { mpItem, mpClip, mpItemSoundbite, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { loggedInAccount } = useAccount();
   const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
   const { durationStr, positionStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
   
@@ -63,6 +66,14 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   };
 
   const addToQueueNextOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -76,6 +87,14 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   }
 
   const addToQueueLastOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_queue")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
@@ -89,6 +108,14 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   }
 
   const addToPlaylistOnClick = () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_add_to_playlist")
+      })
+      return;
+    }
+
     setModalPlaylistAddTo({
       channel: channel,
       item: item,
@@ -98,6 +125,14 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   }
 
   const markAsPlayedOnClick = async () => {
+    if (!loggedInAccount) {
+      setModalLoginRequired({
+        title: null,
+        message: tInstructions("login_to_mark_as_played")
+      })
+      return;
+    }
+
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(

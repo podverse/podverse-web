@@ -35,7 +35,7 @@ export const ModalLoginRequired: React.FC = () => {
       ariaLabel={header}
       modalContentMaxWidth={500}>
       <CallToActionMessage
-        message={tInstructions("login_to_add_feeds")}
+        message={modalLoginRequired.message || ""}
         buttonLabel={tAuthentication("login")}
         onButtonClick={showLoginOnClick}
       />
