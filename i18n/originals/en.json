@@ -309,7 +309,11 @@
     "login_to_create_clips": "Please login to create clips.",
     "login_for_queues": "Please login to view your queues.",
     "login_for_history": "Please login to view your history.",
-    "login_to_add_feeds": "Please login to add feeds to our directory."
+    "login_to_add_feeds": "Please login to add feeds to our directory.",
+    "login_to_subscribe": "Please login to subscribe.",
+    "login_to_add_to_queue": "Please login to add to your queue.",
+    "login_to_add_to_playlist": "Please login to add to your playlist.",
+    "login_to_mark_as_played": "Please login to mark items as played."
   },
   "subscriptions": {
     "subscriptions": "Subscriptions",
