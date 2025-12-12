@@ -6,13 +6,13 @@ import { DTOPlaylist } from "podverse-helpers";
 import { Button } from "../../../components/Button/Button"
 import { useAccount } from "../../../contexts/Account";
 import { apiRequestService } from "../../../factories/apiRequestService";
-import styles from "../../../styles/app/playlist/PlaylistHeaderSubscribeSection.module.scss";
+import styles from "../../../styles/app/playlist/PlaylistHeaderSubscribeButton.module.scss";
 
-type PlaylistHeaderSubscribeSectionProps = {
+type PlaylistHeaderSubscribeButtonProps = {
   playlist: DTOPlaylist;
 }
 
-export const PlaylistHeaderSubscribeSection: React.FC<PlaylistHeaderSubscribeSectionProps> = ({ playlist }) => {
+export const PlaylistHeaderSubscribeButton: React.FC<PlaylistHeaderSubscribeButtonProps> = ({ playlist }) => {
   const router = useRouter();
   const tFeatures = useTranslations("features");
   const tMisc = useTranslations("misc");

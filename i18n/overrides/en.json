@@ -114,6 +114,10 @@
       "downloading_episode": "Downloading Episode",
       "episode_downloaded": "Episode Downloaded",
       "download_error": "Error Downloading Episode"
+    },
+    "notifications": {
+      "notifications_enabled_for_this_podcast": "Notifications enabled for this podcast",
+      "notifications_disabled_for_this_podcast": "Notifications disabled for this podcast"
     }
   },
   "info": {
@@ -313,7 +317,8 @@
     "login_to_subscribe": "Please login to subscribe.",
     "login_to_add_to_queue": "Please login to add to your queue.",
     "login_to_add_to_playlist": "Please login to add to your playlist.",
-    "login_to_mark_as_played": "Please login to mark items as played."
+    "login_to_mark_as_played": "Please login to mark items as played.",
+    "login_to_enable_notifications": "Please login to enable notifications."
   },
   "subscriptions": {
     "subscriptions": "Subscriptions",

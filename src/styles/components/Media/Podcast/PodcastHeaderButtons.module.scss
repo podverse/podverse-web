@@ -2,16 +2,22 @@
   margin-top: 0.875rem;
   display: flex;
   gap: 1.125rem;
+  overflow-x: auto;
+  width: 100%;
+  padding: 0.25rem 0.25rem 0.25rem 0; // Add horizontal padding to prevent focus ring cutoff on right
+  margin-bottom: -0.25rem; // Compensate for the vertical padding
 }
 
 .button {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .buttonGold {
   color: var(--button-highlight-bg) !important;
+  flex-shrink: 0;
 }
 
 .buttonGold:hover, .buttonGold:focus {

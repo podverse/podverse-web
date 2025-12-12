@@ -2,17 +2,17 @@
 
 import { useTranslations } from "next-intl";
 import { DTOChannel } from "podverse-helpers";
-import { Button } from "../../../components/Button/Button"
+import { Button } from "../../Button/Button"
 import { useAccount } from "../../../contexts/Account";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
-import styles from "../../../styles/components/Media/Podcast/PodcastHeaderSubscribeSection.module.scss";
+import styles from "../../../styles/components/Media/Podcast/PodcastHeaderSubscribeButton.module.scss";
 
-type PodcastHeaderSubscribeSectionProps = {
+type PodcastHeaderSubscribeButtonProps = {
   channel: DTOChannel;
 }
 
-export const PodcastHeaderSubscribeSection: React.FC<PodcastHeaderSubscribeSectionProps> = ({ channel }) => {
+export const PodcastHeaderSubscribeButton: React.FC<PodcastHeaderSubscribeButtonProps> = ({ channel }) => {
   const tFeatures = useTranslations("features");
   const tInstructions = useTranslations("instructions");
   const { loggedInAccount, setLoggedInAccount } = useAccount();

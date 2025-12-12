@@ -1,3 +1,5 @@
 .rows {
-  margin-top: 1.5rem;
+  margin-top: calc(1.5rem - 0.25rem);
+  padding: 0.25rem 0;
+  margin-bottom: -0.25rem;
 }

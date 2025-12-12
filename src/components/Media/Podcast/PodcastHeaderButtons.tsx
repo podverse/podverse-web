@@ -6,8 +6,9 @@ import React from "react";
 import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa6";
 import { Link } from "../../../components/Link/Link";
 import { useModals } from "../../../contexts/Modals";
-import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection";
+import { PodcastHeaderSubscribeButton } from "./PodcastHeaderSubscribeButton";
 import styles from "../../../styles/components/Media/Podcast/PodcastHeaderButtons.module.scss";
+import { PodcastHeaderNotificationButton } from "./PodcastHeaderNotificationButton";
 
 type PodcastHeaderButtonsProps = {
   channel: DTOChannel;
@@ -33,9 +34,10 @@ export const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ chan
     <div className={styles.buttons}>
       {
         channel && (
-          <PodcastHeaderSubscribeSection channel={channel} />
+          <PodcastHeaderSubscribeButton channel={channel} />
         )
       }
+      <PodcastHeaderNotificationButton channel={channel} />
       {
         channel?.feed?.url && (
           <Link

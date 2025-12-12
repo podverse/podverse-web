@@ -1,7 +1,7 @@
 import { DTOPlaylist } from "podverse-helpers";
 import React from "react";
 import { PlaylistHeaderInfo } from "./PlaylistHeaderInfo";
-import { PlaylistHeaderSubscribeSection } from "./PlaylistHeaderSubscribeSection";
+import { PlaylistHeaderSubscribeButton } from "./PlaylistHeaderSubscribeButton";
 import styles from "../../../styles/app/playlist/PlaylistHeader.module.scss";
 
 type PlaylistHeaderProps = {
@@ -16,7 +16,7 @@ export const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ playlist }) => {
           <h1 className={styles.title}>{playlist.title}</h1>
           <PlaylistHeaderInfo playlist={playlist} />
         </div>
-        <PlaylistHeaderSubscribeSection playlist={playlist} />
+        <PlaylistHeaderSubscribeButton playlist={playlist} />
       </div>
     </header>
   )
