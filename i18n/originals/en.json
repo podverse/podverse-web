@@ -116,8 +116,8 @@
       "download_error": "Error Downloading Episode"
     },
     "notifications": {
-      "notifications_enabled_for_this_podcast": "Notifications enabled for this podcast",
-      "notifications_disabled_for_this_podcast": "Notifications disabled for this podcast"
+      "enable_notifications_for_this_podcast": "Enable notifications for this podcast",
+      "disable_notifications_for_this_podcast": "Disable notifications for this podcast"
     }
   },
   "info": {
