@@ -7,8 +7,8 @@ import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "
 import { Link } from "../../../components/Link/Link";
 import { useModals } from "../../../contexts/Modals";
 import { PodcastHeaderSubscribeButton } from "./PodcastHeaderSubscribeButton";
+// import { PodcastHeaderNotificationButton } from "./PodcastHeaderNotificationButton";
 import styles from "../../../styles/components/Media/Podcast/PodcastHeaderButtons.module.scss";
-import { PodcastHeaderNotificationButton } from "./PodcastHeaderNotificationButton";
 
 type PodcastHeaderButtonsProps = {
   channel: DTOChannel;
@@ -37,7 +37,7 @@ export const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ chan
           <PodcastHeaderSubscribeButton channel={channel} />
         )
       }
-      <PodcastHeaderNotificationButton channel={channel} />
+      {/* <PodcastHeaderNotificationButton channel={channel} /> */}
       {
         channel?.feed?.url && (
           <Link
