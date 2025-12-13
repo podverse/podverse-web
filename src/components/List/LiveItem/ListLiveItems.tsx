@@ -10,6 +10,7 @@ import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../utils/scroll";
 import { ViewSelectedOption } from "../../ViewSelector/ViewSelector";
 import { ListLiveItemNodes } from "./ListLiveItemNodes";
+import { InfoWrapper } from "../../InfoWrapper/InfoWrapper";
 import styles from "../../../styles/components/List/Podcasts/Episodes/ListEpisodes.module.scss";
 
 type Props = {
@@ -33,6 +34,7 @@ export const ListLiveItems: React.FC<Props> = ({
 }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
+  const tMedia = useTranslations("media");
   const { setModalAuthLogin } = useModals();
 
   useSkipInitialEffect(() => {
@@ -43,6 +45,18 @@ export const ListLiveItems: React.FC<Props> = ({
   const showPagination = !showSubscribeMessage;
 
   const listNodes = ListLiveItemNodes({ items, viewSelected, showChannelInfo });
+
+  const showNoContentFound = page <= 1 && items.length === 0; 
+
+  if (showNoContentFound) {
+    return (
+      <InfoWrapper>
+        <p>
+          {tMedia("livestream.no_livestreams_found")}
+        </p>
+      </InfoWrapper>
+    )
+  }
 
   return (
     <>

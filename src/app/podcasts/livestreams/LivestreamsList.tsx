@@ -11,6 +11,7 @@ import { useLivestreamsContext } from "./LivestreamsContext";
 import { HowToStartInfo } from "../../../components/InfoWrapper/HowToStartInfo";
 import { ListLiveItems } from "../../../components/List/LiveItem/ListLiveItems";
 import { ButtonTabs } from "../../../components/Tabs/ButtonTabs";
+import { useAccount } from "../../../contexts/Account";
 import styles from "../../../styles/app/podcasts/livestreams/LivestreamsList.module.scss";
 
 type LivestreamsListProps = {
@@ -24,6 +25,7 @@ export const LivestreamsList: React.FC<LivestreamsListProps> = ({ medium }) => {
   const { page } = filterParams;
   const router = useRouter();
   const tMedia = useTranslations("media");
+  const { loggedInAccount } = useAccount();
 
   const handleOnClickCategory = (category: DTOCategory) => {
     const route = medium === "av" ? ROUTES.PODCASTS_LIVESTREAMS : ROUTES.MUSIC_LIVESTREAMS;
@@ -58,7 +60,7 @@ export const LivestreamsList: React.FC<LivestreamsListProps> = ({ medium }) => {
   return (
     <>
       {
-        filterParams.type === "subscribed" && (
+        filterParams.type === "subscribed" && !loggedInAccount && (
           <HowToStartInfo
             rows={items}
             totalPages={totalPages}

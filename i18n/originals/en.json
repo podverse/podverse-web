@@ -31,7 +31,8 @@
       "livestream_image": "Livestream Image",
       "live": "Live",
       "pending": "Scheduled",
-      "ended": "Ended"
+      "ended": "Ended",
+      "no_livestreams_found": "No livestreams found."
     },
     "updated_with_date": "Updated: {date}"
   },
