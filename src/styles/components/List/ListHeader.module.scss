@@ -1,16 +1,13 @@
+@use "breakpoints";
+
 .listHeader {
   display: flex;
   flex-direction: column;
   margin: 0;
-  gap: 1.5rem;
 }
 
 .listHeaderTop {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
-  flex-wrap: wrap;
   gap: 1.25rem;
 }
 
@@ -22,4 +19,10 @@
 
 .listHeaderBottom {
   display: flex;
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .listHeaderTop {
+    flex-direction: column;
+  }
 }

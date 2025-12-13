@@ -102,7 +102,7 @@ export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItem
     zIndex: 3
   })
 
-  tabData.push(    {
+  tabData.push({
     key: "podroll",
     label: tInfo("podroll"),
     onClick: () => handleTypeChange("podroll"),

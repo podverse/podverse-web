@@ -1,4 +1,5 @@
 .tabs {
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  flex: 1;
 }
