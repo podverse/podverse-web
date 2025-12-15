@@ -31,7 +31,7 @@ export const PodcastSettings = ({ channel }: PodcastSettingsProps) => {
 
     if (channel?.feed) {
       try {
-        await apiRequestService.reqMQRSSAddOnDemand({
+        await apiRequestService.reqMQRSSRefreshOnDemand({
           url: channel.feed.url,
           podcast_index_id: channel.feed.podcast_index_id
         });
