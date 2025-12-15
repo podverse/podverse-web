@@ -19,6 +19,7 @@ export function MediaPlayerControllerAudio() {
       mediaType="audio"
       preload="auto"
       hidden={true}
+      mpChannel={mediaPlayer.mpChannel}
       mpClip={mediaPlayer.mpClip}
       setMPClip={mediaPlayer.setMPClip}
       mpItem={mediaPlayer.mpItem}

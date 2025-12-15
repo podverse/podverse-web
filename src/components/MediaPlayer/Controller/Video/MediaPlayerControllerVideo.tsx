@@ -19,6 +19,7 @@ export function MediaPlayerControllerVideo() {
 			mediaType="video"
 			preload="auto"
 			style={{ width: "100%", height: "100%" }}
+			mpChannel={mediaPlayer.mpChannel}
 			mpClip={mediaPlayer.mpClip}
 			setMPClip={mediaPlayer.setMPClip}
 			mpItem={mediaPlayer.mpItem}

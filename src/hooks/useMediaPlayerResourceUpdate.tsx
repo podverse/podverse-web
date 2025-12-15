@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, EnclosureSelectedParams } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite,
+  EnclosureSelectedParams, MediumEnum } from "podverse-helpers";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
 import { useQueueResourcesMoveNowPlayingToHistory } from "./useQueueResourceMoveNowPlayingToHistory";
 import { useQueueResourcesUpdateNowPlaying } from "./useQueueResourceUpdateNowPlaying";
@@ -136,11 +137,15 @@ export function useMediaPlayerResourceUpdate() {
     // so that it is already loaded by the time the now playing resource is updated within the queue.
     // Else, clear the previous items current time and duration by setting to 0
     // (because they will be updated shortly after by the media audio/video controllers anyway).
-    function getAbridgedAndSet(resource: any, abridgedMap: Record<string, any>) {
+    function getAbridgedAndSet(resource: any, abridgedMap: Record<string, any>, preventSet: boolean = false) {
       const abridged = resource ? abridgedMap?.[resource.id] : undefined;
       const currentTime = Number(abridged?.p) || 0;
       const duration = Number(abridged?.d) || 0;
-      setMPCurrentTime(currentTime);
+
+      if (!preventSet) {
+        setMPCurrentTime(currentTime);
+      }
+
       return { currentTime, duration };
     }
 
@@ -151,7 +156,14 @@ export function useMediaPlayerResourceUpdate() {
     } else if (itemSoundbite) {
       timeData = getAbridgedAndSet(itemSoundbite, queueResourcesAbridgedIndexRef.current.item_soundbites);
     } else if (item) {
-      timeData = getAbridgedAndSet(item, queueResourcesAbridgedIndexRef.current.items);
+      if (channel?.medium_id === MediumEnum.Podcast || channel?.medium_id === MediumEnum.Video) {
+        timeData = getAbridgedAndSet(item, queueResourcesAbridgedIndexRef.current.items);
+      } else {
+        const preventSet = true;
+        const tempTimeData = getAbridgedAndSet(item, queueResourcesAbridgedIndexRef.current.items, preventSet);
+        timeData = { currentTime: 0, duration: tempTimeData.duration };
+        setMPCurrentTime(0);
+      }
     } else {
       setMPCurrentTime(0);
     }

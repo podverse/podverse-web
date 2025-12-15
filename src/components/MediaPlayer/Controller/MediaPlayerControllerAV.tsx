@@ -5,7 +5,9 @@ import { QueueResourcesAbridgedIndex, DTOClip, DTOItem, DTOItemChapter,
   DTOItemSoundbite, LabeledItemEnclosure,
   EnclosureSelectedParams,
   getSelectedLabeledItemEnclosureAndSource,
-  isEqual} from "podverse-helpers";
+  isEqual,
+  MediumEnum,
+  DTOChannel} from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { MoveNowPlayingToHistoryCallbackParams } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { UpdateNowPlayingParams } from "../../../hooks/useQueueResourceUpdateNowPlaying";
@@ -16,6 +18,7 @@ export interface MediaPlayerControllerAVProps {
   preload?: "auto" | "metadata" | "none";
   style?: React.CSSProperties;
   hidden?: boolean;
+  mpChannel: DTOChannel | null;
   mpClip: DTOClip | null;
   setMPClip: (clip: DTOClip | null) => void;
   mpItem: DTOItem | null;
@@ -51,6 +54,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     preload = "auto",
     style,
     hidden,
+    mpChannel,
     mpClip, setMPClip,
     mpItem,
     mpItemLabeledEnclosures,
@@ -74,6 +78,8 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
 
   const mediaRef = useRef<HTMLAudioElement & HTMLVideoElement>(null);
 
+  const mpChannelRef = useRef<typeof mpChannel>(null);
+  useEffect(() => { mpChannelRef.current = mpChannel; }, [mpChannel]);
   const mpClipRef = useRef<typeof mpClip>(null);
   useEffect(() => { mpClipRef.current = mpClip; }, [mpClip]);
   const mpItemRef = useRef<typeof mpItem>(null);
@@ -210,11 +216,15 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
       } else if (mpItemChapterRef.current) {
         newCurrentTime = Number(mpItemChapterRef.current.start_time);
       } else if (mpItemRef.current) {
-        const queueResourceAbridged = queueResourcesAbridgedIndexRef.current.items[mpItemRef.current.id];
-        if (Number(queueResourceAbridged?.p) > 0) {
-          newCurrentTime = Number(queueResourceAbridged?.p);
-        } else {
+        if (mpChannelRef.current?.medium_id === MediumEnum.Music) {
           newCurrentTime = 0;
+        } else {
+          const queueResourceAbridged = queueResourcesAbridgedIndexRef.current.items[mpItemRef.current.id];
+          if (Number(queueResourceAbridged?.p) > 0) {
+            newCurrentTime = Number(queueResourceAbridged?.p);
+          } else {
+            newCurrentTime = 0;
+          }
         }
       }
 
