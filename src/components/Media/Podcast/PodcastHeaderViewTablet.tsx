@@ -2,9 +2,9 @@ import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "
 import { PodcastHeaderButtons } from "./PodcastHeaderButtons"
 import { PodcastHeaderImage } from "./PodcastHeaderImage"
 import { PodcastHeaderSubtitle } from "./PodcastHeaderSubtitle"
-import styles from "../../../styles/components/Media/Podcast/PodcastHeaderViewTablet.module.scss";
 import { Link } from "../../Link/Link";
 import { ROUTES } from "../../../constants/routes";
+import styles from "../../../styles/components/Media/Podcast/PodcastHeaderViewTablet.module.scss";
 
 type PodcastHeaderViewTabletProps = {
   channel: DTOChannel;

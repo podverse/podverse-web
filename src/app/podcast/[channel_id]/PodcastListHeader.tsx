@@ -18,10 +18,11 @@ import { Tabs } from "../../../components/Tabs/Tabs";
 import { useAccount } from "../../../contexts/Account";
 
 type PodcastListHeaderProps = {
+  ssrHasPodroll?: boolean;
   ssrHasItemSoundbites?: boolean;
 };
 
-export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItemSoundbites }) => {
+export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasPodroll, ssrHasItemSoundbites }) => {
   const { filterParams, setFilterParams } = usePodcastContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
@@ -102,13 +103,15 @@ export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItem
     zIndex: 3
   })
 
-  tabData.push({
-    key: "podroll",
-    label: tInfo("podroll"),
-    onClick: () => handleTypeChange("podroll"),
-    hideDesktop: true,
-    zIndex: 2
-  })
+  if (ssrHasPodroll) {
+    tabData.push({
+      key: "podroll",
+      label: tInfo("podroll"),
+      onClick: () => handleTypeChange("podroll"),
+      hideDesktop: true,
+      zIndex: 2
+    })
+  }
 
   if (loggedInAccount) {
     tabData.push({

@@ -42,7 +42,10 @@ export function PodcastClient(props: PodcastClientProps) {
             podroll={ssrPodroll}
           />
           <MainInnerContentWrapper>
-            <PodcastListHeader ssrHasItemSoundbites={ssrHasItemSoundbites} />
+            <PodcastListHeader
+              ssrHasPodroll={!!ssrPodroll}
+              ssrHasItemSoundbites={ssrHasItemSoundbites}
+            />
             <PodcastList
               ssrChannel={ssrChannel}
               podroll={ssrPodroll} />
