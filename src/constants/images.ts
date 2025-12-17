@@ -4,6 +4,11 @@ const SIZE_BASE = {
   SIZE_FIND_TARGET: 224
 }
 
+const SIZE_SM = {
+  SIZE: 80,
+  SIZE_FIND_TARGET: 160
+}
+
 export const IMAGES = {
   ADD_FEED: {
     SQUARE: {
@@ -67,6 +72,16 @@ export const IMAGES = {
     ITEM_CHAPTERS: {
       SIZE: SIZE_BASE.SIZE,
       SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
+    },
+    TRACKS: {
+      DESKTOP: {
+        SIZE: SIZE_SM.SIZE,
+        SIZE_FIND_TARGET: SIZE_SM.SIZE_FIND_TARGET
+      },
+      MOBILE: {
+        SIZE: SIZE_SM.SIZE,
+        SIZE_FIND_TARGET: SIZE_SM.SIZE_FIND_TARGET
+      }
     }
   },
   MEDIA_HEADER_MINI: {
