@@ -9,7 +9,7 @@ import { showToastPromiseWithLoading } from "../Toast/Toast";
 import { downloadAndSaveFile } from "../../utils/fileDownloader";
 import styles from "../../styles/components/SourceSelectors/SourceSelectors.module.scss";
 
-export type SourceSelectorActionType = "load-in-player" | "download-episode" | null;
+export type SourceSelectorActionType = "load-in-player" | "download-episode" | "download-track" | null;
 
 type SourceSelectorsProps = {
   labeledItemEnclosures: LabeledItemEnclosure[];
@@ -48,7 +48,25 @@ export const SourceSelectors = ({ labeledItemEnclosures, actionType, itemTitle }
           {
             loading: tFeatures("download.downloading_episode"),
             success: tFeatures("download.episode_downloaded"),
-            error: tFeatures("download.download_error")
+            error: tFeatures("download.episode_download_error")
+          }
+        )
+      } else if (actionType === "download-track") {
+        const selectedItemEnclosureAndSource = getSelectedLabeledItemEnclosureAndSource({
+          labeledItemEnclosures: labeledItemEnclosures,
+          type: null,
+          enclosureRowIndex: enclosureIndex,
+          sourceRowIndex: sourceIndex
+        });
+
+        const selectedItemEnclosureUrl = selectedItemEnclosureAndSource.source?.uri;
+
+        showToastPromiseWithLoading(
+          downloadAndSaveFile(selectedItemEnclosureUrl, itemTitle || 'track.mp3'),
+          {
+            loading: tFeatures("download.downloading_track"),
+            success: tFeatures("download.track_downloaded"),
+            error: tFeatures("download.track_download_error")
           }
         )
       }

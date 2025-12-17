@@ -13,7 +13,7 @@ import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResou
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { useModals } from "../../../contexts/Modals";
-import { downloadEpisodeWithModal } from "../../../utils/downloadEpisodeWithModal";
+import { downloadEpisodeWithModal } from "../../../utils/downloadModal/downloadEpisodeWithModal";
 import styles from "../../../styles/components/Media/ItemChapter/ItemChapterHeaderPlaySection.module.scss";
 
 type ItemChapterHeaderPlaySectionProps = {

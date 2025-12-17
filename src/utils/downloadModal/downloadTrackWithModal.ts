@@ -1,7 +1,7 @@
 import { buildLabeledItemEnclosures, DTOItem, getSelectedLabeledItemEnclosureAndSource } from "podverse-helpers";
-import { ModalSourceSelector } from "../contexts/Modals";
+import { ModalSourceSelector } from "../../contexts/Modals";
 
-type DownloadEpisodeWithModalParams = {
+type DownloadTrackWithModalParams = {
   item: DTOItem;
   setModalSourceSelector: (val: ModalSourceSelector) => void;
   showToastPromiseWithLoading: (promise: Promise<any>, messages: {
@@ -13,20 +13,20 @@ type DownloadEpisodeWithModalParams = {
   tFeatures: (key: string) => string;
 };
 
-export const downloadEpisodeWithModal = async ({
+export const downloadTrackWithModal = async ({
   item,
   setModalSourceSelector,
   showToastPromiseWithLoading,
   downloadAndSaveFile,
   tFeatures
-}: DownloadEpisodeWithModalParams) => {
+}: DownloadTrackWithModalParams) => {
   const labeledItemEnclosures = buildLabeledItemEnclosures(item.item_enclosures);
   const hasMultipleEnclosures = labeledItemEnclosures && labeledItemEnclosures.length > 1;
 
   if (hasMultipleEnclosures) {
     setModalSourceSelector({
       labeledItemEnclosures: labeledItemEnclosures,
-      actionType: 'download-episode',
+      actionType: 'download-track',
       itemTitle: item.title || null
     });
     return;
@@ -39,11 +39,11 @@ export const downloadEpisodeWithModal = async ({
     });
     if (selected?.source?.uri) {
       showToastPromiseWithLoading(
-        downloadAndSaveFile(selected.source.uri, item.title || 'episode.mp3'),
+        downloadAndSaveFile(selected.source.uri, item.title || 'track.mp3'),
         {
-          loading: tFeatures("download.downloading_episode"),
-          success: tFeatures("download.episode_downloaded"),
-          error: tFeatures("download.download_error")
+          loading: tFeatures("download.downloading_track"),
+          success: tFeatures("download.track_downloaded"),
+          error: tFeatures("download.track_download_error")
         }
       )
     }

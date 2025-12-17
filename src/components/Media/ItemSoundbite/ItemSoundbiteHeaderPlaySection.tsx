@@ -15,7 +15,7 @@ import { downloadAndSaveFile } from "../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
-import { downloadEpisodeWithModal } from "../../../utils/downloadEpisodeWithModal";
+import { downloadEpisodeWithModal } from "../../../utils/downloadModal/downloadEpisodeWithModal";
 import { useAccount } from "../../../contexts/Account";
 import styles from "../../../styles/components/Media/ItemSoundbite/ItemSoundbiteHeaderPlaySection.module.scss";
 
