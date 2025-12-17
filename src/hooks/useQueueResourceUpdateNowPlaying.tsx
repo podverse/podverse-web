@@ -3,7 +3,7 @@ import { useAccount } from "../contexts/Account";
 import { useQueues } from "../contexts/Queue";
 import { apiRequestService } from "../factories/apiRequestService";
 import { useQueueResourcesAbridgedIndexUpdate } from "./useQueueResourcesAbridgedIndexUpdate";
-import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, getQueryParamFromQueueMediumId, getQueueMediumIdFromMediumId, getQueueMediumIdFromType } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, getQueueMediumIdFromMediumId } from "podverse-helpers";
 
 export type UpdateNowPlayingParams = {
   mpChannel: DTOChannel | null;
