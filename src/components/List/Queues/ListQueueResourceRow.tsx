@@ -5,6 +5,7 @@ import React from "react";
 import ListEpisodeRow from "../Podcasts/Episodes/ListEpisodeRow";
 import { ListClipRow } from "../Clips/ListClipRow";
 import { ListItemSoundbiteRow } from "../ItemSoundbites/ListItemSoundbiteRow";
+import { ListTrackRow } from "../Music/Albums/Tracks/ListTrackRow";
 
 interface Props {
   queueResource: DTOQueueResource;
@@ -21,9 +22,19 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
     const channel = item.channel;
 
     if (channel) {
-      if (channel.medium_id === MediumEnum.Podcast) {
+      if (channel.medium_id === MediumEnum.Podcast || channel.medium_id === MediumEnum.Video) {
         return (
           <ListEpisodeRow
+            channel={channel}
+            item={item}
+            showChannelInfo
+            isEditModeQueue={isEditModeQueue}
+            removeFromQueue={removeFromQueue}
+          />
+        )
+      } else if (channel.medium_id === MediumEnum.Music) {
+        return (
+          <ListTrackRow
             channel={channel}
             item={item}
             showChannelInfo

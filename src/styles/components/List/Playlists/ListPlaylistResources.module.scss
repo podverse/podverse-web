@@ -1,3 +1,14 @@
 .listWrapper {
   margin: 0.5rem 0;
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex: 1;
+}

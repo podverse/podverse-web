@@ -1,10 +1,11 @@
 "use client";
 
-import { DTOPlaylist, DTOPlaylistResource, MediumEnum } from "podverse-helpers";
+import { DTOPlaylist, DTOPlaylistResource, getQueueMediumIdForChannelMediumId, MediumEnum } from "podverse-helpers";
 import React from "react";
 import ListEpisodeRow from "../Podcasts/Episodes/ListEpisodeRow";
 import { ListClipRow } from "../Clips/ListClipRow";
 import { ListItemSoundbiteRow } from "../ItemSoundbites/ListItemSoundbiteRow";
+import { ListTrackRow } from "../Music/Albums/Tracks/ListTrackRow";
 
 interface Props {
   playlist: DTOPlaylist;
@@ -23,9 +24,22 @@ export const ListPlaylistResourceRow: React.FC<Props> = ({ playlist,
     const channel = item.channel;
 
     if (channel) {
-      if (channel.medium_id === MediumEnum.Podcast) {
+      const queue_medium_id = getQueueMediumIdForChannelMediumId(channel.medium_id)
+      console.log('ListPlaylistResourceRow queue_medium_id:', channel.medium_id, queue_medium_id);
+      if (queue_medium_id === MediumEnum.AV) {
         return (
           <ListEpisodeRow
+            channel={channel}
+            item={item}
+            showChannelInfo
+            isEditModePlaylist={isEditModePlaylist}
+            removeFromPlaylist={removeFromPlaylist}
+            playlist_id_text={playlist.id_text}
+          />
+        )
+      } else if (queue_medium_id === MediumEnum.Music) {
+        return (
+          <ListTrackRow
             channel={channel}
             item={item}
             showChannelInfo

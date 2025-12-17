@@ -16,6 +16,7 @@ import { getPlaylistsDropdownConfig } from "./PlaylistsDropdownConfig";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { usePlaylistsContext } from "./PlaylistsContext";
 import { ButtonTabs } from "../../components/Tabs/ButtonTabs";
+import styles from "../../styles/app/playlists/PlaylistsListHeader.module.scss";
 
 export const PlaylistsListHeader: React.FC = () => {
   const { filterParams, setFilterParams } = usePlaylistsContext();
@@ -88,7 +89,7 @@ export const PlaylistsListHeader: React.FC = () => {
   ]
 
   const sideButtons = (
-    <>
+    <div className={styles.sideButtonsWrapper}>
       <Dropdown
         key="sort"
         value={sort ?? ""}
@@ -107,15 +108,10 @@ export const PlaylistsListHeader: React.FC = () => {
           />
         )
       }
-    </>
+    </div>
   );
 
   const belowButtons = [
-    {
-      key: "all",
-      label: tFilters("type.all"),
-      onClick: () => setFilterParams({ ...filterParams, medium: "all" })
-    },
     {
       key: "av",
       label: tMedia("podcast.podcasts"),
@@ -136,12 +132,17 @@ export const PlaylistsListHeader: React.FC = () => {
           selectedKey={type ?? ""}
         />
       }
-      sideButtons={sideButtons}
+      
       belowButtons={(
-        <ButtonTabs
-          buttonTabs={belowButtons}
-          selectedKey={filterParams.medium ?? "all"}
-        />
+        <div className={styles.belowButtonsWrapper}>
+          <div className={styles.tabsWrapper}>
+            <ButtonTabs
+              buttonTabs={belowButtons}
+              selectedKey={filterParams.medium ?? "av"}
+            />
+          </div>
+          {sideButtons}
+        </div>
       )}
     />
   );

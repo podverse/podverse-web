@@ -7,9 +7,10 @@ import { ListPlaylistResourceRow } from "./ListPlaylistResourceRow";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import LoadingSpinnerOverlay from "../../LoadingSpinner/LoadingSpinnerOverlay";
 import Pagination from "../../Pagination/Pagination";
-import styles from "../../../styles/components/List/Playlists/ListPlaylistResources.module.scss";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../utils/scroll";
+import { Divider } from "../../Divider/Divider";
+import styles from "../../../styles/components/List/Playlists/ListPlaylistResources.module.scss";
 
 type Props = {
   playlist: DTOPlaylist;
@@ -160,7 +161,7 @@ export const ListPlaylistResources: React.FC<Props> = ({
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="playlist-list">
                 {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <div ref={provided.innerRef} className={styles.list} {...provided.droppableProps}>
                     {resources.map((playlistResource, idx) => (
                       <Draggable key={playlistResource.id} draggableId={String(playlistResource.id)} index={idx}>
                         {(providedDraggable) => (
@@ -206,15 +207,19 @@ export const ListPlaylistResources: React.FC<Props> = ({
           totalPages={totalPages ?? 1}
           setPage={setPage}
         >
-          {resources.map((playlistResource) => (
-            <ListPlaylistResourceRow
-              key={playlistResource.id}
-              playlistResource={playlistResource}
-              removeFromPlaylist={() => {}}
-              isEditModePlaylist={false}
-              playlist={playlist}
-            />
-          ))}
+          <div className={styles.list}>
+            {resources.map((playlistResource, idx) => (
+              <React.Fragment key={playlistResource.id}>
+                <ListPlaylistResourceRow
+                  playlistResource={playlistResource}
+                  removeFromPlaylist={() => {}}
+                  isEditModePlaylist={false}
+                  playlist={playlist}
+                />
+                {idx < resources.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </div>
         </Pagination>
       </div>
         <LoadingSpinnerOverlay isLoading={isLoading} />

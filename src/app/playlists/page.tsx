@@ -16,7 +16,7 @@ const searchParamsSchema = z.object({
   type: z.enum(QUERY_PARAMS_PLAYLISTS_TYPE_VALUES).optional().nullable().default(null),
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional().nullable().default(null),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
-  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().default("all")
+  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().default("av")
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -75,7 +75,7 @@ function parseSearchParams(queryParams: SearchParams, isAuthenticated: boolean):
       currentType: isAuthenticated ? "private" : "public",
       currentSort: isAuthenticated ? "a_z" : "top",
       currentRange: "week",
-      currentMedium: "all"
+      currentMedium: "av"
     };
   }
 

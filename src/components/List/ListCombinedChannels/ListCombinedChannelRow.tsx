@@ -11,8 +11,6 @@ interface Props {
 }
 
 export const ListCombinedChannelRow: React.FC<Props> = ({ channel, filterMedium }) => {
-  console.log('ListCombinedChannelRow render', { channel, filterMedium });
-
   if (filterMedium === 'all') {
     if (channel.medium_id === MediumEnum.Music) {
       return <ListAlbumRow channel={channel} />;
