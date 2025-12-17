@@ -27,7 +27,7 @@ export const HomeList: React.FC = () => {
             setPage={(page) => setFilterParams({ ...filterParams, page })}
             channels={channels}
             totalPages={totalPages}
-            medium={medium}
+            filterMedium={medium}
             viewSelected={viewSelected}
           />
         )
