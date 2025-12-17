@@ -19,7 +19,8 @@
       "album_image": "Album Image",
       "track": "Track",
       "tracks": "Tracks",
-      "track_image": "Track Image"
+      "track_image": "Track Image",
+      "track_go_to": "Go to Track"
     },
     "video": {
       "channel": "Channel",
