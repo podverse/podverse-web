@@ -80,9 +80,9 @@
 }
 
 .trackClickable {
-  display: flex;
-  flex: 1;
-  margin-right: 1.25rem;
+  display: flex !important;
+  flex: 1 !important;
+  margin-right: 1.25rem !important;
   border-radius: var(--border-radius) !important;
   padding-left: 0.5rem !important;
 }
