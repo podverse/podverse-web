@@ -1,11 +1,11 @@
 import { useLocale, useTranslations } from "use-intl"
 import { DTOChannel } from "podverse-helpers";
-import { Button } from "../../Button/Button";
-import { useAccount } from "../../../contexts/Account";
-import { useModals } from "../../../contexts/Modals";
-import { apiRequestService } from "../../../factories/apiRequestService";
-import { handleRateLimitAlert } from "../../../utils/rateLimit/rateLimitAlert";
-import styles from "../../../styles/components/List/Podcasts/PodcastSettings.module.scss";
+import { Button } from "../../../Button/Button";
+import { useAccount } from "../../../../contexts/Account";
+import { useModals } from "../../../../contexts/Modals";
+import { apiRequestService } from "../../../../factories/apiRequestService";
+import { handleRateLimitAlert } from "../../../../utils/rateLimit/rateLimitAlert";
+import styles from "../../../../styles/components/List/Podcasts/PodcastSettings.module.scss";
 
 type PodcastSettingsProps = {
   channel: DTOChannel;

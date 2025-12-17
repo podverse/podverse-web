@@ -47,7 +47,7 @@ export const SideBar: React.FC = () => {
           content={
             <>
               <SideBarLink disabled href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
-              <SideBarLink disabled href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
+              <SideBarLink href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
               <SideBarLink disabled href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
               <SideBarLink disabled href={ROUTES.MUSIC_LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
