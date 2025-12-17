@@ -3,9 +3,10 @@ import { useAccount } from "../contexts/Account";
 import { useQueues } from "../contexts/Queue";
 import { apiRequestService } from "../factories/apiRequestService";
 import { useQueueResourcesAbridgedIndexUpdate } from "./useQueueResourcesAbridgedIndexUpdate";
-import { DTOClip, DTOItem, DTOItemSoundbite } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, getQueryParamFromQueueMediumId, getQueueMediumIdFromMediumId, getQueueMediumIdFromType } from "podverse-helpers";
 
 export type UpdateNowPlayingParams = {
+  mpChannel: DTOChannel | null;
   mpClip: DTOClip | null;
   mpItem: DTOItem | null;
   mpItemSoundbite: DTOItemSoundbite | null;
@@ -15,20 +16,24 @@ export type UpdateNowPlayingParams = {
 
 export function useQueueResourcesUpdateNowPlaying() {
   const { loggedInAccount } = useAccount();
-  const { activeQueue } = useQueues();
+  const { queues } = useQueues();
   const updateAbridgedIndex = useQueueResourcesAbridgedIndexUpdate();
 
-  const activeQueueRef = useRef(activeQueue);
+  const queuesRef = useRef(queues);
   const loggedInAccountRef = useRef(loggedInAccount);
 
-  useEffect(() => { activeQueueRef.current = activeQueue; }, [activeQueue]);
+  useEffect(() => { queuesRef.current = queues; }, [queues]);
   useEffect(() => { loggedInAccountRef.current = loggedInAccount; }, [loggedInAccount]);
 
   return useCallback(async (params: UpdateNowPlayingParams) => {
     const loggedInAccount = loggedInAccountRef.current;
-    const activeQueue = activeQueueRef.current;
+    const queues = queuesRef.current;
 
-    const { mpClip, mpItem, mpItemSoundbite, mpDuration,  mpCurrentTime } = params;
+    const { mpChannel, mpClip, mpItem, mpItemSoundbite, mpDuration,  mpCurrentTime } = params;
+    
+    const activeQueue = queues.find(q => {
+      return q.medium_id === (mpChannel?.medium_id && getQueueMediumIdFromMediumId(mpChannel?.medium_id));
+    });
 
     if (!loggedInAccount || !activeQueue) {
       return;

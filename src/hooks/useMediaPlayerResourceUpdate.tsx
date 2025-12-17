@@ -172,6 +172,7 @@ export function useMediaPlayerResourceUpdate() {
     const finalCurrentTime = mpCurrentTime !== undefined ? mpCurrentTime : timeData.currentTime;
 
     updateNowPlaying({
+      mpChannel: channel,
       mpClip: clip,
       mpItem: item,
       mpItemSoundbite: itemSoundbite,

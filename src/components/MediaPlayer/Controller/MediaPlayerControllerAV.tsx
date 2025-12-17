@@ -204,6 +204,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
 
     const handleLoadedMetadata = () => {
       const newDuration = media.duration;
+      const channel = mpChannelRef.current;
       const clip = mpClipRef.current;
       const itemSoundbite = mpItemSoundbiteRef.current;
       const item = mpItemRef.current;
@@ -234,6 +235,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
 
       setMPDuration(newDuration);
       updateNowPlaying({
+        mpChannel: channel,
         mpClip: clip,
         mpItem: item,
         mpItemSoundbite: itemSoundbite,
@@ -246,6 +248,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
       const newCurrentTime = media.currentTime;
       if (newCurrentTime < media.duration) {
         updateNowPlaying({
+          mpChannel: mpChannelRef.current,
           mpClip: mpClipRef.current,
           mpItem: mpItemRef.current,
           mpItemSoundbite: mpItemSoundbiteRef.current,
@@ -260,6 +263,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
       const newCurrentTime = media.currentTime;
       if (newCurrentTime < media.duration) {
         updateNowPlaying({
+          mpChannel: mpChannelRef.current,
           mpClip: mpClipRef.current,
           mpItem: mpItemRef.current,
           mpItemSoundbite: mpItemSoundbiteRef.current,
@@ -271,6 +275,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     };
 
     const handleTimeUpdate = () => {
+      const channel = mpChannelRef.current;
       const clip = mpClipRef.current;
       const item = mpItemRef.current;
       const itemSoundbite = mpItemSoundbiteRef.current;
@@ -289,6 +294,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
 
       if (playbackElapsedRef.current >= 15) {
         updateNowPlaying({
+          mpChannel: channel,
           mpClip: clip,
           mpItem: item,
           mpItemSoundbite: itemSoundbite,
