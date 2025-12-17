@@ -16,6 +16,7 @@
       "artists": "Artists",
       "album": "Album",
       "albums": "Albums",
+      "album_image": "Album Image",
       "track": "Track",
       "tracks": "Tracks"
     },
@@ -315,6 +316,7 @@
     "login_for_queues": "Please login to view your queues.",
     "login_for_history": "Please login to view your history.",
     "login_to_add_feeds": "Please login to add feeds to our directory.",
+    "login_to_refresh_feeds": "Please login to refresh feeds.",
     "login_to_subscribe": "Please login to subscribe.",
     "login_to_add_to_queue": "Please login to add to your queue.",
     "login_to_add_to_playlist": "Please login to add to your playlist.",
@@ -373,7 +375,7 @@
       "dark": "🌙 Dark",
       "select_ui_theme": "Select UI Theme"
     },
-    "podcast": {
+    "feed": {
       "check_feed_for_updates": "Check Feed for Updates",
       "check_feed_added_to_queue": "Feed added to queue for parsing. It may take a few minutes for the feed to be parsed. Please check the list for updates later."
     }
