@@ -26,6 +26,7 @@ export const EpisodesHeader: React.FC = () => {
   const tCategories = useTranslations('categories');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getEpisodesDropdownConfig({ type, sort, tFilters });
+  const medium = "av";
 
   function isItemType(val: string): val is QueryParamsSubscribedType {
     return QUERY_PARAMS_SUBSCRIBED_TYPE.includes(val as QueryParamsSubscribedType);
@@ -42,7 +43,7 @@ export const EpisodesHeader: React.FC = () => {
       if (value === "global") {
         setFilterParams({
           page: 1,
-          medium: "podcasts",
+          medium,
           type: value,
           sort: "recent",
           range: null,
@@ -53,7 +54,7 @@ export const EpisodesHeader: React.FC = () => {
       } else if (value === "subscribed") {
         setFilterParams({
           page: 1,
-          medium: "podcasts",
+          medium,
           type: value,
           sort: "recent",
           range: null,
@@ -68,7 +69,7 @@ export const EpisodesHeader: React.FC = () => {
       if (value === "top") {
         setFilterParams({
           page: 1,
-          medium: "podcasts",
+          medium,
           type: filterParams.type,
           sort: value,
           range: "week",
@@ -77,7 +78,7 @@ export const EpisodesHeader: React.FC = () => {
       } else {
         setFilterParams({
           page: 1,
-          medium: "podcasts",
+          medium,
           type: filterParams.type,
           sort: value,
           range: filterParams.range,
@@ -91,7 +92,7 @@ export const EpisodesHeader: React.FC = () => {
     if (isStatsRange(value)) {
       setFilterParams({
         page: 1,
-        medium: "podcasts",
+        medium,
         type: filterParams.type,
         sort: filterParams.sort,
         range: value,

@@ -47,6 +47,7 @@ export const EpisodesContextProvider = ({
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+  const medium = "av";
 
   useSkipInitialEffect(() => {
     async function fetchItems() {
@@ -70,7 +71,7 @@ export const EpisodesContextProvider = ({
 
       const response = await apiRequestService.reqItemGetMany({
         page: filterParams.page,
-        medium: "podcasts",
+        medium,
         type: currentType,
         sort: currentSort,
         range: currentRange,

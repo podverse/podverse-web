@@ -26,7 +26,7 @@ export const PodcastsHeader: React.FC = () => {
   const tCategories = useTranslations('categories');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getPodcastsDropdownConfig({ type, sort, tFilters });
-  const medium = "podcasts";
+  const medium = "av";
 
   function isChannelType(val: string): val is QueryParamsSubscribedType {
     return QUERY_PARAMS_SUBSCRIBED_TYPE.includes(val as QueryParamsSubscribedType);

@@ -29,7 +29,7 @@ export default async function ClipsPage({ searchParams }: ClipsPageProps) {
     await parseSearchParams(queryParams, isValidAuthSession);
   
 
-  const medium: QueryParamsMedium = "podcasts";
+  const medium: QueryParamsMedium = "av";
 
   let response: ApiListResponse<DTOClip> = await apiRequestService.reqClipGetManyPublic({
     page: currentPage,

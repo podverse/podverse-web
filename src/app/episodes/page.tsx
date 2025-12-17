@@ -28,7 +28,7 @@ export default async function EpisodesPage({ searchParams }: EpisodesPageProps) 
   const { currentType, currentSort, currentRange, currentCategory, currentPage } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
-  const medium: QueryParamsMedium = "podcasts";
+  const medium: QueryParamsMedium = "av";
   let response: ApiListResponse<DTOItem> = await apiRequestService.reqItemGetMany({
     page: currentPage,
     medium,

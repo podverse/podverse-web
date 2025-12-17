@@ -70,7 +70,7 @@ export const ClipsContextProvider = ({
 
       const response = await apiRequestService.reqClipGetManyPublic({
         page: filterParams.page,
-        medium: "podcasts",
+        medium: "av",
         type: currentType,
         sort: currentSort,
         range: currentRange,
