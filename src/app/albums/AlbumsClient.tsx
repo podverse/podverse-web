@@ -1,7 +1,7 @@
 
 "use client";
 
-import { DTOChannel, QueryParamsGetMany } from "podverse-helpers";
+import { DTOChannel, QueryParamsGetManyMusic } from "podverse-helpers";
 import React from "react";
 import { AlbumsContextProvider } from "./AlbumsContext";
 import { MainWrapper } from "../../components/Main/MainWrapper";
@@ -11,7 +11,7 @@ import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentWrapper";
 
 interface AlbumsClientProps {
-  initialQueryParams: QueryParamsGetMany;
+  initialQueryParams: QueryParamsGetManyMusic;
   ssrChannels: DTOChannel[];
   ssrTotalPages: number;
 }

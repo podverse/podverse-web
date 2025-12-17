@@ -3,19 +3,19 @@ import {
   QUERY_PARAMS_STATS_RANGE_VALUES,
   getTotalPages, 
   QueryParamsMedium,
-  QUERY_PARAMS_SUBSCRIBED_TYPE,
   QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
   ApiListResponse,
-  DTOChannel
+  DTOChannel,
+  QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE
 } from "podverse-helpers";
 import { z } from "zod";
 import { AlbumsClient } from "./AlbumsClient";
-import { getPodcastsFilterParams, PodcastsDropdownConfigCurrentParams } from "../podcasts/PodcastsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { AlbumsDropdownConfigCurrentParams, getAlbumsFilterParams } from "./AlbumsDropdownConfig";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
-  type: z.enum(QUERY_PARAMS_SUBSCRIBED_TYPE).optional().nullable().default(null),
+  type: z.enum(QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE).optional().nullable().default(null),
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional().nullable().default(null),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
   category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional().nullable().default(null),
@@ -31,7 +31,7 @@ export default async function AlbumsPage({ searchParams }: AlbumsPageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
-  const { currentType, currentSort, currentRange, currentCategory, currentPage } =
+  const { currentType, currentSort, currentRange, currentPage } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "music";
@@ -41,7 +41,7 @@ export default async function AlbumsPage({ searchParams }: AlbumsPageProps) {
     type: currentType,
     sort: currentSort,
     range: currentRange,
-    category: currentCategory
+    category: null
   });
 
   const ssrChannels = response.data;
@@ -54,7 +54,6 @@ export default async function AlbumsPage({ searchParams }: AlbumsPageProps) {
         type: currentType,
         sort: currentSort,
         range: currentRange,
-        category: currentCategory,
         medium
       }}
       ssrChannels={ssrChannels}
@@ -64,20 +63,19 @@ export default async function AlbumsPage({ searchParams }: AlbumsPageProps) {
 }
 
 function parseSearchParams(queryParams: SearchParams,
-  isAuthenticated: boolean): PodcastsDropdownConfigCurrentParams {
+  isAuthenticated: boolean): AlbumsDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
     return {
       currentType: isAuthenticated ? "subscribed" : "global",
-      currentSort: isAuthenticated ? "a_z" : "recent",
+      currentSort: "recent",
       currentRange: null,
-      currentCategory: null,
       currentPage: 1
     };
   }
 
   const data = parsed.data;
 
-  return getPodcastsFilterParams(data, isAuthenticated);
+  return getAlbumsFilterParams(data, isAuthenticated);
 }

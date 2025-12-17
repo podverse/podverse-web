@@ -36,16 +36,21 @@ export const TrackPreviousButton = ({ playlist_id_text }: TrackPreviousButtonPro
   
   const onClick = async () => {
     if (mpChannelRef.current && mpItemRef.current) {
+      const isRestartThreshold = 3;
+      const shouldRestart = mpCurrentTimeRef.current > isRestartThreshold;
+
+      if (shouldRestart) {
+        window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, { detail: { time: 0 } }));
+        return;
+      }
+
       const autoQueueResourcesResponse = mpChannel?.medium_id === MediumEnum.Music
         ? await apiRequestService.reqItemGetManyForQueueBySeason(mpItemRef.current.id_text, "backward")
         : await apiRequestService.reqItemGetManyForQueueByPubDate(mpItemRef.current.id_text, "backward");
       
       const previousItem = autoQueueResourcesResponse.length > 0 ? autoQueueResourcesResponse[0] : null;
 
-      const isRestartThreshold = 3;
-      const shouldRestart = mpCurrentTimeRef.current < isRestartThreshold;
-
-      if (previousItem && !shouldRestart) {
+      if (previousItem) {
         mediaPlayerResourceUpdate({
           shouldPlay: true,
           channel: previousItem.channel,

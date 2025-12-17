@@ -1,15 +1,15 @@
 import React from "react";
 import z from "zod";
 import { ApiListResponse, DTOItem, getTotalPages,
-  QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
-  QUERY_PARAMS_SUBSCRIBED_TYPE, QueryParamsMedium} from "podverse-helpers";
+  QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE, QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
+  QueryParamsMedium } from "podverse-helpers";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 import { TracksDropdownConfigCurrentParams, getTracksFilterParams } from "./TracksDropdownConfig";
 import { TracksClient } from "./TracksClient";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
-  type: z.enum(QUERY_PARAMS_SUBSCRIBED_TYPE).optional().nullable().default(null),
+  type: z.enum(QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE).optional().nullable().default(null),
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT).optional().nullable().default(null),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null)
 });
@@ -62,7 +62,7 @@ function parseSearchParams(queryParams: SearchParams,
   if (!parsed.success) {
     return {
       currentType: isAuthenticated ? "subscribed" : "global",
-      currentSort: isAuthenticated ? "recent" : "recent",
+      currentSort: "recent",
       currentRange: null,
       currentPage: 1
     };
