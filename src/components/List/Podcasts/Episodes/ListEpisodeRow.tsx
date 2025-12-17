@@ -23,7 +23,7 @@ import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
 import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
-import { downloadEpisodeWithModal } from "../../../../utils/downloadEpisodeWithModal";
+import { downloadEpisodeWithModal } from "../../../../utils/downloadModal/downloadEpisodeWithModal";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 import { useAccount } from "../../../../contexts/Account";
 
