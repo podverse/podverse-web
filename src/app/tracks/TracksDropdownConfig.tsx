@@ -1,14 +1,15 @@
 import { QueryParamsStatsRange,
   getValidQueryParam,
   QUERY_PARAMS_GLOBAL_SORT_VALUES,
-  QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
   QueryParamsSubscribedFullSort,
+  QueryParamsSubscribedPartialSort,
+  QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
   QueryParamsSubscribedMusicType
 } from "podverse-helpers";
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 import { DropdownMenuItem } from "../../components/Dropdown/Dropdown";
 
-export function getAlbumsDropdownConfig({ type, sort, tFilters }: {
+export function getTracksDropdownConfig({ type, sort, tFilters }: {
   sort: QueryParamsSubscribedFullSort,
   type: QueryParamsSubscribedMusicType,
   tFilters: (key: string) => string
@@ -29,7 +30,6 @@ export function getAlbumsDropdownConfig({ type, sort, tFilters }: {
     ];
   } else if (type === "subscribed") {
     sortDropdownMenuItems = [
-      { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
       { label: tFilters("sort.recent"), param: "sort", value: "recent" },
       { label: tFilters("sort.top"), param: "sort", value: "top" }
     ];
@@ -47,24 +47,24 @@ export function getAlbumsDropdownConfig({ type, sort, tFilters }: {
   };
 }
 
-type AlbumsDropdownConfigParams = {
+type TracksDropdownConfigParams = {
   type: QueryParamsSubscribedMusicType | null;
-  sort: QueryParamsSubscribedFullSort | null;
+  sort: QueryParamsSubscribedPartialSort | null;
   range: QueryParamsStatsRange | null;
   page: number;
 }
 
-export type AlbumsDropdownConfigCurrentParams = {
+export type TracksDropdownConfigCurrentParams = {
   currentType: QueryParamsSubscribedMusicType;
-  currentSort: QueryParamsSubscribedFullSort;
+  currentSort: QueryParamsSubscribedPartialSort;
   currentRange: QueryParamsStatsRange | null;
   currentPage: number;
 }
 
-export function getAlbumsFilterParams(
-  { type, sort, range, page }: AlbumsDropdownConfigParams,
+export function getTracksFilterParams(
+  { type, sort, range, page }: TracksDropdownConfigParams,
   isValidAuthSession: boolean
-): AlbumsDropdownConfigCurrentParams {
+): TracksDropdownConfigCurrentParams {
   let currentType = type;
   let currentSort = sort;
   let currentRange = range;
@@ -80,17 +80,17 @@ export function getAlbumsFilterParams(
   } else if (type === "subscribed") {
     currentType = "subscribed";
     currentSort = getValidQueryParam(
-      QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+      QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
       currentSort,
-      "a_z"
+      "recent"
     )
   } else {
     if (isValidAuthSession) {
       currentType = "subscribed";
       currentSort = getValidQueryParam(
-        QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
+        QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
         currentSort,
-        "a_z"
+        "recent"
       );
       currentRange = null;
       currentPage = 1;

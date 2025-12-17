@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, QueryParamsSubscribedType } from "podverse-helpers";
+import { DTOChannel, QueryParamsSubscribedMusicType } from "podverse-helpers";
 import React from "react";
 import { ListAlbumNodes } from "./ListAlbumNodes";
 import { CallToActionMessage } from "../../../CallToActionMessage/CallToActionMessage";
@@ -18,7 +18,7 @@ type Props = {
   channels: DTOChannel[];
   totalPages: number;
   showSubscribeMessage: boolean;
-  type: QueryParamsSubscribedType;
+  type: QueryParamsSubscribedMusicType;
   viewSelected: ViewSelectedOption;
 };
 

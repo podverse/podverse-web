@@ -3,43 +3,42 @@
 import { useTranslations } from "next-intl";
 import {
   QUERY_PARAMS_STATS_RANGE_VALUES,
-  QUERY_PARAMS_SUBSCRIBED_FULL_SORT,
-  QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE,
+  QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
   QueryParamsStatsRange,
-  QueryParamsSubscribedFullSort,
-  QueryParamsSubscribedMusicType
+  QueryParamsSubscribedPartialSort,
+  QueryParamsSubscribedMusicType,
+  QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE,
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { MainHeader } from "../../components/Main/MainHeader";
-import { useAlbumsContext } from "./AlbumsContext";
-import { getAlbumsDropdownConfig } from "./AlbumsDropdownConfig";
 import { ViewSelector } from "../../components/ViewSelector/ViewSelector";
 import { useLocalSettings } from "../../contexts/LocalSettings";
+import { useTracksContext } from "./TracksContext";
+import { getTracksDropdownConfig } from "./TracksDropdownConfig";
 
-export const AlbumsHeader: React.FC = () => {
-  const { filterParams, setFilterParams } = useAlbumsContext();
+export const TracksHeader: React.FC = () => {
+  const { filterParams, setFilterParams } = useTracksContext();
   const { viewSelected, setViewSelected } = useLocalSettings();
   const { type, sort, range } = filterParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getAlbumsDropdownConfig({ type, sort, tFilters });
-
+    } = getTracksDropdownConfig({ type, sort, tFilters });
   const medium = "music";
 
-  function isChannelType(val: string): val is QueryParamsSubscribedMusicType {
+  function isItemType(val: string): val is QueryParamsSubscribedMusicType {
     return QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE.includes(val as QueryParamsSubscribedMusicType);
   }
-  function isChannelSort(val: string): val is QueryParamsSubscribedFullSort {
-    return QUERY_PARAMS_SUBSCRIBED_FULL_SORT.includes(val as QueryParamsSubscribedFullSort);
+  function isItemSort(val: string): val is QueryParamsSubscribedPartialSort {
+    return QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT.includes(val as QueryParamsSubscribedPartialSort);
   }
   function isStatsRange(val: string): val is QueryParamsStatsRange {
     return QUERY_PARAMS_STATS_RANGE_VALUES.includes(val as QueryParamsStatsRange);
   }
 
   const handleTypeChange = (value: string) => {
-    if (isChannelType(value)) {
+    if (isItemType(value)) {
       if (value === "global") {
         setFilterParams({
           page: 1,
@@ -53,7 +52,7 @@ export const AlbumsHeader: React.FC = () => {
           page: 1,
           medium,
           type: value,
-          sort: "a_z",
+          sort: "recent",
           range: null
         });
       }
@@ -61,7 +60,7 @@ export const AlbumsHeader: React.FC = () => {
   };
 
   const handleSortChange = (value: string) => {
-    if (isChannelSort(value)) {
+    if (isItemSort(value)) {
       if (value === "top") {
         setFilterParams({
           page: 1,
@@ -123,7 +122,7 @@ export const AlbumsHeader: React.FC = () => {
     </>
   );
 
-  const headerTitle = tMedia("music.albums");
+  const headerTitle = tMedia("music.tracks");
 
   return (
     <MainHeader

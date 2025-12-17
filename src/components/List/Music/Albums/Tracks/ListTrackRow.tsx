@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
   getQueueForMedium } from "podverse-helpers";
 import React from "react";
@@ -9,8 +9,6 @@ import { FaGripLines } from "react-icons/fa6";
 import { Image } from "../../../../Image/Image";
 import { ROUTES } from "../../../../../constants/routes";
 import { IMAGES } from "../../../../../constants/images";
-import { PlayButtonRow } from "../../../../MediaPlayer/Buttons/PlayButtonRow";
-import { getDurationAndPositionStr, ReadableDuration } from "../../../../Time/ReadableDuration";
 import { MoreButton, MoreButtonMenuItem } from "../../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../../contexts/MediaPlayer";
 import { useModals } from "../../../../../contexts/Modals";
@@ -19,10 +17,10 @@ import { apiRequestService } from "../../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../../hooks/useMediaPlayerResourceUpdate";
-import { useQueueResourcesAbridgedIndex } from "../../../../../contexts/QueueResourcesAbridgedIndex";
 import { getAutoQueueChannelMedium } from "../../../../../contexts/AutoQueue";
 import { useAccount } from "../../../../../contexts/Account";
 import { downloadTrackWithModal } from "../../../../../utils/downloadModal/downloadTrackWithModal";
+import { Button } from "../../../../Button/Button";
 import styles from "../../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 
 interface Props {
@@ -39,9 +37,11 @@ interface Props {
 export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   showChannelInfo, removeFromQueue, isEditModePlaylist, removeFromPlaylist,
   playlist_id_text }) => {
+  const router = useRouter();
   const url = `${ROUTES.TRACK}/${item.id_text}`;
-  const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
-  const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
+  const imageSizeTarget = IMAGES.LIST.TRACKS.DESKTOP.SIZE_FIND_TARGET;
+  const channel_image = findDTOChannelImageBySize(channel.channel_images, imageSizeTarget, 'lesser');
+  const item_image = findDTOItemImageBySize(item.item_images, imageSizeTarget, 'lesser');
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
@@ -51,9 +51,6 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { setModalPlaylistAddTo, setModalSourceSelector, setModalLoginRequired } = useModals();
-  const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
-  const { durationStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
-  const positionStr = null;
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -138,6 +135,10 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
     });
   }
 
+  const goToTrackPage = () => {
+    router.push(url);
+  }
+
   const downloadTrack = async () => {
     downloadTrackWithModal({
       item,
@@ -202,6 +203,10 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
       onClick: addToPlaylistOnClick
     },
     {
+      label: tMedia("music.track_go_to"),
+      onClick: goToTrackPage
+    },
+    {
       label: tFeatures("download.download_track"),
       onClick: downloadTrack
     }
@@ -224,7 +229,7 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   }
 
   return (
-    <div className={styles.row}>
+    <div className={styles.trackRow}>
       {
         (isEditModeQueue || isEditModePlaylist) && (
           <div className={styles.editingButtons}>
@@ -232,7 +237,10 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
           </div>
         )
       }
-      <Link href={url} tabIndex={-1}>
+      <Button
+        variant="unstyled"
+        onClick={playButtonOnClick}
+        className={styles.trackClickable}>
         <Image 
           src={item_image?.url || channel_image?.url}
           alt={item.title || tMedia("music.track_image")}
@@ -247,38 +255,22 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
           height={IMAGES.LIST.TRACKS.MOBILE.SIZE}
           className={styles.imageMobile}
         />
-      </Link>
-      <div className={styles.content}>
-        <Link href={url}>
-          <div className={styles.topSection}>
-            <h3>{item.title}</h3>
-            {
-              showChannelInfo && (
-                <div className={styles.channelTitle}>
-                  {channel.title}
-                </div>
-              )
-            }
-          </div>
-        </Link>
-        <div className={styles.bottomSection}>
-          <div className={styles.bottomSectionStart}>
-            <PlayButtonRow
-              item={item}
-              onClick={playButtonOnClick}
-            />
-            <div className={styles.timeSection}>
-              <ReadableDuration
-                durationStr={durationStr}
-                positionStr={positionStr}
-              />
+        <div className={styles.trackWrapper}>
+          <div className={styles.trackContent}>
+            <div className={styles.trackTextWrapper}>
+              <h3>{item.title}</h3>
+              {
+                showChannelInfo && (
+                  <div className={styles.trackArtist}>
+                    {channel.title}
+                  </div>
+                )
+              }
             </div>
           </div>
-          <div className={styles.bottomSectionEnd}>
-            <MoreButton moreButtonMenuItems={moreButtonMenuItems} />
-          </div>
         </div>
-      </div>
+      </Button>
+      <MoreButton moreButtonMenuItems={moreButtonMenuItems} />
     </div>
   );
 };

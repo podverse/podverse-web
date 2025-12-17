@@ -1,10 +1,9 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
-import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
-  formatDateAbbrev } from "podverse-helpers";
+import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import { Image } from "../../../../Image/Image";
 import { ROUTES } from "../../../../../constants/routes";
 import { IMAGES } from "../../../../../constants/images";
@@ -21,8 +20,8 @@ export const ListTrackGridNode: React.FC<Props> = ({ channel, item, showChannelI
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
 	const tMedia = useTranslations("media");
-	const locale = useLocale();
-
+	const tMisc = useTranslations("misc");
+	
 	return (
 		<Link href={url} className={styles.link}>
 			<div className={styles.gridNode}>
@@ -35,14 +34,11 @@ export const ListTrackGridNode: React.FC<Props> = ({ channel, item, showChannelI
 				/>
         <div className={styles.title}>{item.title}</div>
 				{showChannelInfo && (
-					<div className={styles.channelTitle}>
-						{channel?.title}
-					</div>
-				)}
-				{item.pub_date && (
-					<span className={styles.lastPubDate}>
-						{formatDateAbbrev(item.pub_date, locale)}
-					</span>
+					<>
+						<span className={styles.lastPubDate}>
+							{channel?.channel_about?.author || tMisc("untitled")}
+						</span>
+					</>
 				)}
 			</div>
 		</Link>

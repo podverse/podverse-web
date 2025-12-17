@@ -4,9 +4,9 @@ const SIZE_BASE = {
   SIZE_FIND_TARGET: 224
 }
 
-const SIZE_SM = {
-  SIZE: 80,
-  SIZE_FIND_TARGET: 160
+const SIZE_XXS = {
+  SIZE: 60,
+  SIZE_FIND_TARGET: 120
 }
 
 export const IMAGES = {
@@ -75,12 +75,12 @@ export const IMAGES = {
     },
     TRACKS: {
       DESKTOP: {
-        SIZE: SIZE_SM.SIZE,
-        SIZE_FIND_TARGET: SIZE_SM.SIZE_FIND_TARGET
+        SIZE: SIZE_XXS.SIZE,
+        SIZE_FIND_TARGET: SIZE_XXS.SIZE_FIND_TARGET
       },
       MOBILE: {
-        SIZE: SIZE_SM.SIZE,
-        SIZE_FIND_TARGET: SIZE_SM.SIZE_FIND_TARGET
+        SIZE: SIZE_XXS.SIZE,
+        SIZE_FIND_TARGET: SIZE_XXS.SIZE_FIND_TARGET
       }
     }
   },

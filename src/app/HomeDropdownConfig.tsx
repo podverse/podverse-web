@@ -8,8 +8,7 @@ export function getHomeDropdownConfig({ tMedia, tFilters }: {
 }) {
   let mediumDropdownMenuItems = [
     { label: tFilters("type.all"), param: "medium", value: "all" },
-    { label: tMedia("podcast.podcasts"), param: "medium", value: "podcasts" },
-    { label: tMedia("video.videos"), param: "medium", value: "videos" },
+    { label: tMedia("podcast.podcasts"), param: "medium", value: "av" },
     { label: tMedia("music.music"), param: "medium", value: "music" }
   ];
 
