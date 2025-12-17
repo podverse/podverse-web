@@ -251,8 +251,8 @@
       "a_z": "A-Z",
       "top": "Top",
       "random": "Random",
-      "forward": "Forward",
-      "backward": "Backward"
+      "forward": "Ordered",
+      "backward": "Reverse"
     },
     "range": {
       "day": "Day",
