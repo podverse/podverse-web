@@ -18,7 +18,8 @@
       "albums": "Albums",
       "album_image": "Album Image",
       "track": "Track",
-      "tracks": "Tracks"
+      "tracks": "Tracks",
+      "track_image": "Track Image"
     },
     "video": {
       "channel": "Channel",
@@ -115,11 +116,17 @@
       "download_episode": "Download Episode",
       "downloading_episode": "Downloading Episode",
       "episode_downloaded": "Episode Downloaded",
-      "download_error": "Error Downloading Episode"
+      "episode_download_error": "Error Downloading Episode",
+      "download_track": "Download Track",
+      "downloading_track": "Downloading Track",
+      "track_downloaded": "Track Downloaded",
+      "track_download_error": "Error Downloading Track"
     },
     "notifications": {
       "enable_notifications_for_this_podcast": "Enable notifications for this podcast",
-      "disable_notifications_for_this_podcast": "Disable notifications for this podcast"
+      "disable_notifications_for_this_podcast": "Disable notifications for this podcast",
+      "enable_notifications_for_this_album": "Enable notifications for this album",
+      "disable_notifications_for_this_album": "Disable notifications for this album"
     }
   },
   "info": {
@@ -243,7 +250,9 @@
       "oldest": "Oldest",
       "a_z": "A-Z",
       "top": "Top",
-      "random": "Random"
+      "random": "Random",
+      "forward": "Ordered",
+      "backward": "Reverse"
     },
     "range": {
       "day": "Day",

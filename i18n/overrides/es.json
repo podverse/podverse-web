@@ -113,7 +113,7 @@
       "download_episode": "Descargar episodio",
       "downloading_episode": "Descargando episodio",
       "episode_downloaded": "Episodio descargado",
-      "download_error": "Error al descargar el episodio"
+      "episode_download_error": "Error al descargar el episodio"
     }
   },
   "info": {
