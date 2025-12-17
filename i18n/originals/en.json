@@ -142,7 +142,8 @@
     "podroll": "Podroll",
     "transcript": {
       "transcript": "Transcript",
-      "search_transcript": "Search transcript..."
+      "search_transcript": "Search transcript...",
+      "lyrics": "Lyrics"
     },
     "credits": "Credits",
     "people": {
