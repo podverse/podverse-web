@@ -7,11 +7,11 @@ import { apiRequestService } from "../../../../factories/apiRequestService";
 import { handleRateLimitAlert } from "../../../../utils/rateLimit/rateLimitAlert";
 import styles from "../../../../styles/components/List/Podcasts/PodcastSettings.module.scss";
 
-type PodcastSettingsProps = {
+type AlbumSettingsProps = {
   channel: DTOChannel;
 }
 
-export const PodcastSettings = ({ channel }: PodcastSettingsProps) => {
+export const AlbumSettings = ({ channel }: AlbumSettingsProps) => {
   const tInfo = useTranslations('info');
   const tSettings = useTranslations('settings');
   const tInstructions = useTranslations('instructions');
