@@ -49,13 +49,15 @@ export const ListHistoryResources: React.FC<Props> = ({
               maxButtons={5}
               totalPages={totalPages}
               setPage={setPage}>
-              {queueResources.map((queueResource) => (
-                <ListQueueResourceRow
-                  key={queueResource.id}
-                  queueResource={queueResource}
-                  isEditModeQueue={false}
-                />
-              ))}
+              <div className={styles.list}>
+                {queueResources.map((queueResource) => (
+                  <ListQueueResourceRow
+                    key={queueResource.id}
+                    queueResource={queueResource}
+                    isEditModeQueue={false}
+                  />
+                ))}
+              </div>
             </Pagination>
           </div>
         )
