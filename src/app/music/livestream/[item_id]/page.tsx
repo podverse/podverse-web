@@ -1,8 +1,8 @@
 import { QUERY_PARAMS_LIVE_ITEM_TYPE_VALUES } from "podverse-helpers";
 import { z } from "zod";
 import { getSSRAuthService } from "../../../../utils/auth/ssrAuth";
-import { getLivestreamFilterParams, LivestreamDropdownConfigCurrentParams } from "./LivestreamDropdownConfig";
-import { LivestreamClient } from "./LivestreamClient";
+import { getLivestreamFilterParams, LivestreamDropdownConfigCurrentParams } from "../../../podcast/livestream/[item_id]/LivestreamDropdownConfig";
+import { LivestreamClient } from "../../../podcast/livestream/[item_id]/LivestreamClient";
 
 const searchParamsSchema = z.object({
   type: z.enum(QUERY_PARAMS_LIVE_ITEM_TYPE_VALUES).optional().default("summary")
@@ -15,7 +15,7 @@ export type LivestreamPageProps = {
   params: Promise<{ item_id: string }>;
 };
 
-export default async function PodcastLivestreamPage({ params, searchParams }: LivestreamPageProps) {
+export default async function MusicLivestreamPage({ params, searchParams }: LivestreamPageProps) {
   const { item_id } = await params;
   const queryParams = await searchParams;
   
