@@ -29,7 +29,7 @@ export const LivestreamsHeader: React.FC<LivestreamsHeaderProps> = ({ medium }) 
   const tFilters = useTranslations('filters');
   const tCategories = useTranslations('categories');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getEpisodesDropdownConfig({ type, sort, tFilters });
+    } = getEpisodesDropdownConfig({ type, sort, tFilters, medium });
 
   function isItemType(val: string): val is QueryParamsSubscribedType {
     return QUERY_PARAMS_SUBSCRIBED_TYPE.includes(val as QueryParamsSubscribedType);

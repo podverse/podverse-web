@@ -10,17 +10,24 @@ import { QueryParamsStatsRange,
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 import { DropdownMenuItem } from "../../components/Dropdown/Dropdown";
 
-export function getEpisodesDropdownConfig({ type, sort, tFilters }: {
+export function getEpisodesDropdownConfig({ type, sort, tFilters, medium }: {
   sort: QueryParamsSubscribedFullSort,
   type: QueryParamsSubscribedType,
-  tFilters: (key: string) => string
+  tFilters: (key: string) => string,
+  medium?: "av" | "music"
 }) {
 
   const typeDropdownMenuItems: DropdownMenuItem[] = [
     { label: tFilters("type.global"), param: "type", value: "global" },
     { label: tFilters("type.subscribed"), param: "type", value: "subscribed" },
-    { label: tFilters("type.category"), param: "type", value: "category" }
   ];
+
+  if (!medium || medium === "av") {
+    typeDropdownMenuItems.push(
+      { label: tFilters("type.category"), param: "type", value: "category" }
+    )
+  }
+
   let sortDropdownMenuItems: DropdownMenuItem[] = [];
   let rangeDropdownMenuItems = getRangeDropdownItems(tFilters);
   let showRangeDropdown = false;
