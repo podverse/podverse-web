@@ -4,6 +4,14 @@ Welcome to the all-new Podverse! The new apps will be designed to support as man
 
 On this page, you will able to find the most notable changes between releases.
 
+## [5.1.8] - 2025-12-19
+
+Music updates! Added the Albums, Album, Tracks, and Track pages.
+
+There are separate playlists, queues, and histories for podcasts and music.
+
+The "autoplay next" behavior is also different for podcasts and music. It will play the next most recent episode from that podcast when an episode is being played, and the next track from that album when a track is being played.
+
 ## [5.1.5] - 2025-12-03
 
 Initial Alpha version release 🥳
