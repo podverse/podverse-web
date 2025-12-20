@@ -173,6 +173,16 @@
     "show_fullscreen_media_player": "Show the fullscreen media player",
     "fullscreen_media_player": "Fullscreen media player",
     "media_player_image": "Media player image",
+    "repeat": {
+      "toggle_repeat": "Toggle repeat",
+      "repeat_enabled": "Repeat enabled",
+      "repeat_disabled": "Repeat disabled"
+    },
+    "shuffle": {
+      "toggle_shuffle": "Toggle shuffle",
+      "shuffle_enabled": "Shuffle enabled",
+      "shuffle_disabled": "Shuffle disabled"
+    },
     "playback_speed": {
       "playback_speed": "Playback Speed",
       "playback_speed_with_value": "Playback Speed: {speed}",
