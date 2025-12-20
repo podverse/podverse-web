@@ -1,7 +1,9 @@
 :root {
   --navbar-desktop-height: 62px;
   --header-desktop-height: 80px;
+  --header-mobile-height: 114px;
   --main-wrapper-desktop-height: calc(100vh - var(--navbar-desktop-height) - var(--header-desktop-height));
+  --main-wrapper-mobile-height: calc(100vh - var(--navbar-desktop-height) - var(--header-mobile-height));
   --navbar-mobile-height: 48px;
   --sidebar-desktop-width: 12rem; // 192px
   --sidebar-mobile-width: 16rem; // 256px

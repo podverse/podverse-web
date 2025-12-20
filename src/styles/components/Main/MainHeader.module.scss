@@ -1,5 +1,5 @@
 @use '../../mixins/lineClamp' as *;
-
+@use "breakpoints";
 
 .header {
   background-color: var(--background-color-secondary);
@@ -25,4 +25,20 @@
   align-items: center;
   gap: 1rem;
   margin-left: 2rem;
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .headerContent {
+    height: var(--header-mobile-height);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.75rem;
+  }
+
+  .buttons {
+    margin-left: 0;
+    margin-bottom: 0.25rem;
+  }
 }
