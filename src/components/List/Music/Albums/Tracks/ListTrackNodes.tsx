@@ -21,7 +21,7 @@ export function ListTrackNodes({ channel, items, viewSelected, showChannelInfo }
 
   if (viewSelected === "rows") {
     return (
-      <div key="list" className={styles.list}>
+      <div key="list" className={styles.listTracks}>
         {
           filteredItems.map((item, idx) => {
             const rowChannel = channel || item.channel;

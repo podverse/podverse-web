@@ -4,9 +4,14 @@ const SIZE_BASE = {
   SIZE_FIND_TARGET: 224
 }
 
+const SIZE_SM = {
+  SIZE: 84,
+  SIZE_FIND_TARGET: 168
+}
+
 const SIZE_XXS = {
-  SIZE: 60,
-  SIZE_FIND_TARGET: 120
+  SIZE: 54,
+  SIZE_FIND_TARGET: 108
 }
 
 export const IMAGES = {
@@ -72,6 +77,10 @@ export const IMAGES = {
     ITEM_CHAPTERS: {
       SIZE: SIZE_BASE.SIZE,
       SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
+    },
+    ALBUMS: {
+      SIZE: SIZE_SM.SIZE,
+      SIZE_FIND_TARGET: SIZE_SM.SIZE_FIND_TARGET
     },
     TRACKS: {
       DESKTOP: {

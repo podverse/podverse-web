@@ -1,7 +1,7 @@
 "use client";
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { DTOPlaylist, DTOPlaylistResource } from "podverse-helpers";
+import { DTOPlaylist, DTOPlaylistResource, MediumEnum } from "podverse-helpers";
 import React from "react";
 import { ListPlaylistResourceRow } from "./ListPlaylistResourceRow";
 import { apiRequestService } from "../../../factories/apiRequestService";
@@ -153,11 +153,13 @@ export const ListPlaylistResources: React.FC<Props> = ({
     setIsLoading(false);
   };
 
+  const listWrapperClassName = playlist.medium_id === MediumEnum.Music ? styles.listTracks : styles.list;
+
   if (isEditMode) {
     return (
       <>
         {!isLoading && (
-          <div className={styles.listWrapper}>
+          <div className={listWrapperClassName}>
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="playlist-list">
                 {(provided) => (

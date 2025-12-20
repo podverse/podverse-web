@@ -25,8 +25,8 @@ export const ListAlbumRow: React.FC<Props> = ({ channel }) => {
         <Image
           src={channel_image?.url}
           alt={channel.title || tMedia("music.album_image")}
-          width={IMAGES.LIST.PODCASTS.SIZE}
-          height={IMAGES.LIST.PODCASTS.SIZE}
+          width={IMAGES.LIST.ALBUMS.SIZE}
+          height={IMAGES.LIST.ALBUMS.SIZE}
           className={styles.image}
         />
         <div className={styles.content}>

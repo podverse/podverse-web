@@ -30,6 +30,13 @@
   color: var(--text-color-secondary);
 }
 
+.trackTitle {
+  @include line-clamp(1);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  font-size: var(--font-size-lg);
+}
+
 .channelTitle {
   @include line-clamp(1);
   font-weight: var(--font-weight-light);

@@ -8,6 +8,12 @@
   gap: 1.25rem;
 }
 
+.listTracks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .row {
   display: flex;
   flex: 1;

@@ -258,7 +258,7 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         <div className={styles.trackWrapper}>
           <div className={styles.trackContent}>
             <div className={styles.trackTextWrapper}>
-              <h3>{item.title}</h3>
+              <h3 className={styles.trackTitle}>{item.title}</h3>
               {
                 showChannelInfo && (
                   <div className={styles.trackArtist}>

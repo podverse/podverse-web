@@ -2,7 +2,7 @@
 
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { useTranslations } from "next-intl";
-import { DTOQueueResource } from "podverse-helpers";
+import { DTOQueueResource, getQueueMediumIdFromType, MediumEnum, QueryParamsQueueMedium } from "podverse-helpers";
 import React from "react";
 import { CallToActionMessage } from "../../CallToActionMessage/CallToActionMessage";
 import { useModals } from "../../../contexts/Modals";
@@ -14,11 +14,12 @@ import LoadingSpinnerOverlay from "../../LoadingSpinner/LoadingSpinnerOverlay";
 import styles from "../../../styles/components/List/Queues/ListQueueResources.module.scss";
 
 type Props = {
+  queueMedium: QueryParamsQueueMedium;
   queueResources: DTOQueueResource[];
   showLoginMessage: boolean;
 };
 
-export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginMessage }) => {
+export const ListQueueResources: React.FC<Props> = ({ queueMedium, queueResources, showLoginMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalAuthLogin } = useModals();
@@ -148,6 +149,8 @@ export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginM
     setIsLoading(false);
   };
 
+  const listWrapperClassName = getQueueMediumIdFromType(queueMedium) === MediumEnum.Music ? styles.listTracks : styles.list;
+
   return (
     <>
       {showCallToAction && (
@@ -159,36 +162,38 @@ export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginM
       )}
       {showPagination && !isLoading && (
         <div className={styles.listWrapper}>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="queue-list">
-              {(provided) => (
-                <div ref={provided.innerRef} className={styles.queueList} {...provided.droppableProps}>
-                  {resources.map((queueResource, idx) => (
-                    <Draggable key={queueResource.id} draggableId={String(queueResource.id)} index={idx}>
-                      {(providedDraggable) => (
-                        <div
-                          ref={providedDraggable.innerRef}
-                          {...providedDraggable.draggableProps}
-                          {...providedDraggable.dragHandleProps}
-                        >
-                          <ListQueueResourceRow
-                            queueResource={queueResource}
-                            removeFromQueue={() => {
-                              const updatedResources = resources.filter((res) => res.id !== queueResource.id);
-                              setResources(updatedResources);
-                            }}
-                            isEditModeQueue={true}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-          <LoadingSpinnerOverlay isLoading={isLoading} />
+          <div className={listWrapperClassName}>
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="queue-list">
+                {(provided) => (
+                  <div ref={provided.innerRef} className={styles.queueList} {...provided.droppableProps}>
+                    {resources.map((queueResource, idx) => (
+                      <Draggable key={queueResource.id} draggableId={String(queueResource.id)} index={idx}>
+                        {(providedDraggable) => (
+                          <div
+                            ref={providedDraggable.innerRef}
+                            {...providedDraggable.draggableProps}
+                            {...providedDraggable.dragHandleProps}
+                          >
+                            <ListQueueResourceRow
+                              queueResource={queueResource}
+                              removeFromQueue={() => {
+                                const updatedResources = resources.filter((res) => res.id !== queueResource.id);
+                                setResources(updatedResources);
+                              }}
+                              isEditModeQueue={true}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+            <LoadingSpinnerOverlay isLoading={isLoading} />
+          </div>
         </div>
       )}
     </>

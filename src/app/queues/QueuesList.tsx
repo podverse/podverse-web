@@ -6,11 +6,13 @@ import { ListQueueResources } from "../../components/List/Queues/ListQueueResour
 import { useQueuesPageContext } from "./QueuesPageContext";
 
 export const QueuesList: React.FC = () => {
-  const { queueResources, isLoading, showLoginMessage } = useQueuesPageContext();
+  const { filterParams, queueResources, isLoading, showLoginMessage } = useQueuesPageContext();
+  const { medium } = filterParams;
 
   return (
     <>
       <ListQueueResources
+        queueMedium={medium}
         queueResources={queueResources}
         showLoginMessage={showLoginMessage}
       />
