@@ -7,13 +7,13 @@ import { apiRequestService } from "../../../factories/apiRequestService";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
-import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButton.module.scss"
+import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButtonMobile.module.scss"
 
-interface TrackPreviousButtonProps {
+interface TrackPreviousButtonMobileProps {
   playlist_id_text?: string;
 }
 
-export const TrackPreviousButton = ({ playlist_id_text }: TrackPreviousButtonProps) => {
+export const TrackPreviousButtonMobile = ({ playlist_id_text }: TrackPreviousButtonMobileProps) => {
   const { mpChannel, mpItem } = useMediaPlayer();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
@@ -76,7 +76,7 @@ export const TrackPreviousButton = ({ playlist_id_text }: TrackPreviousButtonPro
 
   return (
     <button
-      className={styles.trackPreviousButton}
+      className={styles.trackPreviousButtonMobile}
       onClick={onClick}
       type="button">
       <FaBackwardStep />

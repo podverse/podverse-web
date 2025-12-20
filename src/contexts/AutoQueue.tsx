@@ -7,7 +7,7 @@ type AutoQueueMedium = "aqpodcast" | "aqmusic" | "aqplaylist";
 
 export type AutoQueueConfig = {
   aqmedium?: AutoQueueMedium;
-  mode?: "forward" | "backward" | "random";
+  random?: boolean;
   repeat?: boolean;
   disabled?: boolean;
   playlist_id_text?: string | null;

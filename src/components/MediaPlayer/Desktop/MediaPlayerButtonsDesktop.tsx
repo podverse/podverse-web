@@ -1,16 +1,35 @@
+import { MediumEnum } from "podverse-helpers";
 import { ClipButton } from "../Buttons/ClipButton";
 import { MuteButton } from "../Buttons/MuteButton";
 import { PlaylistAddToButton } from "../Buttons/PlaylistAddToButton";
+import { RepeatButton } from "../Buttons/RepeatButton";
+import { ShuffleButton } from "../Buttons/ShuffleButton";
 import { VolumeSlider } from "../Sliders/VolumeSlider";
-import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerButtonsDesktop.module.scss";
 import { SettingsButton } from "../Buttons/SettingsButton";
+import { useQueues } from "../../../contexts/Queue";
+import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerButtonsDesktop.module.scss";
 
 export const MediaPlayerButtonsDesktop = () => {
+  const { activeQueue } = useQueues();
+  const medium_id = activeQueue?.medium_id || MediumEnum.AV;
+
   return (
     <div className={styles.buttons}>
       <div className={styles.startSection}>
         <PlaylistAddToButton />
-        <ClipButton />
+        {
+          medium_id === MediumEnum.AV && (
+            <ClipButton />
+          )
+        }
+        {
+          medium_id === MediumEnum.Music && (
+            <>
+              <RepeatButton />
+              <ShuffleButton />
+            </>
+          )
+        }
         <SettingsButton />
       </div>
       <div className={styles.endSection}>

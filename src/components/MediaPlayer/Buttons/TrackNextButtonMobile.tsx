@@ -3,9 +3,9 @@ import { FaForwardStep } from "react-icons/fa6"
 import { useQueueResourcesLoadActive } from "../../../hooks/useQueueResourcesLoadActive";
 import { useQueueResourcesMoveNowPlayingToHistory } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Buttons/TrackNextButton.module.scss"
+import styles from "../../../styles/components/MediaPlayer/Buttons/TrackNextButtonMobile.module.scss"
 
-export const TrackNextButton = () => {
+export const TrackNextButtonMobile = () => {
   const { mpItem, setMPShouldPlay } = useMediaPlayer();
   const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
   const queueResourcesLoadActive = useQueueResourcesLoadActive();
@@ -28,7 +28,7 @@ export const TrackNextButton = () => {
 
   return (
     <button
-      className={styles.trackNextButton}
+      className={styles.trackNextButtonMobile}
       onClick={onClick}
       type="button">
       <FaForwardStep />

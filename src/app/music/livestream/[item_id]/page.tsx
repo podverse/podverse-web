@@ -33,7 +33,7 @@ export default async function MusicLivestreamPage({ params, searchParams }: Live
       }}
       ssrChannel={ssrChannel}
       ssrItem={ssrItem}
-      medium="av"
+      medium="music"
     />
   );
 }
