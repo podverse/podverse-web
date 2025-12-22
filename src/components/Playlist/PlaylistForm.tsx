@@ -28,7 +28,7 @@ export type PlaylistFormProps = {
   isValidSubmit: () => boolean;
   tFeatures: any;
   tMisc: any;
-  edit_playlist_id_text?: string;
+  edit_playlist_id_text: string | null;
   className?: string;
 };
 
@@ -49,7 +49,7 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
   isValidSubmit,
   tFeatures,
   tMisc,
-  edit_playlist_id_text = ""
+  edit_playlist_id_text
 }) => {
   const router = useRouter();
 
