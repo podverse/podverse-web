@@ -1,4 +1,4 @@
-// Version: 9
+// Version: 10
 import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 import path from 'path';
@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: [__dirname + '/src/styles/variables']
   },
+  // CHANGED: Force Next.js to bundle/transpile podverse-helpers.
+  // This ensures Webpack aliases (@helpers) are applied to the library code.
+  transpilePackages: ['podverse-helpers'],
+
   // Ignore Type and Lint errors to ensure Docker build finishes
   typescript: {
     ignoreBuildErrors: true,
@@ -19,7 +23,7 @@ const nextConfig: NextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@helpers': path.resolve(__dirname, 'node_modules/podverse-helpers/dist'),
-      // CHANGED: Map module-alias to our local mock file
+      // Map module-alias to our local mock file
       'module-alias': path.resolve(__dirname, 'mock-module-alias.js'),
     };
 
