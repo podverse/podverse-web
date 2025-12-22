@@ -63,6 +63,7 @@ export const PlaylistCreateForm: React.FC = () => {
       isValidSubmit={isValidSubmit}
       tFeatures={tFeatures}
       tMisc={tMisc}
+      edit_playlist_id_text={null}
     />
   );
 };
