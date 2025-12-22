@@ -1,5 +1,7 @@
 import { DTOChannel, DTOItemQueueItem, getShuffleHash, MediumEnum } from "podverse-helpers";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { LocalSettingsState } from "../utils/localSettings/localSettings";
+import { useLocalSettings } from "./LocalSettings";
 
 type AutoQueueResourcesMap = { [key: number]: DTOItemQueueItem };
 
@@ -44,8 +46,8 @@ type AutoQueueContextType = {
   setAutoQueueResources: (val: AutoQueueResourcesMap) => void;
   autoQueueConfig: AutoQueueConfig;
   setAutoQueueConfig: (val: AutoQueueConfig) => void;
-  autoQueueActiveRow: number | null;
-  setAutoQueueActiveRow: (val: number | null) => void;
+  autoQueueActiveRow: number;
+  setAutoQueueActiveRow: (val: number) => void;
 };
 
 const defaultAutoQueueConfig: AutoQueueConfig = {
@@ -63,20 +65,36 @@ export const AutoQueueContext = createContext<AutoQueueContextType>({
   setAutoQueueResources: () => {},
   autoQueueConfig: defaultAutoQueueConfig,
   setAutoQueueConfig: () => {},
-  autoQueueActiveRow: null,
+  autoQueueActiveRow: 0,
   setAutoQueueActiveRow: () => {}
 });
 
 type AutoQueueProviderProps = {
   children: ReactNode;
+  ssrLocalSettings: LocalSettingsState;
 };
 
 export const AutoQueueProvider = ({
-  children
+  children,
+  ssrLocalSettings
 }: AutoQueueProviderProps) => {
+  const { setLSAutoQueueConfig } = useLocalSettings();
+  const initialAutoQueueConfig: AutoQueueConfig = {
+    ...defaultAutoQueueConfig,
+    ...(ssrLocalSettings?.aqc?.rd ? { random: true } : {}),
+    ...(ssrLocalSettings?.aqc?.rp ? { repeat: true } : {})
+  };
   const [autoQueueResources, setAutoQueueResources] = useState<AutoQueueResourcesMap>({});
-  const [autoQueueConfig, setAutoQueueConfig] = useState<AutoQueueConfig>(defaultAutoQueueConfig);
-  const [autoQueueActiveRow, setAutoQueueActiveRow] = useState<number | null>(null);
+  const [autoQueueConfig, setAutoQueueConfig] = useState<AutoQueueConfig>(initialAutoQueueConfig);
+  const [autoQueueActiveRow, setAutoQueueActiveRow] = useState<number>(0);
+
+  useEffect(() => {
+    setLSAutoQueueConfig(prev => ({
+      ...prev,
+      rd: autoQueueConfig.random || false,
+      rp: autoQueueConfig.repeat || false
+    }));
+  }, [autoQueueConfig.random, autoQueueConfig.repeat, setLSAutoQueueConfig]);
 
   return (
     <AutoQueueContext.Provider

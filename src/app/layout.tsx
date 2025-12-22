@@ -32,7 +32,7 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
   const ssrLocalSettings = getParsedLocalSettings(cookieStore);
-  const ssrUITheme = toUITheme(ssrLocalSettings.uiTheme);
+  const ssrUITheme = toUITheme(ssrLocalSettings.uit);
 
   const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();

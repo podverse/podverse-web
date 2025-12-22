@@ -2,10 +2,25 @@ import { UITheme, setUIThemeOnDocument, toUITheme } from "./uiTheme";
 import { ViewSelectedOption } from "../../components/ViewSelector/ViewSelector";
 import { clearCookie, readCookie, writeCookie } from "../cookie";
 
+/*
+
+LocalSettingsState Legend:
+  - uit = uiTheme
+  - vs = viewSelected
+  - seda = serverEnvironmentDisclaimerAccepted
+  - aqc = autoQueueConfig
+    - rp = repeat
+    - rd = random
+*/
+
 export interface LocalSettingsState {
-	uiTheme: UITheme;
-	viewSelected: ViewSelectedOption;
-  serverEnvironmentDisclaimerAccepted: boolean;
+	uit: UITheme;
+	vs: ViewSelectedOption;
+  seda: boolean;
+  aqc: {
+    rp: boolean;
+    rd: boolean;
+  }
 }
 
 export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
@@ -13,12 +28,12 @@ export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
 
 	const prev = getParsedLocalSettings();
 
-	if (prev.uiTheme) {
-		prev.uiTheme = toUITheme(prev.uiTheme);
+	if (prev.uit) {
+		prev.uit = toUITheme(prev.uit);
 	}
 
-	if (!prev.uiTheme || prev.uiTheme !== newState.uiTheme) {
-		setUIThemeOnDocument(newState.uiTheme);
+	if (!prev.uit || prev.uit !== newState.uit) {
+		setUIThemeOnDocument(newState.uit);
 	}
 
 	const serialized = encodeURIComponent(JSON.stringify(newState));
@@ -26,30 +41,60 @@ export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
 }
 
 const defaultLocalSettings: LocalSettingsState = {
-  uiTheme: "dark",
-  viewSelected: "grid",
-  serverEnvironmentDisclaimerAccepted: false
+  uit: "dark",
+  vs: "grid",
+  seda: false,
+  aqc: {
+    rp: false,
+    rd: false
+  }
 };
 
+function isValidLocalSettings(settings: any): settings is LocalSettingsState {
+  return (
+    settings &&
+    typeof settings.uit === 'string' &&
+    typeof settings.vs === 'string' &&
+    typeof settings.seda === 'boolean' &&
+    typeof settings.aqc === 'object' &&
+    settings.aqc !== null &&
+    typeof settings.aqc.rp === 'boolean' &&
+    typeof settings.aqc.rd === 'boolean'
+  );
+}
+
 export function getParsedLocalSettings(cookieStore?: any): LocalSettingsState {
+  const isServer = typeof document === 'undefined';
   let raw: string | undefined;
 
-  if (typeof document === 'undefined') {
-    // Server side
+  if (isServer) {
     const serverCookie = cookieStore?.get('local-settings');
     raw = serverCookie?.value;
   } else {
-    // Client side
     raw = readCookie('local-settings');
   }
 
-  if (!raw) return defaultLocalSettings;
+  if (!raw) {
+    return defaultLocalSettings;
+  }
 
   try {
-    return JSON.parse(decodeURIComponent(raw));
-  } catch {
-    // Only clear client-side; server can't clear with your current helpers
-    if (typeof document !== 'undefined') clearCookie('local-settings');
+    const parsed = JSON.parse(decodeURIComponent(raw));
+    const isValid = isValidLocalSettings(parsed);
+
+    if (!isValid) {
+      if (isServer) {
+        return defaultLocalSettings;
+      }
+      throw new Error('Invalid local settings format');
+    }
+
+    return parsed;
+  } catch (error) {
+    if (!isServer) {
+      clearCookie('local-settings');
+      writeCookie('local-settings', encodeURIComponent(JSON.stringify(defaultLocalSettings)));
+    }
     return defaultLocalSettings;
   }
 }

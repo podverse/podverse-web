@@ -42,7 +42,7 @@ export default function Providers({
                 <MediaPlayerCurrentTimeProvider>
                   <MediaPlayerProvider>
                     <MediaPlayerVideoProvider>
-                      <AutoQueueProvider>
+                      <AutoQueueProvider ssrLocalSettings={ssrLocalSettings}>
                         <ModalsProvider>
                           <CategoriesProvider ssrCategories={categories}>
                             {children}
