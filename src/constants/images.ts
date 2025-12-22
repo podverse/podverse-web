@@ -67,8 +67,8 @@ export const IMAGES = {
       }
     },
     PODCASTS: {
-      SIZE: SIZE_BASE.SIZE,
-      SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
+      SIZE: SIZE_SM.SIZE,
+      SIZE_FIND_TARGET: SIZE_SM.SIZE_FIND_TARGET
     },
     CLIPS: {
       SIZE: SIZE_BASE.SIZE,
@@ -91,7 +91,11 @@ export const IMAGES = {
         SIZE: SIZE_XXS.SIZE,
         SIZE_FIND_TARGET: SIZE_XXS.SIZE_FIND_TARGET
       }
-    }
+    },
+    SEARCH: {
+      SIZE: SIZE_BASE.SIZE,
+      SIZE_FIND_TARGET: SIZE_BASE.SIZE_FIND_TARGET
+    },
   },
   MEDIA_HEADER_MINI: {
     SQUARE: {

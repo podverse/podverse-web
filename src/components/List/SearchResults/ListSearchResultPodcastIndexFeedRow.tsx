@@ -42,8 +42,8 @@ const ListSearchResultPodcastIndexFeedRow: React.FC<Props> = ({ searchResultPodc
         <Image
           src={imageUrl}
           alt={searchResultPodcastIndexFeed.title || tMedia("podcast.podcast_image")}
-          width={IMAGES.LIST.PODCASTS.SIZE}
-          height={IMAGES.LIST.PODCASTS.SIZE}
+          width={IMAGES.LIST.SEARCH.SIZE}
+          height={IMAGES.LIST.SEARCH.SIZE}
           className={styles.image}
         />
         <div className={styles.content}>
