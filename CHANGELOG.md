@@ -4,9 +4,13 @@ Welcome to the all-new Podverse! The new apps will be designed to support as man
 
 On this page, you will able to find the most notable changes between releases.
 
-## [5.1.9] - 2025-12-20
+## [5.1.9] - 2025-12-22
 
 Music updates: added the Music Livestreams and Music Livestream pages.
+
+Also added the Repeat and Shuffle buttons.
+
+Coming soon: Auto-play next for Playlists.
 
 ## [5.1.8] - 2025-12-19
 
