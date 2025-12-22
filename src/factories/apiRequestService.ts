@@ -1,4 +1,6 @@
-import { ApiRequestService } from "podverse-helpers";
+// Version: 2
+// CHANGED: Import directly from the file path to avoid CommonJS/ESM interop issues with the index export
+import { ApiRequestService } from "podverse-helpers/dist/lib/request";
 import { config } from "../config";
 
 export function getSSRApiRequestService(jwt?: string | null): ApiRequestService {
