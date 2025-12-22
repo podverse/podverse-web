@@ -25,7 +25,7 @@ import { QueueResourcesAbridgedController } from '../components/Queue/QueueResou
 import { getParsedLocalSettings } from '../utils/localSettings/localSettings';
 
 export const metadata = {
-  title: `${config.private.brand.name || config.public.brand.name}`,
+  title: config.public.brand.name,
   description: 'Add meta description here',
 };
 
