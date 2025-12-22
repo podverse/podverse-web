@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import { getShuffleHash, MediumEnum } from "podverse-helpers";
+import { DTOItemQueueItem, getShuffleHash, MediumEnum } from "podverse-helpers";
 import { apiRequestService } from "../factories/apiRequestService";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
 import { useAutoQueue } from "../contexts/AutoQueue";
@@ -31,7 +31,20 @@ export function useAutoQueueLoadResources() {
     }
 
     const autoQueueResources = autoQueueResourcesRef.current;
-    const newAutoQueueResources = { ...autoQueueResources };
+
+    let newAutoQueueResources: {
+      [key: number]: DTOItemQueueItem;
+    } = {};
+
+    if (!autoQueueResources[1]) {
+      newAutoQueueResources[1] = {
+        ...mpItem,
+        channel: mpChannel
+      };
+    } else {
+      newAutoQueueResources = { ...autoQueueResources };
+    }
+    
     let autoQueueResourcesResponse: any[] = [];
 
     if (autoQueueConfig.random) {
