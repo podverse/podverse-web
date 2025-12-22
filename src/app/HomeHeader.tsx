@@ -1,11 +1,10 @@
+// Version: 2
 "use client";
 
 import { useTranslations } from "next-intl";
 import { 
-  QUERY_PARAMS_HOME_SORT_VALUES,
   QueryParamsHomeSort,
   QueryParamsMedium,
-  QUERY_PARAMS_MEDIUMS
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../components/Dropdown/Dropdown";
@@ -14,6 +13,10 @@ import { ViewSelector } from "../components/ViewSelector/ViewSelector";
 import { useLocalSettings } from "../contexts/LocalSettings";
 import { useHomeContext } from "./HomeContext";
 import { getHomeDropdownConfig } from "./HomeDropdownConfig";
+
+// Locally defined to fix missing exports
+const QUERY_PARAMS_MEDIUMS = ["all", "av", "music"] as const;
+const QUERY_PARAMS_HOME_SORT_VALUES = ["recent", "a_z"] as const;
 
 export const HomeHeader: React.FC = () => {
   const { filterParams, setFilterParams } = useHomeContext();
@@ -25,10 +28,10 @@ export const HomeHeader: React.FC = () => {
   const { mediumMenuItems, sortMenuItems } = getHomeDropdownConfig({ medium, sort, tFilters, tMedia });
 
   function isMedium(val: string): val is QueryParamsMedium {
-    return QUERY_PARAMS_MEDIUMS.includes(val as QueryParamsMedium);
+    return (QUERY_PARAMS_MEDIUMS as readonly string[]).includes(val);
   }
   function isHomeSort(val: string): val is QueryParamsHomeSort {
-    return QUERY_PARAMS_HOME_SORT_VALUES.includes(val as QueryParamsHomeSort);
+    return (QUERY_PARAMS_HOME_SORT_VALUES as readonly string[]).includes(val);
   }
 
   const handleMediumChange = (value: string) => {

@@ -1,10 +1,18 @@
-import { DTOChannel, getTotalPages, QUERY_PARAMS_HOME_SORT_VALUES,
-  QUERY_PARAMS_MEDIUMS } from "podverse-helpers";
+// Version: 2
+import { DTOChannel } from "podverse-helpers";
 import React from "react";
 import z from "zod";
 import { HomeClient } from "./HomeClient";
 import { getSSRAuthService } from "../utils/auth/ssrAuth";
 import { getHomeFilterParams, HomeDropdownConfigCurrentParams } from "./HomeDropdownConfig";
+
+// Locally defined to fix missing exports
+const QUERY_PARAMS_MEDIUMS = ["all", "av", "music"] as const;
+const QUERY_PARAMS_HOME_SORT_VALUES = ["recent", "a_z"] as const;
+const getTotalPages = (count: number, limit: number, length: number, page: number) => {
+  if (!limit) return 1;
+  return Math.ceil(count / limit);
+};
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),

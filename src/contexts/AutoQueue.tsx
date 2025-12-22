@@ -1,5 +1,11 @@
-import { DTOChannel, DTOItemQueueItem, getShuffleHash, MediumEnum } from "podverse-helpers";
+// Version: 1
+import { DTOChannel, DTOItemQueueItem, MediumEnum } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
+
+// Locally defined to fix missing export in podverse-helpers
+const getShuffleHash = () => {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+};
 
 type AutoQueueResourcesMap = { [key: number]: DTOItemQueueItem };
 
