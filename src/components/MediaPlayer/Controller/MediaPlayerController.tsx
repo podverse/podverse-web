@@ -127,7 +127,7 @@ export const MediaPlayerController: React.FC = () => {
             itemChapterShouldSeek: false,
             itemSoundbite: null,
             enclosureSelectedParams: 'use-active-item-or-default',
-            skipMoveNowPlayingToHistory: true,
+            skipMoveNowPlayingToHistory: false,
             newAutoQueueConfig: {
               aqmedium: getAutoQueueChannelMedium(fullChannel),
               playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
@@ -158,7 +158,7 @@ export const MediaPlayerController: React.FC = () => {
             itemChapterShouldSeek: false,
             itemSoundbite: null,
             enclosureSelectedParams: 'use-active-item-or-default',
-            skipMoveNowPlayingToHistory: true,
+            skipMoveNowPlayingToHistory: false,
             newAutoQueueConfig: {
               aqmedium: getAutoQueueChannelMedium(fullChannel),
               playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
@@ -191,7 +191,7 @@ export const MediaPlayerController: React.FC = () => {
               itemChapterShouldSeek: false,
               itemSoundbite: null,
               enclosureSelectedParams: 'use-active-item-or-default',
-              skipMoveNowPlayingToHistory: true,
+              skipMoveNowPlayingToHistory: false,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(fullChannel),
                 playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
@@ -225,7 +225,7 @@ export const MediaPlayerController: React.FC = () => {
               itemChapterShouldSeek: false,
               itemSoundbite: fullItemSoundbite,
               enclosureSelectedParams: 'use-active-item-or-default',
-              skipMoveNowPlayingToHistory: true,
+              skipMoveNowPlayingToHistory: false,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(fullChannel),
                 playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
@@ -258,7 +258,7 @@ export const MediaPlayerController: React.FC = () => {
 
   useEffect(() => {
     const autoQueueResources = autoQueueResourcesRef.current;
-    if (autoQueueActiveRow) {
+    if (autoQueueActiveRow || autoQueueActiveRow === 0) {
       const nextResource = autoQueueResources[autoQueueActiveRow];
       if (nextResource) {
         handleLoadAutoQueueItem(nextResource);

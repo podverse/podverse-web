@@ -9,7 +9,7 @@ import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentT
 import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButtonMobile.module.scss"
 
 export const TrackPreviousButtonMobile = () => {
-  const { mpChannel, mpItem } = useMediaPlayer();
+  const { mpChannel, mpItem, setMPShouldPlay } = useMediaPlayer();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
@@ -25,8 +25,9 @@ export const TrackPreviousButtonMobile = () => {
         return;
       }
 
-      if (autoQueueActiveRow !== null && autoQueueActiveRow > 1) {
+      if (autoQueueActiveRow > 0) {
         const previousAutoQueueActiveRow = autoQueueActiveRow - 1;
+        setMPShouldPlay(true);
         setAutoQueueActiveRow(previousAutoQueueActiveRow);
       } else {
         if (autoQueueConfig.random) {

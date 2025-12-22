@@ -92,7 +92,7 @@ export function useMediaPlayerResourceUpdate() {
 
     if (autoQueueShouldClear) {
       setAutoQueueResources({});
-      setAutoQueueActiveRow(null);
+      setAutoQueueActiveRow(0);
     }
 
     const oldAutoQueueConfig = autoQueueConfigRef.current;

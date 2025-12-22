@@ -12,7 +12,7 @@ export const ShuffleButton = () => {
   const autoQueueLoadResources = useAutoQueueLoadResources();
 
   const onClick = () => {
-    setAutoQueueActiveRow(null);
+    setAutoQueueActiveRow(0);
     setAutoQueueResources({});
     setAutoQueueConfig({
       ...autoQueueConfig,

@@ -36,8 +36,8 @@ export function useAutoQueueLoadResources() {
       [key: number]: DTOItemQueueItem;
     } = {};
 
-    if (!autoQueueResources[1]) {
-      newAutoQueueResources[1] = {
+    if (!autoQueueResources[0]) {
+      newAutoQueueResources[0] = {
         ...mpItem,
         channel: mpChannel
       };
@@ -114,7 +114,7 @@ export function useAutoQueueLoadResources() {
     }
 
     const existingKeys = Object.keys(newAutoQueueResources).map(Number);
-    const startKey = existingKeys.length > 0 ? Math.max(...existingKeys) + 1 : 1;
+    const startKey = existingKeys.length > 0 ? Math.max(...existingKeys) + 1 : 0;
 
     autoQueueResourcesResponse.forEach((item, idx) => {
       newAutoQueueResources[startKey + idx] = item;

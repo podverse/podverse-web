@@ -11,7 +11,7 @@ export const RepeatButton = () => {
   const autoQueueLoadResources = useAutoQueueLoadResources();
 
   const onClick = () => {
-    setAutoQueueActiveRow(null);
+    setAutoQueueActiveRow(0);
     setAutoQueueResources({});
     setAutoQueueConfig({
       ...autoQueueConfig,
