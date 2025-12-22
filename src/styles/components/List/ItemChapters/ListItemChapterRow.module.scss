@@ -9,11 +9,13 @@
 
 .image {
   object-fit: cover;
+  border-radius: var(--border-radius);
 }
 
 .imageMobile {
   display: none;
   object-fit: cover;
+  border-radius: var(--border-radius);
 }
 
 .content {
