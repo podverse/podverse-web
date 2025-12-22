@@ -6,7 +6,7 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import styles from "../../../styles/components/MediaPlayer/Buttons/TrackNextButtonMobile.module.scss"
 
 export const TrackNextButtonMobile = () => {
-  const { mpItem, setMPShouldPlay } = useMediaPlayer();
+  const { mpItem, setMPShouldPlay, mpIsPlaying } = useMediaPlayer();
   const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
   const queueResourcesLoadActive = useQueueResourcesLoadActive();
 
@@ -22,7 +22,7 @@ export const TrackNextButtonMobile = () => {
       mpItem: mpItemRef.current,
       mpItemSoundbite: null
     });
-    setMPShouldPlay(true);
+    setMPShouldPlay(mpIsPlaying);
     await queueResourcesLoadActive();
   }
 

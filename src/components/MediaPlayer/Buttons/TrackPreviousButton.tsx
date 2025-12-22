@@ -9,7 +9,7 @@ import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentT
 import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButton.module.scss"
 
 export const TrackPreviousButton = () => {
-  const { mpChannel, mpItem, setMPShouldPlay } = useMediaPlayer();
+  const { mpChannel, mpItem, setMPShouldPlay, mpIsPlaying } = useMediaPlayer();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
@@ -27,7 +27,7 @@ export const TrackPreviousButton = () => {
 
       if (autoQueueActiveRow > 0) {
         const previousAutoQueueActiveRow = autoQueueActiveRow - 1;
-        setMPShouldPlay(true);
+        setMPShouldPlay(mpIsPlaying);
         setAutoQueueActiveRow(previousAutoQueueActiveRow);
       } else {
         if (autoQueueConfig.random) {
@@ -41,7 +41,7 @@ export const TrackPreviousButton = () => {
           
           if (previousItem) {
             mediaPlayerResourceUpdate({
-              shouldPlay: true,
+              shouldPlay: mpIsPlaying,
               channel: previousItem.channel,
               clip: null,
               item: previousItem,
@@ -49,7 +49,7 @@ export const TrackPreviousButton = () => {
               itemChapterShouldSeek: false,
               itemSoundbite: null,
               enclosureSelectedParams: 'use-active-item-or-default',
-              isPlaying: true,
+              isPlaying: mpIsPlaying,
               skipMoveNowPlayingToHistory: false,
               newAutoQueueConfig: {
                 aqmedium: getAutoQueueChannelMedium(previousItem.channel, autoQueueConfig.playlist_id_text),

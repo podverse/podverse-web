@@ -6,9 +6,14 @@
   height: 36px;
   width: 36px;
   font-size: var(--font-size-md);
+  transition: transform 0.1s ease-out;
 
   &.active {
     color: var(--button-enabled-icon-color);
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 }
 
