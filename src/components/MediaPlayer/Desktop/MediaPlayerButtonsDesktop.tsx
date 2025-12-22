@@ -22,14 +22,8 @@ export const MediaPlayerButtonsDesktop = () => {
             <ClipButton />
           )
         }
-        {
-          medium_id === MediumEnum.Music && (
-            <>
-              <RepeatButton />
-              <ShuffleButton />
-            </>
-          )
-        }
+        <RepeatButton />
+        <ShuffleButton />
         <SettingsButton />
       </div>
       <div className={styles.endSection}>
