@@ -1,4 +1,4 @@
-// Version: 3
+// Version: 4
 import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 import path from 'path';
@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: [__dirname + '/src/styles/variables']
   },
+  // CHANGED: Added webpack config to handle server-side libraries in the browser
   webpack: (config, { isServer }) => {
     // 1. Fix alias for podverse-helpers
     config.resolve.alias = {
@@ -14,7 +15,7 @@ const nextConfig: NextConfig = {
       '@helpers': path.resolve(__dirname, 'node_modules/podverse-helpers/dist'),
     };
 
-    // 2. Fix "fs" and "bcrypt" errors on the client side
+    // 2. Fix "fs", "module", and "bcrypt" errors on the client side
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -22,6 +23,7 @@ const nextConfig: NextConfig = {
         net: false,
         tls: false,
         child_process: false,
+        module: false, // Fixes: Can't resolve 'module'
         // Mock these if they are accidentally imported client-side
         'aws-crt': false,
         '@mapbox/node-pre-gyp': false,
