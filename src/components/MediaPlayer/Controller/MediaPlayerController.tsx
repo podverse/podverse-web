@@ -1,6 +1,6 @@
 "use client";
 
-import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource, getShuffleHash } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource } from "podverse-helpers";
 import React, { useEffect, useRef } from "react";
 import { MediaPlayerControllerAudio } from "./Audio/MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
