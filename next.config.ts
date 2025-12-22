@@ -1,4 +1,4 @@
-// Version: 8
+// Version: 9
 import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 import path from 'path';
@@ -19,8 +19,8 @@ const nextConfig: NextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@helpers': path.resolve(__dirname, 'node_modules/podverse-helpers/dist'),
-      // Stub out module-alias to prevent build warnings/errors
-      'module-alias': false,
+      // CHANGED: Map module-alias to our local mock file
+      'module-alias': path.resolve(__dirname, 'mock-module-alias.js'),
     };
 
     // 2. Fix server-side node modules breaking client-side build
