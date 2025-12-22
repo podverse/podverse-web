@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOChannel, DTOItem, getQueueForMedium } from "podverse-helpers";
+import { DTOChannel, DTOItem, getQueueForMedium, getShuffleHash } from "podverse-helpers";
 import React from "react";
 import { useTranslations } from "next-intl";
 import { PlayButtonLarge } from "../../../../MediaPlayer/Buttons/PlayButtonLarge";
@@ -14,7 +14,7 @@ import { useQueues } from "../../../../../contexts/Queue";
 import { useModals } from "../../../../../contexts/Modals";
 import { downloadAndSaveFile } from "../../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../../../contexts/AutoQueue";
 import { useQueueResourcesAbridgedIndex } from "../../../../../contexts/QueueResourcesAbridgedIndex";
 import { useAccount } from "../../../../../contexts/Account";
 import { downloadTrackWithModal } from "../../../../../utils/downloadModal/downloadTrackWithModal";
@@ -37,6 +37,7 @@ export const TrackHeaderPlaySection: React.FC<TrackHeaderPlaySectionProps> = ({ 
   const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
   const { durationStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
   const positionStr = null;
+  const { autoQueueConfig } = useAutoQueue();
   
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -55,7 +56,12 @@ export const TrackHeaderPlaySection: React.FC<TrackHeaderPlaySectionProps> = ({ 
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
-          playlist_id_text: null
+          playlist_id_text: null,
+          disabled: false,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOItem, DTOItemChapter, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemChapter, findDTOChannelImageBySize, findDTOItemImageBySize, getShuffleHash } from "podverse-helpers";
 import React from "react";
 import { Image } from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
@@ -12,7 +12,7 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
 
 interface ListItemChapterRowProps {
@@ -40,6 +40,7 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
   const tInfo = useTranslations("info");
   const { mpItemChapter, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { autoQueueConfig } = useAutoQueue();
 
   const itemChapterTitle = item_chapter.title || tMisc("untitled");
   const channelTitle = channel?.title || tMisc("untitled");
@@ -65,7 +66,12 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
         enclosureSelectedParams: 'use-active-item-or-default',
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
-          playlist_id_text: null
+          playlist_id_text: null,
+          disabled: false,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

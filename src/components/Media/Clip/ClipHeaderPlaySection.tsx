@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, DTOClip, DTOItem, getQueueForMedium } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, getQueueForMedium, getShuffleHash } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -13,11 +13,11 @@ import { useQueues } from "../../../contexts/Queue";
 import { useModals } from "../../../contexts/Modals";
 import { downloadAndSaveFile } from "../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { downloadEpisodeWithModal } from "../../../utils/downloadModal/downloadEpisodeWithModal";
-import styles from "../../../styles/components/Media/Clip/ClipHeaderPlaySection.module.scss";
 import { useAccount } from "../../../contexts/Account";
+import styles from "../../../styles/components/Media/Clip/ClipHeaderPlaySection.module.scss";
 
 type ClipHeaderPlaySectionProps = {
   clip: DTOClip;
@@ -34,6 +34,7 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
   const { loggedInAccount } = useAccount();
   const { mpClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { autoQueueConfig } = useAutoQueue();
   
   const playButtonOnClick = () => {
     if (clip.id_text === mpClip?.id_text) {
@@ -52,7 +53,12 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
-          playlist_id_text: null
+          playlist_id_text: null,
+          disabled: false,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

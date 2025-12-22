@@ -22,10 +22,18 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
     isUpdating, setIsUpdating
    } = useClipEditContext();
 
-   const { setAutoQueueConfig } = useAutoQueue();
+   const { setAutoQueueConfig, autoQueueConfig } = useAutoQueue();
   
   const onCancel = () => {
-    setAutoQueueConfig({ disabled: false });
+    setAutoQueueConfig({
+      aqmedium: autoQueueConfig.aqmedium,
+      playlist_id_text: autoQueueConfig.playlist_id_text,
+      disabled: false,
+      random: autoQueueConfig.random,
+      repeat: autoQueueConfig.repeat,
+      nextPage: autoQueueConfig.nextPage,
+      shuffleHash: autoQueueConfig.shuffleHash
+    });
     router.push("/");
   }
   
@@ -48,7 +56,15 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
 
     setIsUpdating(false);
 
-    setAutoQueueConfig({ disabled: false });
+    setAutoQueueConfig({
+      aqmedium: autoQueueConfig.aqmedium,
+      playlist_id_text: autoQueueConfig.playlist_id_text,
+      disabled: false,
+      random: autoQueueConfig.random,
+      repeat: autoQueueConfig.repeat,
+      nextPage: autoQueueConfig.nextPage,
+      shuffleHash: autoQueueConfig.shuffleHash
+    });
 
     router.push(`/clip/${clip.id_text}`);
   }

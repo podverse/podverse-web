@@ -5,19 +5,16 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { MediumEnum } from "podverse-helpers/dist/lib/medium";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButtonMobile.module.scss"
 
-interface TrackPreviousButtonMobileProps {
-  playlist_id_text?: string;
-}
-
-export const TrackPreviousButtonMobile = ({ playlist_id_text }: TrackPreviousButtonMobileProps) => {
+export const TrackPreviousButtonMobile = () => {
   const { mpChannel, mpItem } = useMediaPlayer();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { autoQueueConfig } = useAutoQueue();
 
   const mpChannelRef = useRef(mpChannel);
   useEffect(() => {
@@ -63,8 +60,13 @@ export const TrackPreviousButtonMobile = ({ playlist_id_text }: TrackPreviousBut
           isPlaying: true,
           skipMoveNowPlayingToHistory: false,
           newAutoQueueConfig: {
-            aqmedium: getAutoQueueChannelMedium(previousItem.channel, playlist_id_text),
-            playlist_id_text: playlist_id_text || null
+            aqmedium: getAutoQueueChannelMedium(previousItem.channel, autoQueueConfig.playlist_id_text),
+            playlist_id_text: autoQueueConfig.playlist_id_text,
+            disabled: false,
+            random: autoQueueConfig.random,
+            repeat: autoQueueConfig.repeat,
+            nextPage: autoQueueConfig.nextPage || 1,
+            shuffleHash: autoQueueConfig.shuffleHash
           },
           autoQueueShouldClear: true
         });

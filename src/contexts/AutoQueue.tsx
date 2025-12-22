@@ -1,4 +1,4 @@
-import { DTOChannel, DTOItemQueueItem, MediumEnum } from "podverse-helpers";
+import { DTOChannel, DTOItemQueueItem, getShuffleHash, MediumEnum } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type AutoQueueResourcesMap = { [key: number]: DTOItemQueueItem };
@@ -6,11 +6,13 @@ type AutoQueueResourcesMap = { [key: number]: DTOItemQueueItem };
 type AutoQueueMedium = "aqpodcast" | "aqmusic" | "aqplaylist";
 
 export type AutoQueueConfig = {
-  aqmedium?: AutoQueueMedium;
-  random?: boolean;
-  repeat?: boolean;
-  disabled?: boolean;
-  playlist_id_text?: string | null;
+  aqmedium: AutoQueueMedium;
+  playlist_id_text: string | null;
+  disabled: boolean;
+  random: boolean;
+  repeat: boolean;
+  nextPage: number;
+  shuffleHash: string;
 };
 
 export const getAutoQueueChannelMedium = (channel?: DTOChannel | null, playlist_id_text?: string | null) => {
@@ -46,10 +48,20 @@ type AutoQueueContextType = {
   setAutoQueueActiveRow: (val: number | null) => void;
 };
 
+const defaultAutoQueueConfig: AutoQueueConfig = {
+  aqmedium: "aqpodcast",
+  playlist_id_text: null,
+  disabled: false,
+  random: false,
+  repeat: false,
+  nextPage: 1,
+  shuffleHash: getShuffleHash()
+};
+
 export const AutoQueueContext = createContext<AutoQueueContextType>({
   autoQueueResources: {},
   setAutoQueueResources: () => {},
-  autoQueueConfig: {},
+  autoQueueConfig: defaultAutoQueueConfig,
   setAutoQueueConfig: () => {},
   autoQueueActiveRow: null,
   setAutoQueueActiveRow: () => {}
@@ -63,7 +75,7 @@ export const AutoQueueProvider = ({
   children
 }: AutoQueueProviderProps) => {
   const [autoQueueResources, setAutoQueueResources] = useState<AutoQueueResourcesMap>({});
-  const [autoQueueConfig, setAutoQueueConfig] = useState<AutoQueueConfig>({});
+  const [autoQueueConfig, setAutoQueueConfig] = useState<AutoQueueConfig>(defaultAutoQueueConfig);
   const [autoQueueActiveRow, setAutoQueueActiveRow] = useState<number | null>(null);
 
   return (

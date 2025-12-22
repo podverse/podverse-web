@@ -5,19 +5,16 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { MediumEnum } from "podverse-helpers/dist/lib/medium";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButton.module.scss"
 
-interface TrackPreviousButtonProps {
-  playlist_id_text?: string;
-}
-
-export const TrackPreviousButton = ({ playlist_id_text }: TrackPreviousButtonProps) => {
+export const TrackPreviousButton = () => {
   const { mpChannel, mpItem } = useMediaPlayer();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { autoQueueConfig } = useAutoQueue();
 
   const mpChannelRef = useRef(mpChannel);
   useEffect(() => {
@@ -63,10 +60,15 @@ export const TrackPreviousButton = ({ playlist_id_text }: TrackPreviousButtonPro
           isPlaying: true,
           skipMoveNowPlayingToHistory: false,
           newAutoQueueConfig: {
-            aqmedium: getAutoQueueChannelMedium(previousItem.channel, playlist_id_text),
-            playlist_id_text: playlist_id_text || null
+            aqmedium: getAutoQueueChannelMedium(previousItem.channel, autoQueueConfig.playlist_id_text),
+            playlist_id_text: autoQueueConfig.playlist_id_text,
+            disabled: false,
+            random: autoQueueConfig.random,
+            repeat: autoQueueConfig.repeat,
+            nextPage: autoQueueConfig.nextPage || 1,
+            shuffleHash: autoQueueConfig.shuffleHash
           },
-          autoQueueShouldClear: true
+          autoQueueShouldClear: false
         });
       } else {
         window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.SEEK, { detail: { time: 0 } }))

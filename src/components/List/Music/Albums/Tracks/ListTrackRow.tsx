@@ -3,7 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
-  getQueueForMedium } from "podverse-helpers";
+  getQueueForMedium, 
+  getShuffleHash} from "podverse-helpers";
 import React from "react";
 import { FaGripLines } from "react-icons/fa6";
 import { Image } from "../../../../Image/Image";
@@ -17,7 +18,7 @@ import { apiRequestService } from "../../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../../../contexts/AutoQueue";
 import { useAccount } from "../../../../../contexts/Account";
 import { downloadTrackWithModal } from "../../../../../utils/downloadModal/downloadTrackWithModal";
 import { Button } from "../../../../Button/Button";
@@ -31,7 +32,7 @@ interface Props {
   removeFromQueue?: () => void;
   isEditModePlaylist?: boolean;
   removeFromPlaylist?: () => void;
-  playlist_id_text?: string;
+  playlist_id_text: string | null;
 }
 
 export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
@@ -51,6 +52,7 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { setModalPlaylistAddTo, setModalSourceSelector, setModalLoginRequired } = useModals();
+  const { autoQueueConfig } = useAutoQueue();
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -69,7 +71,12 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
-          playlist_id_text: playlist_id_text || null
+          playlist_id_text,
+          disabled: false,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

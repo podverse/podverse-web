@@ -30,6 +30,7 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
             showChannelInfo
             isEditModeQueue={isEditModeQueue}
             removeFromQueue={removeFromQueue}
+            playlist_id_text={null}
           />
         )
       } else if (channel.medium_id === MediumEnum.Music) {
@@ -40,6 +41,7 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
             showChannelInfo
             isEditModeQueue={isEditModeQueue}
             removeFromQueue={removeFromQueue}
+            playlist_id_text={null}
           />
         )
       }
@@ -59,6 +61,7 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
             showItemInfo
             isEditModeQueue={isEditModeQueue}
             removeFromQueue={removeFromQueue}
+            playlist_id_text={null}
           />
         )
       }
@@ -77,6 +80,7 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
           showItemInfo
           isEditModeQueue={isEditModeQueue}
           removeFromQueue={removeFromQueue}
+          playlist_id_text={null}
         />
       )
     }

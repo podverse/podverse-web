@@ -30,7 +30,7 @@ export function ListTrackNodes({ channel, items, viewSelected, showChannelInfo }
                 {item.live_item ? (
                   <ListLiveItemRow channel={rowChannel} item={item} live_item={item.live_item} showChannelInfo={showChannelInfo} showLiveItemStatus />
                 ) : (
-                  <ListTrackRow channel={rowChannel} item={item} showChannelInfo={showChannelInfo} />
+                  <ListTrackRow channel={rowChannel} item={item} showChannelInfo={showChannelInfo} playlist_id_text={null} />
                 )}
                 {idx < items.length - 1 && <Divider />}
               </React.Fragment>

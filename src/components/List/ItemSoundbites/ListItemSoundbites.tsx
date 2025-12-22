@@ -44,7 +44,9 @@ export const ListItemSoundbites: React.FC<Props> = ({ page, setPage,
                 channel={channel}
                 item={item}
                 item_soundbite={item_soundbite}
-                showItemInfo={showItemInfo} />
+                showItemInfo={showItemInfo}
+                playlist_id_text={null}
+              />
             ))}
           </Pagination>
         )

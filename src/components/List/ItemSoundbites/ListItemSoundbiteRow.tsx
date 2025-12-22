@@ -3,7 +3,8 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { DTOChannel, DTOItem, DTOItemSoundbite, findDTOChannelImageBySize,
-  findDTOItemImageBySize, getQueueForMedium } from "podverse-helpers";
+  findDTOItemImageBySize, getQueueForMedium, 
+  getShuffleHash} from "podverse-helpers";
 import React from "react";
 import { FaGripLines } from "react-icons/fa6";
 import { Image } from "../../Image/Image";
@@ -19,7 +20,7 @@ import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import styles from "../../../styles/components/List/ItemSoundbites/ListItemSoundbiteRow.module.scss";
 import { useAccount } from "../../../contexts/Account";
 
@@ -33,7 +34,7 @@ interface ListItemSoundbiteProps {
   removeFromQueue?: () => void;
   isEditModePlaylist?: boolean;
   removeFromPlaylist?: () => void;
-  playlist_id_text?: string;
+  playlist_id_text: string | null;
 }
 
 export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
@@ -69,6 +70,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   const { setModalPlaylistAddTo, setModalLoginRequired } = useModals();
   const { loggedInAccount } = useAccount();
   const { queues } = useQueues();
+  const { autoQueueConfig } = useAutoQueue();
 
   const itemSoundbiteTitle = item_soundbite.title || tMisc("untitled");
   const channelTitle = channel?.title || tMisc("untitled");
@@ -94,7 +96,12 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
-          playlist_id_text: playlist_id_text || null
+          playlist_id_text,
+          disabled: false,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

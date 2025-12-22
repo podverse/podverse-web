@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, DTOItem, DTOItemSoundbite, getQueueForMedium } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemSoundbite, getQueueForMedium, getShuffleHash } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -13,7 +13,7 @@ import { useQueues } from "../../../contexts/Queue";
 import { useModals } from "../../../contexts/Modals";
 import { downloadAndSaveFile } from "../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { downloadEpisodeWithModal } from "../../../utils/downloadModal/downloadEpisodeWithModal";
 import { useAccount } from "../../../contexts/Account";
@@ -34,6 +34,7 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
   const { mpItemSoundbite, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { loggedInAccount } = useAccount();
+  const { autoQueueConfig } = useAutoQueue();
 
   const startTime = item_soundbite.start_time;
   const endTime = `${Number(item_soundbite.start_time) + Number(item_soundbite.duration)}`;
@@ -55,7 +56,12 @@ export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySec
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
-          playlist_id_text: null
+          playlist_id_text: null,
+          disabled: false,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

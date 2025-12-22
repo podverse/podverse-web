@@ -1,12 +1,12 @@
 "use client";
 
-import { DTOChannel, DTOItem } from "podverse-helpers";
+import { DTOChannel, DTOItem, getShuffleHash } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
 import { ReadableTime } from "../../Time/ReadableTime";
 import { LiveItemStatus } from "../../LiveItem/LiveItemStatus";
 import styles from "../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
@@ -19,6 +19,7 @@ type LivestreamHeaderPlaySectionProps = {
 export const LivestreamHeaderPlaySection: React.FC<LivestreamHeaderPlaySectionProps> = ({ item, channel }) => {
   const { mpItem, mpClip, mpItemSoundbite, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { autoQueueConfig } = useAutoQueue();
   
   const playButtonOnClick = () => {
     if (
@@ -41,7 +42,12 @@ export const LivestreamHeaderPlaySection: React.FC<LivestreamHeaderPlaySectionPr
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
           aqmedium: getAutoQueueChannelMedium(channel),
-          playlist_id_text: null
+          playlist_id_text: null,
+          disabled: true,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: 1,
+          shuffleHash: getShuffleHash()
         },
         autoQueueShouldClear: true
       });

@@ -1,6 +1,6 @@
 "use client";
 
-import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource, getShuffleHash } from "podverse-helpers";
 import React, { useEffect, useRef } from "react";
 import { MediaPlayerControllerAudio } from "./Audio/MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -22,7 +22,7 @@ export const MediaPlayerController: React.FC = () => {
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
   const { activeQueueUpcomingResources } = useQueues();
-  const { autoQueueResources, autoQueueActiveRow } = useAutoQueue();
+  const { autoQueueResources, autoQueueActiveRow, autoQueueConfig } = useAutoQueue();
   const autoQueueLoadResources = useAutoQueueLoadResources();
 
   const autoQueueResourcesRef = useRef(autoQueueResources);
@@ -34,6 +34,11 @@ export const MediaPlayerController: React.FC = () => {
   useEffect(() => {
     autoQueueActiveRowRef.current = autoQueueActiveRow;
   }, [autoQueueActiveRow]);
+
+  const autoQueueConfigRef = useRef(autoQueueConfig);
+  useEffect(() => {
+    autoQueueConfigRef.current = autoQueueConfig;
+  }, [autoQueueConfig]);
 
   const handleKeyDown = (e: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
@@ -124,7 +129,13 @@ export const MediaPlayerController: React.FC = () => {
             enclosureSelectedParams: 'use-active-item-or-default',
             skipMoveNowPlayingToHistory: true,
             newAutoQueueConfig: {
-              aqmedium: getAutoQueueChannelMedium(fullChannel)
+              aqmedium: getAutoQueueChannelMedium(fullChannel),
+              playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
+              disabled: false,
+              random: autoQueueConfigRef.current.random,
+              repeat: autoQueueConfigRef.current.repeat,
+              nextPage: autoQueueConfigRef.current.nextPage || 1,
+              shuffleHash: autoQueueConfigRef.current.shuffleHash
             },
             autoQueueShouldClear: false
           });
@@ -149,7 +160,13 @@ export const MediaPlayerController: React.FC = () => {
             enclosureSelectedParams: 'use-active-item-or-default',
             skipMoveNowPlayingToHistory: true,
             newAutoQueueConfig: {
-              aqmedium: getAutoQueueChannelMedium(fullChannel)
+              aqmedium: getAutoQueueChannelMedium(fullChannel),
+              playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
+              disabled: false,
+              random: autoQueueConfigRef.current.random,
+              repeat: autoQueueConfigRef.current.repeat,
+              nextPage: autoQueueConfigRef.current.nextPage || 1,
+              shuffleHash: autoQueueConfigRef.current.shuffleHash
             },
             autoQueueShouldClear: true
           });
@@ -176,7 +193,13 @@ export const MediaPlayerController: React.FC = () => {
               enclosureSelectedParams: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: true,
               newAutoQueueConfig: {
-                aqmedium: getAutoQueueChannelMedium(fullChannel)
+                aqmedium: getAutoQueueChannelMedium(fullChannel),
+                playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
+                disabled: false,
+                random: autoQueueConfigRef.current.random,
+                repeat: autoQueueConfigRef.current.repeat,
+                nextPage: autoQueueConfigRef.current.nextPage || 1,
+                shuffleHash: autoQueueConfigRef.current.shuffleHash
               },
               autoQueueShouldClear: true
             });
@@ -204,7 +227,13 @@ export const MediaPlayerController: React.FC = () => {
               enclosureSelectedParams: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: true,
               newAutoQueueConfig: {
-                aqmedium: getAutoQueueChannelMedium(fullChannel)
+                aqmedium: getAutoQueueChannelMedium(fullChannel),
+                playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
+                disabled: false,
+                random: autoQueueConfigRef.current.random,
+                repeat: autoQueueConfigRef.current.repeat,
+                nextPage: autoQueueConfigRef.current.nextPage || 1,
+                shuffleHash: autoQueueConfigRef.current.shuffleHash
               },
               autoQueueShouldClear: true
             });

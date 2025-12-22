@@ -1,17 +1,28 @@
 import { FaShuffle } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
+import { getShuffleHash } from "podverse-helpers";
 import { useAutoQueue } from "../../../contexts/AutoQueue";
+import { useAutoQueueLoadResources } from "../../../hooks/useAutoQueueLoadResources";
 import styles from "../../../styles/components/MediaPlayer/Buttons/ShuffleButton.module.scss";
 
 export const ShuffleButton = () => {
   const tMediaPlayer = useTranslations("media_player");
-  const { autoQueueConfig, setAutoQueueConfig } = useAutoQueue();
+  const { autoQueueConfig, setAutoQueueConfig, setAutoQueueResources,
+    setAutoQueueActiveRow } = useAutoQueue();
+  const autoQueueLoadResources = useAutoQueueLoadResources();
 
   const onClick = () => {
+    setAutoQueueActiveRow(null);
+    setAutoQueueResources({});
     setAutoQueueConfig({
       ...autoQueueConfig,
-      random: !autoQueueConfig.random
+      random: !autoQueueConfig.random,
+      shuffleHash: getShuffleHash(),
+      nextPage: 1
     });
+    setTimeout(() => {
+      autoQueueLoadResources();
+    }, 0);
   };
 
   return (

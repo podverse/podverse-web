@@ -3,6 +3,7 @@
 import { DTOClip, formatNumericToHHMMSS } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
+import { useAutoQueue } from "../../../../contexts/AutoQueue";
 
 interface ClipEditContextType {
   sharableStatus: string
@@ -36,6 +37,7 @@ export const ClipEditContextProvider = (
   const [endTimeString, setEndTimeString] = useState<string | null>(ssrClip.end_time ? formatNumericToHHMMSS(ssrClip.end_time) : null);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { autoQueueConfig } = useAutoQueue();
 
   useEffect(() => {
     const item = ssrClip?.item;
@@ -57,7 +59,13 @@ export const ClipEditContextProvider = (
           sourceRowSelected: null
         },
         newAutoQueueConfig: {
-          disabled: true
+          aqmedium: autoQueueConfig.aqmedium,
+          playlist_id_text: autoQueueConfig.playlist_id_text,
+          disabled: true,
+          random: autoQueueConfig.random,
+          repeat: autoQueueConfig.repeat,
+          nextPage: autoQueueConfig.nextPage,
+          shuffleHash: autoQueueConfig.shuffleHash
         },
         autoQueueShouldClear: true
       });

@@ -58,7 +58,9 @@ export const ListClips: React.FC<Props> = ({ page, setPage,
                 channel={channel}
                 item={item}
                 clip={clip}
-                showItemInfo={showItemInfo} />
+                showItemInfo={showItemInfo}
+                playlist_id_text={null}
+              />
             ))}
           </Pagination>
         )
