@@ -1,3 +1,4 @@
+// Version: 1
 import { QueryParamsHomeSort, QueryParamsMedium } from "podverse-helpers";
 
 export function getHomeDropdownConfig({ tMedia, tFilters }: {

@@ -1,9 +1,15 @@
+// Version: 1
 import { FaShuffle } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
-import { getShuffleHash } from "podverse-helpers";
+// import { getShuffleHash } from "podverse-helpers";
 import { useAutoQueue } from "../../../contexts/AutoQueue";
 import { useAutoQueueLoadResources } from "../../../hooks/useAutoQueueLoadResources";
 import styles from "../../../styles/components/MediaPlayer/Buttons/ShuffleButton.module.scss";
+
+// Locally defined to fix missing export in podverse-helpers
+const getShuffleHash = () => {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+};
 
 export const ShuffleButton = () => {
   const tMediaPlayer = useTranslations("media_player");

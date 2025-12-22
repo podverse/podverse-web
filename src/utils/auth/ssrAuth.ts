@@ -1,6 +1,10 @@
+// Version: 2
 import { cookies } from 'next/headers';
-import { AuthCookieName, DTOAccount } from 'podverse-helpers';
+import { DTOAccount } from 'podverse-helpers';
 import { getSSRApiRequestService } from '../../factories/apiRequestService';
+
+// Locally defined to fix missing export
+const AuthCookieName = "podverse_jwt";
 
 export async function getSSRJwtFromCookies(): Promise<string | undefined> {
   const cookieStore = await cookies();
