@@ -4,9 +4,13 @@ Welcome to the all-new Podverse! The new apps will be designed to support as man
 
 On this page, you will able to find the most notable changes between releases.
 
+## [5.1.9] - 2025-12-20
+
+Music updates: added the Music Livestreams and Music Livestream pages.
+
 ## [5.1.8] - 2025-12-19
 
-Music updates! Added the Albums, Album, Tracks, and Track pages.
+Music updates: added the Albums, Album, Tracks, and Track pages.
 
 There are separate playlists, queues, and histories for podcasts and music.
 
