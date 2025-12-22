@@ -1,4 +1,4 @@
-// Version: 7
+// Version: 8
 import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 import path from 'path';
@@ -7,8 +7,6 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: [__dirname + '/src/styles/variables']
   },
-  // CHANGED: Removed transpilePackages as it was not the fix
-  
   // Ignore Type and Lint errors to ensure Docker build finishes
   typescript: {
     ignoreBuildErrors: true,
@@ -21,9 +19,11 @@ const nextConfig: NextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@helpers': path.resolve(__dirname, 'node_modules/podverse-helpers/dist'),
+      // Stub out module-alias to prevent build warnings/errors
+      'module-alias': false,
     };
 
-    // 2. Fix "fs", "module", and "bcrypt" errors on the client side
+    // 2. Fix server-side node modules breaking client-side build
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -31,12 +31,11 @@ const nextConfig: NextConfig = {
         net: false,
         tls: false,
         child_process: false,
-        module: false, // Fixes "Can't resolve 'module'"
+        module: false,
         'aws-crt': false,
         '@mapbox/node-pre-gyp': false,
       };
       
-      // Tell webpack to ignore bcrypt in the client bundle
       config.externals.push({
         bcrypt: 'commonjs bcrypt', 
       });

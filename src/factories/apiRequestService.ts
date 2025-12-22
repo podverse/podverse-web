@@ -1,9 +1,19 @@
-// Version: 2
-// CHANGED: Import directly from the file path to avoid CommonJS/ESM interop issues with the index export
-import { ApiRequestService } from "podverse-helpers/dist/lib/request";
+// Version: 3
 import { config } from "../config";
 
-export function getSSRApiRequestService(jwt?: string | null): ApiRequestService {
+/* eslint-disable @typescript-eslint/no-var-requires */
+// Fix: Use require to handle potential CJS/ESM interop issues manually
+const requestModule = require("podverse-helpers/dist/lib/request");
+
+// Safely extract the class, handling both default and named exports
+const ApiRequestService = requestModule.ApiRequestService || requestModule.default || requestModule;
+
+export function getSSRApiRequestService(jwt?: string | null) {
+  if (typeof ApiRequestService !== 'function') {
+    console.error("ApiRequestService failed to load. Export found:", ApiRequestService);
+    throw new Error("ApiRequestService is not a constructor");
+  }
+
   return new ApiRequestService({
     protocol: config.private.api.protocol || '',
     host: config.private.api.host || '',
