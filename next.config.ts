@@ -1,9 +1,39 @@
+// Version: 3
 import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'path';
 
 const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: [__dirname + '/src/styles/variables']
+  },
+  webpack: (config, { isServer }) => {
+    // 1. Fix alias for podverse-helpers
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@helpers': path.resolve(__dirname, 'node_modules/podverse-helpers/dist'),
+    };
+
+    // 2. Fix "fs" and "bcrypt" errors on the client side
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        child_process: false,
+        // Mock these if they are accidentally imported client-side
+        'aws-crt': false,
+        '@mapbox/node-pre-gyp': false,
+      };
+      
+      // Tell webpack to ignore bcrypt in the client bundle
+      config.externals.push({
+        bcrypt: 'commonjs bcrypt', 
+      });
+    }
+
+    return config;
   },
   images: {
     remotePatterns: [
