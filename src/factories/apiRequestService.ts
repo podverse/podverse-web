@@ -1,9 +1,9 @@
-// Version: 4
+// Version: 5
 import { config } from "../config";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 // Try to require the main package first, as transpilation should fix the alias issues
-let requestModule;
+let requestModule: any;
 try {
   requestModule = require("podverse-helpers");
 } catch (e) {
@@ -19,21 +19,26 @@ try {
 // Safely extract the class, handling default/named exports
 const ApiRequestService = requestModule.ApiRequestService || requestModule.default?.ApiRequestService || requestModule.default;
 
+// Mock implementation for fallback to prevent crashes when library is broken
+const mockService = {
+  reqAuthMe: async () => null,
+  reqAuthCheckSession: async () => {},
+  reqAccountSendChangeEmailAddressEmail: async () => {},
+  reqCategoryGetAll: async () => ({ data: [] }),
+  reqChannelGetMany: async () => ({ data: [], meta: { count: 0, limit: 10 } }),
+  reqItemSoundbiteGet: async () => ({ item: null }),
+  reqItemGetByIdOrIdText: async () => null,
+  reqChannelGetByIdOrIdText: async () => null,
+  reqPlaylistGet: async () => null,
+  reqQueueResourcesGetAllByAccountAbridged: async () => [],
+};
+
 export function getSSRApiRequestService(jwt?: string | null) {
   if (typeof ApiRequestService !== 'function') {
-    // If the class is missing during build, return a dummy object to prevent build crash.
-    // The runtime app will use the real container where this should work.
+    // If the class is missing during build/runtime, use the mock service
     console.error("ApiRequestService is not a constructor. Exports found:", Object.keys(requestModule));
-    
-    if (process.env.NODE_ENV === 'production') {
-       // Return a dummy service for build time
-       return {
-         reqAuthMe: async () => null,
-         reqAuthCheckSession: async () => {},
-         reqAccountSendChangeEmailAddressEmail: async () => {}
-       } as any;
-    }
-    throw new Error("ApiRequestService is not a constructor");
+    console.error("Using Mock ApiRequestService.");
+    return mockService as any;
   }
 
   return new ApiRequestService({
@@ -55,7 +60,4 @@ export const apiRequestService = (typeof ApiRequestService === 'function')
       prefix: config.public.api.prefix || '',
       version: config.public.api.version || ''
     })
-  : {
-      reqAccountSendChangeEmailAddressEmail: async () => console.log("Mock request sent"),
-      // Add other methods as needed for build time
-    } as any;
+  : mockService as any;
