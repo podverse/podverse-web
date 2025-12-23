@@ -7,10 +7,12 @@ import { autoQueueIncrementActiveRow, useAutoQueue } from "../contexts/AutoQueue
 
 export function useQueueResourcesLoadActive() {
   const { loggedInAccount } = useAccount();
-  const { autoQueueActiveRow, setAutoQueueActiveRow } = useAutoQueue();
+  const { autoQueueActiveRow, setAutoQueueActiveRow, autoQueueResources, autoQueueConfig } = useAutoQueue();
+  const { setQueues, setActiveQueue, setActiveQueueUpcomingResources } = useQueues();
 
   const loggedInAccountRef = useRef(loggedInAccount);
   const autoQueueActiveRowRef = useRef(autoQueueActiveRow);
+  const autoQueueResourcesRef = useRef(autoQueueResources);
 
   useEffect(() => {
     loggedInAccountRef.current = loggedInAccount;
@@ -20,7 +22,13 @@ export function useQueueResourcesLoadActive() {
     autoQueueActiveRowRef.current = autoQueueActiveRow;
   }, [autoQueueActiveRow]);
 
-  const { setQueues, setActiveQueue, setActiveQueueUpcomingResources } = useQueues();
+  useEffect(() => {
+    autoQueueResourcesRef.current = autoQueueResources;
+  }, [autoQueueResources]);
+
+  useEffect(() => {
+    autoQueueResourcesRef.current = autoQueueResources;
+  }, [autoQueueResources]);
 
   return useCallback(async () => {
     const loggedInAccount = loggedInAccountRef.current;
@@ -58,8 +66,12 @@ export function useQueueResourcesLoadActive() {
 
       if (combinedQueueResources.length === 0) {
         const autoQueueActiveRow = autoQueueActiveRowRef.current;
-        const newAutoQueueActiveRow = autoQueueIncrementActiveRow(autoQueueActiveRow);
-        setAutoQueueActiveRow(newAutoQueueActiveRow);
+        const nextAutoQueueActiveRow = autoQueueIncrementActiveRow(autoQueueActiveRow);
+        if (autoQueueResourcesRef.current[nextAutoQueueActiveRow]) {
+          setAutoQueueActiveRow(nextAutoQueueActiveRow);
+        } else if (autoQueueConfig.repeat) {
+          setAutoQueueActiveRow(0);
+        }
       }
     }
   }, []);

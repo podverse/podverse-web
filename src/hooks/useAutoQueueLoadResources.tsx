@@ -59,20 +59,19 @@ export function useAutoQueueLoadResources() {
       autoQueueResourcesResponse = response.data;
       if (autoQueueResourcesResponse.length === 0) {
         if (autoQueueConfig.repeat) {
-          const newShuffleHash = getShuffleHash();
           const response = await apiRequestService
             .reqItemGetManyByChannelShuffle(
               mpChannel.id_text,
               {
                 page: 1,
-                shuffleHash: newShuffleHash
+                shuffleHash: autoQueueConfig.shuffleHash,
               }
             );
           autoQueueResourcesResponse = response.data;
           setAutoQueueConfig({
             ...autoQueueConfig,
-            nextPage: 2,
-            shuffleHash: newShuffleHash,
+            nextPage: 1 + 1,
+            shuffleHash: autoQueueConfig.shuffleHash,
           });
         }
       } else {
@@ -119,6 +118,23 @@ export function useAutoQueueLoadResources() {
     autoQueueResourcesResponse.forEach((item, idx) => {
       newAutoQueueResources[startKey + idx] = item;
     });
+
+    // If random is enabled, remove duplicate id_text items, keeping the first occurrence
+    if (autoQueueConfig.random) {
+      const seenIdTexts = new Set<string>();
+      const dedupedResources: { [key: number]: DTOItemQueueItem } = {};
+      let newKey = 0;
+      for (const key of Object.keys(newAutoQueueResources).map(Number).sort((a, b) => a - b)) {
+        const item = newAutoQueueResources[key];
+        if (!seenIdTexts.has(item.id_text)) {
+          seenIdTexts.add(item.id_text);
+          dedupedResources[newKey] = item;
+          newKey++;
+        }
+        // If duplicate, skip (removes later occurrence)
+      }
+      newAutoQueueResources = dedupedResources;
+    }
 
     setAutoQueueResources(newAutoQueueResources);
   }, []);
