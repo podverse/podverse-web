@@ -16,7 +16,7 @@ import { toUITheme } from '../utils/localSettings/uiTheme';
 import { Modals } from '../components/Modals/Modals';
 import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
-import { apiRequestService, getSSRApiRequestService } from '../factories/apiRequestService';
+import { getSSRApiRequestService } from '../factories/apiRequestService';
 import { config } from '../config';
 import { MediaPlayerController } from '../components/MediaPlayer/Controller/MediaPlayerController';
 import { Toast } from '../components/Toast/Toast';
@@ -40,9 +40,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   let ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null = null;
 
+  const ssrApiRequestService = getSSRApiRequestService(jwt);
+
   if (jwt) {
     try {
-      const ssrApiRequestService = getSSRApiRequestService(jwt);
       const ssrQueueResourcesAbridgedIndexResponseData = await ssrApiRequestService
         .reqQueueResourcesGetAllByAccountAbridged();
       ssrQueueResourcesAbridgedIndex = generateQueueResourceAbridgedIndex(
@@ -53,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     }
   }
 
-  const categoriesResponse = await apiRequestService.reqCategoryGetAll();
+  const categoriesResponse = await ssrApiRequestService.reqCategoryGetAll();
   const categories = categoriesResponse.data;
 
   const messages = (await import(`../../i18n/originals/${locale}.json`)).default;

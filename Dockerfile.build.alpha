@@ -8,9 +8,7 @@ FROM base AS deps
 
 COPY package*.json ./
 
-# Install specific alpha version and sharp for standalone optimization
-# We use 'npm install' here instead of 'ci' because we are modifying dependencies (adding alpha & sharp)
-RUN npm install podverse-helpers@alpha sharp
+RUN npm install podverse-helpers@alpha
 
 # Stage 2: Build the app
 FROM deps AS builder
