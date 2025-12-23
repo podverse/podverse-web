@@ -16,7 +16,7 @@ COPY . .
 
 # Ensure the source env file actually exists! 
 # If you meant to use the example file, change this line.
-COPY ./env/alpha.env ./.env.production 
+COPY ./env/alpha-podverse.k.ser.ink.env ./.env.production 
 
 RUN npm run build
 
