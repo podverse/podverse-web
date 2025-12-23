@@ -68,7 +68,7 @@ jobs:
         run: |
           docker build . -t ghcr.io/${{ github.repository }}/podverse-web:${{ steps.version.outputs.NEXT_VERSION }}
 
-      - name: Build second Docker image from Dockerfile.build.local with Podverse env vars
+      - name: Build second Docker image from Dockerfile.build.alpha with Podverse env vars
         run: |
           docker build . -f ./Dockerfile.build.alpha -t ghcr.io/${{ github.repository }}/podverse-web-deploy:${{ steps.version.outputs.NEXT_VERSION }}
 
