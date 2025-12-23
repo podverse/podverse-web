@@ -3,7 +3,7 @@ name: Publish Alpha podverse-web Docker image
 on:
   push:
     branches:
-      - v5-alpha
+      - v5-develop.alpha-podverse.k.ser.ink01
 
 jobs:
   publish:
