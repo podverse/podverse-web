@@ -1,0 +1,38 @@
+.git
+
+**/dist
+
+.next
+
+i18n/compiled
+
+# API keys and secrets
+**/.env*
+!**/.env.example
+!**/local.env
+!**/alpha.env
+!**/beta.env
+!**/production.env
+
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist/**/*
+
+# Logging files
+*.log
+
+temp
+
+tsconfig.tsbuildinfo
+
