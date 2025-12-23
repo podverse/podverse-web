@@ -70,7 +70,7 @@ jobs:
 
       - name: Build second Docker image from Dockerfile.build.local with Podverse env vars
         run: |
-          docker build . -f ./Dockerfile.build.alpha -t ghcr.io/${{ github.repository }}/podverse-web-build:${{ steps.version.outputs.NEXT_VERSION }}
+          docker build . -f ./Dockerfile.build.alpha -t ghcr.io/${{ github.repository }}/podverse-web-deploy:${{ steps.version.outputs.NEXT_VERSION }}
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -85,4 +85,4 @@ jobs:
 
       - name: Push second Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}/podverse-web-build:${{ steps.version.outputs.NEXT_VERSION }}
+          docker push ghcr.io/${{ github.repository }}/podverse-web-deploy:${{ steps.version.outputs.NEXT_VERSION }}
