@@ -2,6 +2,7 @@ import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   sassOptions: {
     includePaths: [__dirname + '/src/styles/variables']
   },
