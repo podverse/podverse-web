@@ -5,6 +5,10 @@ on:
     branches:
       - v5-develop.alpha-podverse.k.ser.ink01
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -31,8 +35,8 @@ jobs:
           BASE_VERSION=$(echo "$BASE_VERSION" | sed 's/-.*//')
           IMAGE_NAME=ghcr.io/${{ github.repository }}/podverse-web
 
-          # Use a PAT with read:packages scope
-          TOKEN="${{ secrets.GHCR_REGISTRY_TOKEN }}"
+          # Use the Actions-provided GITHUB_TOKEN (no PAT needed for same-repo GHCR access)
+          TOKEN="${{ secrets.GITHUB_TOKEN }}"
           TAGS_JSON=$(curl -s -H "Authorization: Bearer $TOKEN" \
             "https://ghcr.io/v2/${{ github.repository }}/podverse-web/tags/list")
           echo "Raw tags JSON: $TAGS_JSON"

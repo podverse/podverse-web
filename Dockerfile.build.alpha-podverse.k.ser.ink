@@ -8,7 +8,8 @@ FROM base AS deps
 
 COPY package*.json ./
 
-RUN npm install podverse-helpers@alpha
+# Install all dependencies from package.json (includes podverse-helpers: ^5.1.0)
+RUN npm install
 
 # Stage 2: Build the app
 FROM deps AS builder
