@@ -1,0 +1,10 @@
+FROM node:22-slim
+
+WORKDIR /opt
+COPY . .
+
+COPY ./env/alpha.env ./.env.production
+
+RUN npm i podverse-helpers@alpha --save
+RUN npm clean-install
+RUN npm run build
