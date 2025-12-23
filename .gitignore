@@ -9,6 +9,10 @@ i18n/compiled
 # API keys and secrets
 **/.env*
 !**/.env.example
+!**/local.env
+!**/alpha.env
+!**/beta.env
+!**/production.env
 
 # Dependency directory
 node_modules
