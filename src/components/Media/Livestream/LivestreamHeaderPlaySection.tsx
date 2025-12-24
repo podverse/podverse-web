@@ -6,7 +6,7 @@ import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
+import { useAutoQueue } from "../../../contexts/AutoQueue";
 import { ReadableTime } from "../../Time/ReadableTime";
 import { LiveItemStatus } from "../../LiveItem/LiveItemStatus";
 import styles from "../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
@@ -41,7 +41,6 @@ export const LivestreamHeaderPlaySection: React.FC<LivestreamHeaderPlaySectionPr
         enclosureSelectedParams: 'use-active-item-or-default',
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
-          aqmedium: getAutoQueueChannelMedium(channel),
           playlist_id_text: null,
           disabled: true,
           random: autoQueueConfig.random,

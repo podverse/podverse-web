@@ -12,7 +12,7 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
+import { useAutoQueue } from "../../../contexts/AutoQueue";
 import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
 
 interface ListItemChapterRowProps {
@@ -65,7 +65,6 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
         skipMoveNowPlayingToHistory: false,
         enclosureSelectedParams: 'use-active-item-or-default',
         newAutoQueueConfig: {
-          aqmedium: getAutoQueueChannelMedium(channel),
           playlist_id_text: null,
           disabled: false,
           random: autoQueueConfig.random,

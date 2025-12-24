@@ -13,7 +13,7 @@ import { ReadableDate } from "../../Time/ReadableDate";
 import { ReadableTime } from "../../Time/ReadableTime";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
-import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
+import { useAutoQueue } from "../../../contexts/AutoQueue";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import styles from "../../../styles/components/List/LiveItem/ListLiveItemRow.module.scss";
@@ -52,7 +52,6 @@ export const ListLiveItemRow: React.FC<Props> = ({ channel, item, live_item, sho
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
-          aqmedium: getAutoQueueChannelMedium(channel, null),
           playlist_id_text: null,
           disabled: true,
           random: autoQueueConfig.random,

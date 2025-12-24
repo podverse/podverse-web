@@ -18,7 +18,7 @@ import { apiRequestService } from "../../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium, useAutoQueue } from "../../../../../contexts/AutoQueue";
+import { useAutoQueue } from "../../../../../contexts/AutoQueue";
 import { useAccount } from "../../../../../contexts/Account";
 import { downloadTrackWithModal } from "../../../../../utils/downloadModal/downloadTrackWithModal";
 import { Button } from "../../../../Button/Button";
@@ -70,7 +70,6 @@ export const ListTrackRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
-          aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
           playlist_id_text,
           disabled: false,
           random: autoQueueConfig.random,

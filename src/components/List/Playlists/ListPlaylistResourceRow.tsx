@@ -25,7 +25,6 @@ export const ListPlaylistResourceRow: React.FC<Props> = ({ playlist,
 
     if (channel) {
       const queue_medium_id = getQueueMediumIdForChannelMediumId(channel.medium_id)
-      console.log('ListPlaylistResourceRow queue_medium_id:', channel.medium_id, queue_medium_id);
       if (queue_medium_id === MediumEnum.AV) {
         return (
           <ListEpisodeRow
@@ -91,5 +90,4 @@ export const ListPlaylistResourceRow: React.FC<Props> = ({ playlist,
   }
 
   return null;
-
 };

@@ -23,7 +23,7 @@ import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/To
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
-import { getAutoQueueChannelMedium, useAutoQueue } from "../../../../contexts/AutoQueue";
+import { useAutoQueue } from "../../../../contexts/AutoQueue";
 import { downloadEpisodeWithModal } from "../../../../utils/downloadModal/downloadEpisodeWithModal";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 import { useAccount } from "../../../../contexts/Account";
@@ -74,7 +74,6 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
-          aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
           playlist_id_text,
           disabled: false,
           random: autoQueueConfig.random,

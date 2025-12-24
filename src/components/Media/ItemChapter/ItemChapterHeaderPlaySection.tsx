@@ -10,7 +10,7 @@ import { MoreButton } from "../../MoreButton/MoreButton";
 import { showToastPromiseWithLoading } from "../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium, useAutoQueue } from "../../../contexts/AutoQueue";
+import { useAutoQueue } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { useModals } from "../../../contexts/Modals";
 import { downloadEpisodeWithModal } from "../../../utils/downloadModal/downloadEpisodeWithModal";
@@ -46,7 +46,6 @@ export const ItemChapterHeaderPlaySection: React.FC<ItemChapterHeaderPlaySection
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
-          aqmedium: getAutoQueueChannelMedium(channel),
           playlist_id_text: null,
           disabled: false,
           random: autoQueueConfig.random,
