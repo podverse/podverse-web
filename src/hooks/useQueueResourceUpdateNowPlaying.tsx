@@ -16,7 +16,7 @@ export type UpdateNowPlayingParams = {
 
 export function useQueueResourcesUpdateNowPlaying() {
   const { loggedInAccount } = useAccount();
-  const { queues } = useQueues();
+  const { queues, setActiveQueue } = useQueues();
   const updateAbridgedIndex = useQueueResourcesAbridgedIndexUpdate();
 
   const queuesRef = useRef(queues);
@@ -45,6 +45,10 @@ export function useQueueResourcesUpdateNowPlaying() {
       activeQueue.id_text,
       true
     );
+    setActiveQueue({
+      ...activeQueue,
+      is_active_queue: true
+    });
 
     if (mpClip) {
       await apiRequestService.reqQueueResourceClipAddNowPlaying(

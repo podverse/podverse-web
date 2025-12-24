@@ -12,6 +12,8 @@ import { EVENTS } from "../../../constants/events";
 import { MoveNowPlayingToHistoryCallbackParams } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { UpdateNowPlayingParams } from "../../../hooks/useQueueResourceUpdateNowPlaying";
 import { checkIfIsAudioFile, checkIfIsVideoFile, checkIsLiveItem } from "../../../utils/mediaPlayer/mediaPlayerItemEnclosureType";
+import { playMediaWhenReady } from "../../../utils/mediaPlayer/mediaPlayerPlayMediaWhenReady";
+import { waitForSourceUri } from "../../../utils/mediaPlayer/mediaPlayerPlayMediaWhenReady";
 
 export interface MediaPlayerControllerAVProps {
   mediaType: "audio" | "video";
@@ -135,8 +137,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
         media.currentTime = 0;
         media.load();
         if (mpShouldPlay) {
-          media.play().catch(e => console.error("media.play() error:", e));
-          setMPShouldPlay(false);
+          playMediaWhenReady(media, () => setMPShouldPlay(false));
         }
       } else {
         media.pause();
@@ -355,9 +356,9 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     const handleEnded = async () => {
       await moveNowPlayingToHistory({
         completed: true,
-        mpClip: null,
+        mpClip: mpClipRef.current,
         mpItem: mpItemRef.current,
-        mpItemSoundbite: null
+        mpItemSoundbite: mpItemSoundbiteRef.current
       });
       setMPShouldPlay(true);
       await queueResourcesLoadActive();
@@ -382,7 +383,7 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
     const media = mediaRef?.current;
     if (!media) return;
     if (mpIsPlaying) {
-      media.play().catch(() => {});
+      playMediaWhenReady(media);
     } else {
       media.pause();
     }
@@ -408,42 +409,50 @@ export const MediaPlayerControllerAV: React.FC<MediaPlayerControllerAVProps> = (
 
   useEffect(() => {
     const mpShouldPlay = mpShouldPlayRef.current;
-    if (mpClip && mediaRef.current) {
-      const media = mediaRef.current;
-      media.currentTime = Number(mpClip.start_time);
-      if (mpShouldPlay) {
-        media.play();
-        setMPShouldPlay(false);
-      }
-      if (mpClip.end_time) {
-        globalPauseAtTime = Number(mpClip.end_time);
-      }
-    }
-    if (mpItemChapter && mediaRef.current) {
-      if (mpItemChapterShouldSeek) {
-        setMPItemChapterShouldSeek(false);
-        const media = mediaRef.current;
-        media.currentTime = Number(mpItemChapter.start_time);
+    const media = mediaRef.current;
+    const playWhenReady = async () => {
+      if (mpClip && media) {
+        media.currentTime = Number(mpClip.start_time);
         if (mpShouldPlay) {
-          media.play();
-          setMPShouldPlay(false);
+          const uri = await waitForSourceUri(media, 1000, 50);
+          if (uri) {
+            playMediaWhenReady(media, () => setMPShouldPlay(false));
+          }
+        }
+        if (mpClip.end_time) {
+          globalPauseAtTime = Number(mpClip.end_time);
         }
       }
-      if (mpItemChapter.end_time) {
-        globalPauseAtTime = null;
+      if (mpItemChapter && media) {
+        if (mpItemChapterShouldSeek) {
+          setMPItemChapterShouldSeek(false);
+          media.currentTime = Number(mpItemChapter.start_time);
+          if (mpShouldPlay) {
+            const uri = await waitForSourceUri(media, 1000, 50);
+            if (uri) {
+              playMediaWhenReady(media, () => setMPShouldPlay(false));
+            }
+          }
+        }
+        if (mpItemChapter.end_time) {
+          globalPauseAtTime = null;
+        }
       }
-    }
-    if (mpItemSoundbite && mediaRef.current) {
-      const media = mediaRef.current;
-      media.currentTime = Number(mpItemSoundbite.start_time);
-      if (mpShouldPlay) {
-        media.play();
-        setMPShouldPlay(false);
+      if (mpItemSoundbite && media) {
+        media.currentTime = Number(mpItemSoundbite.start_time);
+        if (mpShouldPlay) {
+          const uri = await waitForSourceUri(media, 1000, 50);
+          if (uri) {
+            playMediaWhenReady(media, () => setMPShouldPlay(false));
+          }
+        }
+        if (mpItemSoundbite.duration) {
+          globalPauseAtTime = Number(mpItemSoundbite.start_time) + Number(mpItemSoundbite.duration);
+        }
       }
-      if (mpItemSoundbite.duration) {
-        globalPauseAtTime = Number(mpItemSoundbite.start_time) + Number(mpItemSoundbite.duration);
-      }
-    }
+    };
+
+    playWhenReady();
   }, [mpClip, mpItemChapter, mpItemSoundbite]);
 
   const sourceUri = selectedItemEnclosureAndSource.source?.uri || null;

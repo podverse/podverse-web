@@ -1,26 +1,24 @@
-import { DTOChannel, DTOItemQueueItem, getShuffleHash, MediumEnum } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItemQueueItem, DTOItemSoundbite, getShuffleHash } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { LocalSettingsState } from "../utils/localSettings/localSettings";
 import { useLocalSettings } from "./LocalSettings";
 
-type AutoQueueResourcesMap = { [key: number]: DTOItemQueueItem };
+export type AutoQueueResourcesMapRow = {
+  item: DTOItemQueueItem;
+  clip: DTOClip | null;
+  item_soundbite: DTOItemSoundbite | null;
+  channel: DTOChannel | null;
+};
 
-type AutoQueueMedium = "aqpodcast" | "aqmusic" | "aqplaylist";
+export type AutoQueueResourcesMap = {[key: number]: AutoQueueResourcesMapRow};
 
 export type AutoQueueConfig = {
-  aqmedium: AutoQueueMedium;
   playlist_id_text: string | null;
   disabled: boolean;
   random: boolean;
   repeat: boolean;
   nextPage: number;
   shuffleHash: string;
-};
-
-export const getAutoQueueChannelMedium = (channel?: DTOChannel | null, playlist_id_text?: string | null) => {
-  if (playlist_id_text) return "aqplaylist";
-  if (channel?.medium_id === MediumEnum.Music) return "aqmusic";
-  return "aqpodcast";
 };
 
 export function checkIsActiveRowHighestKey(
@@ -51,7 +49,6 @@ type AutoQueueContextType = {
 };
 
 const defaultAutoQueueConfig: AutoQueueConfig = {
-  aqmedium: "aqpodcast",
   playlist_id_text: null,
   disabled: false,
   random: false,

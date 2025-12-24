@@ -1,6 +1,6 @@
 "use client";
 
-import { buildLabeledItemEnclosures, DTOItemQueueItem, DTOQueueResource } from "podverse-helpers";
+import { buildLabeledItemEnclosures, DTOQueueResource } from "podverse-helpers";
 import React, { useEffect, useRef } from "react";
 import { MediaPlayerControllerAudio } from "./Audio/MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -9,7 +9,7 @@ import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentT
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useQueues } from "../../../contexts/Queue";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium, checkIsActiveRowHighestKey, useAutoQueue } from "../../../contexts/AutoQueue";
+import { AutoQueueResourcesMapRow, checkIsActiveRowHighestKey, useAutoQueue } from "../../../contexts/AutoQueue";
 import { updateLayoutForMediaPlayer } from "../../../utils/mediaPlayer/mediaPlayerLayout";
 import { useAutoQueueLoadResources } from "../../../hooks/useAutoQueueLoadResources";
 import { MediaPlayerVideoWrapper } from "./Video/MediaPlayerVideoWrapper";
@@ -113,64 +113,58 @@ export const MediaPlayerController: React.FC = () => {
     fetchItemLabeledItemEnclosures();
   }, [mpItem])
 
-  async function handleLoadAutoQueueItem(itemQueueItem: DTOItemQueueItem) {
-    if (itemQueueItem && itemQueueItem?.id_text !== mpItem?.id_text) {
-      const fullItem = await apiRequestService.reqItemGetByIdOrIdText(itemQueueItem.id_text);
-      if (fullItem) {
-        const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
-        if (fullChannel) {
-          mediaPlayerResourceUpdate({
-            channel: fullChannel,
-            clip: null,
-            item: fullItem,
-            itemChapter: null,
-            itemChapterShouldSeek: false,
-            itemSoundbite: null,
-            enclosureSelectedParams: 'use-active-item-or-default',
-            skipMoveNowPlayingToHistory: false,
-            newAutoQueueConfig: {
-              aqmedium: getAutoQueueChannelMedium(fullChannel),
-              playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
-              disabled: false,
-              random: autoQueueConfigRef.current.random,
-              repeat: autoQueueConfigRef.current.repeat,
-              nextPage: autoQueueConfigRef.current.nextPage || 1,
-              shuffleHash: autoQueueConfigRef.current.shuffleHash
-            },
-            autoQueueShouldClear: false
-          });
-        }
+  async function handleLoadAutoQueueItem(nextResource: AutoQueueResourcesMapRow) {
+    const fullItem = await apiRequestService.reqItemGetByIdOrIdText(nextResource.item.id_text);
+    if (fullItem) {
+      const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
+      if (fullChannel) {
+        mediaPlayerResourceUpdate({
+          channel: fullChannel,
+          clip: nextResource.clip,
+          item: fullItem,
+          itemChapter: null,
+          itemChapterShouldSeek: false,
+          itemSoundbite: nextResource.item_soundbite,
+          enclosureSelectedParams: 'use-active-item-or-default',
+          skipMoveNowPlayingToHistory: false,
+          newAutoQueueConfig: {
+            playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
+            disabled: false,
+            random: autoQueueConfigRef.current.random,
+            repeat: autoQueueConfigRef.current.repeat,
+            nextPage: autoQueueConfigRef.current.nextPage || 1,
+            shuffleHash: autoQueueConfigRef.current.shuffleHash
+          },
+          autoQueueShouldClear: false
+        });
       }
     }
   }
 
   async function handleLoadQueueItem(nextResource: DTOQueueResource) {
-    if (nextResource?.item && nextResource?.item?.id_text !== mpItem?.id_text) {
-      const fullItem = await apiRequestService.reqItemGetByIdOrIdText(nextResource.item.id_text);
-      if (fullItem) {
-        const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
-        if (fullChannel) {
-          mediaPlayerResourceUpdate({
-            channel: fullChannel,
-            clip: null,
-            item: fullItem,
-            itemChapter: null,
-            itemChapterShouldSeek: false,
-            itemSoundbite: null,
-            enclosureSelectedParams: 'use-active-item-or-default',
-            skipMoveNowPlayingToHistory: false,
-            newAutoQueueConfig: {
-              aqmedium: getAutoQueueChannelMedium(fullChannel),
-              playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
-              disabled: false,
-              random: autoQueueConfigRef.current.random,
-              repeat: autoQueueConfigRef.current.repeat,
-              nextPage: autoQueueConfigRef.current.nextPage || 1,
-              shuffleHash: autoQueueConfigRef.current.shuffleHash
-            },
-            autoQueueShouldClear: true
-          });
-        }
+    const fullItem = await apiRequestService.reqItemGetByIdOrIdText(nextResource.item.id_text);
+    if (fullItem) {
+      const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
+      if (fullChannel) {
+        mediaPlayerResourceUpdate({
+          channel: fullChannel,
+          clip: nextResource.clip || null,
+          item: fullItem,
+          itemChapter: null,
+          itemChapterShouldSeek: false,
+          itemSoundbite: nextResource.item_soundbite || null,
+          enclosureSelectedParams: 'use-active-item-or-default',
+          skipMoveNowPlayingToHistory: false,
+          newAutoQueueConfig: {
+            playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
+            disabled: false,
+            random: autoQueueConfigRef.current.random,
+            repeat: autoQueueConfigRef.current.repeat,
+            nextPage: autoQueueConfigRef.current.nextPage || 1,
+            shuffleHash: autoQueueConfigRef.current.shuffleHash
+          },
+          autoQueueShouldClear: true
+        });
       }
     }
   }
@@ -193,7 +187,6 @@ export const MediaPlayerController: React.FC = () => {
               enclosureSelectedParams: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: false,
               newAutoQueueConfig: {
-                aqmedium: getAutoQueueChannelMedium(fullChannel),
                 playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
                 disabled: false,
                 random: autoQueueConfigRef.current.random,
@@ -227,7 +220,6 @@ export const MediaPlayerController: React.FC = () => {
               enclosureSelectedParams: 'use-active-item-or-default',
               skipMoveNowPlayingToHistory: false,
               newAutoQueueConfig: {
-                aqmedium: getAutoQueueChannelMedium(fullChannel),
                 playlist_id_text: autoQueueConfigRef.current.playlist_id_text,
                 disabled: false,
                 random: autoQueueConfigRef.current.random,
@@ -259,9 +251,9 @@ export const MediaPlayerController: React.FC = () => {
   useEffect(() => {
     const autoQueueResources = autoQueueResourcesRef.current;
     if (autoQueueActiveRow || autoQueueActiveRow === 0) {
-      const nextResource = autoQueueResources[autoQueueActiveRow];
-      if (nextResource) {
-        handleLoadAutoQueueItem(nextResource);
+      const newResource = autoQueueResources[autoQueueActiveRow];
+      if (newResource) {
+        handleLoadAutoQueueItem(newResource);
       }
     }
   }, [autoQueueActiveRow]);
