@@ -112,7 +112,13 @@ export const ModalPlaylistAddTo: React.FC = () => {
         }
       );
     } else if (item_soundbite) {
-      alert("Add item_soundbite to playlist");
+      showToastPromise(
+        apiRequestService.reqPlaylistResourceItemSoundbiteAddFirst(playlist.id_text, item_soundbite.id_text),
+        {
+          success: tFeatures("playlist.added_to_playlist"),
+          error: tFeatures("playlist.add_error")
+        }
+      );
     } else if (item) {
       showToastPromise(
         apiRequestService.reqPlaylistResourceItemAddFirst(playlist.id_text, item.id_text),
