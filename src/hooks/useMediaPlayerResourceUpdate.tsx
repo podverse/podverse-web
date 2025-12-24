@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite,
   EnclosureSelectedParams, MediumEnum } from "podverse-helpers";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
-import { useQueueResourcesMoveNowPlayingToHistory } from "./useQueueResourceMoveNowPlayingToHistory";
 import { useQueueResourcesUpdateNowPlaying } from "./useQueueResourceUpdateNowPlaying";
 import { useMediaPlayerCurrentTime } from "../contexts/MediaPlayerCurrentTime";
 import { useQueueResourcesAbridgedIndex } from "../contexts/QueueResourcesAbridgedIndex";
@@ -25,7 +24,6 @@ export function useMediaPlayerResourceUpdate() {
     setAutoQueueActiveRow } = useAutoQueue();
   const { mpEnclosureSelectedParams, mpItem } = useMediaPlayer();
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
-  const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
   const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
   const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
 
@@ -61,7 +59,6 @@ export function useMediaPlayerResourceUpdate() {
     mpDuration,
     mpCurrentTime,
     isPlaying,
-    skipMoveNowPlayingToHistory,
     newAutoQueueConfig,
     autoQueueShouldClear
   }: {
@@ -81,14 +78,6 @@ export function useMediaPlayerResourceUpdate() {
     autoQueueShouldClear: boolean
   }) => {
     const previousItemId = mpItemRef.current?.id;
-
-    if (!skipMoveNowPlayingToHistory) {
-      moveNowPlayingToHistory({
-        mpClip: clip,
-        mpItem: item,
-        mpItemSoundbite: itemSoundbite
-      });
-    }
 
     if (autoQueueShouldClear) {
       setAutoQueueResources({});
