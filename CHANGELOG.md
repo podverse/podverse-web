@@ -4,6 +4,16 @@ Welcome to the all-new Podverse! The new apps will be designed to support as man
 
 On this page, you will able to find the most notable changes between releases.
 
+## [5.1.11] - 2025-12-24
+
+Playlist auto-queue support. When you press the play button on a playlist item, then after the item finishes playing, the next item from the playlist will play.
+
+Also enabled repeat and shuffle mode for playlist playback.
+
+Fixed a variety of issues with the queue and auto-queue when pressing the previous track and next track buttons.
+
+Merry Christmas! 🎄
+
 ## [5.1.9] - 2025-12-22
 
 Music updates: added the Music Livestreams and Music Livestream pages.
