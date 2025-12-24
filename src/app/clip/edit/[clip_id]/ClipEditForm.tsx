@@ -26,7 +26,6 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
   
   const onCancel = () => {
     setAutoQueueConfig({
-      aqmedium: autoQueueConfig.aqmedium,
       playlist_id_text: autoQueueConfig.playlist_id_text,
       disabled: false,
       random: autoQueueConfig.random,
@@ -57,7 +56,6 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
     setIsUpdating(false);
 
     setAutoQueueConfig({
-      aqmedium: autoQueueConfig.aqmedium,
       playlist_id_text: autoQueueConfig.playlist_id_text,
       disabled: false,
       random: autoQueueConfig.random,

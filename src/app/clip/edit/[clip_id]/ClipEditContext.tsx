@@ -59,7 +59,6 @@ export const ClipEditContextProvider = (
           sourceRowSelected: null
         },
         newAutoQueueConfig: {
-          aqmedium: autoQueueConfig.aqmedium,
           playlist_id_text: autoQueueConfig.playlist_id_text,
           disabled: true,
           random: autoQueueConfig.random,
