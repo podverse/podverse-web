@@ -28,14 +28,14 @@ export type PodcastsPageProps = {
 };
 
 export default async function PodcastsPage({ searchParams }: PodcastsPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentCategory, currentPage } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "av";
-  const response: ApiListResponse<DTOChannel> = await apiRequestService.reqChannelGetMany({
+  const response: ApiListResponse<DTOChannel> = await ssrApiRequestService.reqChannelGetMany({
     page: currentPage,
     medium,
     type: currentType,

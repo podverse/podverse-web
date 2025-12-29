@@ -8,21 +8,21 @@ export type ChapterPageProps = {
 
 export default async function ChapterPage({ params }: ChapterPageProps) {
   const { item_chapter_id_text } = await params;
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
   
-  const ssrItemChapter = await apiRequestService.reqItemChapterGetByIdText(item_chapter_id_text);
+  const ssrItemChapter = await ssrApiRequestService.reqItemChapterGetByIdText(item_chapter_id_text);
 
   if (!ssrItemChapter.item_chapters_feed?.item) {
     return notFound();
   }
 
-  const ssrItem = await apiRequestService.reqItemGetByIdOrIdText(ssrItemChapter.item_chapters_feed.item.id_text);
+  const ssrItem = await ssrApiRequestService.reqItemGetByIdOrIdText(ssrItemChapter.item_chapters_feed.item.id_text);
 
   if (!ssrItem) {
     return notFound();
   }
 
-  const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
+  const ssrChannel = await ssrApiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
 
   if (!ssrChannel) {
     return notFound();

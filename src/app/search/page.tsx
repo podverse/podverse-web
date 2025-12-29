@@ -1,7 +1,7 @@
 import React from "react";
 import { SearchClient } from "./SearchClient";
 
-export default function Search() {
+export default function SearchPage() {
   return (
     <SearchClient />
   );

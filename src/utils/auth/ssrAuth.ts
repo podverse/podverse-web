@@ -23,17 +23,17 @@ export async function getSSRLoggedInAccount(): Promise<DTOAccount | null> {
   }
 }
 
-export async function getSSRAuthService(): Promise<{ isValidAuthSession: boolean; apiRequestService: typeof apiRequestService }> {
+export async function getSSRAuthService(): Promise<{ isValidAuthSession: boolean; ssrApiRequestService: typeof ssrApiRequestService }> {
   const jwt = await getSSRJwtFromCookies();
-  const apiRequestService = getSSRApiRequestService(jwt);
+  const ssrApiRequestService = getSSRApiRequestService(jwt);
   if (jwt) {
     try {
-      await apiRequestService.reqAuthCheckSession();
-      return { isValidAuthSession: true, apiRequestService };
+      await ssrApiRequestService.reqAuthCheckSession();
+      return { isValidAuthSession: true, ssrApiRequestService };
     } catch {
-      return { isValidAuthSession: false, apiRequestService };
+      return { isValidAuthSession: false, ssrApiRequestService };
     }
   } else {
-    return { isValidAuthSession: false, apiRequestService };
+    return { isValidAuthSession: false, ssrApiRequestService };
   }
 }

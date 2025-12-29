@@ -25,11 +25,11 @@ export default async function ClipEditPage({ params, searchParams }: ClipEditPag
   const { clip_id } = await params;
   const qp = searchParams ? await searchParams : {};
   const { ssrEnclosureRowSelected, ssrEnclosureTypeSelected } = parseSearchParams(qp);
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
 
   let ssrClip;
   try {
-    ssrClip = await apiRequestService.reqClipGet(clip_id);
+    ssrClip = await ssrApiRequestService.reqClipGet(clip_id);
     if (!ssrClip) {
       return notFound();
     }

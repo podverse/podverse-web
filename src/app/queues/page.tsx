@@ -13,8 +13,8 @@ export type QueuePageProps = {
   searchParams: Promise<SearchParams>;
 };
 
-export default async function QueuePage({ searchParams }: QueuePageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+export default async function QueuesPage({ searchParams }: QueuePageProps) {
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentMedium } = await parseSearchParams(queryParams);
@@ -22,7 +22,7 @@ export default async function QueuePage({ searchParams }: QueuePageProps) {
   let ssrQueues: DTOQueue[] = [];
 
   if (isValidAuthSession) {
-    const response = await apiRequestService.reqQueueGetAllForAccountPrivate();
+    const response = await ssrApiRequestService.reqQueueGetAllForAccountPrivate();
     ssrQueues = response;
   }
 

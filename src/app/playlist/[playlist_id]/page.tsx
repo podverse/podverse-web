@@ -8,11 +8,11 @@ export type PlaylistPageProps = {
 
 export default async function PlaylistPage({ params }: PlaylistPageProps) {
   const { playlist_id } = await params;
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
   
   let ssrPlaylist;
   try {
-    ssrPlaylist = await apiRequestService.reqPlaylistGet(playlist_id);
+    ssrPlaylist = await ssrApiRequestService.reqPlaylistGet(playlist_id);
     if (!ssrPlaylist) {
       return notFound();
     }

@@ -29,18 +29,18 @@ export default async function AlbumPage({ params, searchParams }: AlbumPageProps
   const { channel_id } = await params;
   const queryParams = await searchParams;
   
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
     
   const { currentPage, currentType, currentSort, currentRange } = await parseSearchParams(queryParams);
 
-  const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
+  const ssrChannel = await ssrApiRequestService.reqChannelGetByIdOrIdText(channel_id);
   
   let ssrItems: DTOItem[] = [];
   let ssrTotalPages = 1;
 
-  const ssrItemsWithLiveItem = await apiRequestService.reqLiveItemGetManyByChannel(ssrChannel.id_text);
+  const ssrItemsWithLiveItem = await ssrApiRequestService.reqLiveItemGetManyByChannel(ssrChannel.id_text);
   
-  const responseItems = await apiRequestService.reqItemGetManyByChannelBySeason({
+  const responseItems = await ssrApiRequestService.reqItemGetManyByChannelBySeason({
     idOrIdText: ssrChannel.id_text,
     page: currentPage,
     sort: currentSort,
@@ -52,7 +52,7 @@ export default async function AlbumPage({ params, searchParams }: AlbumPageProps
 
   let ssrPodroll = null;
   if ((ssrChannel?.channel_podroll?.channel_podroll_remote_items?.length ?? 0) > 0) {
-    ssrPodroll = await apiRequestService.reqPodrollGetForChannel(ssrChannel.id_text);
+    ssrPodroll = await ssrApiRequestService.reqPodrollGetForChannel(ssrChannel.id_text);
   }
 
   return (

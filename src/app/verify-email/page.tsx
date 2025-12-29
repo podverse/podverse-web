@@ -12,7 +12,7 @@ export type PodcastsPageProps = {
   searchParams: Promise<SearchParams>;
 };
 
-export default async function VerifyEmail({ searchParams }: PodcastsPageProps) {
+export default async function VerifyEmailPage({ searchParams }: PodcastsPageProps) {
   const queryParams = searchParams ? await searchParams : {};
   const { token } = await parseSearchParams(queryParams);
 

@@ -27,15 +27,15 @@ export type PodcastPageProps = {
   params: Promise<{ channel_id: string }>;
 };
 
-export default async function Podcast({ params, searchParams }: PodcastPageProps) {
+export default async function PodcastPage({ params, searchParams }: PodcastPageProps) {
   const { channel_id } = await params;
   const queryParams = await searchParams;
   
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
     
   const { currentPage, currentType, currentSort, currentRange } = await parseSearchParams(queryParams);
 
-  const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
+  const ssrChannel = await ssrApiRequestService.reqChannelGetByIdOrIdText(channel_id);
   
   let ssrItems: DTOItem[] = [];
   let ssrClips: DTOClip[] = [];
@@ -43,21 +43,21 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   let ssrHasItemSoundbites = false;
   let ssrTotalPages = 1;
 
-  const responseItemSoundbites = await apiRequestService.reqItemSoundbiteGetManyByChannelIdText(ssrChannel.id_text, {
+  const responseItemSoundbites = await ssrApiRequestService.reqItemSoundbiteGetManyByChannelIdText(ssrChannel.id_text, {
     page: currentPage,
     sort: currentSort !== "top" ? currentSort : "recent"
   });
   ssrItemSoundbites = responseItemSoundbites.data;
   ssrHasItemSoundbites = responseItemSoundbites.data.length > 0;
 
-  const ssrItemsWithLiveItem = await apiRequestService.reqLiveItemGetManyByChannel(ssrChannel.id_text);
+  const ssrItemsWithLiveItem = await ssrApiRequestService.reqLiveItemGetManyByChannel(ssrChannel.id_text);
   
   if (currentType === "clips") {
     ssrClips = [];
   } else if (currentType === "soundbites" && currentSort !== "top") {
     ssrTotalPages = getCurrentTotalPages({ currentType, responseItemSoundbites, currentPage });
   } else {
-    const responseItems = await apiRequestService.reqItemGetManyByChannel({
+    const responseItems = await ssrApiRequestService.reqItemGetManyByChannel({
       idOrIdText: ssrChannel.id_text,
       page: currentPage,
       sort: currentSort,
@@ -70,7 +70,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
 
   let ssrPodroll = null;
   if ((ssrChannel?.channel_podroll?.channel_podroll_remote_items?.length ?? 0) > 0) {
-    ssrPodroll = await apiRequestService.reqPodrollGetForChannel(ssrChannel.id_text);
+    ssrPodroll = await ssrApiRequestService.reqPodrollGetForChannel(ssrChannel.id_text);
   }
 
   return (

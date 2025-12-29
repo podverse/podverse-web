@@ -2,7 +2,7 @@ import React from "react";
 import { MainHeader } from "../../components/Main/MainHeader";
 import { MainWrapper } from "../../components/Main/MainWrapper";
 
-export default function MyProfile() {
+export default function MyProfilePage() {
   return (
     <>
       <MainHeader title="My Profile" />
