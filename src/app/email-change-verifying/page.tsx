@@ -12,7 +12,7 @@ export type EmailChangeVerifyingProps = {
   searchParams: Promise<SearchParams>;
 };
 
-export default async function EmailChangeVerifying({ searchParams }: EmailChangeVerifyingProps) {
+export default async function EmailChangeVerifyingPage({ searchParams }: EmailChangeVerifyingProps) {
   const queryParams = searchParams ? await searchParams : {};
   const { token } = await parseSearchParams(queryParams);
 

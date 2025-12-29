@@ -22,14 +22,14 @@ export type EpisodesPageProps = {
 };
 
 export default async function EpisodesPage({ searchParams }: EpisodesPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentCategory, currentPage } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "av";
-  let response: ApiListResponse<DTOItem> = await apiRequestService.reqItemGetMany({
+  let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqItemGetMany({
     page: currentPage,
     medium,
     type: currentType,

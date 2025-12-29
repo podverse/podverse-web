@@ -21,14 +21,14 @@ export type TracksPageProps = {
 };
 
 export default async function TracksPage({ searchParams }: TracksPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentPage } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "music";
-  let response: ApiListResponse<DTOItem> = await apiRequestService.reqItemGetMany({
+  let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqItemGetMany({
     page: currentPage,
     medium,
     type: currentType,

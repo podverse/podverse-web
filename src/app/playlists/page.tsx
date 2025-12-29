@@ -26,13 +26,13 @@ export type PlaylistsPageProps = {
 };
 
 export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentMedium,
     currentPage } = await parseSearchParams(queryParams, isValidAuthSession);
   
-  const response = await apiRequestService.reqPlaylistGetMany({
+  const response = await ssrApiRequestService.reqPlaylistGetMany({
     page: currentPage,
     type: currentType,
     sort: currentSort,

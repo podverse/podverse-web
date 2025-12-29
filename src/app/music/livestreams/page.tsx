@@ -24,14 +24,14 @@ export type MusicLivestreamsPageProps = {
 };
 
 export default async function MusicLivestreamsPage({ searchParams }: MusicLivestreamsPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentPage, currentLiveItemType } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "music";
-  let response: ApiListResponse<DTOItem> = await apiRequestService.reqLiveItemGetMany(
+  let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqLiveItemGetMany(
     {
       page: currentPage,
       medium,

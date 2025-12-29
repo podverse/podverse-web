@@ -19,12 +19,12 @@ export default async function MusicLivestreamPage({ params, searchParams }: Live
   const { item_id } = await params;
   const queryParams = await searchParams;
   
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
     
   const { currentType } = parseSearchParams(queryParams);
 
-  const ssrItem = await apiRequestService.reqItemGetByIdOrIdText(item_id);
-  const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
+  const ssrItem = await ssrApiRequestService.reqItemGetByIdOrIdText(item_id);
+  const ssrChannel = await ssrApiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
 
   return (
     <LivestreamClient

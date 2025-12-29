@@ -28,14 +28,14 @@ export type AlbumsPageProps = {
 };
 
 export default async function AlbumsPage({ searchParams }: AlbumsPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentPage } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "music";
-  const response: ApiListResponse<DTOChannel> = await apiRequestService.reqChannelGetMany({
+  const response: ApiListResponse<DTOChannel> = await ssrApiRequestService.reqChannelGetMany({
     page: currentPage,
     medium,
     type: currentType,

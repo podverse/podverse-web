@@ -26,12 +26,12 @@ export default async function EpisodePage({ params, searchParams }: EpisodePageP
   const { item_id } = await params;
   const queryParams = await searchParams;
   
-  const { apiRequestService } = await getSSRAuthService();
+  const { ssrApiRequestService } = await getSSRAuthService();
     
   const { currentPage, currentType, currentSort, currentRange } = parseSearchParams(queryParams);
 
-  const ssrItem = await apiRequestService.reqItemGetByIdOrIdText(item_id);
-  const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
+  const ssrItem = await ssrApiRequestService.reqItemGetByIdOrIdText(item_id);
+  const ssrChannel = await ssrApiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
 
   const ssrHasChapters = !!ssrItem.item_chapters_feed
   const ssrHasSoundbites = !!ssrItem.item_soundbites && ssrItem.item_soundbites.length > 0;

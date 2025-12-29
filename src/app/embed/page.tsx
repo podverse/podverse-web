@@ -2,7 +2,7 @@ import React from "react";
 import { MainHeader } from "../../components/Main/MainHeader";
 import { MainWrapper } from "../../components/Main/MainWrapper";
 
-export default function Embed() {
+export default function EmbedPage() {
   return (
     <>
       <MainHeader title="Embed" />

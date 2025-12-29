@@ -24,14 +24,14 @@ export type LivestreamsPageProps = {
 };
 
 export default async function PodcastsLivestreamsPage({ searchParams }: LivestreamsPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentCategory, currentPage, currentLiveItemType } =
     await parseSearchParams(queryParams, isValidAuthSession);
   
   const medium: QueryParamsMedium = "av";
-  let response: ApiListResponse<DTOItem> = await apiRequestService.reqLiveItemGetMany(
+  let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqLiveItemGetMany(
     {
       page: currentPage,
       medium,

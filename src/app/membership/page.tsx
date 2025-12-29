@@ -2,7 +2,7 @@ import React from "react";
 import { MainHeader } from "../../components/Main/MainHeader";
 import { MainWrapper } from "../../components/Main/MainWrapper";
 
-export default function Membership() {
+export default function MembershipPage() {
   return (
     <>
       <MainHeader title="Membership" />

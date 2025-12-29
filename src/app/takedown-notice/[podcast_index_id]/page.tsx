@@ -1,13 +1,14 @@
 import React from "react";
-import { apiRequestService } from "../../../factories/apiRequestService";
 import { TakedownNoticeClient } from "./TakedownNoticeClient";
+import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 
 type TakedownNoticePageProps = {
   params: Promise<{ podcast_index_id: string }>;
 };
 
-export default async function TakedownNotice({ params }: TakedownNoticePageProps) {
+export default async function TakedownNoticePage({ params }: TakedownNoticePageProps) {
   const { podcast_index_id } = await params;
-  const ssrFeed = await apiRequestService.reqFeedGetByPodcastIndexId(podcast_index_id);
+  const { ssrApiRequestService } = await getSSRAuthService();
+  const ssrFeed = await ssrApiRequestService.reqFeedGetByPodcastIndexId(podcast_index_id);
   return <TakedownNoticeClient ssrFeed={ssrFeed} />;
 }

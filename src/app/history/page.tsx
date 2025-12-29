@@ -15,7 +15,7 @@ export type HistoryPageProps = {
 };
 
 export default async function HistoryPage({ searchParams }: HistoryPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentMedium, currentPage } = parseSearchParams(queryParams);
@@ -23,7 +23,7 @@ export default async function HistoryPage({ searchParams }: HistoryPageProps) {
   let ssrQueues: DTOQueue[] = [];
 
   if (isValidAuthSession) {
-    const response = await apiRequestService.reqQueueGetAllForAccountPrivate();
+    const response = await ssrApiRequestService.reqQueueGetAllForAccountPrivate();
     ssrQueues = response;
   }
 

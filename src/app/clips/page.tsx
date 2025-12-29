@@ -22,7 +22,7 @@ export type ClipsPageProps = {
 };
 
 export default async function ClipsPage({ searchParams }: ClipsPageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentCategory, currentPage } =
@@ -31,7 +31,7 @@ export default async function ClipsPage({ searchParams }: ClipsPageProps) {
 
   const medium: QueryParamsMedium = "av";
 
-  let response: ApiListResponse<DTOClip> = await apiRequestService.reqClipGetManyPublic({
+  let response: ApiListResponse<DTOClip> = await ssrApiRequestService.reqClipGetManyPublic({
     page: currentPage,
     medium,
     type: currentType,

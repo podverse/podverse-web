@@ -19,7 +19,7 @@ export type HomePageProps = {
 };
 
 export default async function HomePage({ searchParams }: HomePageProps) {
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
 
   const queryParams = await searchParams;
   const { currentPage, currentMedium, currentSort } = await parseSearchParams(queryParams);
@@ -29,7 +29,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   let ssrTotalPages = 1;
   
   if (isValidAuthSession) {
-    const response = await apiRequestService.reqChannelGetMany({
+    const response = await ssrApiRequestService.reqChannelGetMany({
       page: currentPage,
       sort: currentSort,
       type: "subscribed",
