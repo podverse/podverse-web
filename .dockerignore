@@ -36,3 +36,7 @@ temp
 
 tsconfig.tsbuildinfo
 
+Dockerfile
+Dockerfile.*
+README.md
+CHANGELOG.md
