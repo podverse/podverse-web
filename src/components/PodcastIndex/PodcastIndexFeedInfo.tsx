@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { redirectToChannelPageByMediumClient } from "../../utils/redirect/redirectToChannelPageByMedium";
 import { useAccount } from "../../contexts/Account";
 import { useModals } from "../../contexts/Modals";
+import { config } from "../../config";
 
 type PodcastIndexFeedInfoProps = {
   podcastIndexFeed: PodcastByIdFeed;
@@ -57,7 +58,7 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
       } catch (e) {
         console.warn("Checking for channel...not found yet.");
       }
-    }, 2000);
+    }, config.public.polling.interval_ms);
   };
 
   const addFeedOnClick = async () => {

@@ -30,6 +30,9 @@ export const config = {
         custom_value: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_CUSTOM_VALUE || ""
       }
     },
+    polling: {
+      interval_ms: Number(process.env.NEXT_PUBLIC_POLLING_INTERVAL_MS) || 3000
+    },
     server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
   }
 };
