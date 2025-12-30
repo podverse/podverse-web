@@ -4,3 +4,5 @@ WORKDIR /opt
 COPY . .
 
 RUN npm install
+
+USER node
