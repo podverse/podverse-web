@@ -26,19 +26,18 @@ WORKDIR /opt/app
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Create a non-root user for security (Recommended)
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Use the non-root `node` user provided by the base image
 
 # Copy the env file for production use
 COPY --from=builder /opt/app/.env.production ./.env.production
 
 # Copy standalone build
-COPY --from=builder --chown=nextjs:nodejs /opt/app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /opt/app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /opt/app/public ./public
+# Ensure ownership belongs to the `node` user so the container can run non-root
+COPY --from=builder --chown=node:node /opt/app/.next/standalone ./
+COPY --from=builder --chown=node:node /opt/app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /opt/app/public ./public
 
-USER nextjs
+USER node
 
 EXPOSE 3000
 
