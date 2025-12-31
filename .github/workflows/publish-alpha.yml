@@ -20,6 +20,9 @@ jobs:
 
       - name: Install podverse-helpers latest alpha version
         run: npm i podverse-helpers@alpha --save
+
+      - name: Generate temp package-lock.json
+        run: npm install --package-lock-only
       
       - name: Clean install dependencies
         run: npm clean-install
