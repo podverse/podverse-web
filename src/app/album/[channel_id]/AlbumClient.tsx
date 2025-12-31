@@ -1,4 +1,4 @@
-import { DTOChannel, DTOItem, DTOPodroll, QueryParamsChannelMusic } from "podverse-helpers";
+import { DTOChannel, DTOItem, QueryParamsChannelMusic, RemoteItemsResponse } from "podverse-helpers";
 import React from "react";
 import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { AlbumContextProvider } from "./AlbumContext";
@@ -15,7 +15,7 @@ interface AlbumClientProps {
   ssrItemsWithLiveItem: DTOItem[];
   ssrItems: DTOItem[];
   ssrTotalPages: number;
-  ssrPodroll?: DTOPodroll | null;
+  ssrPodroll: RemoteItemsResponse | null;
 }
 
 export function AlbumClient(props: AlbumClientProps) {

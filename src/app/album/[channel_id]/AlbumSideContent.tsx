@@ -1,11 +1,11 @@
-import { DTOChannel, DTOPodroll } from "podverse-helpers";
+import { DTOChannel, RemoteItemsResponse } from "podverse-helpers";
 import { SideContent } from "../../../components/SideContent/SideContent";
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 
 type AlbumSideContentProps = {
   channel: DTOChannel;
-  podroll?: DTOPodroll | null;
+  podroll: RemoteItemsResponse | null;
 }
 
 export const AlbumSideContent = ({ channel, podroll }: AlbumSideContentProps) => {
@@ -18,7 +18,7 @@ export const AlbumSideContent = ({ channel, podroll }: AlbumSideContentProps) =>
         defaultOpen={true}
       />
       <ContentPodroll
-        podroll={podroll}
+        remoteItemsResponse={podroll}
         isAccordion={true}
         defaultOpen={true}
       />

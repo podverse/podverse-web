@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOChannel, DTOPodroll } from "podverse-helpers";
+import { DTOChannel, RemoteItemsResponse } from "podverse-helpers";
 import React from "react";
 import { usePodcastContext } from "./PodcastContext";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
@@ -13,7 +13,7 @@ import { PodcastSettings } from "../../../components/List/Podcasts/PodcastSettin
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 type PodcastListProps = {
-  podroll?: DTOPodroll | null;
+  podroll: RemoteItemsResponse | null;
   ssrChannel: DTOChannel;
 }
 
@@ -73,7 +73,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
       }
       {
         type === "podroll" && (
-          <ContentPodroll podroll={podroll} />
+          <ContentPodroll remoteItemsResponse={podroll} />
         )
       }
       {

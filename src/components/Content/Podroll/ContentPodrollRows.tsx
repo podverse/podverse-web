@@ -1,29 +1,51 @@
-import { DTOPodroll } from "podverse-helpers"
-import styles from "../../../styles/components/Content/Podroll/ContentPodroll.module.scss";
+import { RemoteItemsResponse } from "podverse-helpers"
 import { ContentPodrollChannelRow } from "./ContentPodrollChannelRow";
+import { ContentPodrollChannelUnaddedRow } from "./ContentPodrollChannelUnaddedRow";
 import { ContentPodrollItemRow } from "./ContentPodrollItemRow";
+import { ContentPodrollItemUnaddedRow } from "./ContentPodrollItemUnaddedRow";
+import styles from "../../../styles/components/Content/Podroll/ContentPodroll.module.scss";
 
 type ContentPodrollProps = {
-  podroll: DTOPodroll;
+  remoteItemsResponse: RemoteItemsResponse;
 }
 
-export const ContentPodrollRows = ({ podroll }: ContentPodrollProps) => {
-  const podrollChannelNodes = podroll.podrollChannels?.map((podrollChannel) => {
+export const ContentPodrollRows = ({ remoteItemsResponse }: ContentPodrollProps) => {
+  const channelAddedNodes = remoteItemsResponse?.channelsAdded?.map((channel) => {
     return (
-      <ContentPodrollChannelRow key={podrollChannel.id} channel={podrollChannel} />
+      <ContentPodrollChannelRow key={channel.id} channel={channel} />
     )
   })
 
-  const podrollItemNodes = podroll.podrollItems?.map((podrollItem) => {
+  const channelUnaddedNodes = remoteItemsResponse?.channelsUnadded?.map((channelUnadded) => {
     return (
-      <ContentPodrollItemRow key={podrollItem.id} item={podrollItem} />
+      <ContentPodrollChannelUnaddedRow key={channelUnadded.id} channelUnadded={channelUnadded} />
     )
   })
-  
+
+  const itemAddedNodes = remoteItemsResponse?.itemsAdded?.map((item) => {
+    return (
+      <ContentPodrollItemRow key={item.id} item={item} />
+    )
+  })
+
+  const itemUnaddedNodes = remoteItemsResponse?.itemsUnadded?.map((itemUnadded) => {
+    if (!itemUnadded) {
+      return null;
+    }
+
+    const key = (itemUnadded as any).guid || (itemUnadded as any).id || `item-unadded-${Math.random()}`;
+
+    return (
+      <ContentPodrollItemUnaddedRow key={key} itemUnadded={itemUnadded} />
+    )
+  })
+
   return (
     <div className={styles.rows}>
-      {podrollChannelNodes}
-      {podrollItemNodes}
+      {channelAddedNodes}
+      {channelUnaddedNodes}
+      {itemAddedNodes}
+      {itemUnaddedNodes}
     </div>
   );
 }

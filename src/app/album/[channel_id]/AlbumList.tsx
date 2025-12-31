@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOChannel, DTOPodroll } from "podverse-helpers";
+import { DTOChannel, RemoteItemsResponse } from "podverse-helpers";
 import React from "react";
 import { useAlbumContext } from "./AlbumContext";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
@@ -11,7 +11,7 @@ import { AlbumSettings } from "../../../components/List/Music/Albums/AlbumSettin
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 type AlbumListProps = {
-  podroll?: DTOPodroll | null;
+  podroll: RemoteItemsResponse | null;
   ssrChannel: DTOChannel;
 }
 
@@ -43,7 +43,7 @@ export const AlbumList: React.FC<AlbumListProps> = ({ podroll, ssrChannel }) => 
       }
       {
         type === "podroll" && (
-          <ContentPodroll podroll={podroll} />
+          <ContentPodroll remoteItemsResponse={podroll} />
         )
       }
       {

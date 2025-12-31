@@ -1,4 +1,4 @@
-import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, DTOPodroll, QueryParamsChannel } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, QueryParamsChannel, RemoteItemsResponse } from "podverse-helpers";
 import React from "react";
 import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { PodcastContextProvider } from "./PodcastContext";
@@ -18,7 +18,7 @@ interface PodcastClientProps {
   ssrHasItemSoundbites: boolean;
   ssrClips: DTOClip[];
   ssrTotalPages: number;
-  ssrPodroll?: DTOPodroll | null;
+  ssrPodroll: RemoteItemsResponse | null;
 }
 
 export function PodcastClient(props: PodcastClientProps) {
