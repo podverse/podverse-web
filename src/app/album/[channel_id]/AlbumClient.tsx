@@ -1,4 +1,4 @@
-import { DTOChannel, DTOItem, QueryParamsChannelMusic, RemoteItemsResponse } from "podverse-helpers";
+import { DTOChannel, DTOItem, QueryParamsChannelMusicAlbum, RemoteItemsResponse } from "podverse-helpers";
 import React from "react";
 import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { AlbumContextProvider } from "./AlbumContext";
@@ -10,7 +10,7 @@ import { AlbumSideContent } from "./AlbumSideContent";
 import { AlbumHeader } from "../../../components/Media/Music/Album/AlbumHeader";
 
 interface AlbumClientProps {
-  initialQueryParams: QueryParamsChannelMusic;
+  initialQueryParams: QueryParamsChannelMusicAlbum;
   ssrChannel: DTOChannel;
   ssrItemsWithLiveItem: DTOItem[];
   ssrItems: DTOItem[];

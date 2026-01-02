@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { DTOItem, getTotalPages, QueryParamsChannelMusic } from "podverse-helpers";
+import { DTOItem, getTotalPages, QueryParamsChannelMusicAlbum } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
@@ -9,8 +9,8 @@ import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { getAlbumFilterParams } from "./AlbumDropdownConfig";
 
 interface AlbumContextType {
-  filterParams: QueryParamsChannelMusic;
-  setFilterParams: (params: QueryParamsChannelMusic) => void;
+  filterParams: QueryParamsChannelMusicAlbum;
+  setFilterParams: (params: QueryParamsChannelMusicAlbum) => void;
   items: DTOItem[];
   setItems: (items: DTOItem[]) => void;
   totalPages: number;
@@ -23,7 +23,7 @@ const AlbumContext = createContext<AlbumContextType | undefined>(undefined);
 
 interface AlbumContextProviderProps {
   children: ReactNode,
-  initialQueryParams: QueryParamsChannelMusic,
+  initialQueryParams: QueryParamsChannelMusicAlbum,
   ssrItemsWithLiveItem: DTOItem[],
   ssrItems: DTOItem[],
   ssrTotalPages: number
@@ -37,7 +37,7 @@ export const AlbumContextProvider = ({
   ssrTotalPages
 }: AlbumContextProviderProps) => {
   const params = useParams();
-  const [filterParams, setFilterParams] = useState<QueryParamsChannelMusic>(initialQueryParams);
+  const [filterParams, setFilterParams] = useState<QueryParamsChannelMusicAlbum>(initialQueryParams);
   const [items, setItems] = useState<DTOItem[]>(ssrItems || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import { 
   QUERY_PARAMS_STATS_RANGE_VALUES,
-  QUERY_PARAMS_CHANNEL_MUSIC_TYPE_VALUES,
-  QUERY_PARAMS_CHANNEL_MUSIC_SORT_VALUES,
+  QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_TYPE_VALUES,
+  QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_SORT_VALUES,
   DTOItem,
   ApiListResponse,
   getTotalPages,
@@ -13,8 +13,8 @@ import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
-  type: z.enum(QUERY_PARAMS_CHANNEL_MUSIC_TYPE_VALUES).optional().default("tracks"),
-  sort: z.enum(QUERY_PARAMS_CHANNEL_MUSIC_SORT_VALUES).optional().default("forward"),
+  type: z.enum(QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_TYPE_VALUES).optional().default("tracks"),
+  sort: z.enum(QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_SORT_VALUES).optional().default("forward"),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
 });
 
