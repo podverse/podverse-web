@@ -14,6 +14,7 @@
       "music": "Music",
       "artist": "Artist",
       "artists": "Artists",
+      "artist_image": "Artist Image",
       "album": "Album",
       "albums": "Albums",
       "album_image": "Album Image",
@@ -128,7 +129,9 @@
       "enable_notifications_for_this_podcast": "Enable notifications for this podcast",
       "disable_notifications_for_this_podcast": "Disable notifications for this podcast",
       "enable_notifications_for_this_album": "Enable notifications for this album",
-      "disable_notifications_for_this_album": "Disable notifications for this album"
+      "disable_notifications_for_this_album": "Disable notifications for this album",
+      "enable_notifications_for_this_artist": "Enable notifications for this artist",
+      "disable_notifications_for_this_artist": "Disable notifications for this artist"
     }
   },
   "info": {
