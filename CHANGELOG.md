@@ -4,6 +4,12 @@ Welcome to the all-new Podverse! The new apps will be designed to support as man
 
 On this page, you will able to find the most notable changes between releases.
 
+## [5.1.14] - 2026-01-01
+
+Add the Artists and Artist pages.
+
+Happy New Year 🥳
+
 ## [5.1.11] - 2025-12-24
 
 Playlist auto-queue support. When you press the play button on a playlist item, then after the item finishes playing, the next item from the playlist will play.
