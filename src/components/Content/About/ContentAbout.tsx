@@ -13,6 +13,10 @@ type ContentAbout = {
 }
 
 export const ContentAbout = ({ description, channel_persons, item_persons, defaultOpen, isAccordion }: ContentAbout) => {
+  if (!description) {
+    return null;
+  }
+  
   if (isAccordion) {
     return (
       <ContentAboutAccordion

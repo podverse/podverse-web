@@ -3,19 +3,18 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
-import { DTOChannel, findDTOChannelImageBySize } from "podverse-helpers";
+import { PodcastBatchByFeedGuidResponse } from "podverse-helpers";
 import { Image } from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
 import { IMAGES } from "../../../../constants/images";
 import styles from "../../../../styles/components/List/ListGridNode.module.scss";
 
 interface Props {
-	channel: DTOChannel;
+	channelUnadded: PodcastBatchByFeedGuidResponse['feeds'][number];
 }
 
-export const ListAlbumGridNode: React.FC<Props> = ({ channel }) => {
-	const url = `${ROUTES.ALBUM}/${channel.id_text}`;
-	const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.PODCASTS.SIZE_FIND_TARGET, 'lesser');
+export const ListAlbumGridNodeUnadded: React.FC<Props> = ({ channelUnadded }) => {
+	const url = `${ROUTES.PODCAST_INDEX}/feed/${channelUnadded.id}`;
 	const tMedia = useTranslations("media");
 	const tMisc = useTranslations("misc");
 
@@ -23,16 +22,16 @@ export const ListAlbumGridNode: React.FC<Props> = ({ channel }) => {
 		<Link href={url} className={styles.link}>
 			<div className={styles.gridNode}>
 				<Image
-					src={channel_image?.url}
-					alt={channel.title || tMedia("music.album_image")}
+					src={channelUnadded.image}
+					alt={channelUnadded.title || tMedia("music.album_image")}
 					width={IMAGES.LIST.GRID.SIZE}
 					height={IMAGES.LIST.GRID.SIZE}
 					className={styles.image}
 				/>
-        <div className={styles.title}>{channel.title}</div>
-				{channel.channel_about?.author && (
+        <div className={styles.title}>{channelUnadded.title}</div>
+				{channelUnadded.author && (
 					<span className={styles.lastPubDate}>
-						{channel.channel_about.author || tMisc("untitled")}
+						{channelUnadded.author || tMisc("untitled")}
 					</span>
 				)}
 			</div>

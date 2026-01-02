@@ -1,5 +1,4 @@
 import {
-  CATEGORY_MAPPING_KEYS,
   QUERY_PARAMS_STATS_RANGE_VALUES,
   getTotalPages, 
   QueryParamsMedium,
@@ -17,8 +16,7 @@ const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
   type: z.enum(QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE).optional().nullable().default(null),
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional().nullable().default(null),
-  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
-  category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional().nullable().default(null),
+  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null)
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>

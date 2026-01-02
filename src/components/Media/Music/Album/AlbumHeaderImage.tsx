@@ -27,21 +27,21 @@ export const AlbumHeaderImage = ({ channel, item }: AlbumHeaderImageProps) => {
     <div className={styles.headerImageWrapper}>
       <Image
         src={imageMobile?.url}
-        alt={channel.title || tMedia("album.album_image")}
+        alt={channel.title || tMedia("music.album_image")}
         width={IMAGES.HEADER.MOBILE.SQUARE.SIZE}
         height={IMAGES.HEADER.MOBILE.SQUARE.SIZE}
         className={styles.mobile}
       />
       <Image
         src={imageTablet?.url}
-        alt={channel.title || tMedia("album.album_image")}
+        alt={channel.title || tMedia("music.album_image")}
         width={IMAGES.HEADER.TABLET.SQUARE.SIZE}
         height={IMAGES.HEADER.TABLET.SQUARE.SIZE}
         className={styles.tablet}
       />
       <Image
         src={imageDesktop?.url}
-        alt={channel.title || tMedia("album.album_image")}
+        alt={channel.title || tMedia("music.album_image")}
         width={IMAGES.HEADER.DESKTOP.SQUARE.SIZE}
         height={IMAGES.HEADER.DESKTOP.SQUARE.SIZE}
         className={styles.desktop}

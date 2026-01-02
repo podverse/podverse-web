@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import styles from "../../styles/components/Pagination/Pagination.module.scss";
-import NavArrowButton from "../NavArrowButton/NavArrowButton";
 import classNames from "classnames";
+import NavArrowButton from "../NavArrowButton/NavArrowButton";
+import styles from "../../styles/components/Pagination/Pagination.module.scss";
 
 interface PaginationProps {
   currentPage: number;

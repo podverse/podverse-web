@@ -1,8 +1,8 @@
-import { QueryParamsStatsRange, QueryParamsChannelMusicSort, QueryParamsChannelMusicType } from "podverse-helpers";
+import { QueryParamsStatsRange, QueryParamsChannelMusicAlbumSort, QueryParamsChannelMusicAlbumType } from "podverse-helpers";
 import { getRangeDropdownItems } from "../../../utils/dropdownMenuItems";
 
 export function getAlbumDropdownConfig({ sort, tFilters }: {
-  sort: QueryParamsChannelMusicSort,
+  sort: QueryParamsChannelMusicAlbumSort,
   tFilters: (key: string) => string,
   tMedia: (key: string) => string
 }) {
@@ -24,15 +24,15 @@ export function getAlbumDropdownConfig({ sort, tFilters }: {
 }
 
 type AlbumDropdownConfigParams = {
-  type: QueryParamsChannelMusicType;
-  sort: QueryParamsChannelMusicSort;
+  type: QueryParamsChannelMusicAlbumType;
+  sort: QueryParamsChannelMusicAlbumSort;
   range: QueryParamsStatsRange | null;
   page: number;
 }
 
 export type AlbumDropdownConfigCurrentParams = {
-  currentType: QueryParamsChannelMusicType;
-  currentSort: QueryParamsChannelMusicSort;
+  currentType: QueryParamsChannelMusicAlbumType;
+  currentSort: QueryParamsChannelMusicAlbumSort;
   currentRange: QueryParamsStatsRange | null;
   currentPage: number;
 }

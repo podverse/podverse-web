@@ -2,6 +2,7 @@ export const ROUTES = {
   ABOUT: '/about',
   ALBUM: '/album',
   ALBUMS: '/albums',
+  ARTIST: '/artist',
   ARTISTS: '/artists',
   CHANNELS: '/channels',
   CHAPTER: '/chapter',

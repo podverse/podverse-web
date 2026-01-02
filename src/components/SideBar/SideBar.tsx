@@ -46,7 +46,7 @@ export const SideBar: React.FC = () => {
           headerClass={styles.accordianHeader}
           content={
             <>
-              <SideBarLink disabled href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
+              <SideBarLink href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
               <SideBarLink href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
               <SideBarLink href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
               <SideBarLink href={ROUTES.MUSIC_LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>

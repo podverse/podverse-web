@@ -13,8 +13,8 @@ interface Props {
 	channel: DTOChannel;
 }
 
-export const ListAlbumGridNode: React.FC<Props> = ({ channel }) => {
-	const url = `${ROUTES.ALBUM}/${channel.id_text}`;
+export const ListArtistGridNode: React.FC<Props> = ({ channel }) => {
+	const url = `${ROUTES.ARTIST}/${channel.id_text}`;
 	const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.PODCASTS.SIZE_FIND_TARGET, 'lesser');
 	const tMedia = useTranslations("media");
 	const tMisc = useTranslations("misc");
@@ -24,15 +24,15 @@ export const ListAlbumGridNode: React.FC<Props> = ({ channel }) => {
 			<div className={styles.gridNode}>
 				<Image
 					src={channel_image?.url}
-					alt={channel.title || tMedia("music.album_image")}
+					alt={channel.title || tMedia("music.artist_image")}
 					width={IMAGES.LIST.GRID.SIZE}
 					height={IMAGES.LIST.GRID.SIZE}
 					className={styles.image}
 				/>
         <div className={styles.title}>{channel.title}</div>
-				{channel.channel_about?.author && (
+				{channel.channel_about?.last_pub_date && (
 					<span className={styles.lastPubDate}>
-						{channel.channel_about.author || tMisc("untitled")}
+						{channel.channel_about?.author || tMisc("untitled")}
 					</span>
 				)}
 			</div>

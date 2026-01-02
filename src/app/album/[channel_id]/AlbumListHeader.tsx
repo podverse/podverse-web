@@ -4,10 +4,10 @@ import { useTranslations } from "next-intl";
 import {
   QueryParamsStatsRange,
   QUERY_PARAMS_STATS_RANGE_VALUES,
-  QueryParamsChannelMusicType,
-  QueryParamsChannelMusicSort,
-  QUERY_PARAMS_CHANNEL_MUSIC_TYPE_VALUES,
-  QUERY_PARAMS_CHANNEL_MUSIC_SORT_VALUES,
+  QueryParamsChannelMusicAlbumType,
+  QueryParamsChannelMusicAlbumSort,
+  QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_TYPE_VALUES,
+  QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_SORT_VALUES,
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../../components/Dropdown/Dropdown";
@@ -33,11 +33,11 @@ export const AlbumListHeader: React.FC<AlbumListHeaderProps> = ({ ssrHasPodroll 
   const { sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getAlbumDropdownConfig({ sort, tFilters, tMedia });
 
-  function isChannelType(val: string): val is QueryParamsChannelMusicType {
-    return QUERY_PARAMS_CHANNEL_MUSIC_TYPE_VALUES.includes(val as QueryParamsChannelMusicType);
+  function isChannelType(val: string): val is QueryParamsChannelMusicAlbumType {
+    return QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_TYPE_VALUES.includes(val as QueryParamsChannelMusicAlbumType);
   }
-  function isChannelSort(val: string): val is QueryParamsChannelMusicSort {
-    return QUERY_PARAMS_CHANNEL_MUSIC_SORT_VALUES.includes(val as QueryParamsChannelMusicSort);
+  function isChannelSort(val: string): val is QueryParamsChannelMusicAlbumSort {
+    return QUERY_PARAMS_CHANNEL_MUSIC_ALBUM_SORT_VALUES.includes(val as QueryParamsChannelMusicAlbumSort);
   }
   function isStatsRange(val: string): val is QueryParamsStatsRange {
     return QUERY_PARAMS_STATS_RANGE_VALUES.includes(val as QueryParamsStatsRange);

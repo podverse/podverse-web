@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, findDTOChannelImageBySize } from "podverse-helpers";
+import { PodcastBatchByFeedGuidResponse } from "podverse-helpers";
 import React from "react";
 import { Image } from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
@@ -10,12 +10,11 @@ import { IMAGES } from "../../../../constants/images";
 import styles from "../../../../styles/components/List/Podcasts/ListPodcastRow.module.scss";
 
 interface Props {
-  channel: DTOChannel;
+  channelUnadded: PodcastBatchByFeedGuidResponse['feeds'][number];
 }
 
-export const ListAlbumRow: React.FC<Props> = ({ channel }) => {
-  const url = `${ROUTES.ALBUM}/${channel.id_text}`;
-  const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.PODCASTS.SIZE_FIND_TARGET, 'lesser');
+export const ListAlbumRowRemoteItemUnadded: React.FC<Props> = ({ channelUnadded }) => {
+  const url = `${ROUTES.PODCAST_INDEX}/feed/${channelUnadded.id}`;
   const tMedia = useTranslations("media");
   const tMisc = useTranslations("misc");
   
@@ -23,18 +22,18 @@ export const ListAlbumRow: React.FC<Props> = ({ channel }) => {
     <Link href={url} className={styles.link}>
       <div className={styles.listItem}>
         <Image
-          src={channel_image?.url}
-          alt={channel.title || tMedia("music.album_image")}
+          src={channelUnadded.image}
+          alt={channelUnadded.title || tMedia("music.album_image")}
           width={IMAGES.LIST.ALBUMS.SIZE}
           height={IMAGES.LIST.ALBUMS.SIZE}
           className={styles.image}
         />
         <div className={styles.content}>
-          <h3 className={styles.title}>{channel.title}</h3>
+          <h3 className={styles.title}>{channelUnadded.title}</h3>
           {
-            channel.channel_about?.author && (
+            channelUnadded.author && (
               <span className={styles.lastPubDate}>
-                {channel.channel_about.author || tMisc("untitled")}
+                {channelUnadded.author || tMisc("untitled")}
               </span>
             )
           }
