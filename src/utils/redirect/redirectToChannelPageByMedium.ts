@@ -6,6 +6,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 export const getChannelPathByMedium = (medium_id: number, channel_id_text: string) => {
   if (medium_id === MediumEnum.Podcast || medium_id === MediumEnum.Video) return `${ROUTES.PODCAST}/${channel_id_text}`;
   if (medium_id === MediumEnum.Music) return `${ROUTES.ALBUM}/${channel_id_text}`;
+  if (medium_id === MediumEnum.PublisherMusic) return `${ROUTES.ARTIST}/${channel_id_text}`;
   return null;
 };
 
