@@ -1,14 +1,8 @@
 import React from "react";
-import { MainHeader } from "../../components/Main/MainHeader";
-import { MainWrapper } from "../../components/Main/MainWrapper";
+import { SettingsClient } from "./SettingsClient";
 
 export default function SettingsPage() {
   return (
-    <>
-      <MainHeader title="Settings" />
-      <MainWrapper>
-        <p>Coming Soon</p>
-      </MainWrapper>
-    </>
+    <SettingsClient />
   );
 }
