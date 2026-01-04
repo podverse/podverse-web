@@ -6,14 +6,7 @@ try {
 }
 
 try {
-  const firebaseConfig = {
-    apiKey: "AIzaSyCeIP6KDq4ZbP7s6psFQcgxshPRnQthS0Q",
-    authDomain: "podverse-2.firebaseapp.com",
-    projectId: "podverse-2",
-    storageBucket: "podverse-2.firebasestorage.app",
-    appId: "1:388706542922:web:69b50bd0c7b1811f5f8db3",
-    messagingSenderId: "388706542922",
-  };
+  const firebaseConfig = __FIREBASE_CONFIG__;
 
   firebase.initializeApp(firebaseConfig);
 

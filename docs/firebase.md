@@ -3,8 +3,8 @@
 This repository now includes a minimal Firebase Cloud Messaging integration so users can opt in to receive web push notifications.
 
 Files added
-- `src/firebase/init.ts` — initializes Firebase app and returns a messaging instance when supported.
-- `src/firebase/messaging.ts` — requests Notification permission and obtains an FCM token using a VAPID key.
+- `src/external-services/firebase/init.ts` — initializes Firebase app and returns a messaging instance when supported.
+- `src/external-services/firebase/messaging.ts` — requests Notification permission and obtains an FCM token using a VAPID key.
 - `public/firebase-messaging-sw.js` — service worker that displays notifications when the app is in the background.
 
 Quick setup

@@ -29,8 +29,6 @@ export const requestNotificationPermission = async () => {
       serviceWorkerRegistration: registration,
     });
 
-    console.log("FCM Token:", token);
-
     if (!token) {
       return;
     }
