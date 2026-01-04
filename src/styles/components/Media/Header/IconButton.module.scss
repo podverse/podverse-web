@@ -1,0 +1,15 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.buttonGold {
+  color: var(--button-highlight-bg) !important;
+  flex-shrink: 0;
+}
+
+.buttonGold:hover, .buttonGold:focus {
+  color: var(--button-highlight-bg) !important;
+}
