@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const outPath = path.join(__dirname, '..', '..', 'public', 'firebase-messaging-sw.js');
+const outPath = path.join(__dirname, '..', '..', '..', '..', 'public', 'firebase-messaging-sw.js');
 const templatePath = path.join(__dirname, 'firebase-messaging-sw.template.js');
 
 function readEnv(name, fallback = '') {
