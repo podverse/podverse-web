@@ -1,12 +1,12 @@
 "use client"
 
 import React from 'react'
-import { SettingsLanguageSelector } from './SettingsLanguageSelector'
+import { SettingsLocaleSelector } from './SettingsLocaleSelector'
 
 export function SettingsAccount() {  
   return (
     <>
-      <SettingsLanguageSelector />
+      <SettingsLocaleSelector />
     </>
   )
 }

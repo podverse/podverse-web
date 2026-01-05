@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: var(--form-gap);
   margin: 2rem 0 0 0;
 }
 

@@ -35,7 +35,11 @@ export const AuthSignUpForm: React.FC = () => {
     if (isFormValid) {
       setIsLoading(true);
       try {
-        await apiRequestService.reqAccountCreate({ email, password: password1 });
+        await apiRequestService.reqAccountCreate({
+          email,
+          password: password1,
+          locale
+        });
         setIsAccountCreated(true);
       } catch (err) {
         const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);

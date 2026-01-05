@@ -1,6 +1,5 @@
 import '../styles/index.scss';
 import { cookies } from 'next/headers';
-import { getLocale } from 'next-intl/server';
 import { generateQueueResourceAbridgedIndex, QueueResourcesAbridgedIndex } from 'podverse-helpers';
 import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
@@ -23,6 +22,8 @@ import { Toast } from '../components/Toast/Toast';
 import { QueueController } from '../components/Queue/QueueController';
 import { QueueResourcesAbridgedController } from '../components/Queue/QueueResourcesAbridgedController';
 import { getParsedLocalSettings } from '../utils/localSettings/localSettings';
+import { useLocaleDetect } from '../hooks/useLocaleDetect';
+import { setSSRAccountForLocale } from '../i18n/request';
 
 export const metadata = {
   title: config.public.brand.name,
@@ -34,26 +35,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const ssrLocalSettings = getParsedLocalSettings(cookieStore);
   const ssrUITheme = toUITheme(ssrLocalSettings.uit);
 
-  // Prefer explicit locale from cookie (set by the client selector) when a
-  // corresponding messages file exists. Fall back to next-intl's detected
-  // locale otherwise.
-  const detectedLocale = await getLocale();
-  const cookieLocale = cookieStore.get('NEXT_LOCALE')?.value;
-  let locale = detectedLocale;
-  if (cookieLocale) {
-    try {
-      // validate that messages file exists for the cookie locale
-      // (import will throw if missing)
-      await import(`../../i18n/originals/${cookieLocale}.json`);
-      locale = cookieLocale;
-    } catch (err) {
-      // invalid cookie locale or missing messages; ignore and use detectedLocale
-    }
-  }
-
   const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
   const ssrShouldLogout = !!(jwt && !ssrLoggedInAccount);
+
+  setSSRAccountForLocale(ssrLoggedInAccount);
+
+  // Detect locale based on account settings, cookie, or browser preference
+  const locale = await useLocaleDetect(ssrLoggedInAccount);
 
   let ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null = null;
 

@@ -43,6 +43,12 @@ export const config = {
         appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
       }
     },
+    features: {
+      locales: {
+        supported: process.env.NEXT_PUBLIC_FEATURES_SUPPORTED_LOCALES || "all-available",
+        default: process.env.NEXT_PUBLIC_FEATURES_DEFAULT_LOCALE || "en"
+      }
+    },
     server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
   }
 };
