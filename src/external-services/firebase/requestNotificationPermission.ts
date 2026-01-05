@@ -2,7 +2,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { getToken, messaging } from "./init";
 import { getOrCreateInstallationId } from "./installationIdKey";
 
-export const requestNotificationPermission = async () => {
+export const requestNotificationPermission = async (locale: string) => {
   try {
     const installationId = getOrCreateInstallationId();
     if (!installationId) {
@@ -37,12 +37,16 @@ export const requestNotificationPermission = async () => {
       await apiRequestService.reqAccountFCMDeviceCreate({
         fcm_token: token,
         installation_id: installationId,
+        platform: 'web',
+        locale
       });
     } catch {
       await apiRequestService.reqAccountFCMDeviceUpdate({
-        previous_fcm_token: token,
         new_fcm_token: token,
         installation_id: installationId,
+        previous_fcm_token: token,
+        platform: 'web',
+        locale
       });
     }
   } catch (error) {

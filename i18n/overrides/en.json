@@ -412,7 +412,10 @@
     },
     "notifications": {
       "notifications": "Notifications",
-      "show_app_notifications": "Show app notifications"
+      "show_app_notifications": "Show app notifications",
+      "default_new_item": "Default new item",
+      "default_livestream_scheduled": "Default livestream scheduled",
+      "default_livestream_started": "Default livestream started"
     }
   },
   "socials": {

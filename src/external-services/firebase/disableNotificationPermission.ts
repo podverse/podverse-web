@@ -44,8 +44,8 @@ export async function disableNotificationPermission(): Promise<void> {
     // If we have an installation id or token, tell the server to delete registration
     if (installationId || token) {
       await apiRequestService.reqAccountFCMDeviceDelete({
-        installation_id: installationId || undefined,
-        fcm_token: token || undefined
+        fcm_token: token || null,
+        installation_id: installationId || null
       });
     }
 
