@@ -18,7 +18,7 @@
     "dev:watch": "nodemon --watch $(realpath node_modules/podverse-helpers) --exec \"npm run dev\"",
     "lint": "next lint",
     "start": "next start",
-    "i18n-ai-translations": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-ai-translations.ts",
+    "i18n-llm-translations": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-llm-translations.ts",
     "i18n-compile": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-compile.ts"
   },
   "license": "AGPLv3",
@@ -38,9 +38,6 @@
     "music",
     "podcasting 2.0"
   ],
-  "overrides": {
-    "fast-xml-parser": "^4.1.2"
-  },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "classnames": "^2.5.1",

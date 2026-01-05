@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { ListHeader } from '../List/ListHeader'
 import { SettingsWrapper } from './SettingsWrapper'
 import { SettingsNotifications } from './Panels/SettingsNotifications'
-import { SettingsAccount } from './Panels/SettingsAccount'
+import { SettingsAccount } from './Panels/SettingsAccount/SettingsAccount'
 import { Tabs } from '../Tabs/Tabs'
 
 export function Settings() {

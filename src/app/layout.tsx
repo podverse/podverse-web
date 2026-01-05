@@ -30,9 +30,26 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
+  const cookieStore = await cookies();
   const ssrLocalSettings = getParsedLocalSettings(cookieStore);
   const ssrUITheme = toUITheme(ssrLocalSettings.uit);
+
+  // Prefer explicit locale from cookie (set by the client selector) when a
+  // corresponding messages file exists. Fall back to next-intl's detected
+  // locale otherwise.
+  const detectedLocale = await getLocale();
+  const cookieLocale = cookieStore.get('NEXT_LOCALE')?.value;
+  let locale = detectedLocale;
+  if (cookieLocale) {
+    try {
+      // validate that messages file exists for the cookie locale
+      // (import will throw if missing)
+      await import(`../../i18n/originals/${cookieLocale}.json`);
+      locale = cookieLocale;
+    } catch (err) {
+      // invalid cookie locale or missing messages; ignore and use detectedLocale
+    }
+  }
 
   const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
