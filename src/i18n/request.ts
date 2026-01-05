@@ -24,9 +24,22 @@ export default getRequestConfig(async () => {
 
   let originals;
   try {
-    const localeOriginals = (await import(`../../i18n/originals/${locale}.json`)).default;
+    // Try full locale first (e.g. en-US.json)
+    let localeOriginals;
+    try {
+      localeOriginals = (await import(`../../i18n/originals/${locale}.json`)).default;
+    } catch (e) {
+      // If full locale not found and locale contains region (e.g. en-US), try base language (e.g. en.json)
+      const base = locale.split('-')[0];
+      try {
+        localeOriginals = (await import(`../../i18n/originals/${base}.json`)).default;
+      } catch (e2) {
+        localeOriginals = null;
+      }
+    }
+
     const enOriginals = (await import(`../../i18n/originals/en.json`)).default;
-    originals = { ...enOriginals, ...localeOriginals };
+    originals = localeOriginals ? { ...enOriginals, ...localeOriginals } : enOriginals;
   } catch (e) {
     originals = (await import(`../../i18n/originals/en.json`)).default;
   }
