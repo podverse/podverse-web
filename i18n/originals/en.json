@@ -546,5 +546,15 @@
     "filminterviews": "Film Interviews",
     "filmreviews": "Film Reviews",
     "tvreviews": "TV Reviews"
+  },
+  "language": {
+    "language": "Language",
+    "select_language": "Select Language",
+    "languages": {
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "el-GR": "Greek"
+    }
   }
 }

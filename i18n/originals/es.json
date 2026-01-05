@@ -5,19 +5,23 @@
       "podcasting": "Podcasting",
       "podcast": "Podcast",
       "podcasts": "Podcasts",
-      "podcast_image": "Imagen del podcast",
+      "podcast_image": "Imagen del Podcast",
       "episode": "Episodio",
       "episodes": "Episodios",
-      "episode_image": "Imagen del episodio"
+      "episode_image": "Imagen del Episodio"
     },
     "music": {
       "music": "Música",
       "artist": "Artista",
       "artists": "Artistas",
+      "artist_image": "Imagen del Artista",
       "album": "Álbum",
       "albums": "Álbumes",
-      "track": "Rastrear",
-      "tracks": "Pistas"
+      "album_image": "Imagen del Álbum",
+      "track": "Canción",
+      "tracks": "Canciones",
+      "track_image": "Imagen de la Canción",
+      "track_go_to": "Ir a Canción"
     },
     "video": {
       "channel": "Canal",
@@ -28,12 +32,14 @@
     "livestream": {
       "livestream": "Transmisión en vivo",
       "livestreams": "Transmisiones en vivo",
-      "livestream_image": "Imagen de transmisión en vivo",
-      "live": "En vivo",
+      "livestream_image": "Imagen de la Transmisión en Vivo",
+      "live": "En Vivo",
       "pending": "Programado",
-      "ended": "Terminado"
+      "ended": "Finalizado",
+      "no_livestreams_found": "No se encontraron transmisiones en vivo."
     },
-    "updated_with_date": "Última actualización: {date}"
+    "updated_with_date": "Actualizado: {date}",
+    "image": "Imagen"
   },
   "features": {
     "search": {
@@ -41,8 +47,8 @@
       "search_by_title": "Buscar por título..."
     },
     "add_feed": {
-      "add_feed": "Agregar fuente",
-      "add_feed_explanation": "Este feed no está en el directorio de Podverse. Si desea agregarlo, presione el botón «Agregar Feed»."
+      "add_feed": "Agregar Feed",
+      "add_feed_explanation": "Este feed no está en nuestro directorio. Si deseas agregarlo, presiona el botón \"Agregar Feed\"."
     },
     "my_library": "Mi Biblioteca",
     "queue": {
@@ -50,16 +56,16 @@
       "queues": "Colas",
       "queue_next": "Cola: Siguiente",
       "queue_last": "Cola: Último",
-      "added_to_queue": "Añadido a la cola",
-      "add_error": "Error al agregar a la cola",
-      "remove_error": "Error al eliminar de la cola",
-      "remove_from_queue": "Eliminar de la cola",
-      "removed_from_queue": "Eliminado de la cola"
+      "added_to_queue": "Agregado a la Cola",
+      "add_error": "Error al agregar a la Cola",
+      "remove_error": "Error al eliminar de la Cola",
+      "remove_from_queue": "Eliminar de la Cola",
+      "removed_from_queue": "Eliminado de la Cola"
     },
     "history": {
       "history": "Historia",
-      "delete_history": "Eliminar historial",
-      "mark_as_played": "Marcar como reproducido",
+      "delete_history": "Eliminar Historia",
+      "mark_as_played": "Marcar como Reproducido",
       "marked_as_played": "Marcado como Reproducido",
       "mark_as_played_error": "Error al marcar como reproducido"
     },
@@ -70,14 +76,14 @@
       "create_playlist": "Crear lista de reproducción",
       "edit_playlist": "Editar lista de reproducción",
       "delete_playlist": "Eliminar lista de reproducción",
-      "delete_playlist_confirm": "¿Estás seguro de que quieres eliminar esta lista de reproducción?",
-      "add_to_playlist": "Agregar a la lista de reproducción",
+      "delete_playlist_confirm": "¿Está seguro de que desea eliminar esta lista de reproducción?",
+      "add_to_playlist": "Añadir a la lista de reproducción",
       "added_to_playlist": "Añadido a la lista de reproducción",
-      "add_error": "Error al agregar a la lista de reproducción",
+      "add_error": "Error al añadir a la lista de reproducción",
       "remove_from_playlist": "Eliminar de la lista de reproducción",
       "removed_from_playlist": "Eliminado de la lista de reproducción",
       "remove_error": "Error al eliminar de la lista de reproducción",
-      "item_count": "Artículos: {count}",
+      "item_count": "Elementos: {count}",
       "playlist_type": "Tipo de lista de reproducción"
     },
     "clip": {
@@ -86,24 +92,24 @@
       "create_clip": "Crear clip",
       "edit_clip": "Editar clip",
       "delete_clip": "Eliminar clip",
-      "delete_clip_confirm": "¿Estás seguro de que deseas eliminar este clip?",
-      "my_clips": "Mis Clips",
-      "clip_created": "Clip Creado",
-      "clip_updated": "Clip Actualizado",
+      "delete_clip_confirm": "¿Está seguro de que desea eliminar este clip?",
+      "my_clips": "Mis clips",
+      "clip_created": "Clip creado",
+      "clip_updated": "Clip actualizado",
       "link_to_clip": "Enlace al clip",
       "start_time": "Hora de inicio",
       "start_time_aria": "Hora de inicio en horas, minutos y segundos (hh:mm:ss)",
-      "start_time_play_aria": "Reproducir desde el inicio del clip",
-      "end_time": "Hora de finalización",
-      "end_time_aria": "Hora de finalización en horas, minutos y segundos (hh:mm:ss)",
-      "end_time_play_aria": "Reproducir desde el tiempo final del clip",
+      "start_time_play_aria": "Reproducir desde la hora de inicio del clip",
+      "end_time": "Hora de fin",
+      "end_time_aria": "Hora de fin en horas, minutos y segundos (hh:mm:ss)",
+      "end_time_play_aria": "Reproducir desde la hora de fin del clip",
       "clip_time_range": "{hhmmssStart} a {hhmmssEnd}"
     },
-    "my_clips": "Mis Clips",
-    "my_profile": "Mi Perfil",
+    "my_clips": "Mis clips",
+    "my_profile": "Mi perfil",
     "profile": "Perfil",
     "profiles": "Perfiles",
-    "embed": "Incrustar",
+    "embed": "Incorporar",
     "copy": "Copiar",
     "copied": "Copiado",
     "subscribe": "Suscribirse",
@@ -113,13 +119,25 @@
       "download_episode": "Descargar episodio",
       "downloading_episode": "Descargando episodio",
       "episode_downloaded": "Episodio descargado",
-      "episode_download_error": "Error al descargar el episodio"
+      "episode_download_error": "Error al descargar episodio",
+      "download_track": "Descargar pista",
+      "downloading_track": "Descargando pista",
+      "track_downloaded": "Pista descargada",
+      "track_download_error": "Error al descargar la pista"
+    },
+    "notifications": {
+      "enable_notifications_for_this_podcast": "Activar notificaciones para este podcast",
+      "disable_notifications_for_this_podcast": "Desactivar notificaciones para este podcast",
+      "enable_notifications_for_this_album": "Activar notificaciones para este álbum",
+      "disable_notifications_for_this_album": "Desactivar notificaciones para este álbum",
+      "enable_notifications_for_this_artist": "Activar notificaciones para este artista",
+      "disable_notifications_for_this_artist": "Desactivar notificaciones para este artista"
     }
   },
   "info": {
     "funding": "Financiación",
     "website": "Sitio web",
-    "rss_feed": "Fuente RSS",
+    "rss_feed": "RSS Feed",
     "about": "Acerca de",
     "summary": {
       "summary": "Resumen",
@@ -128,12 +146,13 @@
     "podroll": "Podroll",
     "transcript": {
       "transcript": "Transcripción",
-      "search_transcript": "Buscar transcripción..."
+      "search_transcript": "Buscar transcripción...",
+      "lyrics": "Letras"
     },
     "credits": "Créditos",
     "people": {
       "people": "Personas",
-      "person_image": "Imagen de la persona",
+      "person_image": "Imagen de persona",
       "link_to_persons_webpage": "Enlace a la página web de la persona"
     },
     "chapter": {
@@ -143,32 +162,42 @@
     },
     "soundbite": {
       "official_clip": "Clip oficial",
-      "official_clips": "Clips Oficiales"
+      "official_clips": "Clips oficiales"
     },
     "time": {
-      "left": "{timeRemaining} restante",
+      "left": "{timeRemaining} restantes",
       "last": "{timePosition} último",
-      "start": "{timeStart} hora de inicio",
+      "start": "hora de inicio {timeStart}",
       "start_end": "{timeStart} a {timeEnd}"
     }
   },
   "media_player": {
-    "play": "Jugar",
+    "play": "Reproducir",
     "pause": "Pausa",
-    "show_fullscreen_media_player": "Mostrar el reproductor de medios en pantalla completa",
-    "fullscreen_media_player": "Reproductor de medios en pantalla completa",
+    "show_fullscreen_media_player": "Mostrar el reproductor multimedia en pantalla completa",
+    "fullscreen_media_player": "Reproductor multimedia en pantalla completa",
     "media_player_image": "Imagen del reproductor multimedia",
+    "repeat": {
+      "toggle_repeat": "Alternar repetición",
+      "repeat_enabled": "Repetición activada",
+      "repeat_disabled": "Repetición desactivada"
+    },
+    "shuffle": {
+      "toggle_shuffle": "Alternar aleatorio",
+      "shuffle_enabled": "Aleatorio activado",
+      "shuffle_disabled": "Aleatorio desactivado"
+    },
     "playback_speed": {
       "playback_speed": "Velocidad de reproducción",
       "playback_speed_with_value": "Velocidad de reproducción: {speed}",
       "speeds": {
         "0-5": "0.5x",
-        "0-75": "0,75x",
+        "0-75": "0.75x",
         "0-87": "0.87x",
         "1-0": "1x",
         "1-12": "1.12x",
         "1-25": "1.25x",
-        "1-5": "1,5x",
+        "1-5": "1.5x",
         "1-75": "1.75x",
         "2-0": "2x",
         "2-5": "2.5x",
@@ -178,11 +207,11 @@
     "source": {
       "source": "Fuente",
       "source_with_format": "Fuente: {format}",
-      "select_source": "Seleccionar fuente de medios",
+      "select_source": "Seleccionar Fuente de Medios",
       "video": "Video",
-      "video_with_resolution": "Vídeo {resolution}p",
+      "video_with_resolution": "Video {resolution}p",
       "video_with_ext": "Video {ext}",
-      "video_with_ext_resolution": "Vídeo {ext} {resolution}p",
+      "video_with_ext_resolution": "Video {ext} {resolution}p",
       "resolution": "{resolution}p",
       "audio": "Audio",
       "audio_with_ext": "Audio {ext}",
@@ -193,17 +222,17 @@
     }
   },
   "value": {
-    "boost": "Impulsar",
+    "boost": "Aumentar",
     "recipient": {
       "creator_recipient": "Destinatario",
       "creator_recipients": "Destinatarios",
-      "app_recipient": "Destinatario de la aplicación"
+      "app_recipient": "Destinatario de la App"
     },
     "total": "Total",
     "message": "Mensaje",
     "types": {
       "lightning_keysend": {
-        "label": "Envió de clave Lightning de Bitcoin",
+        "label": "Bitcoin Lightning Keysend",
         "denomination": "satoshis"
       },
       "paypal_send": {
@@ -215,12 +244,12 @@
         "denomination": "USD"
       },
       "buymeacoffee_send": {
-        "label": "Cómprame un café",
+        "label": "Buy Me A Coffee",
         "denomination": "USD"
       }
     },
     "send_to": {
-      "creator": "Enviar al Creador",
+      "creator": "Enviar a Creador",
       "app": "Enviar a {brand_name}"
     },
     "your_name": "Tu Nombre"
@@ -228,85 +257,185 @@
   "filters": {
     "type": {
       "global": "Global",
-      "all": "Todo",
+      "all": "Todos",
       "subscribed": "Suscrito",
       "category": "Categoría"
     },
     "sort": {
       "recent": "Reciente",
-      "oldest": "Más antiguo",
+      "oldest": "Más Antiguo",
       "a_z": "A-Z",
-      "top": "Superior",
-      "random": "Aleatorio"
+      "top": "Top",
+      "random": "Aleatorio",
+      "forward": "Ordenado",
+      "backward": "Invertido"
     },
     "range": {
       "day": "Día",
       "week": "Semana",
       "month": "Mes",
-      "all_time": "Todo el tiempo"
+      "all_time": "Todo el Tiempo"
     }
   },
+  "legal": {
+    "takedown_notice": "Notificación de Retiro",
+    "spam_policy": "Política de Spam",
+    "spam_policy_explanation": "Este contenido ha sido marcado automáticamente como spam según nuestro sistema. Si crees que esto es un error, por favor contacta al soporte.",
+    "archive_policy": "Política de Archivo",
+    "archive_policy_explanation": "Este contenido está en proceso de archivarse y ser eliminado. Esto a menudo sucede con contenido que cambia su URL de feed RSS. Si crees que esto es un error y te gustaría que se agregara este contenido, por favor contacta al soporte.",
+    "takedown_policy": "Política de Retiro",
+    "takedown_policy_explanation": "Este contenido ha sido eliminado en respuesta a una solicitud de retiro por parte del titular de derechos de autor."
+  },
   "misc": {
-    "more_info": "Más información",
+    "more_info": "Más Información",
     "info": "Información",
-    "items": "Artículos",
+    "items": "Elementos",
     "increment": "Incrementar",
-    "decrement": "Decrementar",
+    "decrement": "Disminuir",
     "anonymous": "Anónimo",
-    "untitled": "Sin título",
+    "untitled": "Sin Título",
     "optional": "Opcional",
     "submit": "Enviar",
     "cancel": "Cancelar",
     "close": "Cerrar",
+    "on": "Activado",
+    "off": "Desactivado",
     "title": "Título",
     "description": "Descripción",
     "required": "Requerido",
     "edit": "Editar",
     "done": "Hecho",
     "id": "ID",
-    "unknown_date": "Fecha desconocida",
+    "continue": "Continuar",
+    "i_have_read_and_agree": "He leído y acepto los términos.",
+    "unknown_date": "Fecha Desconocida",
+    "redirecting": "Redirigiendo...",
+    "contact": "Contacto",
+    "terms": "Términos",
+    "mobile": "Móvil",
+    "donate": "Donar",
+    "updates": "Actualizaciones",
     "sharable_status": {
-      "sharable_status": "Estado compartible",
+      "sharable_status": "Estado Compartible",
       "public": "Público",
       "unlisted": "No listado",
       "private": "Privado"
     },
     "autoscroll": {
-      "autoscroll_on": "Desplazamiento automático: Activado",
-      "autoscroll_off": "Desplazamiento automático: Desactivado"
+      "autoscroll_on": "Desplazamiento Automático: Activado",
+      "autoscroll_off": "Desplazamiento Automático: Desactivado"
     },
     "rate_limit": {
-      "generic": "Límite de velocidad alcanzado: por favor, inténtelo de nuevo más tarde.",
-      "until": "Límite de velocidad: esta acción no se puede usar nuevamente hasta {time}.",
-      "minute_remaining": "Límite de velocidad: {minutes} minuto hasta que puedas usar esta acción nuevamente.",
+      "generic": "Límite de tasa: por favor intenta nuevamente más tarde.",
+      "until": "Límite de tasa: esta acción no se puede usar nuevamente hasta {time}.",
+      "minute_remaining": "Límite de tasa: {minutes} minuto hasta que puedas usar esta acción nuevamente.",
       "minutes_remaining": "Límite de tasa: {minutes} minutos hasta que puedas usar esta acción nuevamente."
+    },
+    "errors": {
+      "generic": "Algo salió mal. Por favor intenta nuevamente más tarde, o contacta al soporte para asistencia."
     }
   },
   "instructions": {
-    "login_for_subscriptions": "Por favor, inicie sesión para ver sus suscripciones.",
-    "login_to_create_playlists": "Por favor, inicia sesión para crear listas de reproducción.",
-    "login_to_create_clips": "Por favor, inicia sesión para crear clips.",
-    "login_for_queues": "Por favor, inicie sesión para ver sus colas.",
-    "login_for_history": "Por favor, inicie sesión para ver su historial."
+    "login_required": "Inicio de Sesión Requerido",
+    "login_for_subscriptions": "Por favor inicia sesión para ver tus suscripciones.",
+    "login_to_create_playlists": "Por favor inicia sesión para crear listas de reproducción.",
+    "login_to_create_clips": "Por favor inicia sesión para crear clips.",
+    "login_for_queues": "Por favor, inicia sesión para ver tus colas.",
+    "login_for_history": "Por favor, inicia sesión para ver tu historial.",
+    "login_to_add_feeds": "Por favor, inicia sesión para agregar fuentes a nuestro directorio.",
+    "login_to_refresh_feeds": "Por favor, inicia sesión para refrescar fuentes.",
+    "login_to_subscribe": "Por favor, inicia sesión para suscribirte.",
+    "login_to_add_to_queue": "Por favor, inicia sesión para agregar a tu cola.",
+    "login_to_add_to_playlist": "Por favor, inicia sesión para agregar a tu lista de reproducción.",
+    "login_to_mark_as_played": "Por favor, inicia sesión para marcar elementos como reproducidos.",
+    "login_to_enable_notifications": "Por favor, inicia sesión para habilitar notificaciones.",
+    "login_to_disable_notifications": "Por favor, inicia sesión para deshabilitar notificaciones."
+  },
+  "subscriptions": {
+    "subscriptions": "Suscripciones",
+    "how_to_start_message": "Prueba <searchLink>buscar</searchLink> tu contenido favorito, o navega por <podcastsLink>podcasts</podcastsLink>, <videosLink>videos</videosLink>, o <musicLink>música</musicLink>. Tus suscripciones aparecerán aquí."
   },
   "authentication": {
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión",
     "sign_up": "Registrarse",
     "forgot_password": "¿Olvidaste tu contraseña?",
+    "forgot_password_email_sent_message": "Si existe una cuenta con ese correo electrónico, se ha enviado un correo para restablecer la contraseña. Por favor, revisa tu correo para más instrucciones. Si no recibes un correo en unos minutos, revisa tu carpeta de spam o contacta soporte.",
     "reset_password": "Restablecer contraseña",
+    "reset_password_complete_message": "Tu contraseña ha sido restablecida con éxito. Ahora puedes iniciar sesión con tu nueva contraseña.",
     "email": "Correo electrónico",
     "password": "Contraseña",
-    "confirm_password": "Confirmar contraseña"
+    "confirm_password": "Confirmar contraseña",
+    "invalid_email_or_password": "Correo electrónico o contraseña no válidos.",
+    "invalid_email": "Correo electrónico no válido",
+    "invalid_password": "Contraseña no válida",
+    "password_requirements": "La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter no en minúsculas.",
+    "password_mismatch": "Las contraseñas no coinciden",
+    "account_created_message": "Cuenta creada con éxito. Por favor, revisa tu correo para un enlace de verificación.",
+    "account_not_verified": "Cuenta no verificada. Por favor, revisa tu correo para un enlace de verificación.",
+    "resend_verification_email": "Reenviar correo de verificación",
+    "verification_email_sent": "Correo de verificación enviado. Si no llega en unos minutos, por favor revisa tu carpeta de spam o contacta soporte.",
+    "verify_email": "Verificar correo electrónico",
+    "verifying_email_address": "Verificando dirección de correo electrónico...",
+    "email_verified": "Correo electrónico verificado con éxito.",
+    "verification_failed": "La verificación del correo electrónico falló. El enlace de verificación puede haber expirado. Por favor, intenta iniciar sesión nuevamente para reenviar el correo de verificación.",
+    "change_email_address_email": "Cambiar correo electrónico",
+    "change_email_address_email_sent": "Se ha enviado un correo de verificación a tu nueva dirección de correo electrónico. Por favor, revisa tu nuevo correo para un enlace de confirmación. Si no llega en unos minutos, por favor revisa tu carpeta de spam o contacta soporte.",
+    "change_email_verification": "Cambiar verificación de correo electrónico",
+    "changing_email_address": "Cambiando dirección de correo electrónico...",
+    "change_email_address_email_failed": "Cambio de correo falló. El enlace de confirmación puede haber expirado. Por favor, intenta nuevamente.",
+    "change_email_address_email_success": "Dirección de correo electrónico cambiada con éxito. Ahora puedes iniciar sesión con tu nueva dirección de correo electrónico."
+  },
+  "membership": {
+    "membership": "Membresía",
+    "premium": "Premium"
+  },
+  "layouts": {
+    "change_layout_view": "Cambiar vista de diseño",
+    "grid_view": "Vista en cuadrícula",
+    "grid_mini_view": "Vista mini en cuadrícula",
+    "list_view": "Vista de lista"
   },
   "settings": {
+    "settings": "Configuraciones",
     "ui_theme": {
-      "light": "☀️ Luz",
-      "dark": "🌙 Oscuro"
+      "light": "☀️ Claro",
+      "dark": "🌙 Oscuro",
+      "select_ui_theme": "Seleccionar Tema de UI"
+    },
+    "feed": {
+      "check_feed_for_updates": "Verificar Actualizaciones del Feed",
+      "check_feed_added_to_queue": "Feed agregado a la cola para análisis. Puede tardar unos minutos en procesarse. Por favor, revisa la lista para actualizaciones más tarde."
+    },
+    "account": {
+      "account": "Cuenta"
+    },
+    "notifications": {
+      "notifications": "Notificaciones",
+      "show_app_notifications": "Mostrar notificaciones de la app",
+      "default_new_item": "Elemento nuevo por defecto",
+      "default_livestream_scheduled": "Transmisión en vivo programada por defecto",
+      "default_livestream_started": "Transmisión en vivo iniciada por defecto"
+    }
+  },
+  "socials": {
+    "discord": "Discord",
+    "mastodon": "Mastodon",
+    "x": "X",
+    "matrix": "Matrix",
+    "github": "GitHub"
+  },
+  "disclaimers": {
+    "environment_warning": {
+      "alpha": {
+        "header": "Advertencia Alpha ⚠️",
+        "message": "Esta es la versión alpha del sitio web. Está incompleta, puede contener errores y tus datos alpha pueden ser restablecidos o eliminados periódicamente."
+      }
     }
   },
   "categories": {
     "categories": "Categorías",
+    "select_a_category": "Seleccionar una Categoría",
     "arts": "Artes",
     "business": "Negocios",
     "comedy": "Comedia",
@@ -314,17 +443,17 @@
     "fiction": "Ficción",
     "government": "Gobierno",
     "history": "Historia",
-    "healthandfitness": "Salud y Fitness",
+    "healthandfitness": "Salud y Bienestar",
     "kidsandfamily": "Niños y Familia",
     "leisure": "Ocio",
     "music": "Música",
     "news": "Noticias",
-    "religionandspirituality": "Religión y espiritualidad",
+    "religionandspirituality": "Religión y Espiritualidad",
     "science": "Ciencia",
     "societyandculture": "Sociedad y Cultura",
     "sports": "Deportes",
     "technology": "Tecnología",
-    "truecrime": "Crimen Verdadero",
+    "truecrime": "Crimen Real",
     "tvandfilm": "TV y Cine",
     "books": "Libros",
     "design": "Diseño",
@@ -334,18 +463,18 @@
     "visualarts": "Artes Visuales",
     "careers": "Carreras",
     "entrepreneurship": "Emprendimiento",
-    "investing": "Invirtiendo",
+    "investing": "Inversión",
     "management": "Gestión",
     "marketing": "Marketing",
-    "nonprofit": "Sin fines de lucro",
+    "nonprofit": "Sin Fines de Lucro",
     "comedyinterviews": "Entrevistas de Comedia",
     "improv": "Improvisación",
-    "standup": "Monólogo",
+    "standup": "Stand-Up",
     "courses": "Cursos",
-    "howto": "Cómo",
-    "languagelearning": "Aprendizaje de idiomas",
+    "howto": "Cómo Hacer",
+    "languagelearning": "Aprendizaje de Idiomas",
     "selfimprovement": "Superación Personal",
-    "comedyfiction": "Ficción cómica",
+    "comedyfiction": "Ficción Cómica",
     "drama": "Drama",
     "sciencefiction": "Ciencia Ficción",
     "alternativehealth": "Salud Alternativa",
@@ -355,23 +484,23 @@
     "nutrition": "Nutrición",
     "sexuality": "Sexualidad",
     "educationforkids": "Educación para Niños",
-    "parenting": "Crianza",
+    "parenting": "Paternidad",
     "petsandanimals": "Mascotas y Animales",
-    "storiesforkids": "Historias para Niños",
+    "storiesforkids": "Cuentos para Niños",
     "animationandmanga": "Animación y Manga",
     "automotive": "Automotriz",
     "aviation": "Aviación",
     "crafts": "Artesanías",
     "games": "Juegos",
-    "hobbies": "Aficiones",
+    "hobbies": "Pasatiempos",
     "homeandgarden": "Hogar y Jardín",
     "videogames": "Videojuegos",
     "musiccommentary": "Comentario Musical",
-    "musichistory": "Historia de la música",
-    "musicinterviews": "Entrevistas de Música",
-    "businessnews": "Noticias de negocios",
+    "musichistory": "Historia de la Música",
+    "musicinterviews": "Entrevistas Musicales",
+    "businessnews": "Noticias de Negocios",
     "dailynews": "Noticias Diarias",
-    "entertainmentnews": "Noticias de entretenimiento",
+    "entertainmentnews": "Noticias de Entretenimiento",
     "newscommentary": "Comentario de Noticias",
     "politics": "Política",
     "sportsnews": "Noticias Deportivas",
@@ -405,17 +534,27 @@
     "golf": "Golf",
     "hockey": "Hockey",
     "rugby": "Rugby",
-    "running": "Corriendo",
+    "running": "Correr",
     "soccer": "Fútbol",
-    "swimming": "Nadar",
+    "swimming": "Natación",
     "tennis": "Tenis",
     "volleyball": "Voleibol",
-    "wilderness": "Naturaleza",
-    "wrestling": "Lucha libre",
-    "aftershows": "Después de los shows",
-    "filmhistory": "Historia del cine",
-    "filminterviews": "Entrevistas de películas",
-    "filmreviews": "Reseñas de películas",
-    "tvreviews": "Reseñas de TV"
+    "wilderness": "Naturaleza Salvaje",
+    "wrestling": "Lucha Libre",
+    "aftershows": "After Shows",
+    "filmhistory": "Historia del Cine",
+    "filminterviews": "Entrevistas de Cine",
+    "filmreviews": "Críticas de Cine",
+    "tvreviews": "Críticas de TV"
+  },
+  "language": {
+    "language": "Idioma",
+    "select_language": "Seleccionar Idioma",
+    "languages": {
+      "en": "Inglés",
+      "es": "Español",
+      "fr": "Francés",
+      "el-GR": "Griego"
+    }
   }
 }

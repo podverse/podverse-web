@@ -5,98 +5,104 @@
       "podcasting": "Podcasting",
       "podcast": "Podcast",
       "podcasts": "Podcasts",
-      "podcast_image": "Image du podcast",
+      "podcast_image": "Image du Podcast",
       "episode": "Épisode",
       "episodes": "Épisodes",
-      "episode_image": "Image de l'épisode"
+      "episode_image": "Image de l'Épisode"
     },
     "music": {
       "music": "Musique",
       "artist": "Artiste",
       "artists": "Artistes",
+      "artist_image": "Image de l'Artiste",
       "album": "Album",
       "albums": "Albums",
-      "track": "Suivre",
-      "tracks": "Pistes"
+      "album_image": "Image de l'Album",
+      "track": "Piste",
+      "tracks": "Pistes",
+      "track_image": "Image de la Piste",
+      "track_go_to": "Aller à la Piste"
     },
     "video": {
       "channel": "Chaîne",
-      "channels": "Canaux",
+      "channels": "Chaînes",
       "video": "Vidéo",
       "videos": "Vidéos"
     },
     "livestream": {
-      "livestream": "Diffusion en direct",
-      "livestreams": "Diffusions en direct",
-      "livestream_image": "Image en direct",
-      "live": "En direct",
-      "pending": "Planifié",
-      "ended": "Terminé"
+      "livestream": "Diffusion en Direct",
+      "livestreams": "Diffusions en Direct",
+      "livestream_image": "Image de la Diffusion en Direct",
+      "live": "En Direct",
+      "pending": "Programmé",
+      "ended": "Terminé",
+      "no_livestreams_found": "Aucune diffusion en direct trouvée."
     },
-    "updated_with_date": "Dernière mise à jour : {date}"
+    "updated_with_date": "Mis à jour : {date}",
+    "image": "Image"
   },
   "features": {
     "search": {
-      "search": "Rechercher",
-      "search_by_title": "Rechercher par titre..."
+      "search": "Recherche",
+      "search_by_title": "Recherche par titre..."
     },
     "add_feed": {
-      "add_feed": "Ajouter un flux",
-      "add_feed_explanation": "Ce flux ne figure pas dans l'annuaire Podverse. Si vous souhaitez l'ajouter, appuyez sur le bouton « Ajouter le flux »."
+      "add_feed": "Ajouter un Flux",
+      "add_feed_explanation": "Ce flux n'est pas dans notre annuaire. Si vous souhaitez l'ajouter, appuyez sur le bouton \"Ajouter un Flux\"."
     },
-    "my_library": "Ma bibliothèque",
+    "my_library": "Ma Bibliothèque",
     "queue": {
-      "queue": "File d'attente",
-      "queues": "Files d'attente",
-      "queue_next": "File d'attente : Suivant",
-      "queue_last": "File d'attente : Dernier",
-      "added_to_queue": "Ajouté à la file d'attente",
-      "add_error": "Erreur lors de l'ajout à la file d'attente",
-      "remove_error": "Erreur lors de la suppression de la file d'attente",
-      "remove_from_queue": "Retirer de la file d'attente",
-      "removed_from_queue": "Retiré de la file d'attente"
+      "queue": "File d'Attente",
+      "queues": "Files d'Attente",
+      "queue_next": "File d'Attente : Suivant",
+      "queue_last": "File d'Attente : Dernier",
+      "added_to_queue": "Ajouté à la File d'Attente",
+      "add_error": "Erreur lors de l'ajout à la File d'Attente",
+      "remove_error": "Erreur lors de la suppression de la File d'Attente",
+      "remove_from_queue": "Retirer de la File d'Attente",
+      "removed_from_queue": "Retiré de la File d'Attente"
     },
     "history": {
-      "history": "Histoire",
-      "delete_history": "Supprimer l'historique",
-      "mark_as_played": "Marquer comme joué",
-      "marked_as_played": "Marqué comme Joué",
-      "mark_as_played_error": "Erreur lors du marquage comme lu"
+      "history": "Historique",
+      "delete_history": "Supprimer l'Historique",
+      "mark_as_played": "Marquer comme Écouté",
+      "marked_as_played": "Marqué comme Écouté",
+      "mark_as_played_error": "Erreur de marquage comme joué"
     },
     "playlist": {
-      "playlist": "Liste de lecture",
-      "playlists": "Listes de lecture",
-      "my_playlists": "Mes playlists",
-      "create_playlist": "Créer une playlist",
-      "edit_playlist": "Modifier la playlist",
-      "delete_playlist": "Supprimer la playlist",
+      "playlist": "Playlist",
+      "playlists": "Playlists",
+      "my_playlists": "Mes Playlists",
+      "create_playlist": "Créer une Playlist",
+      "edit_playlist": "Modifier la Playlist",
+      "delete_playlist": "Supprimer la Playlist",
       "delete_playlist_confirm": "Êtes-vous sûr de vouloir supprimer cette playlist ?",
-      "add_to_playlist": "Ajouter à la playlist",
-      "added_to_playlist": "Ajouté à la playlist",
-      "add_error": "Erreur lors de l'ajout à la playlist",
-      "remove_from_playlist": "Supprimer de la playlist",
-      "removed_from_playlist": "Retiré de la playlist",
-      "remove_error": "Erreur lors de la suppression de la playlist",
+      "add_to_playlist": "Ajouter à la Playlist",
+      "added_to_playlist": "Ajouté à la Playlist",
+      "add_error": "Erreur d'ajout à la Playlist",
+      "remove_from_playlist": "Retirer de la Playlist",
+      "removed_from_playlist": "Retiré de la Playlist",
+      "remove_error": "Erreur de retrait de la Playlist",
       "item_count": "Articles : {count}",
-      "playlist_type": "Type de playlist"
+      "playlist_type": "Type de Playlist"
     },
     "clip": {
       "clip": "Clip",
       "clips": "Clips",
-      "create_clip": "Créer un clip",
-      "edit_clip": "Modifier le clip",
-      "delete_clip": "Supprimer le clip",
+      "create_clip": "Créer un Clip",
+      "edit_clip": "Modifier le Clip",
+      "delete_clip": "Supprimer le Clip",
       "delete_clip_confirm": "Êtes-vous sûr de vouloir supprimer ce clip ?",
       "my_clips": "Mes Clips",
-      "clip_created": "Clip créé",
-      "clip_updated": "Clip mis à jour",
-      "link_to_clip": "Lien vers le clip",
-      "start_time": "Heure de début",
+      "clip_created": "Clip Créé",
+      "clip_updated": "Clip Mis à jour",
+      "link_to_clip": "Lien vers le Clip",
+      "start_time": "Heure de Début",
       "start_time_aria": "Heure de début en heures, minutes et secondes (hh:mm:ss)",
-      "start_time_play_aria": "Jouer depuis le début du clip",
-      "end_time": "Heure de fin",
+      "start_time_play_aria": "Jouer depuis l'heure de début du clip",
+      "end_time": "Heure de Fin",
       "end_time_aria": "Heure de fin en heures, minutes et secondes (hh:mm:ss)",
-      "end_time_play_aria": "Jouer à partir de la fin du clip",
+      "end_time_play_aria": "Jouer depuis l'heure de fin du clip",
       "clip_time_range": "{hhmmssStart} à {hhmmssEnd}"
     },
     "my_clips": "Mes Clips",
@@ -110,10 +116,22 @@
     "unsubscribe": "Se désabonner",
     "share": "Partager",
     "download": {
-      "download_episode": "Télécharger l'épisode",
-      "downloading_episode": "Téléchargement de l'épisode",
-      "episode_downloaded": "Épisode téléchargé",
-      "episode_download_error": "Erreur lors du téléchargement de l'épisode"
+      "download_episode": "Télécharger l'Épisode",
+      "downloading_episode": "Téléchargement de l'Épisode",
+      "episode_downloaded": "Épisode Téléchargé",
+      "episode_download_error": "Erreur de téléchargement de l'Épisode",
+      "download_track": "Télécharger la Piste",
+      "downloading_track": "Téléchargement de la Piste",
+      "track_downloaded": "Piste Téléchargée",
+      "track_download_error": "Erreur de téléchargement de la piste"
+    },
+    "notifications": {
+      "enable_notifications_for_this_podcast": "Activer les notifications pour ce podcast",
+      "disable_notifications_for_this_podcast": "Désactiver les notifications pour ce podcast",
+      "enable_notifications_for_this_album": "Activer les notifications pour cet album",
+      "disable_notifications_for_this_album": "Désactiver les notifications pour cet album",
+      "enable_notifications_for_this_artist": "Activer les notifications pour cet artiste",
+      "disable_notifications_for_this_artist": "Désactiver les notifications pour cet artiste"
     }
   },
   "info": {
@@ -128,13 +146,14 @@
     "podroll": "Podroll",
     "transcript": {
       "transcript": "Transcription",
-      "search_transcript": "Rechercher dans la transcription..."
+      "search_transcript": "Rechercher dans la transcription...",
+      "lyrics": "Paroles"
     },
     "credits": "Crédits",
     "people": {
       "people": "Personnes",
       "person_image": "Image de la personne",
-      "link_to_persons_webpage": "Lien vers la page Web de la personne"
+      "link_to_persons_webpage": "Lien vers la page web de la personne"
     },
     "chapter": {
       "chapter": "Chapitre",
@@ -142,8 +161,8 @@
       "chapter_image": "Image du chapitre"
     },
     "soundbite": {
-      "official_clip": "Clip officiel",
-      "official_clips": "Clips officiels"
+      "official_clip": "Extrait officiel",
+      "official_clips": "Extraits officiels"
     },
     "time": {
       "left": "{timeRemaining} restant",
@@ -153,11 +172,21 @@
     }
   },
   "media_player": {
-    "play": "Jouer",
+    "play": "Lire",
     "pause": "Pause",
     "show_fullscreen_media_player": "Afficher le lecteur multimédia en plein écran",
     "fullscreen_media_player": "Lecteur multimédia en plein écran",
     "media_player_image": "Image du lecteur multimédia",
+    "repeat": {
+      "toggle_repeat": "Basculer la répétition",
+      "repeat_enabled": "Répétition activée",
+      "repeat_disabled": "Répétition désactivée"
+    },
+    "shuffle": {
+      "toggle_shuffle": "Basculer le mode aléatoire",
+      "shuffle_enabled": "Mode aléatoire activé",
+      "shuffle_disabled": "Mode aléatoire désactivé"
+    },
     "playback_speed": {
       "playback_speed": "Vitesse de lecture",
       "playback_speed_with_value": "Vitesse de lecture : {speed}",
@@ -186,14 +215,14 @@
       "resolution": "{resolution}p",
       "audio": "Audio",
       "audio_with_ext": "Audio {ext}",
-      "audio_with_bitrate_kbps": "Audio {bitrate} kbps",
+      "audio_with_bitrate_kbps": "Audio {bitrate}kbps",
       "audio_with_bitrate_mbps": "Audio {bitrate}Mbps",
-      "audio_with_ext_bitrate_kbps": "Audio {ext} {bitrate} kbps",
+      "audio_with_ext_bitrate_kbps": "Audio {ext} {bitrate}kbps",
       "audio_with_ext_bitrate_mbps": "Audio {ext} {bitrate}Mbps"
     }
   },
   "value": {
-    "boost": "Booster",
+    "boost": "Amplifier",
     "recipient": {
       "creator_recipient": "Destinataire",
       "creator_recipients": "Destinataires",
@@ -203,7 +232,7 @@
     "message": "Message",
     "types": {
       "lightning_keysend": {
-        "label": "Bitcoin Lightning Keysend",
+        "label": "Envoi de clé Bitcoin Lightning",
         "denomination": "satoshis"
       },
       "paypal_send": {
@@ -215,20 +244,20 @@
         "denomination": "USD"
       },
       "buymeacoffee_send": {
-        "label": "Offrez-moi un café",
+        "label": "Achetez-moi un café",
         "denomination": "USD"
       }
     },
     "send_to": {
-      "creator": "Envoyer au Créateur",
+      "creator": "Envoyer au créateur",
       "app": "Envoyer à {brand_name}"
     },
-    "your_name": "Votre Nom"
+    "your_name": "Votre nom"
   },
   "filters": {
     "type": {
       "global": "Global",
-      "all": "Tous",
+      "all": "Tout",
       "subscribed": "Abonné",
       "category": "Catégorie"
     },
@@ -236,37 +265,58 @@
       "recent": "Récent",
       "oldest": "Le plus ancien",
       "a_z": "A-Z",
-      "top": "Haut",
-      "random": "Aléatoire"
+      "top": "Meilleur",
+      "random": "Aléatoire",
+      "forward": "Commandé",
+      "backward": "Inverse"
     },
     "range": {
       "day": "Jour",
       "week": "Semaine",
       "month": "Mois",
-      "all_time": "Tout le temps"
+      "all_time": "Tous les temps"
     }
+  },
+  "legal": {
+    "takedown_notice": "Notification de retrait",
+    "spam_policy": "Politique de spam",
+    "spam_policy_explanation": "Ce contenu a été automatiquement signalé comme spam selon notre système. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter le support.",
+    "archive_policy": "Politique d'archivage",
+    "archive_policy_explanation": "Ce contenu est en cours d'archivage et de suppression. Cela se produit souvent avec du contenu dont l'URL du flux RSS change. Si vous pensez qu'il s'agit d'une erreur et souhaitez que ce contenu soit ajouté, veuillez contacter le support.",
+    "takedown_policy": "Politique de retrait",
+    "takedown_policy_explanation": "Ce contenu a été supprimé en réponse à une demande de retrait de la part du titulaire des droits d'auteur."
   },
   "misc": {
     "more_info": "Plus d'infos",
-    "info": "Info",
+    "info": "Infos",
     "items": "Articles",
-    "increment": "Incrémenter",
-    "decrement": "Décrémenter",
+    "increment": "Incrément",
+    "decrement": "Décrément",
     "anonymous": "Anonyme",
     "untitled": "Sans titre",
     "optional": "Optionnel",
     "submit": "Soumettre",
     "cancel": "Annuler",
     "close": "Fermer",
+    "on": "Activé",
+    "off": "Désactivé",
     "title": "Titre",
     "description": "Description",
     "required": "Requis",
     "edit": "Modifier",
-    "done": "Terminé",
+    "done": "Fait",
     "id": "ID",
+    "continue": "Continuer",
+    "i_have_read_and_agree": "J'ai lu et j'accepte les conditions.",
     "unknown_date": "Date inconnue",
+    "redirecting": "Redirection...",
+    "contact": "Contact",
+    "terms": "Conditions",
+    "mobile": "Mobile",
+    "donate": "Faire un don",
+    "updates": "Mises à jour",
     "sharable_status": {
-      "sharable_status": "Statut partageable",
+      "sharable_status": "État partageable",
       "public": "Public",
       "unlisted": "Non répertorié",
       "private": "Privé"
@@ -276,119 +326,198 @@
       "autoscroll_off": "Défilement automatique : Désactivé"
     },
     "rate_limit": {
-      "generic": "Limite de fréquence atteinte : veuillez réessayer plus tard.",
-      "until": "Limite de fréquence : cette action ne peut pas être utilisée à nouveau avant {time}.",
-      "minute_remaining": "Limite de fréquence : {minutes} minute avant de pouvoir utiliser cette action à nouveau.",
-      "minutes_remaining": "Limite de fréquence atteinte : {minutes} minutes avant de pouvoir utiliser cette action à nouveau."
+      "generic": "Limité : veuillez réessayer plus tard.",
+      "until": "Limité : cette action ne peut pas être utilisée à nouveau avant {time}.",
+      "minute_remaining": "Limité : {minutes} minute avant de pouvoir utiliser à nouveau cette action.",
+      "minutes_remaining": "Limité : {minutes} minutes avant de pouvoir utiliser à nouveau cette action."
+    },
+    "errors": {
+      "generic": "Une erreur s'est produite. Veuillez réessayer plus tard ou contacter le support pour assistance."
     }
   },
   "instructions": {
+    "login_required": "Connexion requise",
     "login_for_subscriptions": "Veuillez vous connecter pour voir vos abonnements.",
-    "login_to_create_playlists": "Veuillez vous connecter pour créer des listes de lecture.",
+    "login_to_create_playlists": "Veuillez vous connecter pour créer des playlists.",
     "login_to_create_clips": "Veuillez vous connecter pour créer des clips.",
-    "login_for_queues": "Veuillez vous connecter pour voir vos files d'attente.",
-    "login_for_history": "Veuillez vous connecter pour voir votre historique."
+    "login_for_queues": "Veuillez vous connecter pour voir vos files d'attente",
+    "login_for_history": "Veuillez vous connecter pour voir votre historique",
+    "login_to_add_feeds": "Veuillez vous connecter pour ajouter des flux à notre répertoire",
+    "login_to_refresh_feeds": "Veuillez vous connecter pour actualiser les flux",
+    "login_to_subscribe": "Veuillez vous connecter pour vous abonner",
+    "login_to_add_to_queue": "Veuillez vous connecter pour ajouter à votre file d'attente",
+    "login_to_add_to_playlist": "Veuillez vous connecter pour ajouter à votre playlist",
+    "login_to_mark_as_played": "Veuillez vous connecter pour marquer les éléments comme joués",
+    "login_to_enable_notifications": "Veuillez vous connecter pour activer les notifications",
+    "login_to_disable_notifications": "Veuillez vous connecter pour désactiver les notifications"
+  },
+  "subscriptions": {
+    "subscriptions": "Abonnements",
+    "how_to_start_message": "Essayez <searchLink>de rechercher</searchLink> votre contenu préféré, ou parcourez <podcastsLink>les podcasts</podcastsLink>, <videosLink>les vidéos</videosLink> ou <musicLink>la musique</musicLink>. Vos abonnements apparaîtront ici"
   },
   "authentication": {
     "login": "Connexion",
     "logout": "Déconnexion",
     "sign_up": "S'inscrire",
     "forgot_password": "Mot de passe oublié ?",
+    "forgot_password_email_sent_message": "Si un compte avec cet e-mail existe, un e-mail de réinitialisation du mot de passe a été envoyé. Veuillez vérifier votre e-mail pour des instructions supplémentaires. Si vous ne recevez pas d'e-mail dans quelques minutes, veuillez vérifier votre dossier spam, ou contacter le support",
     "reset_password": "Réinitialiser le mot de passe",
-    "email": "Email",
+    "reset_password_complete_message": "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe",
+    "email": "E-mail",
     "password": "Mot de passe",
-    "confirm_password": "Confirmer le mot de passe"
+    "confirm_password": "Confirmer le mot de passe",
+    "invalid_email_or_password": "E-mail ou mot de passe invalide",
+    "invalid_email": "E-mail invalide",
+    "invalid_password": "Mot de passe invalide",
+    "password_requirements": "Le mot de passe doit comporter au moins 8 caractères et inclure au moins un caractère non en minuscules",
+    "password_mismatch": "Les mots de passe ne correspondent pas",
+    "account_created_message": "Compte créé avec succès. Veuillez vérifier votre e-mail pour un lien de vérification",
+    "account_not_verified": "Compte non vérifié. Veuillez vérifier votre e-mail pour un lien de vérification",
+    "resend_verification_email": "Renvoyer l'e-mail de vérification",
+    "verification_email_sent": "E-mail de vérification envoyé. S'il ne parvient pas dans quelques minutes, veuillez vérifier votre dossier spam ou contacter le support",
+    "verify_email": "Vérifier l'e-mail",
+    "verifying_email_address": "Vérification de l'adresse e-mail...",
+    "email_verified": "E-mail vérifié avec succès",
+    "verification_failed": "Échec de la vérification de l'e-mail. Le lien de vérification a peut-être expiré. Veuillez essayer de vous connecter à nouveau pour renvoyer l'e-mail de vérification",
+    "change_email_address_email": "Changer d'e-mail",
+    "change_email_address_email_sent": "Un e-mail de vérification a été envoyé à votre nouvelle adresse e-mail. Veuillez vérifier votre nouvelle adresse e-mail pour un lien de confirmation. S'il ne parvient pas dans quelques minutes, veuillez vérifier votre dossier spam ou contacter le support",
+    "change_email_verification": "Vérification de changement d'e-mail",
+    "changing_email_address": "Changement d'adresse e-mail...",
+    "change_email_address_email_failed": "Échec du changement d'e-mail. Le lien de confirmation a peut-être expiré. Veuillez réessayer",
+    "change_email_address_email_success": "Adresse e-mail changée avec succès. Vous pouvez maintenant vous connecter avec votre nouvelle adresse e-mail"
+  },
+  "membership": {
+    "membership": "Adhésion",
+    "premium": "Premium"
+  },
+  "layouts": {
+    "change_layout_view": "Changer la vue du layout",
+    "grid_view": "Vue en grille",
+    "grid_mini_view": "Vue en grille mini",
+    "list_view": "Vue en liste"
   },
   "settings": {
+    "settings": "Paramètres",
     "ui_theme": {
       "light": "☀️ Lumière",
-      "dark": "🌙 Sombre"
+      "dark": "🌙 Sombre",
+      "select_ui_theme": "Sélectionner le thème de l'interface"
+    },
+    "feed": {
+      "check_feed_for_updates": "Vérifier les mises à jour du flux",
+      "check_feed_added_to_queue": "Flux ajouté à la queue pour traitement. Cela peut prendre quelques minutes pour que le flux soit analysé. Veuillez vérifier la liste pour des mises à jour plus tard."
+    },
+    "account": {
+      "account": "Compte"
+    },
+    "notifications": {
+      "notifications": "Notifications",
+      "show_app_notifications": "Afficher les notifications de l'application",
+      "default_new_item": "Élément nouveau par défaut",
+      "default_livestream_scheduled": "Diffusion en direct programmée par défaut",
+      "default_livestream_started": "Diffusion en direct commencée par défaut"
+    }
+  },
+  "socials": {
+    "discord": "Discord",
+    "mastodon": "Mastodon",
+    "x": "X",
+    "matrix": "Matrix",
+    "github": "GitHub"
+  },
+  "disclaimers": {
+    "environment_warning": {
+      "alpha": {
+        "header": "Alerte Alpha ⚠️",
+        "message": "Ceci est la version alpha du site web. Elle est inachevée, peut contenir des bogues et vos données alpha peuvent être régulièrement réinitialisées ou supprimées."
+      }
     }
   },
   "categories": {
     "categories": "Catégories",
+    "select_a_category": "Sélectionnez une catégorie",
     "arts": "Arts",
-    "business": "Entreprise",
+    "business": "Affaires",
     "comedy": "Comédie",
     "education": "Éducation",
     "fiction": "Fiction",
     "government": "Gouvernement",
     "history": "Histoire",
-    "healthandfitness": "Santé et forme physique",
+    "healthandfitness": "Santé & Fitness",
     "kidsandfamily": "Enfants & Famille",
-    "leisure": "Loisir",
+    "leisure": "Loisirs",
     "music": "Musique",
-    "news": "Nouvelles",
-    "religionandspirituality": "Religion et spiritualité",
+    "news": "Actualités",
+    "religionandspirituality": "Religion & Spiritualité",
     "science": "Science",
     "societyandculture": "Société & Culture",
     "sports": "Sports",
     "technology": "Technologie",
-    "truecrime": "Crime réel",
-    "tvandfilm": "TV & Film",
+    "truecrime": "Véritable Crime",
+    "tvandfilm": "Télévision & Film",
     "books": "Livres",
-    "design": "Conception",
+    "design": "Design",
     "fashionandbeauty": "Mode & Beauté",
     "food": "Nourriture",
-    "performingarts": "Arts du spectacle",
-    "visualarts": "Arts Visuels",
+    "performingarts": "Arts de la scène",
+    "visualarts": "Arts visuels",
     "careers": "Carrières",
     "entrepreneurship": "Entrepreneuriat",
-    "investing": "Investir",
+    "investing": "Investissement",
     "management": "Gestion",
     "marketing": "Marketing",
-    "nonprofit": "À but non lucratif",
-    "comedyinterviews": "Interviews comiques",
+    "nonprofit": "Organisme à but non lucratif",
+    "comedyinterviews": "Interviews Comiques",
     "improv": "Improvisation",
-    "standup": "Spectacle d'humour",
+    "standup": "Stand-Up",
     "courses": "Cours",
-    "howto": "Comment faire",
-    "languagelearning": "Apprentissage des langues",
-    "selfimprovement": "Développement personnel",
-    "comedyfiction": "Fiction comique",
+    "howto": "Comment Faire",
+    "languagelearning": "Apprentissage des Langues",
+    "selfimprovement": "Développement Personnel",
+    "comedyfiction": "Fiction Comique",
     "drama": "Drame",
-    "sciencefiction": "Science-fiction",
-    "alternativehealth": "Santé alternative",
-    "fitness": "Forme physique",
+    "sciencefiction": "Science-Fiction",
+    "alternativehealth": "Santé Alternative",
+    "fitness": "Fitness",
     "medicine": "Médecine",
-    "mentalhealth": "Santé mentale",
+    "mentalhealth": "Santé Mentale",
     "nutrition": "Nutrition",
     "sexuality": "Sexualité",
-    "educationforkids": "Éducation pour les enfants",
+    "educationforkids": "Éducation pour Enfants",
     "parenting": "Parentalité",
-    "petsandanimals": "Animaux de compagnie & Animaux",
-    "storiesforkids": "Histoires pour enfants",
-    "animationandmanga": "Animation & Manga",
+    "petsandanimals": "Animaux de Compagnie",
+    "storiesforkids": "Histoires pour Enfants",
+    "animationandmanga": "Animation et Manga",
     "automotive": "Automobile",
     "aviation": "Aviation",
-    "crafts": "Artisanat",
+    "crafts": "Arts et Métiers",
     "games": "Jeux",
     "hobbies": "Loisirs",
-    "homeandgarden": "Maison & Jardin",
-    "videogames": "Jeux vidéo",
-    "musiccommentary": "Commentaire musical",
-    "musichistory": "Histoire de la musique",
-    "musicinterviews": "Interviews musicales",
-    "businessnews": "Nouvelles économiques",
-    "dailynews": "Nouvelles Quotidiennes",
-    "entertainmentnews": "Nouvelles de divertissement",
-    "newscommentary": "Commentaire des actualités",
+    "homeandgarden": "Maison et Jardin",
+    "videogames": "Jeux Vidéo",
+    "musiccommentary": "Commentaires Musicaux",
+    "musichistory": "Histoire de la Musique",
+    "musicinterviews": "Interviews Musicales",
+    "businessnews": "Actualités Économiques",
+    "dailynews": "Actualités Quotidiennes",
+    "entertainmentnews": "Actualités du Divertissement",
+    "newscommentary": "Commentaires d'Actualités",
     "politics": "Politique",
-    "sportsnews": "Nouvelles Sportives",
-    "technews": "Nouvelles technologiques",
+    "sportsnews": "Actualités Sportives",
+    "technews": "Actualités Technologiques",
     "buddhism": "Bouddhisme",
     "christianity": "Christianisme",
     "hinduism": "Hindouisme",
-    "islam": "« Islam »",
+    "islam": "Islam",
     "judaism": "Judaïsme",
     "religion": "Religion",
     "spirituality": "Spiritualité",
     "astronomy": "Astronomie",
     "chemistry": "Chimie",
     "earthsciences": "Sciences de la Terre",
-    "lifesciences": "Sciences de la vie",
+    "lifesciences": "Sciences de la Vie",
     "mathematics": "Mathématiques",
-    "naturalsciences": "Sciences naturelles",
+    "naturalsciences": "Sciences Naturelles",
     "nature": "Nature",
     "physics": "Physique",
     "socialsciences": "Sciences sociales",
@@ -405,17 +534,27 @@
     "golf": "Golf",
     "hockey": "Hockey",
     "rugby": "Rugby",
-    "running": "En cours d'exécution",
-    "soccer": "Football",
+    "running": "Course",
+    "soccer": "Football (soccer)",
     "swimming": "Natation",
     "tennis": "Tennis",
     "volleyball": "Volley-ball",
-    "wilderness": "Sauvagerie",
+    "wilderness": "Nature sauvage",
     "wrestling": "Lutte",
-    "aftershows": "Après les spectacles",
-    "filmhistory": "Histoire du film",
+    "aftershows": "After Shows",
+    "filmhistory": "Histoire du cinéma",
     "filminterviews": "Interviews de films",
     "filmreviews": "Critiques de films",
-    "tvreviews": "Critiques TV"
+    "tvreviews": "Critiques de TV"
+  },
+  "language": {
+    "language": "Langue",
+    "select_language": "Sélectionner la langue",
+    "languages": {
+      "en": "Anglais",
+      "es": "Espagnol",
+      "fr": "Français",
+      "el-GR": "Grec"
+    }
   }
 }
