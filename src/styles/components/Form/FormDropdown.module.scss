@@ -1,8 +1,18 @@
+@use '../../mixins/form.scss' as *;
+
 .wrapper {
   position: relative;
-  margin-bottom: 1.5rem;
   display: flex;
   flex: 1;
+  flex-direction: column;
+}
+
+.headerRow {
+  @include formHeaderRow;
+}
+
+.label {
+  @include formHeaderLabel;
 }
 
 .dropdownWrapper {

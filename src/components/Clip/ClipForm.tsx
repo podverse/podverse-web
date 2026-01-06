@@ -111,6 +111,7 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
             />
             <FormDropdown
               key="sharable_status"
+              id="sharable_status"
               eyebrow={tMisc("sharable_status.sharable_status")}
               value={`${sharableStatus}`}
               menuItems={sharableStatusDropdownMenuItems}

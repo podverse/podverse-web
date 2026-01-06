@@ -1,0 +1,9 @@
+.buttons {
+  margin-top: 0.875rem;
+  display: flex;
+  gap: 1.125rem;
+  overflow-x: auto;
+  width: 100%;
+  padding: 0 0.25rem 0.25rem 0; // Add horizontal padding to prevent focus ring cutoff on right
+  margin-bottom: -0.25rem; // Compensate for the vertical padding
+}

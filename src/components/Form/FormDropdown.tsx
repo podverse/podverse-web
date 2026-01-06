@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useRef, useMemo } from "react";
+import { FaChevronDown } from "react-icons/fa6";
 import { DropdownMenu } from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { DropdownMenuItem } from "../Dropdown/Dropdown";
 import styles from "../../styles/components/Form/FormDropdown.module.scss";
-import { FaChevronDown } from "react-icons/fa6";
 
 export interface FormDropdownProps {
-  eyebrow: string;
+  eyebrow?: string;
+  id: string;
+  label?: string;
   menuItems: DropdownMenuItem[];
   value: string;
   onChange: (value: string) => void;
@@ -16,6 +18,8 @@ export interface FormDropdownProps {
 
 export const FormDropdown: React.FC<FormDropdownProps> = ({
   eyebrow,
+  id,
+  label,
   menuItems,
   value,
   onChange
@@ -53,13 +57,21 @@ export const FormDropdown: React.FC<FormDropdownProps> = ({
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.headerRow}>
+        <label htmlFor={id} className={styles.label}>
+          {label}
+        </label>
+      </div>
       <div className={styles.dropdownWrapper}>
         <div className={styles.dropdownInnerWrapper}>
-          <label className={styles.eyebrow}>
-            {eyebrow}
-          </label>
+          {eyebrow && (
+            <label className={styles.eyebrow}>
+              {eyebrow}
+            </label>
+          )}
           <button
             ref={buttonRef}
+            id={id}
             className={styles.dropdownButton}
             aria-haspopup="menu"
             aria-expanded={open}

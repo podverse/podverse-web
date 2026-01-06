@@ -298,6 +298,8 @@
     "submit": "Submit",
     "cancel": "Cancel",
     "close": "Close",
+    "on": "On",
+    "off": "Off",
     "title": "Title",
     "description": "Description",
     "required": "Required",
@@ -346,7 +348,8 @@
     "login_to_add_to_queue": "Please login to add to your queue.",
     "login_to_add_to_playlist": "Please login to add to your playlist.",
     "login_to_mark_as_played": "Please login to mark items as played.",
-    "login_to_enable_notifications": "Please login to enable notifications."
+    "login_to_enable_notifications": "Please login to enable notifications.",
+    "login_to_disable_notifications": "Please login to disable notifications."
   },
   "subscriptions": {
     "subscriptions": "Subscriptions",
@@ -403,6 +406,19 @@
     "feed": {
       "check_feed_for_updates": "Check Feed for Updates",
       "check_feed_added_to_queue": "Feed added to queue for parsing. It may take a few minutes for the feed to be parsed. Please check the list for updates later."
+    },
+    "account": {
+      "account": "Account"
+    },
+    "notifications": {
+      "notifications": "Notifications",
+      "show_app_notifications": "Show app notifications",
+      "default_new_item": "Default new item",
+      "default_livestream_scheduled": "Default livestream scheduled",
+      "default_livestream_started": "Default livestream started",
+      "new_item": "New item",
+      "livestream_scheduled": "Livestream scheduled",
+      "livestream_started": "Livestream started"
     }
   },
   "socials": {
@@ -533,5 +549,15 @@
     "filminterviews": "Film Interviews",
     "filmreviews": "Film Reviews",
     "tvreviews": "TV Reviews"
+  },
+  "language": {
+    "language": "Language",
+    "select_language": "Select Language",
+    "languages": {
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "el-GR": "Greek"
+    }
   }
 }

@@ -7,7 +7,7 @@ import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpi
 import { ListTracks } from "../../../components/List/Music/Albums/Tracks/ListTracks";
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
-import { AlbumSettings } from "../../../components/List/Music/Albums/AlbumSettings";
+import { ListChannelSettings } from "../../../components/List/ListChannelSettings";
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 type AlbumListProps = {
@@ -48,7 +48,7 @@ export const AlbumList: React.FC<AlbumListProps> = ({ podroll, ssrChannel }) => 
       }
       {
         type === "settings" && (
-          <AlbumSettings channel={ssrChannel} />
+          <ListChannelSettings channel={ssrChannel} />
         )
       }
       <LoadingSpinnerOverlay isLoading={isLoading} />

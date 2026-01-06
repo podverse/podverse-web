@@ -1,6 +1,5 @@
 import '../styles/index.scss';
 import { cookies } from 'next/headers';
-import { getLocale } from 'next-intl/server';
 import { generateQueueResourceAbridgedIndex, QueueResourcesAbridgedIndex } from 'podverse-helpers';
 import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
@@ -23,6 +22,8 @@ import { Toast } from '../components/Toast/Toast';
 import { QueueController } from '../components/Queue/QueueController';
 import { QueueResourcesAbridgedController } from '../components/Queue/QueueResourcesAbridgedController';
 import { getParsedLocalSettings } from '../utils/localSettings/localSettings';
+import { useLocaleDetect } from '../hooks/useLocaleDetect';
+import { setSSRAccountForLocale } from '../i18n/request';
 
 export const metadata = {
   title: config.public.brand.name,
@@ -30,13 +31,18 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
+  const cookieStore = await cookies();
   const ssrLocalSettings = getParsedLocalSettings(cookieStore);
   const ssrUITheme = toUITheme(ssrLocalSettings.uit);
 
   const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
   const ssrShouldLogout = !!(jwt && !ssrLoggedInAccount);
+
+  setSSRAccountForLocale(ssrLoggedInAccount);
+
+  // Detect locale based on account settings, cookie, or browser preference
+  const locale = await useLocaleDetect(ssrLoggedInAccount);
 
   let ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null = null;
 

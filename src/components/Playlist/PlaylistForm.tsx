@@ -76,6 +76,7 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
       )}
       <FormDropdown
         key="medium"
+        id="medium"
         eyebrow={tFeatures("playlist.playlist_type")}
         value={`${medium}`}
         menuItems={mediumDropdownMenuItems}
@@ -83,6 +84,7 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
       />
       <FormDropdown
         key="sharable_status"
+        id="sharable_status"
         eyebrow={tMisc("sharable_status.sharable_status")}
         value={`${sharableStatus}`}
         menuItems={sharableStatusDropdownMenuItems}

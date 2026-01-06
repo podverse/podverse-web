@@ -53,6 +53,10 @@ const originalsDir = path.resolve(__dirname, '../../i18n/originals');
 const overridesDir = path.resolve(__dirname, '../../i18n/overrides');
 const compiledDir = path.resolve(__dirname, '../../i18n/compiled');
 
+if (!fs.existsSync(overridesDir)) {
+  fs.mkdirSync(overridesDir, { recursive: true });
+}
+
 if (!fs.existsSync(compiledDir)) {
   fs.mkdirSync(compiledDir, { recursive: true });
 }
