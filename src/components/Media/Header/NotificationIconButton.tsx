@@ -7,6 +7,7 @@ import { useAccount } from "../../../contexts/Account";
 import { useModals } from "../../../contexts/Modals";
 import { IconButton } from "../Header/IconButton";
 import { apiRequestService } from "../../../factories/apiRequestService";
+import { requestNotificationPermission } from "../../../external-services/firebase/requestNotificationPermission";
 
 type NotificationIconButtonProps = {
   channel: DTOChannel;
@@ -40,6 +41,20 @@ export const NotificationIconButton: React.FC<NotificationIconButtonProps> = ({ 
       const updatedAccount = await apiRequestService.reqAccountNotificationChannelDelete({ channel_id_text: channel.id_text });
       await setLoggedInAccount(updatedAccount);
     } else {
+      // Read permission into a fresh variable to avoid TypeScript narrowing issues
+      const permissionBefore = (typeof Notification !== 'undefined') ? Notification.permission : undefined;
+
+      if (permissionBefore !== 'granted') {
+        // Request permission first
+        await requestNotificationPermission();
+      }
+
+      // Re-read permission after the async call
+      const permissionAfterRequest = (typeof Notification !== 'undefined') ? Notification.permission : undefined;
+      if (permissionAfterRequest !== 'granted') {
+        return;
+      }
+
       const updatedAccount = await apiRequestService.reqAccountNotificationChannelCreate({ channel_id_text: channel.id_text });
       await setLoggedInAccount(updatedAccount);
     }
