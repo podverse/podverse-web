@@ -6,6 +6,9 @@
 const fs = require('fs');
 const path = require('path');
 
+// Load .env file from project root
+require('dotenv').config({ path: path.join(__dirname, '..', '..', '..', '..', '.env') });
+
 const outPath = path.join(__dirname, '..', '..', '..', '..', 'public', 'firebase-messaging-sw.js');
 const templatePath = path.join(__dirname, 'firebase-messaging-sw.template.js');
 

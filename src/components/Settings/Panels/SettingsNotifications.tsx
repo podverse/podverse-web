@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { requestNotificationPermission } from '../../../external-services/firebase/requestNotificationPermission'
 import { disableNotificationPermission } from '../../../external-services/firebase/disableNotificationPermission'
 import { getToken, messaging } from '../../../external-services/firebase/init'
@@ -20,7 +20,6 @@ export function SettingsNotifications() {
   const { setModalLoginRequired } = useModals();
   const tInstructions = useTranslations("instructions");
   const tSettings = useTranslations("settings");
-  const locale = useLocale();
 
   const enableNotifications = async () => {
     setLoadingFor('notifications', true);
@@ -35,7 +34,7 @@ export function SettingsNotifications() {
     
     try {
       await withLoading('notifications', async () => {
-        await requestNotificationPermission(locale)
+        await requestNotificationPermission()
       })
     } finally {
       if (typeof window !== 'undefined' && 'Notification' in window) {

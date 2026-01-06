@@ -56,7 +56,7 @@ export async function useLocaleDetect(ssrLoggedInAccount: DTOAccount | null): Pr
   } else if (cookieLocale) {
     // No account locale, use cookie if valid
     try {
-      await import(`../../../i18n/originals/${cookieLocale}.json`);
+      await import(`../../i18n/originals/${cookieLocale}.json`);
       locale = cookieLocale;
     } catch (err) {
       // Invalid cookie locale or missing messages; use detected

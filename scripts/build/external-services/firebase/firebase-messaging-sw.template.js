@@ -14,6 +14,15 @@ try {
 
   messaging.onBackgroundMessage(async (payload) => {
     try {
+      // Check if there's a focused client - if so, the foreground handler will show the notification
+      const clientList = await clients.matchAll({ type: 'window', includeUncontrolled: true });
+      const hasFocusedClient = clientList.some(client => client.focused === true);
+      
+      if (hasFocusedClient) {
+        // Foreground handler will show the notification
+        return;
+      }
+
       // prefer webpush.data fields if present (FCM sends data as strings)
       const data = payload.data || payload?.webpush?.data || {};
       const notificationTitle = data.title || payload.notification?.title || 'Notification';
