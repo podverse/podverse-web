@@ -22,7 +22,7 @@ export const NotificationIconButton: React.FC<NotificationIconButtonProps> = ({ 
   const tInstructions = useTranslations("instructions");
   const { loggedInAccount, setLoggedInAccount } = useAccount();
   const { setModalLoginRequired } = useModals();
-
+  
   const isSubscribed = loggedInAccount?.account_notification_channels?.some(
     account_notification_channel => account_notification_channel.channel_id === channel.id
   );

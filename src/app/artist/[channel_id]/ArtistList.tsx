@@ -5,10 +5,10 @@ import React from "react";
 import { useArtistContext } from "./ArtistContext";
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
-import { AlbumSettings } from "../../../components/List/Music/Albums/AlbumSettings";
 import { ListAlbumsRemoteItems } from "../../../components/List/Music/Albums/ListAlbumsRemoteItems";
-import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 import { ListTracksRemoteItems } from "../../../components/List/Music/Albums/Tracks/ListTracksRemoteItems";
+import { ListChannelSettings } from "../../../components/List/ListChannelSettings";
+import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 type ArtistListProps = {
   podroll: RemoteItemsResponse | null;
@@ -60,7 +60,7 @@ export const ArtistList: React.FC<ArtistListProps> = ({ podroll, ssrChannel,
       }
       {
         type === "settings" && (
-          <AlbumSettings channel={ssrChannel} />
+          <ListChannelSettings channel={ssrChannel} />
         )
       }
     </div>

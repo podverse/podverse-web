@@ -9,7 +9,7 @@ import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 import { ListClips } from "../../../components/List/Clips/ListClips";
 import { ListItemSoundbites } from "../../../components/List/ItemSoundbites/ListItemSoundbites";
-import { PodcastSettings } from "../../../components/List/Podcasts/PodcastSettings";
+import { ListChannelSettings } from "../../../components/List/ListChannelSettings";
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 type PodcastListProps = {
@@ -78,7 +78,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
       }
       {
         type === "settings" && (
-          <PodcastSettings channel={ssrChannel} />
+          <ListChannelSettings channel={ssrChannel} />
         )
       }
       <LoadingSpinnerOverlay isLoading={isLoading} />

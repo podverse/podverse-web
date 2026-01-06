@@ -12,12 +12,9 @@ if (typeof window !== "undefined" && "navigator" in window) {
   // When using data-only messages (no "notification" field),
   // FCM won't auto-display notifications when the app is in the foreground.
   onMessage(messaging, (payload) => {
-    // Only show notification if the document has focus.
-    // If the page is visible but not focused (e.g., on another monitor while using another app),
-    // the service worker's onBackgroundMessage will handle it instead.
-    if (!document.hasFocus()) {
-      return;
-    }
+    // Show notification when the page is visible (foreground).
+    // FCM routes messages here when the page is visible, even if not focused.
+    // The service worker's onBackgroundMessage only fires when the page is hidden/closed.
 
     // For data-only messages, the data is in payload.data
     const data = payload.data || {};

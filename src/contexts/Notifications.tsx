@@ -59,6 +59,7 @@ export const NotificationsProvider = ({
             vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
             serviceWorkerRegistration: registration || undefined,
           });
+          
           if (token) {
             const installation_id = getOrCreateInstallationId();
             if (installation_id) {

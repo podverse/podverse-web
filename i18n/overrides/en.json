@@ -415,7 +415,10 @@
       "show_app_notifications": "Show app notifications",
       "default_new_item": "Default new item",
       "default_livestream_scheduled": "Default livestream scheduled",
-      "default_livestream_started": "Default livestream started"
+      "default_livestream_started": "Default livestream started",
+      "new_item": "New item",
+      "livestream_scheduled": "Livestream scheduled",
+      "livestream_started": "Livestream started"
     }
   },
   "socials": {
