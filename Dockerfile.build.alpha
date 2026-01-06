@@ -12,6 +12,8 @@ RUN npm install podverse-helpers@alpha
 
 # Stage 2: Build the app
 FROM deps AS builder
+# required for pre-build scripts to use. within next.js app, NODE_ENV is controlled by next.js
+ENV NODE_ENV=production
 COPY . .
 
 # Ensure the source env file actually exists! 

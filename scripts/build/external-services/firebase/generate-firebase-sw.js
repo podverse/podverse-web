@@ -6,8 +6,10 @@
 const fs = require('fs');
 const path = require('path');
 
+// Choose .env file: use .env.production when running in production
+const envFileName = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
 // Load .env file from project root
-require('dotenv').config({ path: path.join(__dirname, '..', '..', '..', '..', '.env') });
+require('dotenv').config({ path: path.join(__dirname, '..', '..', '..', '..', envFileName) });
 
 const outPath = path.join(__dirname, '..', '..', '..', '..', 'public', 'firebase-messaging-sw.js');
 const templatePath = path.join(__dirname, 'firebase-messaging-sw.template.js');
