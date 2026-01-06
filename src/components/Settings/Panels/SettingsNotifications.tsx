@@ -2,9 +2,10 @@
 
 import React from 'react'
 import { useTranslations } from 'next-intl'
+import { getToken } from 'firebase/messaging'
 import { requestNotificationPermission } from '../../../external-services/firebase/requestNotificationPermission'
 import { disableNotificationPermission } from '../../../external-services/firebase/disableNotificationPermission'
-import { getToken, messaging } from '../../../external-services/firebase/init'
+import { getMessagingInstance } from '../../../external-services/firebase/init'
 import { apiRequestService } from '../../../factories/apiRequestService'
 import { useNotifications } from '../../../contexts/Notifications'
 import { useAccount } from '../../../contexts/Account'
@@ -43,6 +44,11 @@ export function SettingsNotifications() {
 
         if (p === 'granted') {
           try {
+            const messaging = getMessagingInstance();
+            if (!messaging) {
+              setRegistered(false);
+              return;
+            }
             const registration = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
             const token = await getToken(messaging, {
               vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,

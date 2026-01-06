@@ -1,9 +1,9 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { useContext } from "react";
-import { useLocale } from "next-intl";
 import { useAccount } from "./Account";
 import { apiRequestService } from "../factories/apiRequestService";
-import { getToken, messaging } from "../external-services/firebase/init";
+import { getToken } from "firebase/messaging";
+import { initializeFirebase } from "../external-services/firebase/init";
 import { getOrCreateInstallationId } from "../external-services/firebase/installationIdKey";
 
 type NotificationsContextType = {
@@ -30,7 +30,6 @@ export const NotificationsProvider = ({
   const [permission, setPermission] = useState<NotificationPermission>('default')
   const [registered, setRegistered] = useState<boolean>(false)
   const { loggedInAccount } = useAccount();
-  const locale = useLocale();
 
   useEffect(() => {
     if (!loggedInAccount) {
@@ -38,6 +37,13 @@ export const NotificationsProvider = ({
     }
     
     if (typeof window === 'undefined' || !('Notification' in window)) return;
+
+    // Only initialize Firebase if the account has notification channels
+    const hasNotificationChannels = loggedInAccount?.account_notification_channels
+      && loggedInAccount?.account_notification_channels?.length > 0;
+    if (!hasNotificationChannels) {
+      return;
+    }
 
     const init = async () => {
       const p = Notification.permission;
@@ -54,6 +60,13 @@ export const NotificationsProvider = ({
         }
 
         try {
+          // Initialize Firebase lazily only when needed
+          const messaging = initializeFirebase();
+          if (!messaging) {
+            setRegistered(false);
+            return;
+          }
+
           const registration = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
           token = await getToken(messaging, {
             vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
@@ -74,8 +87,7 @@ export const NotificationsProvider = ({
                     previous_fcm_token: token,
                     new_fcm_token: token,
                     installation_id,
-                    platform: 'web',
-                    locale
+                    platform: 'web'
                   });
                   setRegistered(true);
                   return;
@@ -86,8 +98,7 @@ export const NotificationsProvider = ({
                       previous_fcm_token: match3.fcm_token,
                       new_fcm_token: token,
                       installation_id,
-                      platform: 'web',
-                      locale
+                      platform: 'web'
                     });
                     setRegistered(true);
                     return;
@@ -105,7 +116,7 @@ export const NotificationsProvider = ({
     }
 
     init();
-  }, []);
+  }, [loggedInAccount]);
 
   return (
     <NotificationsContext.Provider

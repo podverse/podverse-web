@@ -1,5 +1,6 @@
+import { getToken } from "firebase/messaging";
 import { apiRequestService } from "../../factories/apiRequestService";
-import { getToken, messaging } from "./init";
+import { getMessagingInstance } from "./init";
 import { getOrCreateInstallationId } from "./installationIdKey";
 
 export const requestNotificationPermission = async () => {
@@ -21,6 +22,13 @@ export const requestNotificationPermission = async () => {
     );
 
     if (!registration) {
+      return;
+    }
+
+    // Initialize Firebase lazily when user action requires it
+    const messaging = getMessagingInstance();
+    if (!messaging) {
+      console.warn('Could not initialize Firebase messaging');
       return;
     }
 
