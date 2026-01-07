@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.next/
+out/
+
+# Lock files (large, not needed for code understanding)
+package-lock.json
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+*.tsbuildinfo
+
+# Compiled i18n files (generated from originals)
+i18n/compiled/
+
+# Compiled scripts
+scripts/dist/
+
+# Temporary files
+temp-*.txt
