@@ -7,7 +7,7 @@ import { useAccount } from "../../../contexts/Account";
 import { useModals } from "../../../contexts/Modals";
 import { IconButton } from "../Header/IconButton";
 import { apiRequestService } from "../../../factories/apiRequestService";
-import { requestNotificationPermission } from "../../../external-services/firebase/requestNotificationPermission";
+import { requestNotificationPermission } from "../../../lib/notifications/webpush/requestNotificationPermission";
 
 type NotificationIconButtonProps = {
   channel: DTOChannel;

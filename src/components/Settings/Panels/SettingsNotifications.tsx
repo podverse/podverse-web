@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { useTranslations } from 'next-intl'
-import { getToken } from 'firebase/messaging'
-import { requestNotificationPermission } from '../../../external-services/firebase/requestNotificationPermission'
-import { disableNotificationPermission } from '../../../external-services/firebase/disableNotificationPermission'
-import { getMessagingInstance } from '../../../external-services/firebase/init'
+import { requestNotificationPermission } from '../../../lib/notifications/webpush/requestNotificationPermission'
+import { disableNotificationPermission } from '../../../lib/notifications/webpush/disableNotificationPermission'
 import { apiRequestService } from '../../../factories/apiRequestService'
 import { useNotifications } from '../../../contexts/Notifications'
 import { useAccount } from '../../../contexts/Account'
@@ -44,26 +42,20 @@ export function SettingsNotifications() {
 
         if (p === 'granted') {
           try {
-            const messaging = getMessagingInstance();
-            if (!messaging) {
-              setRegistered(false);
-              return;
+            // Check if we have a current push subscription that matches a device
+            const registration = await navigator.serviceWorker.getRegistration('/webpush-sw.js');
+            if (registration) {
+              const subscription = await registration.pushManager.getSubscription();
+              if (subscription) {
+                const devices = await apiRequestService.reqAccountWebPushDeviceGetAllForAccount();
+                const match = devices.find(d => d.endpoint === subscription.endpoint);
+                setRegistered(!!match);
+                return;
+              }
             }
-            const registration = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
-            const token = await getToken(messaging, {
-              vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-              serviceWorkerRegistration: registration || undefined,
-            });
-            try {
-              const devices = await apiRequestService.reqAccountFCMDeviceGetAllForAccount();
-              const match = token ? devices.find(d => d.fcm_token === token) : null;
-              setRegistered(!!match);
-            } catch (e) {
-              console.warn('Could not fetch devices to verify registration', e);
-              setRegistered(false);
-            }
+            setRegistered(false);
           } catch (e) {
-            console.warn('Could not read FCM token after enable', e);
+            console.warn('Could not verify registration after enable', e);
             setRegistered(false);
           }
         } else {

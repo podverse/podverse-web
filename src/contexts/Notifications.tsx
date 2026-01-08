@@ -1,10 +1,8 @@
-import React, { createContext, useState, ReactNode, useEffect } from "react";
+import React, { createContext, useState, ReactNode, useEffect, useCallback } from "react";
 import { useContext } from "react";
 import { useAccount } from "./Account";
 import { apiRequestService } from "../factories/apiRequestService";
-import { getToken } from "firebase/messaging";
-import { initializeFirebase } from "../external-services/firebase/init";
-import { getOrCreateInstallationId } from "../external-services/firebase/installationIdKey";
+import { config } from "../config";
 
 type NotificationsContextType = {
   permission: NotificationPermission;
@@ -31,6 +29,35 @@ export const NotificationsProvider = ({
   const [registered, setRegistered] = useState<boolean>(false)
   const { loggedInAccount } = useAccount();
 
+  // Handle foreground push notifications
+  const handleForegroundPush = useCallback((event: MessageEvent) => {
+    if (event.data?.type === 'PUSH_NOTIFICATION') {
+      const data = event.data.payload;
+      const title = data.title || 'Notification';
+      const body = data.body || '';
+      const icon = data.icon;
+      const link = data.link || '/';
+
+      if (Notification.permission === 'granted' && title) {
+        const notification = new Notification(title, {
+          body,
+          icon,
+          data: { url: link },
+        });
+
+        notification.onclick = (e) => {
+          e.preventDefault();
+          notification.close();
+          if (link && link !== '/') {
+            window.open(link, '_blank');
+          } else {
+            window.focus();
+          }
+        };
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (!loggedInAccount) {
       return;
@@ -38,85 +65,64 @@ export const NotificationsProvider = ({
     
     if (typeof window === 'undefined' || !('Notification' in window)) return;
 
-    // Only initialize Firebase if the account has notification channels
+    // Only check subscriptions if the account has notification channels
     const hasNotificationChannels = loggedInAccount?.account_notification_channels
       && loggedInAccount?.account_notification_channels?.length > 0;
     if (!hasNotificationChannels) {
       return;
     }
 
+    const vapidPublicKey = config.public.notifications.webpush.vapidPublicKey;
+
     const init = async () => {
       const p = Notification.permission;
       setPermission(p);
 
-      if (p === 'granted') {
-        let token: string | null = null;
-        
-        const devices = await apiRequestService.reqAccountFCMDeviceGetAllForAccount();
-
-        if (devices.length === 0) {
-          setRegistered(false);
-          return;
-        }
-
+      if (p === 'granted' && vapidPublicKey) {
         try {
-          // Initialize Firebase lazily only when needed
-          const messaging = initializeFirebase();
-          if (!messaging) {
+          const devices = await apiRequestService.reqAccountWebPushDeviceGetAllForAccount();
+
+          if (devices.length === 0) {
             setRegistered(false);
             return;
           }
 
-          const registration = await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js');
-          token = await getToken(messaging, {
-            vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-            serviceWorkerRegistration: registration || undefined,
-          });
-          
-          if (token) {
-            const installation_id = getOrCreateInstallationId();
-            if (installation_id) {
-              const match = devices.find(d => d.fcm_token === token && d.installation_id === installation_id);
+          // Check if we have a current push subscription
+          const registration = await navigator.serviceWorker.getRegistration('/webpush-sw.js');
+          if (registration) {
+            const subscription = await registration.pushManager.getSubscription();
+            if (subscription) {
+              const endpoint = subscription.endpoint;
+              // Check if our current subscription endpoint matches any device
+              const match = devices.find(d => d.endpoint === endpoint);
               if (match) {
                 setRegistered(true);
                 return;
-              } else {
-                const match2 = devices.find(d => d.fcm_token === token && d.installation_id !== installation_id);
-                if (match2) {
-                  await apiRequestService.reqAccountFCMDeviceUpdate({
-                    previous_fcm_token: token,
-                    new_fcm_token: token,
-                    installation_id,
-                    platform: 'web'
-                  });
-                  setRegistered(true);
-                  return;
-                } else {
-                  const match3 = devices.find(d => d.installation_id === installation_id);
-                  if (match3) {
-                    await apiRequestService.reqAccountFCMDeviceUpdate({
-                      previous_fcm_token: match3.fcm_token,
-                      new_fcm_token: token,
-                      installation_id,
-                      platform: 'web'
-                    });
-                    setRegistered(true);
-                    return;
-                  }
-                }
               }
             }
-            setRegistered(false);
           }
+          
+          setRegistered(false);
         } catch (e) {
           console.warn('Could not fetch devices to determine registration', e);
           setRegistered(false);
         }
       }
-    }
+    };
 
     init();
-  }, [loggedInAccount]);
+
+    // Set up listener for foreground push messages from service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', handleForegroundPush);
+    }
+
+    return () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.removeEventListener('message', handleForegroundPush);
+      }
+    };
+  }, [loggedInAccount, handleForegroundPush]);
 
   return (
     <NotificationsContext.Provider
