@@ -412,10 +412,24 @@
     },
     "notifications": {
       "notifications": "Ειδοποιήσεις",
-      "show_app_notifications": "Εμφάνιση ειδοποιήσεων εφαρμογής",
+      "web_push": "Ειδοποιήσεις Προγράμματος Περιήγησης",
+      "unified_push": "Ενοποιημένη Push",
+      "up_endpoint_label": "Διεύθυνση URL Τερματικού",
+      "up_endpoint_placeholder": "https://ntfy.sh/your-topic",
+      "up_endpoint_info": "Εισάγετε τη διεύθυνση URL του τερματικού Unified Push σας. Συμβατή με ntfy και άλλες υπηρεσίες UP.",
+      "up_auth_key_label": "Κωδικός Πρόσβασης (προαιρετικός)",
+      "up_auth_key_placeholder": "tk_...",
+      "up_auth_key_info": "Απαραίτητο για ιδιωτικά/προστατευμένα θέματα. Αφήστε κενό για δημόσια θέματα.",
+      "up_current_endpoint": "Τρέχων τερματικός:",
+      "up_enable_error": "Απέτυχε η ενεργοποίηση της Ενοποιημένης Push. Ελέγξτε τη διεύθυνση URL του τερματικού σας.",
+      "cancel": "Ακύρωση",
+      "enable": "Ενεργοποίηση",
       "default_new_item": "Προκαθορισμένο νέο στοιχείο",
       "default_livestream_scheduled": "Προκαθορισμένη ζωντανή μετάδοση προγραμματισμένη",
-      "default_livestream_started": "Προκαθορισμένη ζωντανή μετάδοση ξεκίνησε"
+      "default_livestream_started": "Προκαθορισμένη ζωντανή μετάδοση ξεκίνησε",
+      "new_item": "Νέα καταχώρηση",
+      "livestream_scheduled": "Προγραμματισμένη Ζωντανή Μετάδοση",
+      "livestream_started": "Ζωντανή Μετάδοση Ξεκίνησε"
     }
   },
   "socials": {

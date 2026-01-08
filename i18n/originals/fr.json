@@ -412,10 +412,24 @@
     },
     "notifications": {
       "notifications": "Notifications",
-      "show_app_notifications": "Afficher les notifications de l'application",
+      "web_push": "Notifications du navigateur Web",
+      "unified_push": "Push unifié",
+      "up_endpoint_label": "URL de l'endpoint",
+      "up_endpoint_placeholder": "https://ntfy.sh/votre-sujet",
+      "up_endpoint_info": "Entrez l'URL de votre endpoint de Push Unifié. Compatible avec ntfy et d'autres services UP.",
+      "up_auth_key_label": "Token d'accès (optionnel)",
+      "up_auth_key_placeholder": "tk_...",
+      "up_auth_key_info": "Nécessaire pour les sujets privés/protégés. Laissez vide pour les sujets publics.",
+      "up_current_endpoint": "Endpoint actuel :",
+      "up_enable_error": "Échec de l'activation du Push Unifié. Veuillez vérifier votre URL d'endpoint.",
+      "cancel": "Annuler",
+      "enable": "Activer",
       "default_new_item": "Élément nouveau par défaut",
       "default_livestream_scheduled": "Diffusion en direct programmée par défaut",
-      "default_livestream_started": "Diffusion en direct commencée par défaut"
+      "default_livestream_started": "Diffusion en direct commencée par défaut",
+      "new_item": "Nouvel élément",
+      "livestream_scheduled": "Diffusion en direct programmée",
+      "livestream_started": "Diffusion en direct commencée"
     }
   },
   "socials": {
