@@ -9,6 +9,10 @@ type NotificationsContextType = {
   setPermission: (val: NotificationPermission) => void;
   registered: boolean;
   setRegistered: (val: boolean) => void;
+  upRegistered: boolean;
+  setUPRegistered: (val: boolean) => void;
+  upEndpoint: string | null;
+  setUPEndpoint: (val: string | null) => void;
 };
 
 export const NotificationsContext = createContext<NotificationsContextType>({
@@ -16,6 +20,10 @@ export const NotificationsContext = createContext<NotificationsContextType>({
   setPermission: () => {},
   registered: false,
   setRegistered: () => {},
+  upRegistered: false,
+  setUPRegistered: () => {},
+  upEndpoint: null,
+  setUPEndpoint: () => {},
 });
 
 type NotificationsProviderProps = {
@@ -27,6 +35,8 @@ export const NotificationsProvider = ({
 }: NotificationsProviderProps) => {
   const [permission, setPermission] = useState<NotificationPermission>('default')
   const [registered, setRegistered] = useState<boolean>(false)
+  const [upRegistered, setUPRegistered] = useState<boolean>(false)
+  const [upEndpoint, setUPEndpoint] = useState<string | null>(null)
   const { loggedInAccount } = useAccount();
 
   // Handle foreground push notifications
@@ -78,35 +88,54 @@ export const NotificationsProvider = ({
       const p = Notification.permission;
       setPermission(p);
 
+      // Check Web Push devices
       if (p === 'granted' && vapidPublicKey) {
         try {
           const devices = await apiRequestService.reqAccountWebPushDeviceGetAllForAccount();
 
           if (devices.length === 0) {
             setRegistered(false);
-            return;
-          }
-
-          // Check if we have a current push subscription
-          const registration = await navigator.serviceWorker.getRegistration('/webpush-sw.js');
-          if (registration) {
-            const subscription = await registration.pushManager.getSubscription();
-            if (subscription) {
-              const endpoint = subscription.endpoint;
-              // Check if our current subscription endpoint matches any device
-              const match = devices.find(d => d.endpoint === endpoint);
-              if (match) {
-                setRegistered(true);
-                return;
+          } else {
+            // Check if we have a current push subscription
+            const registration = await navigator.serviceWorker.getRegistration('/webpush-sw.js');
+            if (registration) {
+              const subscription = await registration.pushManager.getSubscription();
+              if (subscription) {
+                const endpoint = subscription.endpoint;
+                // Check if our current subscription endpoint matches any device
+                const match = devices.find(d => d.endpoint === endpoint);
+                if (match) {
+                  setRegistered(true);
+                } else {
+                  setRegistered(false);
+                }
+              } else {
+                setRegistered(false);
               }
+            } else {
+              setRegistered(false);
             }
           }
-          
-          setRegistered(false);
         } catch (e) {
-          console.warn('Could not fetch devices to determine registration', e);
+          console.warn('Could not fetch Web Push devices to determine registration', e);
           setRegistered(false);
         }
+      }
+
+      // Check UP devices
+      try {
+        const upDevices = await apiRequestService.reqAccountUPDeviceGetAllForAccount();
+        if (upDevices.length > 0) {
+          setUPRegistered(true);
+          setUPEndpoint(upDevices[0].up_endpoint);
+        } else {
+          setUPRegistered(false);
+          setUPEndpoint(null);
+        }
+      } catch (e) {
+        console.warn('Could not fetch UP devices to determine registration', e);
+        setUPRegistered(false);
+        setUPEndpoint(null);
       }
     };
 
@@ -128,7 +157,9 @@ export const NotificationsProvider = ({
     <NotificationsContext.Provider
       value={{
         permission, setPermission,
-        registered, setRegistered
+        registered, setRegistered,
+        upRegistered, setUPRegistered,
+        upEndpoint, setUPEndpoint
       }}>
       {children}
     </NotificationsContext.Provider>
