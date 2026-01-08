@@ -18,9 +18,6 @@ i18n/compiled
 node_modules
 bower_components
 
-# public (these are generated at build time)
-/public/firebase-messaging-sw.js
-
 # Editors
 .idea
 *.iml

@@ -11,9 +11,9 @@
     "Mitch Downey"
   ],
   "scripts": {
-    "prebuild": "node ./scripts/build/external-services/firebase/generate-firebase-sw.js && npm run i18n-compile",
+    "prebuild": "npm run i18n-compile",
     "build": "next build",
-    "predev": "node ./scripts/build/external-services/firebase/generate-firebase-sw.js && npm run i18n-compile",
+    "predev": "npm run i18n-compile",
     "dev": "next dev",
     "dev:watch": "nodemon --watch $(realpath node_modules/podverse-helpers) --exec \"npm run dev\"",
     "lint": "next lint",
@@ -41,7 +41,6 @@
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "classnames": "^2.5.1",
-    "firebase": "12.7.0",
     "isomorphic-dompurify": "^2.28.0",
     "next": "^15.5.7",
     "next-intl": "^4.3.9",

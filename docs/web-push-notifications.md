@@ -4,7 +4,7 @@ This document describes how to set up and configure native Web Push notification
 
 ## Overview
 
-podverse-web uses the W3C Push API for native browser push notifications. This replaces the previous Firebase Cloud Messaging (FCM) implementation for web browsers, removing the dependency on Google's third-party service.
+podverse-web uses the W3C Push API for native browser push notifications.
 
 ## Configuration
 
