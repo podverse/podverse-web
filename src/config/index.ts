@@ -49,6 +49,11 @@ export const config = {
         default: process.env.NEXT_PUBLIC_FEATURES_DEFAULT_LOCALE || "en"
       }
     },
+    notifications: {
+      webpush: {
+        vapidPublicKey: process.env.NEXT_PUBLIC_WEBPUSH_VAPID_PUBLIC_KEY || ""
+      }
+    },
     server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
   }
 };
