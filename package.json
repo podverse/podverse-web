@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "5.1.18-develop",
+  "version": "5.1.19",
   "description": "Website for the Podverse podcast app",
   "private": true,
   "main": "./src/index.js",
