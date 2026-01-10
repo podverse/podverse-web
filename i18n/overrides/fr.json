@@ -48,7 +48,8 @@
     },
     "add_feed": {
       "add_feed": "Ajouter un Flux",
-      "add_feed_explanation": "Ce flux n'est pas dans notre annuaire. Si vous souhaitez l'ajouter, appuyez sur le bouton \"Ajouter un Flux\"."
+      "add_feed_explanation": "Ce flux n'est pas dans notre annuaire. Si vous souhaitez l'ajouter, appuyez sur le bouton \"Ajouter un Flux\".",
+      "rss_link": "Lien RSS"
     },
     "my_library": "Ma Bibliothèque",
     "queue": {
