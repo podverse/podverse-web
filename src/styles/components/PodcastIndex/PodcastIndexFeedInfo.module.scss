@@ -9,8 +9,26 @@
   margin-bottom: 1.25rem;
 }
 
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .addFeedButton {
-  max-width: 200px;
+  min-width: 142px;
+}
+
+.rssLinkButton {
+  text-decoration: none;
+}
+
+.rssLinkButtonInner {
+  min-width: 142px;
+}
+
+.buttonIcon {
+  margin-right: 0.5rem;
 }
 
 .image {

@@ -5,6 +5,7 @@ import { formatDateAbbrev, PodcastByIdFeed } from "podverse-helpers";
 import { Image } from "../Image/Image";
 import { IMAGES } from "../../constants/images";
 import { Button } from "../Button/Button";
+import { FaPlus, FaRss } from "react-icons/fa6";
 import styles from "../../styles/components/PodcastIndex/PodcastIndexFeedInfo.module.scss";
 import { useState, useRef, useEffect } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
@@ -98,14 +99,28 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
         <div className={styles.explanation}>
           {tFeatures("add_feed.add_feed_explanation")}
         </div>
-        <Button
-          variant="primary"
-          onClick={addFeedOnClick}
-          className={styles.addFeedButton}
-          isLoading={isLoading}
-        >
-          {tFeatures("add_feed.add_feed")}
-        </Button>
+        <div className={styles.buttonRow}>
+          <Button
+            variant="primary"
+            onClick={addFeedOnClick}
+            className={styles.addFeedButton}
+            isLoading={isLoading}
+          >
+            <FaPlus className={styles.buttonIcon} />
+            {tFeatures("add_feed.add_feed")}
+          </Button>
+          <a
+            href={podcastIndexFeed.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.rssLinkButton}
+          >
+            <Button variant="secondary" className={styles.rssLinkButtonInner}>
+              <FaRss className={styles.buttonIcon} />
+              {tFeatures("add_feed.rss_link")}
+            </Button>
+          </a>
+        </div>
       </div>
       {
         imageUrl && (
