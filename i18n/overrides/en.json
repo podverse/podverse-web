@@ -48,7 +48,8 @@
     },
     "add_feed": {
       "add_feed": "Add Feed",
-      "add_feed_explanation": "This feed is not in our directory. If you would like to add it, press the \"Add Feed\" button."
+      "add_feed_explanation": "This feed is not in our directory. If you would like to add it, press the \"Add Feed\" button.",
+      "rss_link": "RSS Link"
     },
     "my_library": "My Library",
     "queue": {

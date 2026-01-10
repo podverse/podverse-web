@@ -448,7 +448,8 @@
     "settings.notifications.enable": "Habilitar",
     "settings.notifications.new_item": "Nuevo elemento",
     "settings.notifications.livestream_scheduled": "Transmisión en vivo programada",
-    "settings.notifications.livestream_started": "Transmisión en vivo iniciada"
+    "settings.notifications.livestream_started": "Transmisión en vivo iniciada",
+    "features.add_feed.rss_link": "Enlace RSS"
   },
   "French": {
     "media.podcast.audio": "Audio",
@@ -899,7 +900,8 @@
     "settings.notifications.enable": "Activer",
     "settings.notifications.new_item": "Nouvel élément",
     "settings.notifications.livestream_scheduled": "Diffusion en direct programmée",
-    "settings.notifications.livestream_started": "Diffusion en direct commencée"
+    "settings.notifications.livestream_started": "Diffusion en direct commencée",
+    "features.add_feed.rss_link": "Lien RSS"
   },
   "Greek": {
     "media.podcast.audio": "Ήχος",
@@ -1350,6 +1352,7 @@
     "settings.notifications.enable": "Ενεργοποίηση",
     "settings.notifications.new_item": "Νέα καταχώρηση",
     "settings.notifications.livestream_scheduled": "Προγραμματισμένη Ζωντανή Μετάδοση",
-    "settings.notifications.livestream_started": "Ζωντανή Μετάδοση Ξεκίνησε"
+    "settings.notifications.livestream_started": "Ζωντανή Μετάδοση Ξεκίνησε",
+    "features.add_feed.rss_link": "Σύνδεσμος RSS"
   }
 }

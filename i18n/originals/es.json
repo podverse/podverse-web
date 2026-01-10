@@ -48,7 +48,8 @@
     },
     "add_feed": {
       "add_feed": "Agregar Feed",
-      "add_feed_explanation": "Este feed no está en nuestro directorio. Si deseas agregarlo, presiona el botón \"Agregar Feed\"."
+      "add_feed_explanation": "Este feed no está en nuestro directorio. Si deseas agregarlo, presiona el botón \"Agregar Feed\".",
+      "rss_link": "Enlace RSS"
     },
     "my_library": "Mi Biblioteca",
     "queue": {
