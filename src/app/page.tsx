@@ -1,10 +1,12 @@
 import { DTOChannel, getTotalPages, QUERY_PARAMS_HOME_SORT_VALUES,
   QUERY_PARAMS_MEDIUMS } from "podverse-helpers";
 import React from "react";
+import { cookies } from 'next/headers';
 import z from "zod";
 import { HomeClient } from "./HomeClient";
 import { getSSRAuthService } from "../utils/auth/ssrAuth";
 import { getHomeFilterParams, HomeDropdownConfigCurrentParams } from "./HomeDropdownConfig";
+import { getParsedLocalSettings, HomeFilterDefaults } from '../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
@@ -21,8 +23,12 @@ export type HomePageProps = {
 export default async function HomePage({ searchParams }: HomePageProps) {
   const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
 
+  const cookieStore = await cookies();
+  const ssrLocalSettings = getParsedLocalSettings(cookieStore);
+  const ssrFilterDefaults = ssrLocalSettings.fd?.home;
+
   const queryParams = await searchParams;
-  const { currentPage, currentMedium, currentSort } = await parseSearchParams(queryParams);
+  const { currentPage, currentMedium, currentSort } = await parseSearchParams(queryParams, ssrFilterDefaults);
   
 
   let ssrChannels: DTOChannel[] = [];
@@ -55,18 +61,22 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   );
 }
 
-function parseSearchParams(queryParams: SearchParams): HomeDropdownConfigCurrentParams {
+function parseSearchParams(queryParams: SearchParams, cookieDefaults?: HomeFilterDefaults): HomeDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
     return {
-      currentMedium: "all",
-      currentSort: "recent",
-      currentPage: 1
+      currentPage: 1,
+      currentMedium: cookieDefaults?.medium ?? "all",
+      currentSort: cookieDefaults?.sort ?? "recent"
     };
   }
 
   const data = parsed.data;
 
-  return getHomeFilterParams(data);
+  return getHomeFilterParams({
+    page: data.page ?? 1,
+    medium: data.medium ?? cookieDefaults?.medium ?? "all",
+    sort: data.sort ?? cookieDefaults?.sort ?? "recent"
+  });
 }

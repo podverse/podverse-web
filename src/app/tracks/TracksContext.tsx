@@ -5,6 +5,7 @@ import { DTOItem, getTotalPages, QueryParamsGetManyPartialMusic } from "podverse
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../hooks/useFilterDefaults";
 import { getTracksFilterParams } from "./TracksDropdownConfig";
 
 interface TracksContextType {
@@ -42,6 +43,8 @@ export const TracksContextProvider = ({
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
   const medium = "music";
+
+  useFilterDefaults('tracks', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchItems() {

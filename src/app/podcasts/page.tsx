@@ -8,10 +8,12 @@ import {
   ApiListResponse,
   DTOChannel
 } from "podverse-helpers";
+import { cookies } from 'next/headers';
 import { z } from "zod";
 import { PodcastsClient } from "./PodcastsClient";
 import { getPodcastsFilterParams, PodcastsDropdownConfigCurrentParams } from "./PodcastsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { getParsedLocalSettings, PodcastsFilterDefaults } from '../../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
@@ -29,10 +31,14 @@ export type PodcastsPageProps = {
 
 export default async function PodcastsPage({ searchParams }: PodcastsPageProps) {
   const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
-    
+
+  const cookieStore = await cookies();
+  const ssrLocalSettings = getParsedLocalSettings(cookieStore);
+  const ssrFilterDefaults = ssrLocalSettings.fd?.podcasts;
+
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentCategory, currentPage } =
-    await parseSearchParams(queryParams, isValidAuthSession);
+    await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const medium: QueryParamsMedium = "av";
   const response: ApiListResponse<DTOChannel> = await ssrApiRequestService.reqChannelGetMany({
@@ -63,21 +69,30 @@ export default async function PodcastsPage({ searchParams }: PodcastsPageProps) 
   );
 }
 
-function parseSearchParams(queryParams: SearchParams,
-  isAuthenticated: boolean): PodcastsDropdownConfigCurrentParams {
+function parseSearchParams(
+  queryParams: SearchParams,
+  isAuthenticated: boolean,
+  cookieDefaults?: PodcastsFilterDefaults
+): PodcastsDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
     return {
-      currentType: isAuthenticated ? "subscribed" : "global",
-      currentSort: isAuthenticated ? "a_z" : "recent",
-      currentRange: null,
-      currentCategory: null,
+      currentType: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+      currentSort: cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "recent"),
+      currentRange: cookieDefaults?.range ?? null,
+      currentCategory: cookieDefaults?.category ?? null,
       currentPage: 1
     };
   }
 
   const data = parsed.data;
 
-  return getPodcastsFilterParams(data, isAuthenticated);
+  return getPodcastsFilterParams({
+    page: data.page,
+    type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+    sort: data.sort ?? cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "recent"),
+    range: data.range ?? cookieDefaults?.range ?? null,
+    category: data.category ?? cookieDefaults?.category ?? null
+  }, isAuthenticated);
 }

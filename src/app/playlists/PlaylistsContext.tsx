@@ -5,6 +5,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../hooks/useFilterDefaults";
 import { getPlaylistsFilterParams } from "./PlaylistsDropdownConfig";
 
 interface PlaylistsContextType {
@@ -41,6 +42,8 @@ export const PlaylistsContextProvider = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showLoginMessage, setShowLoginMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+
+  useFilterDefaults('playlists', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchPlaylists() {

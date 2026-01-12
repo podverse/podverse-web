@@ -5,6 +5,7 @@ import { DTOChannel, getTotalPages, QueryParamsGetManyMusic } from "podverse-hel
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../hooks/useFilterDefaults";
 import { getAlbumsFilterParams } from "./AlbumsDropdownConfig";
 
 interface AlbumsContextType {
@@ -44,6 +45,8 @@ export const AlbumsContextProvider = ({
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+
+  useFilterDefaults('albums', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {

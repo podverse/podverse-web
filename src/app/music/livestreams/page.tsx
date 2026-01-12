@@ -1,5 +1,6 @@
 import React from "react";
 import z from "zod";
+import { cookies } from 'next/headers';
 import { ApiListResponse, DTOItem, getTotalPages,
   LIVE_ITEM_STATUSES,
   QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_SUBSCRIBED_MUSIC_TYPE, QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT,
@@ -7,6 +8,7 @@ import { ApiListResponse, DTOItem, getTotalPages,
 import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 import { LivestreamsClient } from "../../podcasts/livestreams/LivestreamsClient";
 import { getLivestreamsFilterParams, LivestreamsDropdownConfigCurrentParams } from "../../podcasts/livestreams/LivestreamsDropdownConfig";
+import { getParsedLocalSettings, MusicLivestreamsFilterDefaults } from '../../../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
@@ -14,7 +16,7 @@ const searchParamsSchema = z.object({
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_PARTIAL_SORT).optional().nullable().default(null),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
   category: z.nullable(z.string()).optional().default(null),
-  liveItemType: z.enum(LIVE_ITEM_STATUSES).optional().default("live"),
+  liveItemType: z.enum(LIVE_ITEM_STATUSES).optional().nullable().default(null),
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -25,10 +27,14 @@ export type MusicLivestreamsPageProps = {
 
 export default async function MusicLivestreamsPage({ searchParams }: MusicLivestreamsPageProps) {
   const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
+
+  const cookieStore = await cookies();
+  const ssrLocalSettings = getParsedLocalSettings(cookieStore);
+  const ssrFilterDefaults = ssrLocalSettings.fd?.['music-livestreams'];
     
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentPage, currentLiveItemType } =
-    await parseSearchParams(queryParams, isValidAuthSession);
+    await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const medium: QueryParamsMedium = "music";
   let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqLiveItemGetMany(
@@ -64,23 +70,33 @@ export default async function MusicLivestreamsPage({ searchParams }: MusicLivest
   );
 }
 
-function parseSearchParams(queryParams: SearchParams,
-  isAuthenticated: boolean): LivestreamsDropdownConfigCurrentParams {
+function parseSearchParams(
+  queryParams: SearchParams,
+  isAuthenticated: boolean,
+  cookieDefaults?: MusicLivestreamsFilterDefaults
+): LivestreamsDropdownConfigCurrentParams {
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
     return {
-      currentType: isAuthenticated ? "subscribed" : "global",
-      currentSort: isAuthenticated ? "recent" : "recent",
-      currentRange: null,
+      currentType: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+      currentSort: cookieDefaults?.sort ?? "recent",
+      currentRange: cookieDefaults?.range ?? null,
       currentCategory: null,
       currentPage: 1,
-      currentLiveItemType: "live"
+      currentLiveItemType: cookieDefaults?.liveItemType ?? "live"
     };
   }
 
   const data = parsed.data;
 
-  return getLivestreamsFilterParams(data, isAuthenticated);
+  return getLivestreamsFilterParams({
+    page: data.page,
+    type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+    sort: data.sort ?? cookieDefaults?.sort ?? "recent",
+    range: data.range ?? cookieDefaults?.range ?? null,
+    category: null,
+    liveItemType: data.liveItemType ?? cookieDefaults?.liveItemType ?? "live"
+  }, isAuthenticated);
 }
 

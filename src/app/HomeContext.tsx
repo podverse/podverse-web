@@ -5,6 +5,7 @@ import { DTOChannel, getTotalPages, QueryParamsHome } from "podverse-helpers";
 import { apiRequestService } from "../factories/apiRequestService";
 import { useAccount } from "../contexts/Account";
 import { useSkipInitialEffect } from "../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../hooks/useFilterDefaults";
 import { getHomeFilterParams } from "./HomeDropdownConfig";
 
 interface HomeContextType {
@@ -38,6 +39,8 @@ export const HomeContextProvider = ({
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+
+  useFilterDefaults('home', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {

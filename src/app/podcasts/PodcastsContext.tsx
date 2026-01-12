@@ -6,6 +6,7 @@ import { DTOChannel, getTotalPages, QueryParamsGetMany, removeQueryParamByPatter
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../hooks/useFilterDefaults";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
 import { ROUTES } from "../../constants/routes";
 
@@ -48,6 +49,8 @@ export const PodcastsContextProvider = ({
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
   const medium = "av";
+
+  useFilterDefaults('podcasts', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {

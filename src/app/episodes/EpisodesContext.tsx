@@ -6,6 +6,7 @@ import { DTOItem, getTotalPages, QueryParamsGetManyPartial, removeQueryParamByPa
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../hooks/useFilterDefaults";
 import { ROUTES } from "../../constants/routes";
 import { getEpisodesFilterParams } from "./EpisodesDropdownConfig";
 
@@ -48,6 +49,8 @@ export const EpisodesContextProvider = ({
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
   const medium = "av";
+
+  useFilterDefaults('episodes', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchItems() {

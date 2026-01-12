@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { UITheme, toUITheme } from "../utils/localSettings/uiTheme";
 import { ViewSelectedOption } from "../components/ViewSelector/ViewSelector";
-import { handleLocalSettingsUpdate, LocalSettingsState } from "../utils/localSettings/localSettings";
+import { handleLocalSettingsUpdate, LocalSettingsState, getParsedLocalSettings } from "../utils/localSettings/localSettings";
 
 type LocalSettingsContextType = {
   uiTheme: UITheme;
@@ -32,11 +32,13 @@ export const LocalSettingsProvider: React.FC<LocalSettingsProps> = ({
   const [lsAutoQueueConfig, setLSAutoQueueConfig] = useState(ssrLocalSettings.aqc || { rp: false, rd: false });
   
   useEffect(() => {
+    const existingSettings = getParsedLocalSettings();
     handleLocalSettingsUpdate({
       uit: uiTheme,
       vs: viewSelected,
       seda: serverEnvironmentDisclaimerAccepted,
-      aqc: lsAutoQueueConfig
+      aqc: lsAutoQueueConfig,
+      fd: existingSettings.fd
     });
   }, [uiTheme, viewSelected, serverEnvironmentDisclaimerAccepted, lsAutoQueueConfig]);
 

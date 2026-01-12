@@ -1,6 +1,19 @@
 import { UITheme, setUIThemeOnDocument, toUITheme } from "./uiTheme";
 import { ViewSelectedOption } from "../../components/ViewSelector/ViewSelector";
 import { clearCookie, readCookie, writeCookie } from "../cookie";
+import {
+  CategoryMappingKeys,
+  LiveItemStatus,
+  QueryParamsHomeSort,
+  QueryParamsMedium,
+  QueryParamsPlaylistsType,
+  QueryParamsQueueMedium,
+  QueryParamsStatsRange,
+  QueryParamsSubscribedFullSort,
+  QueryParamsSubscribedMusicType,
+  QueryParamsSubscribedPartialSort,
+  QueryParamsSubscribedType
+} from "podverse-helpers";
 
 /*
 
@@ -11,7 +24,90 @@ LocalSettingsState Legend:
   - aqc = autoQueueConfig
     - rp = repeat
     - rd = random
+  - fd = filterDefaults (per-page filter preferences)
 */
+
+export type FilterDefaultsPage = 'home' | 'playlists' | 'podcasts' | 'podcasts-livestreams'
+  | 'music-livestreams' | 'episodes' | 'tracks' | 'albums' | 'artists' | 'clips';
+
+export interface HomeFilterDefaults {
+  medium: QueryParamsMedium;
+  sort: QueryParamsHomeSort;
+}
+
+export interface PlaylistsFilterDefaults {
+  type: QueryParamsPlaylistsType;
+  sort: QueryParamsSubscribedFullSort;
+  range: QueryParamsStatsRange | null;
+  medium: QueryParamsQueueMedium;
+}
+
+export interface PodcastsFilterDefaults {
+  type: QueryParamsSubscribedType;
+  sort: QueryParamsSubscribedFullSort;
+  range: QueryParamsStatsRange | null;
+  category: CategoryMappingKeys | null;
+}
+
+export interface EpisodesFilterDefaults {
+  type: QueryParamsSubscribedType;
+  sort: QueryParamsSubscribedPartialSort;
+  range: QueryParamsStatsRange | null;
+  category: CategoryMappingKeys | null;
+}
+
+export interface TracksFilterDefaults {
+  type: QueryParamsSubscribedMusicType;
+  sort: QueryParamsSubscribedPartialSort;
+  range: QueryParamsStatsRange | null;
+}
+
+export interface AlbumsFilterDefaults {
+  type: QueryParamsSubscribedMusicType;
+  sort: QueryParamsSubscribedFullSort;
+  range: QueryParamsStatsRange | null;
+}
+
+export interface ArtistsFilterDefaults {
+  type: QueryParamsSubscribedMusicType;
+  sort: QueryParamsSubscribedFullSort;
+  range: QueryParamsStatsRange | null;
+}
+
+export interface ClipsFilterDefaults {
+  type: QueryParamsSubscribedType;
+  sort: QueryParamsSubscribedPartialSort;
+  range: QueryParamsStatsRange | null;
+  category: CategoryMappingKeys | null;
+}
+
+export interface PodcastsLivestreamsFilterDefaults {
+  type: QueryParamsSubscribedType;
+  sort: QueryParamsSubscribedPartialSort;
+  range: QueryParamsStatsRange | null;
+  category: CategoryMappingKeys | null;
+  liveItemType: LiveItemStatus;
+}
+
+export interface MusicLivestreamsFilterDefaults {
+  type: QueryParamsSubscribedMusicType;
+  sort: QueryParamsSubscribedPartialSort;
+  range: QueryParamsStatsRange | null;
+  liveItemType: LiveItemStatus;
+}
+
+export interface FilterDefaults {
+  home?: HomeFilterDefaults;
+  playlists?: PlaylistsFilterDefaults;
+  podcasts?: PodcastsFilterDefaults;
+  'podcasts-livestreams'?: PodcastsLivestreamsFilterDefaults;
+  'music-livestreams'?: MusicLivestreamsFilterDefaults;
+  episodes?: EpisodesFilterDefaults;
+  tracks?: TracksFilterDefaults;
+  albums?: AlbumsFilterDefaults;
+  artists?: ArtistsFilterDefaults;
+  clips?: ClipsFilterDefaults;
+}
 
 export interface LocalSettingsState {
 	uit: UITheme;
@@ -21,6 +117,7 @@ export interface LocalSettingsState {
     rp: boolean;
     rd: boolean;
   }
+  fd?: Partial<FilterDefaults>;
 }
 
 export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
@@ -47,7 +144,8 @@ const defaultLocalSettings: LocalSettingsState = {
   aqc: {
     rp: false,
     rd: false
-  }
+  },
+  fd: {}
 };
 
 function isValidLocalSettings(settings: any): settings is LocalSettingsState {
@@ -59,7 +157,8 @@ function isValidLocalSettings(settings: any): settings is LocalSettingsState {
     typeof settings.aqc === 'object' &&
     settings.aqc !== null &&
     typeof settings.aqc.rp === 'boolean' &&
-    typeof settings.aqc.rd === 'boolean'
+    typeof settings.aqc.rd === 'boolean' &&
+    (settings.fd === undefined || typeof settings.fd === 'object' && settings.fd !== null)
   );
 }
 
@@ -75,7 +174,7 @@ export function getParsedLocalSettings(cookieStore?: any): LocalSettingsState {
   }
 
   if (!raw) {
-    return defaultLocalSettings;
+    return { ...defaultLocalSettings };
   }
 
   try {
@@ -84,7 +183,7 @@ export function getParsedLocalSettings(cookieStore?: any): LocalSettingsState {
 
     if (!isValid) {
       if (isServer) {
-        return defaultLocalSettings;
+        return { ...defaultLocalSettings };
       }
       throw new Error('Invalid local settings format');
     }
@@ -95,6 +194,34 @@ export function getParsedLocalSettings(cookieStore?: any): LocalSettingsState {
       clearCookie('local-settings');
       writeCookie('local-settings', encodeURIComponent(JSON.stringify(defaultLocalSettings)));
     }
-    return defaultLocalSettings;
+    return { ...defaultLocalSettings };
   }
+}
+
+export type FilterDefaultsForPage<T extends FilterDefaultsPage> =
+  T extends 'home' ? HomeFilterDefaults :
+  T extends 'playlists' ? PlaylistsFilterDefaults :
+  T extends 'podcasts' ? PodcastsFilterDefaults :
+  T extends 'podcasts-livestreams' ? PodcastsLivestreamsFilterDefaults :
+  T extends 'music-livestreams' ? MusicLivestreamsFilterDefaults :
+  T extends 'episodes' ? EpisodesFilterDefaults :
+  T extends 'tracks' ? TracksFilterDefaults :
+  T extends 'albums' ? AlbumsFilterDefaults :
+  T extends 'artists' ? ArtistsFilterDefaults :
+  T extends 'clips' ? ClipsFilterDefaults :
+  never;
+
+export function updateFilterDefaults<T extends FilterDefaultsPage>(
+  page: T,
+  filters: FilterDefaultsForPage<T>
+) {
+  const settings = getParsedLocalSettings();
+  // Create a shallow copy to avoid mutating the reference
+  const newSettings = { ...settings };
+  
+  if (!newSettings.fd) {
+    newSettings.fd = {};
+  }
+  (newSettings.fd as Record<FilterDefaultsPage, FilterDefaultsForPage<T>>)[page] = filters;
+  handleLocalSettingsUpdate(newSettings);
 }

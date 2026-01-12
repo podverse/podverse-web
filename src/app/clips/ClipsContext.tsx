@@ -6,6 +6,7 @@ import { DTOClip, getTotalPages, QueryParamsGetManyPartial, removeQueryParamByPa
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../hooks/useFilterDefaults";
 import { ROUTES } from "../../constants/routes";
 import { getEpisodesFilterParams } from "../episodes/EpisodesDropdownConfig";
 
@@ -47,6 +48,8 @@ export const ClipsContextProvider = ({
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+
+  useFilterDefaults('clips', filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchItems() {

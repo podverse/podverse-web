@@ -6,6 +6,7 @@ import { DTOItem, getTotalPages, QueryParamsGetManyLivestreams, removeQueryParam
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
+import { useFilterDefaults } from "../../../hooks/useFilterDefaults";
 import { ROUTES } from "../../../constants/routes";
 import { getEpisodesFilterParams } from "../../episodes/EpisodesDropdownConfig";
 
@@ -49,6 +50,9 @@ export const LivestreamsContextProvider = ({
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
+
+  const filterDefaultsPage = medium === "av" ? "podcasts-livestreams" : "music-livestreams";
+  useFilterDefaults(filterDefaultsPage, filterParams);
 
   useSkipInitialEffect(() => {
     async function fetchItems() {

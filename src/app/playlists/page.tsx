@@ -6,17 +6,19 @@ import { QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_PLAYLISTS_TYPE_VALUES,
   QUERY_PARAMS_QUEUE_MEDIUMS,
   QueryParamsQueueMedium
 } from "podverse-helpers";
+import { cookies } from 'next/headers';
 import { z } from "zod";
 import { PlaylistsClient } from "./PlaylistsClient";
 import { getPlaylistsFilterParams } from "./PlaylistsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { getParsedLocalSettings, PlaylistsFilterDefaults } from '../../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional().default("1"),
   type: z.enum(QUERY_PARAMS_PLAYLISTS_TYPE_VALUES).optional().nullable().default(null),
   sort: z.enum(QUERY_PARAMS_SUBSCRIBED_FULL_SORT).optional().nullable().default(null),
   range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional().nullable().default(null),
-  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().default("av")
+  medium: z.enum(QUERY_PARAMS_QUEUE_MEDIUMS).optional().nullable().default(null)
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -27,10 +29,14 @@ export type PlaylistsPageProps = {
 
 export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps) {
   const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
-    
+
+  const cookieStore = await cookies();
+  const ssrLocalSettings = getParsedLocalSettings(cookieStore);
+  const ssrFilterDefaults = ssrLocalSettings.fd?.playlists;
+
   const queryParams = await searchParams;
   const { currentType, currentSort, currentRange, currentMedium,
-    currentPage } = await parseSearchParams(queryParams, isValidAuthSession);
+    currentPage } = await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const response = await ssrApiRequestService.reqPlaylistGetMany({
     page: currentPage,
@@ -66,26 +72,30 @@ type ParseSearchParams = {
   currentMedium: QueryParamsQueueMedium;
 }
 
-function parseSearchParams(queryParams: SearchParams, isAuthenticated: boolean): ParseSearchParams  {
+function parseSearchParams(
+  queryParams: SearchParams,
+  isAuthenticated: boolean,
+  cookieDefaults?: PlaylistsFilterDefaults
+): ParseSearchParams  {
   const parsed = searchParamsSchema.safeParse(queryParams);
-  
+
   if (!parsed.success) {
     return {
       currentPage: 1,
-      currentType: isAuthenticated ? "private" : "public",
-      currentSort: isAuthenticated ? "a_z" : "top",
-      currentRange: "week",
-      currentMedium: "av"
+      currentType: cookieDefaults?.type ?? (isAuthenticated ? "private" : "public"),
+      currentSort: cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "top"),
+      currentRange: cookieDefaults?.range ?? (isAuthenticated ? null : "week"),
+      currentMedium: cookieDefaults?.medium ?? "av"
     };
   }
 
   const data = parsed.data;
 
-  if (!data.type) {
-    data.type = isAuthenticated ? "private" : "public";
-    data.sort = isAuthenticated ? "a_z" : "top";
-    data.range = isAuthenticated ? null : "week";
-  }
-
-  return getPlaylistsFilterParams(data, isAuthenticated);
+  return getPlaylistsFilterParams({
+    page: data.page,
+    type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "private" : "public"),
+    sort: data.sort ?? cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "top"),
+    range: data.range ?? cookieDefaults?.range ?? (isAuthenticated ? null : "week"),
+    medium: data.medium ?? cookieDefaults?.medium ?? "av"
+  }, isAuthenticated);
 }
