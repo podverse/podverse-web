@@ -414,7 +414,9 @@
     "notifications": {
       "notifications": "Notifications",
       "web_push": "Web Browser Notifications",
+      "web_push_help": "Receive browser notifications for new episodes and tracks for creators you subscribe to. Works in supported browsers.",
       "unified_push": "Unified Push",
+      "unified_push_help": "Use Unified Push to receive notifications through a compatible push service (like ntfy). Requires a Unified Push endpoint URL.",
       "up_endpoint_label": "Endpoint URL",
       "up_endpoint_placeholder": "https://ntfy.sh/your-topic",
       "up_endpoint_info": "Enter your Unified Push endpoint URL. Compatible with ntfy and other UP services.",
@@ -426,8 +428,11 @@
       "cancel": "Cancel",
       "enable": "Enable",
       "default_new_item": "Default new item",
+      "default_new-item_help": "Receive notifications when new episodes or tracks are published from creators you subscribe to. This is the default notification setting that applies to all your subscriptions, but can be overridden for each.",
       "default_livestream_scheduled": "Default livestream scheduled",
+      "default_livestream-scheduled_help": "Receive notifications when livestreams are scheduled from creators you subscribe to. This is the default notification setting that applies to all your subscriptions, but can be overridden for each.",
       "default_livestream_started": "Default livestream started",
+      "default_livestream-started_help": "Receive notifications when livestreams start from creators you subscribe to. This is the default notification setting that applies to all your subscriptions, but can be overridden for each.",
       "new_item": "New item",
       "livestream_scheduled": "Livestream scheduled",
       "livestream_started": "Livestream started"

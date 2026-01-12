@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
 import React from 'react'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
+import { PopoverIcon } from '../PopoverIcon/PopoverIcon'
 import styles from '../../styles/components/Form/SwitchButton.module.scss'
 
 type SwitchButtonProps = {
@@ -10,6 +11,7 @@ type SwitchButtonProps = {
   onChange: (next: boolean) => void
   loading?: boolean
   className?: string
+  helpText?: string
   'aria-describedby'?: string
 }
 
@@ -20,6 +22,7 @@ export const SwitchButton: React.FC<SwitchButtonProps> = ({
   onChange,
   loading,
   className,
+  helpText,
   'aria-describedby': ariaDescribedBy
 }) => {
   const handleToggle = () => {
@@ -31,9 +34,14 @@ export const SwitchButton: React.FC<SwitchButtonProps> = ({
   return (
     <div className={`${styles.wrapper} ${className || ''}`}>
       <div className={styles.headerRow}>
-        <label htmlFor={id} className={styles.label}>
-          {label}
-        </label>
+        <div className={styles.labelWrapper}>
+          <label htmlFor={id} className={styles.label}>
+            {label}
+          </label>
+          {helpText && (
+            <PopoverIcon text={helpText} ariaLabel={`Help for ${label}`} />
+          )}
+        </div>
       </div>
 
       <div className={styles.controlRow}>

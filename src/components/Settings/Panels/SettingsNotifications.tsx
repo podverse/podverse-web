@@ -259,6 +259,7 @@ export function SettingsNotifications() {
           }
         }}
         loading={!!loadingMap['webpush']}
+        helpText={tSettings("notifications.web_push_help")}
         aria-describedby="webpush-help"
       />
       
@@ -271,6 +272,7 @@ export function SettingsNotifications() {
         checked={upRegistered}
         onChange={handleUPToggle}
         loading={!!loadingMap['unifiedpush']}
+        helpText={tSettings("notifications.unified_push_help")}
         aria-describedby="unifiedpush-help"
       />
 
@@ -342,6 +344,7 @@ export function SettingsNotifications() {
               }
               onChange={async (next) => await toggleDefaultType(dt.key, next)}
               loading={!!loadingMap[`notifications.${dt.key}`]}
+              helpText={tSettings(`notifications.default_${dt.key}_help`)}
               aria-describedby={`notifications-help-${dt.key}`}
             />
           ))}

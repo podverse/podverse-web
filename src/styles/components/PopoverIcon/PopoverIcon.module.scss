@@ -1,0 +1,66 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-color-secondary);
+  transition: color 150ms ease;
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-primary);
+    outline: none;
+  }
+}
+
+.icon {
+  font-size: 0.875rem;
+  width: 1em;
+  height: 1em;
+}
+
+.popover {
+  position: fixed;
+  min-width: 200px;
+  max-width: 400px;
+  background: var(--background-color-primary);
+  border: 1px solid var(--border-color-opaque);
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  z-index: 1000001;
+  color: var(--text-color-primary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+// Arrow pointing down to the icon
+.popover::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: var(--arrow-left, 50%);
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--background-color-primary);
+  margin-top: -1px;
+}
+
+.popover::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: var(--arrow-left, 50%);
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--border-color-opaque);
+}
