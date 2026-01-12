@@ -311,7 +311,6 @@
     "i_have_read_and_agree": "J'ai lu et j'accepte les conditions.",
     "unknown_date": "Date inconnue",
     "redirecting": "Redirection...",
-    "contact": "Contact",
     "terms": "Conditions",
     "mobile": "Mobile",
     "donate": "Faire un don",
@@ -437,6 +436,18 @@
       "livestream_scheduled": "Diffusion en direct programmée",
       "livestream_started": "Diffusion en direct commencée"
     }
+  },
+  "contact": {
+    "contact": "Contact",
+    "email": "E-mail",
+    "live_chat": "Chat en direct",
+    "report_bug": "Signaler un bug",
+    "feature_request": "Demande de fonctionnalité",
+    "podcast_request": "Demande de podcast",
+    "report_content_issue": "Signaler un problème de contenu",
+    "general": "Général",
+    "join_matrix_space": "Rejoignez notre espace Matrix",
+    "chat_discord": "Discutez avec nous sur Discord"
   },
   "socials": {
     "discord": "Discord",

@@ -311,7 +311,6 @@
     "i_have_read_and_agree": "He leído y acepto los términos.",
     "unknown_date": "Fecha Desconocida",
     "redirecting": "Redirigiendo...",
-    "contact": "Contacto",
     "terms": "Términos",
     "mobile": "Móvil",
     "donate": "Donar",
@@ -414,7 +413,9 @@
     "notifications": {
       "notifications": "Notificaciones",
       "web_push": "Notificaciones del Navegador Web",
+      "web_push_help": "Recibe notificaciones del navegador para nuevos episodios y pistas de los creadores a los que te suscribes. Funciona en navegadores compatibles.",
       "unified_push": "Push Unificado",
+      "unified_push_help": "Usa Unified Push para recibir notificaciones a través de un servicio de notificación compatible (como ntfy). Requiere una URL de punto final de Unified Push.",
       "up_endpoint_label": "URL del Endpoint",
       "up_endpoint_placeholder": "https://ntfy.sh/your-topic",
       "up_endpoint_info": "Ingresa la URL de tu endpoint de Push Unificado. Compatible con ntfy y otros servicios de UP.",
@@ -426,12 +427,27 @@
       "cancel": "Cancelar",
       "enable": "Habilitar",
       "default_new_item": "Elemento nuevo por defecto",
+      "default_new-item_help": "Recibe notificaciones cuando se publiquen nuevos episodios o pistas de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una.",
       "default_livestream_scheduled": "Transmisión en vivo programada por defecto",
+      "default_livestream-scheduled_help": "Recibe notificaciones cuando se programen transmisiones en vivo de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una.",
       "default_livestream_started": "Transmisión en vivo iniciada por defecto",
+      "default_livestream-started_help": "Recibe notificaciones cuando comiencen las transmisiones en vivo de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una.",
       "new_item": "Nuevo elemento",
       "livestream_scheduled": "Transmisión en vivo programada",
       "livestream_started": "Transmisión en vivo iniciada"
     }
+  },
+  "contact": {
+    "contact": "Contacto",
+    "email": "Correo electrónico",
+    "live_chat": "Chat en vivo",
+    "report_bug": "Reportar un error",
+    "feature_request": "Solicitud de función",
+    "podcast_request": "Solicitud de podcast",
+    "report_content_issue": "Reportar un problema de contenido",
+    "general": "General",
+    "join_matrix_space": "Únete a nuestro espacio de Matrix",
+    "chat_discord": "Chatea con nosotros en Discord"
   },
   "socials": {
     "discord": "Discord",

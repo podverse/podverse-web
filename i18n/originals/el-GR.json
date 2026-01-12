@@ -311,7 +311,6 @@
     "i_have_read_and_agree": "Έχω διαβάσει και συμφωνώ με τους όρους.",
     "unknown_date": "Αγνωστη Ημερομηνία",
     "redirecting": "Ανακατεύθυνση...",
-    "contact": "Επικοινωνία",
     "terms": "Όροι",
     "mobile": "Κινητό",
     "donate": "Δωρεά",
@@ -437,6 +436,18 @@
       "livestream_scheduled": "Προγραμματισμένη Ζωντανή Μετάδοση",
       "livestream_started": "Ζωντανή Μετάδοση Ξεκίνησε"
     }
+  },
+  "contact": {
+    "contact": "Επικοινωνία",
+    "email": "E-mail",
+    "live_chat": "Ζωντανή συνομιλία",
+    "report_bug": "Αναφορά σφάλματος",
+    "feature_request": "Αίτημα χαρακτηριστικού",
+    "podcast_request": "Αίτημα podcast",
+    "report_content_issue": "Αναφορά προβλήματος περιεχομένου",
+    "general": "Γενικά",
+    "join_matrix_space": "Συμμετοχή στο Matrix space μας",
+    "chat_discord": "Συνομιλήστε μαζί μας στο Discord"
   },
   "socials": {
     "discord": "Discord",

@@ -311,7 +311,6 @@
     "i_have_read_and_agree": "I have read and agree to the terms.",
     "unknown_date": "Unknown Date",
     "redirecting": "Redirecting...",
-    "contact": "Contact",
     "terms": "Terms",
     "mobile": "Mobile",
     "donate": "Donate",
@@ -437,6 +436,18 @@
       "livestream_scheduled": "Livestream scheduled",
       "livestream_started": "Livestream started"
     }
+  },
+  "contact": {
+    "contact": "Contact",
+    "email": "E-mail",
+    "live_chat": "Live chat",
+    "report_bug": "Report a bug",
+    "feature_request": "Feature request",
+    "podcast_request": "Podcast request",
+    "report_content_issue": "Report a content issue",
+    "general": "General",
+    "join_matrix_space": "Join our Matrix space",
+    "chat_discord": "Chat with us on Discord"
   },
   "socials": {
     "discord": "Discord",

@@ -1,7 +1,9 @@
+import { config } from '../config';
+
 export const SOCIALS = {
-  ACTIVITY_PUB: 'https://podcastindex.social/web/@podverse',
-  DISCORD: 'https://discord.gg/6HkyNKR',
-  GITHUB: 'https://github.com/podverse',
-  MATRIX: 'https://matrix.to/#/#podverse-space:matrix.org',
-  X: 'https://x.com/podverse'
+  ACTIVITY_PUB: config.public.socials.activityPub,
+  DISCORD: config.public.socials.discord,
+  GITHUB: config.public.socials.github,
+  MATRIX: config.public.socials.matrix,
+  X: config.public.socials.x
 }

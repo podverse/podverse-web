@@ -454,7 +454,17 @@
     "settings.notifications.unified_push_help": "Usa Unified Push para recibir notificaciones a través de un servicio de notificación compatible (como ntfy). Requiere una URL de punto final de Unified Push.",
     "settings.notifications.default_new-item_help": "Recibe notificaciones cuando se publiquen nuevos episodios o pistas de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una.",
     "settings.notifications.default_livestream-scheduled_help": "Recibe notificaciones cuando se programen transmisiones en vivo de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una.",
-    "settings.notifications.default_livestream-started_help": "Recibe notificaciones cuando comiencen las transmisiones en vivo de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una."
+    "settings.notifications.default_livestream-started_help": "Recibe notificaciones cuando comiencen las transmisiones en vivo de los creadores a los que te suscribes. Esta es la configuración de notificación predeterminada que se aplica a todas tus suscripciones, pero se puede anular para cada una.",
+    "contact.contact": "Contacto",
+    "contact.email": "Correo electrónico",
+    "contact.live_chat": "Chat en vivo",
+    "contact.report_bug": "Reportar un error",
+    "contact.feature_request": "Solicitud de función",
+    "contact.podcast_request": "Solicitud de podcast",
+    "contact.report_content_issue": "Reportar un problema de contenido",
+    "contact.general": "General",
+    "contact.join_matrix_space": "Únete a nuestro espacio de Matrix",
+    "contact.chat_discord": "Chatea con nosotros en Discord"
   },
   "French": {
     "media.podcast.audio": "Audio",
@@ -911,7 +921,17 @@
     "settings.notifications.unified_push_help": "Utilisez Unified Push pour recevoir des notifications via un service de push compatible (comme ntfy). Nécessite une URL de point de terminaison Unified Push.",
     "settings.notifications.default_new-item_help": "Recevez des notifications lorsque de nouveaux épisodes ou pistes sont publiés par des créateurs auxquels vous êtes abonné. C'est le paramètre de notification par défaut qui s'applique à tous vos abonnements, mais peut être remplacé pour chacun.",
     "settings.notifications.default_livestream-scheduled_help": "Recevez des notifications lorsque des livestreams sont programmés par des créateurs auxquels vous êtes abonné. C'est le paramètre de notification par défaut qui s'applique à tous vos abonnements, mais peut être remplacé pour chacun.",
-    "settings.notifications.default_livestream-started_help": "Recevez des notifications lorsque des livestreams commencent par des créateurs auxquels vous êtes abonné. C'est le paramètre de notification par défaut qui s'applique à tous vos abonnements, mais peut être remplacé pour chacun."
+    "settings.notifications.default_livestream-started_help": "Recevez des notifications lorsque des livestreams commencent par des créateurs auxquels vous êtes abonné. C'est le paramètre de notification par défaut qui s'applique à tous vos abonnements, mais peut être remplacé pour chacun.",
+    "contact.contact": "Contact",
+    "contact.email": "E-mail",
+    "contact.live_chat": "Chat en direct",
+    "contact.report_bug": "Signaler un bug",
+    "contact.feature_request": "Demande de fonctionnalité",
+    "contact.podcast_request": "Demande de podcast",
+    "contact.report_content_issue": "Signaler un problème de contenu",
+    "contact.general": "Général",
+    "contact.join_matrix_space": "Rejoignez notre espace Matrix",
+    "contact.chat_discord": "Discutez avec nous sur Discord"
   },
   "Greek": {
     "media.podcast.audio": "Ήχος",
@@ -1368,6 +1388,16 @@
     "settings.notifications.unified_push_help": "Χρησιμοποιήστε το Unified Push για να λάβετε ειδοποιήσεις μέσω μιας συμβατής υπηρεσίας ειδοποιήσεων (όπως το ntfy). Απαιτεί μια διεύθυνση URL του Unified Push endpoint.",
     "settings.notifications.default_new-item_help": "Λάβετε ειδοποιήσεις όταν δημοσιεύονται νέα επεισόδια ή κομμάτια από δημιουργούς που έχετε εγγραφεί. Αυτή είναι η προεπιλεγμένη ρύθμιση ειδοποιήσεων που ισχύει για όλες τις εγγραφές σας, αλλά μπορεί να παρακαμφθεί για κάθε μία ξεχωριστά.",
     "settings.notifications.default_livestream-scheduled_help": "Λάβετε ειδοποιήσεις όταν προγραμματίζονται livestreams από δημιουργούς που έχετε εγγραφεί. Αυτή είναι η προεπιλεγμένη ρύθμιση ειδοποιήσεων που ισχύει για όλες τις εγγραφές σας, αλλά μπορεί να παρακαμφθεί για κάθε μία ξεχωριστά.",
-    "settings.notifications.default_livestream-started_help": "Λάβετε ειδοποιήσεις όταν ξεκινούν οι livestreams από δημιουργούς που έχετε εγγραφεί. Αυτή είναι η προεπιλεγμένη ρύθμιση ειδοποιήσεων που ισχύει για όλες τις εγγραφές σας, αλλά μπορεί να παρακαμφθεί για κάθε μία ξεχωριστά."
+    "settings.notifications.default_livestream-started_help": "Λάβετε ειδοποιήσεις όταν ξεκινούν οι livestreams από δημιουργούς που έχετε εγγραφεί. Αυτή είναι η προεπιλεγμένη ρύθμιση ειδοποιήσεων που ισχύει για όλες τις εγγραφές σας, αλλά μπορεί να παρακαμφθεί για κάθε μία ξεχωριστά.",
+    "contact.contact": "Επικοινωνία",
+    "contact.email": "E-mail",
+    "contact.live_chat": "Ζωντανή συνομιλία",
+    "contact.report_bug": "Αναφορά σφάλματος",
+    "contact.feature_request": "Αίτημα χαρακτηριστικού",
+    "contact.podcast_request": "Αίτημα podcast",
+    "contact.report_content_issue": "Αναφορά προβλήματος περιεχομένου",
+    "contact.general": "Γενικά",
+    "contact.join_matrix_space": "Συμμετοχή στο Matrix space μας",
+    "contact.chat_discord": "Συνομιλήστε μαζί μας στο Discord"
   }
 }

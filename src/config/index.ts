@@ -44,6 +44,16 @@ export const config = {
         vapidPublicKey: process.env.NEXT_PUBLIC_WEBPUSH_VAPID_PUBLIC_KEY || ""
       }
     },
+    socials: {
+      activityPub: process.env.NEXT_PUBLIC_SOCIAL_ACTIVITY_PUB || "",
+      discord: process.env.NEXT_PUBLIC_SOCIAL_DISCORD || "",
+      github: process.env.NEXT_PUBLIC_SOCIAL_GITHUB || "",
+      matrix: process.env.NEXT_PUBLIC_SOCIAL_MATRIX || "",
+      x: process.env.NEXT_PUBLIC_SOCIAL_X || ""
+    },
+    contact: {
+      email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || ""
+    },
     server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
   }
 };

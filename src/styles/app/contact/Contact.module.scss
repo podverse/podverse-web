@@ -1,0 +1,30 @@
+.section {
+  margin-bottom: 0;
+}
+
+.section:first-child {
+  margin-top: 0;
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+}
+
+.section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section li {
+  font-size: var(--font-size-lg);
+  margin-bottom: 0.75rem;
+}
+
+.section li:last-child {
+  margin-bottom: 0;
+}
+
+.divider {
+  margin: 1.5rem 0;
+}
