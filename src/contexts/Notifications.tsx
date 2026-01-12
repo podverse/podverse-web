@@ -75,18 +75,26 @@ export const NotificationsProvider = ({
     
     if (typeof window === 'undefined' || !('Notification' in window)) return;
 
-    // Only check subscriptions if the account has notification channels
-    const hasNotificationChannels = loggedInAccount?.account_notification_channels
-      && loggedInAccount?.account_notification_channels?.length > 0;
-    if (!hasNotificationChannels) {
-      return;
-    }
-
     const vapidPublicKey = config.public.notifications.webpush.vapidPublicKey;
 
     const init = async () => {
       const p = Notification.permission;
       setPermission(p);
+      
+      try {
+        const upDevice = await apiRequestService.reqAccountUPDeviceGetForAccount();
+        if (upDevice) {
+          setUPRegistered(true);
+          setUPEndpoint(upDevice.up_endpoint);
+        } else {
+          setUPRegistered(false);
+          setUPEndpoint(null);
+        }
+      } catch (e) {
+        console.warn('Could not fetch UP device to determine registration', e);
+        setUPRegistered(false);
+        setUPEndpoint(null);
+      }
 
       // Check Web Push devices
       if (p === 'granted' && vapidPublicKey) {
@@ -120,22 +128,6 @@ export const NotificationsProvider = ({
           console.warn('Could not fetch Web Push devices to determine registration', e);
           setRegistered(false);
         }
-      }
-
-      // Check UP devices
-      try {
-        const upDevices = await apiRequestService.reqAccountUPDeviceGetAllForAccount();
-        if (upDevices.length > 0) {
-          setUPRegistered(true);
-          setUPEndpoint(upDevices[0].up_endpoint);
-        } else {
-          setUPRegistered(false);
-          setUPEndpoint(null);
-        }
-      } catch (e) {
-        console.warn('Could not fetch UP devices to determine registration', e);
-        setUPRegistered(false);
-        setUPEndpoint(null);
       }
     };
 

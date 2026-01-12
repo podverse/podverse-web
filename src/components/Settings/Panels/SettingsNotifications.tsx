@@ -155,8 +155,15 @@ export function SettingsNotifications() {
           up_endpoint: endpoint,
           up_auth_key: authKey
         });
-        setUPRegistered(true);
-        setUPEndpoint(endpoint);
+        // Re-fetch UP device to ensure state is in sync
+        const upDevice = await apiRequestService.reqAccountUPDeviceGetForAccount();
+        if (upDevice) {
+          setUPRegistered(true);
+          setUPEndpoint(upDevice.up_endpoint);
+        } else {
+          setUPRegistered(false);
+          setUPEndpoint(null);
+        }
         setShowUPForm(false);
         setUPAuthKeyInput('');
       });
@@ -175,8 +182,15 @@ export function SettingsNotifications() {
         if (upEndpoint) {
           await apiRequestService.reqAccountUPDeviceDelete({ up_endpoint: upEndpoint });
         }
-        setUPRegistered(false);
-        setUPEndpoint(null);
+        
+        const upDevice = await apiRequestService.reqAccountUPDeviceGetForAccount();
+        if (upDevice) {
+          setUPRegistered(true);
+          setUPEndpoint(upDevice.up_endpoint);
+        } else {
+          setUPRegistered(false);
+          setUPEndpoint(null);
+        }
         setShowUPForm(false);
         setUPEndpointInput('');
         setUPAuthKeyInput('');
