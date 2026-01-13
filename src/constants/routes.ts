@@ -32,6 +32,7 @@ export const ROUTES = {
   QUEUES: '/queues',
   SEARCH: '/search',
   SETTINGS: '/settings',
+  SIGN_UP: '/sign-up',
   TERMS: '/terms',
   TRACK: '/track',
   TRACKS: '/tracks',
