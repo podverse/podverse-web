@@ -421,7 +421,12 @@
     "trial_expired_text_line1": "Tu prueba gratuita ha expirado.",
     "trial_expired_text_line2": "Por favor, extiende tu membresía para seguir disfrutando de las funciones Premium.",
     "feature": "Función",
-    "features": "Funciones"
+    "features": "Funciones",
+    "membership_expiring_warning": "Tu {type} expira el {date}. Renueva ahora para continuar disfrutando de las funciones Premium.",
+    "membership_expired_danger": "Tu {type} ha expirado. Renueva ahora para continuar disfrutando de las funciones Premium.",
+    "membership_link_text": "Ir a la página de Membresía",
+    "free_trial": "prueba gratuita",
+    "premium_membership": "membresía Premium"
   },
   "checkout": {
     "checkout": "Pagar",
@@ -442,9 +447,10 @@
   "settings": {
     "settings": "Configuraciones",
     "ui_theme": {
+      "theme": "Tema",
       "light": "☀️ Claro",
       "dark": "🌙 Oscuro",
-      "select_ui_theme": "Seleccionar Tema de UI"
+      "dracula": "🧛 Dracula"
     },
     "feed": {
       "check_feed_for_updates": "Verificar Actualizaciones del Feed",

@@ -421,7 +421,12 @@
     "trial_expired_text_line1": "Votre essai gratuit a expiré.",
     "trial_expired_text_line2": "Veuillez prolonger votre adhésion pour continuer à profiter des fonctionnalités Premium.",
     "feature": "Fonctionnalité",
-    "features": "Fonctionnalités"
+    "features": "Fonctionnalités",
+    "membership_expiring_warning": "Votre {type} expire le {date}. Renouvelez maintenant pour continuer à profiter des fonctionnalités Premium.",
+    "membership_expired_danger": "Votre {type} a expiré. Renouvelez maintenant pour continuer à profiter des fonctionnalités Premium.",
+    "membership_link_text": "Aller à la page d'adhésion",
+    "free_trial": "essai gratuit",
+    "premium_membership": "adhésion Premium"
   },
   "checkout": {
     "checkout": "Commander",
@@ -442,9 +447,10 @@
   "settings": {
     "settings": "Paramètres",
     "ui_theme": {
+      "theme": "Thème",
       "light": "☀️ Lumière",
       "dark": "🌙 Sombre",
-      "select_ui_theme": "Sélectionner le thème de l'interface"
+      "dracula": "🧛 Dracula"
     },
     "feed": {
       "check_feed_for_updates": "Vérifier les mises à jour du flux",

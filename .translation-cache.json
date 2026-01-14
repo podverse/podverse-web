@@ -513,7 +513,14 @@
     "terms.third_party_feeds": "Alojamos enlaces y contenido de podcasts de fuentes y sitios de terceros. Estos tienen sus propias políticas de privacidad independientes y no somos responsables de su contenido o actividades.",
     "terms.clips_crowdsourced": "Todos los clips alojados en podverse.fm son de origen colectivo y no oficiales, a menos que se indique lo contrario por el propio podcaster.",
     "terms.clips_load_full_episode": "Los clips se cargan dentro del archivo de audio completo del episodio, por lo que el usuario siempre tiene acceso a la grabación completa.",
-    "terms.reduced_size_images": "También alojamos imágenes de podcast de tamaño reducido de los feeds de los podcasters, para ahorrar datos de red del usuario y acelerar los tiempos de carga de la página."
+    "terms.reduced_size_images": "También alojamos imágenes de podcast de tamaño reducido de los feeds de los podcasters, para ahorrar datos de red del usuario y acelerar los tiempos de carga de la página.",
+    "membership.membership_expiring_warning": "Tu {type} expira el {date}. Renueva ahora para continuar disfrutando de las funciones Premium.",
+    "membership.membership_expired_danger": "Tu {type} ha expirado. Renueva ahora para continuar disfrutando de las funciones Premium.",
+    "membership.membership_link_text": "Ir a la página de Membresía",
+    "membership.free_trial": "prueba gratuita",
+    "membership.premium_membership": "membresía Premium",
+    "settings.ui_theme.theme": "Tema",
+    "settings.ui_theme.dracula": "🧛 Dracula"
   },
   "French": {
     "media.podcast.audio": "Audio",
@@ -1029,7 +1036,14 @@
     "terms.third_party_feeds": "Nous hébergeons des liens de podcasts et du contenu provenant de flux et de sites de podcasts tiers. Ceux-ci ont leurs propres politiques de confidentialité indépendantes, et nous ne sommes pas responsables de leur contenu ou de leurs activités.",
     "terms.clips_crowdsourced": "Tous les extraits hébergés sur podverse.fm sont issus de crowdsourcing et non officiels, sauf indication contraire de la part du podcasteur lui-même.",
     "terms.clips_load_full_episode": "Les extraits se chargent dans le fichier média de l'épisode complet, de sorte que l'utilisateur a toujours accès à l'enregistrement complet.",
-    "terms.reduced_size_images": "Nous hébergeons également des images de podcast réduites provenant des flux de podcasteurs, afin d'économiser les données réseau des utilisateurs et d'accélérer les temps de chargement des pages."
+    "terms.reduced_size_images": "Nous hébergeons également des images de podcast réduites provenant des flux de podcasteurs, afin d'économiser les données réseau des utilisateurs et d'accélérer les temps de chargement des pages.",
+    "membership.membership_expiring_warning": "Votre {type} expire le {date}. Renouvelez maintenant pour continuer à profiter des fonctionnalités Premium.",
+    "membership.membership_expired_danger": "Votre {type} a expiré. Renouvelez maintenant pour continuer à profiter des fonctionnalités Premium.",
+    "membership.membership_link_text": "Aller à la page d'adhésion",
+    "membership.free_trial": "essai gratuit",
+    "membership.premium_membership": "adhésion Premium",
+    "settings.ui_theme.theme": "Thème",
+    "settings.ui_theme.dracula": "🧛 Dracula"
   },
   "Greek": {
     "media.podcast.audio": "Ήχος",
@@ -1545,6 +1559,13 @@
     "terms.third_party_feeds": "Φιλοξενούμε συνδέσμους και περιεχόμενο από τρίτους ιστότοπους και ροές podcasts. Αυτές έχουν τις δικές τους ανεξάρτητες πολιτικές απορρήτου και δεν έχουμε ευθύνη για το περιεχόμενό τους ή τις δραστηριότητές τους.",
     "terms.clips_crowdsourced": "Όλα τα αποσπάσματα που φιλοξενούνται στο podverse.fm είναι crowdsourced και μη επίσημα, εκτός εάν αναφέρεται διαφορετικά από τον ίδιο τον podcaster.",
     "terms.clips_load_full_episode": "Τα αποσπάσματα φορτώνονται μέσα στο αρχείο πολυμέσων του πλήρους επεισοδίου, έτσι ώστε ο χρήστης να έχει πάντα πρόσβαση στην πλήρη καταγραφή.",
-    "terms.reduced_size_images": "Φιλοξενούμε επίσης εικόνες podcast μειωμένου μεγέθους από τις ροές των podcasters για να εξοικονομήσουμε δεδομένα δικτύου για τον χρήστη και να επιταχύνουμε τους χρόνους φόρτωσης της σελίδας."
+    "terms.reduced_size_images": "Φιλοξενούμε επίσης εικόνες podcast μειωμένου μεγέθους από τις ροές των podcasters για να εξοικονομήσουμε δεδομένα δικτύου για τον χρήστη και να επιταχύνουμε τους χρόνους φόρτωσης της σελίδας.",
+    "membership.membership_expiring_warning": "Η {type} σας λήγει στις {date}. Ανανεώστε τώρα για να συνεχίσετε να απολαμβάνετε Premium χαρακτηριστικά.",
+    "membership.membership_expired_danger": "Η {type} σας έχει λήξει. Ανανεώστε τώρα για να συνεχίσετε να απολαμβάνετε Premium χαρακτηριστικά.",
+    "membership.membership_link_text": "Μεταβείτε στη Σελίδα Μέλους",
+    "membership.free_trial": "δωρεάν δοκιμή",
+    "membership.premium_membership": "Premium μέλος",
+    "settings.ui_theme.theme": "Θέμα",
+    "settings.ui_theme.dracula": "🧛 Δράκουλας"
   }
 }

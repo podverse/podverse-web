@@ -421,7 +421,12 @@
     "trial_expired_text_line1": "Η δωρεάν δοκιμή σας έχει λήξει",
     "trial_expired_text_line2": "Παρακαλούμε επεκτείνετε τη συνδρομή σας για να συνεχίσετε να απολαμβάνετε τις Premium δυνατότητες.",
     "feature": "Δυνατότητα",
-    "features": "Δυνατότητες"
+    "features": "Δυνατότητες",
+    "membership_expiring_warning": "Η {type} σας λήγει στις {date}. Ανανεώστε τώρα για να συνεχίσετε να απολαμβάνετε Premium χαρακτηριστικά.",
+    "membership_expired_danger": "Η {type} σας έχει λήξει. Ανανεώστε τώρα για να συνεχίσετε να απολαμβάνετε Premium χαρακτηριστικά.",
+    "membership_link_text": "Μεταβείτε στη Σελίδα Μέλους",
+    "free_trial": "δωρεάν δοκιμή",
+    "premium_membership": "Premium μέλος"
   },
   "checkout": {
     "checkout": "Πληρωμή",
@@ -442,9 +447,10 @@
   "settings": {
     "settings": "Ρυθμίσεις",
     "ui_theme": {
+      "theme": "Θέμα",
       "light": "☀️ Φωτεινό",
       "dark": "🌙 Σκοτεινό",
-      "select_ui_theme": "Επιλέξτε Θέμα UI"
+      "dracula": "🧛 Dracula"
     },
     "feed": {
       "check_feed_for_updates": "Έλεγχος Ροής για Ενημερώσεις",

@@ -447,9 +447,10 @@
   "settings": {
     "settings": "Settings",
     "ui_theme": {
+      "theme": "Theme",
       "light": "☀️ Light",
       "dark": "🌙 Dark",
-      "select_ui_theme": "Select UI Theme"
+      "dracula": "🧛 Dracula"
     },
     "feed": {
       "check_feed_for_updates": "Check Feed for Updates",
