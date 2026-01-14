@@ -492,6 +492,16 @@
     "join_matrix_space": "Join our Matrix space",
     "chat_discord": "Chat with us on Discord"
   },
+  "terms": {
+    "terms": "Terms",
+    "never_sell_data": "Podverse will never sell or share private user data.",
+    "no_ads_without_permission": "We will never put advertisements next to or within a podcast's content without that podcast's permission.",
+    "audio_video_hosting": "All audio or video files found on podverse.fm load from the podcaster's own public server. We do not host podcast audio or video files ourselves.",
+    "third_party_feeds": "We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.",
+    "clips_crowdsourced": "All clips hosted on podverse.fm are crowd-sourced and unofficial, unless otherwise noted by the podcaster themselves.",
+    "clips_load_full_episode": "Clips load within the full episode's media file, so the user always has access to the full recording.",
+    "reduced_size_images": "We also host reduced size podcast images from podcasters' feeds, to save user network data and speed up page loading times."
+  },
   "socials": {
     "discord": "Discord",
     "mastodon": "Mastodon",

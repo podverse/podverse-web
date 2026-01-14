@@ -385,16 +385,26 @@
     "change_email_verification": "Change Email Verification",
     "changing_email_address": "Changing email address...",
     "change_email_address_email_failed": "Change email failed. The confirmation link may have expired. Please try again.",
-    "change_email_address_email_success": "Email address changed successfully. You may now login with your new email address."
+    "change_email_address_email_success": "Email address changed successfully. You may now login with your new email address.",
+    "contact_only_text_before": "To create an account, please contact support at"
   },
   "membership": {
     "membership": "Membership",
     "free": "Free",
     "premium": "Premium",
     "intro_try_premium": "Try Premium free for {days} days.",
-    "intro_trial_days_left": "You have {days} day{plural} left in your free trial.",
-    "intro_trial_hours_left": "You have {hours} hour{plural} left in your free trial.",
-    "intro_trial_minutes_left": "You have {minutes} minute{plural} left in your free trial.",
+    "intro_trial_days_left_one": "You have {days} day left in your free trial.",
+    "intro_trial_days_left_other": "You have {days} days left in your free trial.",
+    "intro_trial_hours_left_one": "You have {hours} hour left in your free trial.",
+    "intro_trial_hours_left_other": "You have {hours} hours left in your free trial.",
+    "intro_trial_minutes_left_one": "You have {minutes} minute left in your free trial.",
+    "intro_trial_minutes_left_other": "You have {minutes} minutes left in your free trial.",
+    "intro_membership_minutes_left_one": "Your Premium membership expires in {minutes} minute.",
+    "intro_membership_minutes_left_other": "Your Premium membership expires in {minutes} minutes.",
+    "intro_membership_hours_left_one": "Your Premium membership expires in {hours} hour.",
+    "intro_membership_hours_left_other": "Your Premium membership expires in {hours} hours.",
+    "intro_membership_days_left_one": "Your Premium membership expires in {days} day.",
+    "intro_membership_days_left_other": "Your Premium membership expires in {days} days.",
     "pricing_monthly": "Monthly",
     "pricing_annually": "Annually",
     "pricing_per_month": "/month",
@@ -406,10 +416,22 @@
     "buy_premium_membership": "Buy Premium Membership",
     "your_membership_expires_on": "Your Premium membership expires on {date}",
     "extend_my_membership": "Extend My Membership",
-    "membership_expired_text": "Your membership has expired.\nPlease extend your membership to continue enjoying Premium features.",
-    "trial_expired_text": "Your free trial has expired.\nPlease extend your membership to continue enjoying Premium features.",
+    "membership_expired_text_line1": "Your membership has expired.",
+    "membership_expired_text_line2": "Please extend your membership to continue enjoying Premium features.",
+    "trial_expired_text_line1": "Your free trial has expired.",
+    "trial_expired_text_line2": "Please extend your membership to continue enjoying Premium features.",
     "feature": "Feature",
     "features": "Features"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "payment_plan": "Payment Plan",
+    "auto_renew": "Auto-renew",
+    "payment_processor": "Payment Processor",
+    "paypal": "PayPal",
+    "stripe": "Stripe",
+    "complete_purchase": "Complete Purchase",
+    "disabled_message": "Checkout page is disabled."
   },
   "layouts": {
     "change_layout_view": "Change Layout View",
@@ -469,6 +491,16 @@
     "general": "General",
     "join_matrix_space": "Join our Matrix space",
     "chat_discord": "Chat with us on Discord"
+  },
+  "terms": {
+    "terms": "Terms",
+    "never_sell_data": "Podverse will never sell or share private user data.",
+    "no_ads_without_permission": "We will never put advertisements next to or within a podcast's content without that podcast's permission.",
+    "audio_video_hosting": "All audio or video files found on podverse.fm load from the podcaster's own public server. We do not host podcast audio or video files ourselves.",
+    "third_party_feeds": "We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.",
+    "clips_crowdsourced": "All clips hosted on podverse.fm are crowd-sourced and unofficial, unless otherwise noted by the podcaster themselves.",
+    "clips_load_full_episode": "Clips load within the full episode's media file, so the user always has access to the full recording.",
+    "reduced_size_images": "We also host reduced size podcast images from podcasters' feeds, to save user network data and speed up page loading times."
   },
   "socials": {
     "discord": "Discord",
