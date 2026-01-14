@@ -25,6 +25,7 @@ LocalSettingsState Legend:
     - rp = repeat
     - rd = random
   - fd = filterDefaults (per-page filter preferences)
+  - metd = membershipExpirationToastDismissed (ISO date string of last dismissal)
 */
 
 export type FilterDefaultsPage = 'home' | 'playlists' | 'podcasts' | 'podcasts-livestreams'
@@ -118,6 +119,7 @@ export interface LocalSettingsState {
     rd: boolean;
   }
   fd?: Partial<FilterDefaults>;
+  metd?: string; // membershipExpirationToastDismissed (ISO date string of last dismissal)
 }
 
 export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
@@ -158,7 +160,8 @@ function isValidLocalSettings(settings: any): settings is LocalSettingsState {
     settings.aqc !== null &&
     typeof settings.aqc.rp === 'boolean' &&
     typeof settings.aqc.rd === 'boolean' &&
-    (settings.fd === undefined || typeof settings.fd === 'object' && settings.fd !== null)
+    (settings.fd === undefined || typeof settings.fd === 'object' && settings.fd !== null) &&
+    (settings.metd === undefined || typeof settings.metd === 'string')
   );
 }
 

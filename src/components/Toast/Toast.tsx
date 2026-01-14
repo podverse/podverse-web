@@ -1,18 +1,84 @@
 import React from "react";
-import toast, { Toaster, ToastOptions } from "react-hot-toast";
+import toast, { Toaster, ToastOptions, Toast as ToastType } from "react-hot-toast";
+import NextLink from "next/link";
 import styles from "../../styles/components/Toast/Toast.module.scss";
 
 const duration = 4000;
 
 export function showToast(
 	message: string,
-  type: "success" | "error"
+  type: "success" | "error" | "warning" | "danger"
 ) {
 	if (type === "success") {
-		toast.success(message, { duration });
+		toast.success(message, { duration, className: styles.toast });
 	} else if (type === "error") {
-		toast.error(message, { duration });
+		toast.error(message, { duration, className: styles.toastDanger });
 	}
+}
+
+export interface CustomToastProps {
+	message: React.ReactNode;
+	linkText: string;
+	linkHref: string;
+	onLinkClick?: () => void;
+	onDismiss?: () => void;
+}
+
+export function showToastCustom(
+	props: CustomToastProps,
+	type: "warning" | "danger",
+	options?: ToastOptions
+): string {
+	const { message, linkText, linkHref, onLinkClick, onDismiss } = props;
+	const toastClassName = type === "warning" ? styles.toastWarning : styles.toastDanger;
+
+	return toast.custom(
+		(t: ToastType) => {
+			const handleDismiss = () => {
+				toast.dismiss(t.id);
+				onDismiss?.();
+			};
+
+			const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+				onLinkClick?.();
+			};
+
+			return (
+				<div
+					className={`${toastClassName} ${styles.toastCustomWrapper}`}
+					style={{
+						opacity: t.visible ? 1 : 0,
+						transition: "opacity 0.2s ease-in-out"
+					}}
+				>
+					<div className={styles.toastContentColumn}>
+						<div>{message}</div>
+						<div>
+							<NextLink
+								href={linkHref}
+								onClick={handleLinkClick}
+								className={styles.toastLink}
+							>
+								{linkText}
+							</NextLink>
+						</div>
+					</div>
+					<button
+						type="button"
+						onClick={handleDismiss}
+						className={styles.toastDismissButton}
+						aria-label="Dismiss"
+					>
+						×
+					</button>
+				</div>
+			);
+		},
+		{
+			duration: Infinity,
+			...options
+		}
+	);
 }
 
 export function showToastPromiseWithLoading<T>(

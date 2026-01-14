@@ -421,7 +421,12 @@
     "trial_expired_text_line1": "Your free trial has expired.",
     "trial_expired_text_line2": "Please extend your membership to continue enjoying Premium features.",
     "feature": "Feature",
-    "features": "Features"
+    "features": "Features",
+    "membership_expiring_warning": "Your {type} expires on {date}. Renew now to continue enjoying Premium features.",
+    "membership_expired_danger": "Your {type} has expired. Renew now to continue enjoying Premium features.",
+    "membership_link_text": "Go to Membership Page",
+    "free_trial": "free trial",
+    "premium_membership": "Premium membership"
   },
   "checkout": {
     "checkout": "Checkout",
