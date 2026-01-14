@@ -9,6 +9,7 @@ i18n/compiled
 # API keys and secrets
 **/.env*
 !**/.env.example
+!**/.env.openai.example
 !**/local.env
 !**/alpha.env
 !**/beta.env
