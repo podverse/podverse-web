@@ -3,7 +3,7 @@ import path from 'path';
 import { config } from 'dotenv';
 import { OpenAI } from 'openai';
 
-config(); // Load environment variables
+config({ path: path.resolve('.env.openai') });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
