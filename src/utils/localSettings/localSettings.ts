@@ -1,4 +1,4 @@
-import { UITheme, setUIThemeOnDocument, toUITheme } from "./uiTheme";
+import { UITheme, setUIThemeOnDocument, toUITheme, getDefaultTheme } from "./uiTheme";
 import { ViewSelectedOption } from "../../components/ViewSelector/ViewSelector";
 import { clearCookie, readCookie, writeCookie } from "../cookie";
 import {
@@ -140,7 +140,7 @@ export function handleLocalSettingsUpdate(newState: LocalSettingsState) {
 }
 
 const defaultLocalSettings: LocalSettingsState = {
-  uit: "dark",
+  uit: getDefaultTheme(),
   vs: "grid",
   seda: false,
   aqc: {

@@ -33,12 +33,15 @@ export const LocalSettingsProvider: React.FC<LocalSettingsProps> = ({
   
   useEffect(() => {
     const existingSettings = getParsedLocalSettings();
+    // Remember to update this when new properties are added to the LocalSettingsState
+    // or the settings will be lost when the page is refreshed twice.
     handleLocalSettingsUpdate({
       uit: uiTheme,
       vs: viewSelected,
       seda: serverEnvironmentDisclaimerAccepted,
       aqc: lsAutoQueueConfig,
-      fd: existingSettings.fd
+      fd: existingSettings.fd,
+      metd: existingSettings.metd
     });
   }, [uiTheme, viewSelected, serverEnvironmentDisclaimerAccepted, lsAutoQueueConfig]);
 

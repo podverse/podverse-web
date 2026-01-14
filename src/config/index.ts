@@ -39,6 +39,10 @@ export const config = {
         default: process.env.NEXT_PUBLIC_FEATURES_DEFAULT_LOCALE || "en"
       }
     },
+    theme: {
+      default: process.env.NEXT_PUBLIC_THEME_DEFAULT || "",
+      valid: process.env.NEXT_PUBLIC_THEME_VALID || ""
+    },
     notifications: {
       webpush: {
         vapidPublicKey: process.env.NEXT_PUBLIC_WEBPUSH_VAPID_PUBLIC_KEY || ""

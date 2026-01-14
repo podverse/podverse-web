@@ -2,11 +2,13 @@
 
 import React from 'react'
 import { SettingsLocaleSelector } from './SettingsLocaleSelector'
+import { SettingsThemeSelector } from './SettingsThemeSelector'
 
 export function SettingsAccount() {  
   return (
     <>
       <SettingsLocaleSelector />
+      <SettingsThemeSelector />
     </>
   )
 }

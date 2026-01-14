@@ -1,0 +1,62 @@
+[data-ui-theme="dracula"] {
+  --background-color-primary: #282a36;
+  --background-color-secondary: #1e1f29;
+  --background-color-tertiary: #343746;
+  --background-color-quaternary: #44475a;
+  --background-color-special: #3d4158;
+  --background-color-opaque: rgba(255, 255, 255, 0.1);
+  --background-color-glow: rgba(68, 71, 90, 0.7);
+  --background-color-contrast: #f8f8f2;
+
+  --border-color-primary: #bd93f9;
+  --border-color-secondary: #f8f8f2;
+  --border-color-tertiary: #6272a4;
+  --border-color-warning: #ffb86c;
+  --border-color-opaque: rgba(255, 255, 255, 0.15);
+
+  --box-shadow-focus: 0 0 0 4px rgba(189, 147, 249, 0.4);
+
+  --text-color-primary: #f8f8f2;
+  --text-color-secondary: #bfc9db;
+  --text-color-tertiary: #282a36;
+  --text-color-accent: #bd93f9;
+  --text-color-link: #8be9fd;
+  --text-color-link-hover: #a4f4ff;
+  --text-color-contrast: #282a36;
+  --text-color-highlighted: #ffb86c;
+  --text-color-danger: #ff5555;
+
+  --text-line-height: 1.35;
+
+  --progress-bar-before: #bd93f9;
+  --progress-bar-after: #44475a;
+  --progress-bar-highlighted: rgba(189, 147, 249, 0.5);
+}
+
+[data-ui-theme="dracula"] {
+  --background-gradient-primary: linear-gradient(90deg, rgba(98, 114, 164, 0.6) -3%, var(--background-color-tertiary));
+  
+  --button-primary-bg: var(--border-color-primary);
+  --button-primary-color: var(--text-color-tertiary);
+  --button-primary-bg-hover: #caa8fc;
+  --button-secondary-bg: var(--background-color-glow);
+  --button-secondary-color: var(--text-color-primary);
+  --button-secondary-bg-hover: #565970;
+  --button-success-bg: #50fa7b;
+  --button-success-color: var(--text-color-tertiary);
+  --button-success-bg-hover: #69fb8f;
+  --button-warning-bg: #ffb86c;
+  --button-warning-color: var(--text-color-tertiary);
+  --button-warning-bg-hover: #ffc98a;
+  --button-highlight-bg: #f1fa8c;
+  --button-highlight-bg-hover: #f5fba8;
+  --button-danger-bg: #ff5555;
+  --button-danger-color: var(--text-color-primary);
+  --button-danger-bg-hover: #ff6e6e;
+  --button-outline-color: var(--border-color-primary);
+  --button-opaque-bg: rgba(189, 147, 249, 0.16);
+  --button-opaque-warning-bg: rgba(255, 184, 108, 0.16);
+  --button-opaque-danger-bg: rgba(255, 85, 85, 0.16);
+  --button-opaque-danger-border: #cc4444;
+  --button-enabled-icon-color: var(--text-color-accent);
+}

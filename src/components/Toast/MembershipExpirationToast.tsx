@@ -54,18 +54,39 @@ export function MembershipExpirationToast() {
     const isExpiringSoon = daysUntilExpiration <= 14 && daysUntilExpiration > 0;
 
     const localSettings = getParsedLocalSettings();
-    const dismissedDate = localSettings.metd;
-    const today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
-    const wasDismissedToday = dismissedDate === today;
+    const dismissedTimestamp = localSettings.metd;
+    
+    // Check if warning toast was dismissed within the past 24 hours
+    let wasDismissedWithin24Hours = false;
+    if (dismissedTimestamp) {
+      try {
+        const dismissedDate = new Date(dismissedTimestamp);
+        const hoursSinceDismissal = (now.getTime() - dismissedDate.getTime()) / (1000 * 60 * 60);
+        wasDismissedWithin24Hours = hoursSinceDismissal < 24 && hoursSinceDismissal >= 0;
+      } catch (err) {
+        // If timestamp is invalid, treat as not dismissed
+        wasDismissedWithin24Hours = false;
+      }
+    }
 
     const membershipType = isFreeTrial ? t("free_trial") : t("premium_membership");
     const expirationDateFormatted = expirationDate.toLocaleDateString();
 
-    const handleDismiss = () => {
+    // Handler for danger toast: just dismisses, doesn't store timestamp (so it always shows on next load)
+    const handleDismissDanger = () => {
+      if (toastIdRef.current) {
+        toast.dismiss(toastIdRef.current);
+        toastIdRef.current = null;
+      }
+    };
+
+    // Handler for warning toast: dismisses and stores timestamp to prevent showing for 24 hours
+    const handleDismissWarning = () => {
       const settings = getParsedLocalSettings();
+      // Store full ISO timestamp for 24-hour check
       handleLocalSettingsUpdate({
         ...settings,
-        metd: today
+        metd: now.toISOString()
       });
       if (toastIdRef.current) {
         toast.dismiss(toastIdRef.current);
@@ -73,11 +94,17 @@ export function MembershipExpirationToast() {
       }
     };
 
-    const handleLinkClick = () => {
-      handleDismiss();
+    const handleLinkClickDanger = () => {
+      handleDismissDanger();
       router.push(ROUTES.MEMBERSHIP);
     };
 
+    const handleLinkClickWarning = () => {
+      handleDismissWarning();
+      router.push(ROUTES.MEMBERSHIP);
+    };
+
+    // Danger toast: Always show if expired (ignores dismissed timestamp, always shows on window load)
     if (isExpired) {
       if (toastIdRef.current) {
         toast.dismiss(toastIdRef.current);
@@ -89,14 +116,14 @@ export function MembershipExpirationToast() {
         message: expiredMessage,
         linkText,
         linkHref: ROUTES.MEMBERSHIP,
-        onLinkClick: handleLinkClick,
-        onDismiss: handleDismiss
+        onLinkClick: handleLinkClickDanger,
+        onDismiss: handleDismissDanger
       }, "danger");
       return;
     }
 
-    // Handle expiring soon - show warning toast if not auto-renew and not dismissed today
-    if (isExpiringSoon && !autoRenew && !wasDismissedToday) {
+    // Warning toast: Show if expiring soon, not auto-renew, and not dismissed within past 24 hours
+    if (isExpiringSoon && !autoRenew && !wasDismissedWithin24Hours) {
       if (toastIdRef.current) {
         toast.dismiss(toastIdRef.current);
       }
@@ -107,8 +134,8 @@ export function MembershipExpirationToast() {
         message: warningMessage,
         linkText,
         linkHref: ROUTES.MEMBERSHIP,
-        onLinkClick: handleLinkClick,
-        onDismiss: handleDismiss
+        onLinkClick: handleLinkClickWarning,
+        onDismiss: handleDismissWarning
       }, "warning");
       return;
     }
