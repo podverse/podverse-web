@@ -54,6 +54,10 @@ export const config = {
     contact: {
       email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || ""
     },
+    account: {
+      signupMode: process.env.NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE || 'sign-up',
+      contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || ''
+    },
     server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
   }
 };

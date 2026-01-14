@@ -1,0 +1,42 @@
+.comparison {
+  margin: 2rem 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.featureHeader {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: var(--font-weight-bold);
+  border-bottom: 1px solid var(--border-color-opaque);
+}
+
+.tierHeader {
+  text-align: center;
+  padding: 0.75rem 1rem;
+  font-weight: var(--font-weight-bold);
+  border-bottom: 1px solid var(--border-color-opaque);
+}
+
+.row {
+  border-bottom: 1px solid var(--border-color-opaque);
+}
+
+.featureCell {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.tierCell {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  width: 120px;
+}
+
+.checkmark {
+  color: var(--button-success-bg-hover);
+  font-size: 1.25rem;
+}

@@ -1,0 +1,78 @@
+.pricingSection {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.pricingPlan {
+  flex: 1;
+  min-width: 200px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color-opaque);
+  border-radius: var(--border-radius);
+  background: var(--background-color-secondary);
+}
+
+.planTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
+  margin-bottom: 1rem;
+  color: var(--text-color-primary);
+}
+
+.planPriceContainer {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.planPrice {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.planPeriod {
+  font-size: var(--font-size-lg);
+  color: var(--text-color-secondary);
+}
+
+.savingsBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--button-success-bg);
+  color: var(--button-success-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.formSection {
+  margin-bottom: 2rem;
+}
+
+.buttonSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.disabledSection {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--background-color-secondary);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.disabledSection p {
+  font-size: var(--font-size-lg);
+  color: var(--text-color-primary);
+  margin: 0;
+}

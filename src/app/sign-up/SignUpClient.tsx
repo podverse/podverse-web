@@ -4,9 +4,13 @@ import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentW
 import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainWrapper } from "../../components/Main/MainWrapper";
 import { AuthSignUpForm } from "../../components/Auth/AuthSignUpForm";
+import { AuthContactOnlyMessage } from "../../components/Auth/AuthContactOnlyMessage";
+import { config } from "../../config";
 
 export function SignUpClient() {
   const tAuthentication = useTranslations("authentication");
+  const signupMode = config.public.account.signupMode;
+  const contactEmail = config.public.account.contactEmail;
 
   return (
     <>
@@ -14,7 +18,11 @@ export function SignUpClient() {
       <MainWrapper>
         <MainInnerWrapper>
           <MainInnerContentWrapper>
-            <AuthSignUpForm />
+            {signupMode === 'contact-only' && contactEmail ? (
+              <AuthContactOnlyMessage contactEmail={contactEmail} />
+            ) : (
+              <AuthSignUpForm />
+            )}
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>

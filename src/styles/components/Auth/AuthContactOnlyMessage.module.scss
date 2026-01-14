@@ -1,0 +1,20 @@
+@use '../../mixins/form' as *;
+
+.authContactOnlyMessage {
+  max-width: var(--form-max-width);
+}
+
+.message {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+
+.emailLink {
+  color: var(--text-color-link);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--text-color-link-hover);
+  }
+}
