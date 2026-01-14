@@ -30,9 +30,8 @@ export const Footer: React.FC = () => {
           <Link disabled href={ROUTES.ABOUT}>{tInfo("about")}</Link>
           <Link href={ROUTES.TERMS}>{tMisc("terms")}</Link>
           <Link href={ROUTES.MEMBERSHIP}>{tMembership("premium")}</Link>
-          <Link disabled href={ROUTES.MOBILE_APP}>{tMisc("mobile")}</Link>
+          {/* <Link disabled href={ROUTES.MOBILE_APP}>{tMisc("mobile")}</Link> */}
           <Link disabled href={ROUTES.EMBED}>{tFeatures("embed")}</Link>
-          <Link disabled href={ROUTES.DONATE}>{tMisc("donate")}</Link>
           <Link href={ROUTES.UPDATES}>{tMisc("updates")}</Link>
         </div>
         <div className={styles.footerSocialLinks}>
