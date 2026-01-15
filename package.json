@@ -6,7 +6,7 @@
   "main": "./src/index.js",
   "repository": "https://github.com/podverse/podverse-web.git",
   "homepage": "https://github.com/podverse/podverse-web#readme",
-  "author": "Mitch Downey <mitchldowney@gmail.com>",
+  "author": "Mitch Downey <mitch@podverse.fm>",
   "contributors": [
     "Mitch Downey"
   ],
