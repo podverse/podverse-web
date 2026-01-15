@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
           <Link href={ROUTES.MEMBERSHIP}>{tMembership("premium")}</Link>
           {/* <Link disabled href={ROUTES.MOBILE_APP}>{tMisc("mobile")}</Link> */}
           <Link disabled href={ROUTES.EMBED}>{tFeatures("embed")}</Link>
-          <Link href={ROUTES.UPDATES}>{tMisc("updates")}</Link>
+          {/* <Link href={ROUTES.UPDATES}>{tMisc("updates")}</Link> */}
         </div>
         <div className={styles.footerSocialLinks}>
           <Link href={SOCIALS.DISCORD} color="secondary" target="_blank" rel="noopener noreferrer" aria-label={tSocials("discord")}>
