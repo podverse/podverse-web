@@ -1,0 +1,16 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 1.5rem;
+  color: var(--text-color-secondary);
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}

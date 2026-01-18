@@ -459,6 +459,7 @@
     "account": {
       "account": "Cuenta",
       "delete_account": "Eliminar Cuenta",
+      "delete_account_description": "Eliminar permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
       "delete_account_modal": {
         "title": "Eliminar Cuenta",
         "message": "Esta acción no se puede deshacer. Para confirmar que deseas eliminar tu cuenta, por favor escribe tu dirección de correo electrónico a continuación.",

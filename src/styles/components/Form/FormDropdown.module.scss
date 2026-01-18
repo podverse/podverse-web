@@ -5,6 +5,11 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  margin-bottom: 1.75rem;
+}
+
+.wrapper:last-child {
+  margin-bottom: 0;
 }
 
 .headerRow {

@@ -459,6 +459,7 @@
     "account": {
       "account": "Account",
       "delete_account": "Delete Account",
+      "delete_account_description": "Permanently delete your account and all associated data. This action cannot be undone.",
       "delete_account_modal": {
         "title": "Delete Account",
         "message": "This action cannot be undone. To confirm you want to delete your account, please type your email address below.",

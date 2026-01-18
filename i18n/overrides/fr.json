@@ -459,6 +459,7 @@
     "account": {
       "account": "Compte",
       "delete_account": "Supprimer le compte",
+      "delete_account_description": "Supprimer définitivement votre compte et toutes les données associées. Cette action ne peut pas être annulée.",
       "delete_account_modal": {
         "title": "Supprimer le compte",
         "message": "Cette action ne peut pas être annulée. Pour confirmer que vous souhaitez supprimer votre compte, veuillez taper votre adresse e-mail ci-dessous.",

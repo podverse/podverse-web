@@ -3,19 +3,19 @@
 import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { validateHttpsUrl } from 'podverse-helpers'
-import { requestNotificationPermission } from '../../../lib/notifications/webpush/requestNotificationPermission'
-import { disableNotificationPermission } from '../../../lib/notifications/webpush/disableNotificationPermission'
-import { apiRequestService } from '../../../factories/apiRequestService'
-import { useNotifications } from '../../../contexts/Notifications'
-import { useAccount } from '../../../contexts/Account'
-import { useModals } from '../../../contexts/Modals'
-import { SwitchButton } from '../../Form/SwitchButton'
-import { useLoadingMap } from '../../../hooks/useLoadingMap'
-import { Divider } from '../../Divider/Divider'
-import { TextInput } from '../../Form/TextInput'
-import { Button } from '../../Button/Button'
-import { InlineForm, InlineFormInfo, InlineFormButtons, InlineFormFieldGroup } from '../../Form/InlineForm'
-import styles from '../../../styles/components/Settings/SettingsNotifications.module.scss'
+import { requestNotificationPermission } from '../../../../lib/notifications/webpush/requestNotificationPermission'
+import { disableNotificationPermission } from '../../../../lib/notifications/webpush/disableNotificationPermission'
+import { apiRequestService } from '../../../../factories/apiRequestService'
+import { useNotifications } from '../../../../contexts/Notifications'
+import { useAccount } from '../../../../contexts/Account'
+import { useModals } from '../../../../contexts/Modals'
+import { SwitchButton } from '../../../Form/SwitchButton'
+import { useLoadingMap } from '../../../../hooks/useLoadingMap'
+import { Divider } from '../../../../components/Divider/Divider'
+import { TextInput } from '../../../../components/Form/TextInput'
+import { Button } from '../../../../components/Button/Button'
+import { InlineForm, InlineFormInfo, InlineFormButtons, InlineFormFieldGroup } from '../../../../components/Form/InlineForm'
+import styles from '../../../../styles/components/Settings/Panels/SettingsNotifications/SettingsNotifications.module.scss'
 
 export function SettingsNotifications() {
   const { 
@@ -263,7 +263,7 @@ export function SettingsNotifications() {
         aria-describedby="webpush-help"
       />
       
-      <Divider />
+      <Divider withSpacing />
 
       {/* Unified Push (Secondary) */}
       <SwitchButton
@@ -333,7 +333,7 @@ export function SettingsNotifications() {
       {/* Default notification types - only show when a notification method is enabled */}
       {anyNotificationEnabled && (
         <>
-          <Divider />
+          <Divider withSpacing />
           {defaultTypes.map(dt => (
             <SwitchButton
               key={dt.key}

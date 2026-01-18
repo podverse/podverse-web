@@ -4,26 +4,34 @@ import React from 'react'
 import { useTranslations } from 'next-intl'
 import { ListHeader } from '../List/ListHeader'
 import { SettingsWrapper } from './SettingsWrapper'
-import { SettingsNotifications } from './Panels/SettingsNotifications'
 import { SettingsAccount } from './Panels/SettingsAccount/SettingsAccount'
+import { SettingsGeneral } from './Panels/SettingsGeneral/SettingsGeneral'
+import { SettingsNotifications } from './Panels/SettingsNotifications/SettingsNotifications'
 import { Tabs } from '../Tabs/Tabs'
 
 export function Settings() {
   const tSettings = useTranslations('settings')
-  const [tab, setTab] = React.useState<'account'|'notifications'>('account')
+  const tContact = useTranslations('contact')
+  const [tab, setTab] = React.useState<'account'|'general'|'notifications'>('general')
 
   const tabData = [
+    {
+      key: 'general',
+      label: tContact('general'),
+      onClick: () => setTab('general'),
+      zIndex: 10
+    },
     {
       key: 'account',
       label: tSettings('account.account'),
       onClick: () => setTab('account'),
-      zIndex: 10
+      zIndex: 9
     },
     {
       key: 'notifications',
       label: tSettings('notifications.notifications'),
       onClick: () => setTab('notifications'),
-      zIndex: 9
+      zIndex: 8
     }
   ]
 
@@ -38,6 +46,7 @@ export function Settings() {
         }
       />
       <SettingsWrapper>
+        {tab === 'general' && <SettingsGeneral />}
         {tab === 'account' && <SettingsAccount />}
         {tab === 'notifications' && <SettingsNotifications />}
       </SettingsWrapper>
