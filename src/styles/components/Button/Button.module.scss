@@ -197,3 +197,15 @@
   min-width: auto;
   font-weight: var(--font-weight-bold);
 }
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.buttonDescription {
+  margin: 0;
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-base);
+}

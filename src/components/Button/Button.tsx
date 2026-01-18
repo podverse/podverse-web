@@ -31,6 +31,7 @@ type ButtonProps = {
   role?: string
   isDropdownButton?: boolean
   isLoading?: boolean
+  description?: string
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -57,45 +58,59 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       role = 'button',
       isDropdownButton = false,
       isLoading = false,
+      description,
       ...rest
     },
     ref
-  ) => (
-    <button
-      ref={ref}
-      type={type}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
-      disabled={disabled || isLoading}
-      className={classNames(
-        styles.button,
-        styles[variant],
-        { [styles.disabled]: disabled || isLoading },
-        className
-      )}
-      style={style}
-      aria-label={ariaLabel}
-      aria-describedby={ariaDescribedBy}
-      aria-pressed={ariaPressed}
-      aria-haspopup={ariaHasPopup}
-      aria-expanded={ariaExpanded}
-      tabIndex={tabIndex}
-      autoFocus={autoFocus}
-      id={id}
-      name={name}
-      title={title}
-      role={role}
-      {...rest}
-    >
-      <span className={classNames(styles.buttonContent, { [styles.invisible]: isLoading })}>
-        {children}
-        {isDropdownButton && <FaChevronDown className={styles.chevronIcon} />}
-      </span>
-      {isLoading && (
-        <span className={styles.spinnerWrapper}>
-          <FaSpinner className={styles.spinner} />
+  ) => {
+    const buttonElement = (
+      <button
+        ref={ref}
+        type={type}
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+        disabled={disabled || isLoading}
+        className={classNames(
+          styles.button,
+          styles[variant],
+          { [styles.disabled]: disabled || isLoading },
+          className
+        )}
+        style={style}
+        aria-label={ariaLabel}
+        aria-describedby={ariaDescribedBy}
+        aria-pressed={ariaPressed}
+        aria-haspopup={ariaHasPopup}
+        aria-expanded={ariaExpanded}
+        tabIndex={tabIndex}
+        autoFocus={autoFocus}
+        id={id}
+        name={name}
+        title={title}
+        role={role}
+        {...rest}
+      >
+        <span className={classNames(styles.buttonContent, { [styles.invisible]: isLoading })}>
+          {children}
+          {isDropdownButton && <FaChevronDown className={styles.chevronIcon} />}
         </span>
-      )}
-    </button>
-  )
+        {isLoading && (
+          <span className={styles.spinnerWrapper}>
+            <FaSpinner className={styles.spinner} />
+          </span>
+        )}
+      </button>
+    )
+
+    if (description) {
+      return (
+        <div className={styles.buttonWrapper}>
+          <p className={styles.buttonDescription}>{description}</p>
+          {buttonElement}
+        </div>
+      )
+    }
+
+    return buttonElement
+  }
 )
