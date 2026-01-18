@@ -46,6 +46,7 @@ export const HomeContextProvider = ({
     async function fetchChannels() {
       if (!loggedInAccount) {
         setChannels([]);
+        return;
       }
 
       setIsLoading(true);
