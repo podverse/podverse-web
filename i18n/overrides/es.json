@@ -457,7 +457,13 @@
       "check_feed_added_to_queue": "Feed agregado a la cola para análisis. Puede tardar unos minutos en procesarse. Por favor, revisa la lista para actualizaciones más tarde."
     },
     "account": {
-      "account": "Cuenta"
+      "account": "Cuenta",
+      "delete_account": "Eliminar Cuenta",
+      "delete_account_modal": {
+        "title": "Eliminar Cuenta",
+        "message": "Esta acción no se puede deshacer. Para confirmar que deseas eliminar tu cuenta, por favor escribe tu dirección de correo electrónico a continuación.",
+        "email_mismatch": "La dirección de correo electrónico que ingresaste no coincide con el correo de tu cuenta."
+      }
     },
     "notifications": {
       "notifications": "Notificaciones",

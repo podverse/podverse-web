@@ -457,7 +457,14 @@
       "check_feed_added_to_queue": "Flux ajouté à la queue pour traitement. Cela peut prendre quelques minutes pour que le flux soit analysé. Veuillez vérifier la liste pour des mises à jour plus tard."
     },
     "account": {
-      "account": "Compte"
+      "account": "Compte",
+      "delete_account": "Supprimer le compte",
+      "delete_account_description": "Supprimer définitivement votre compte et toutes les données associées. Cette action ne peut pas être annulée.",
+      "delete_account_modal": {
+        "title": "Supprimer le compte",
+        "message": "Cette action ne peut pas être annulée. Pour confirmer que vous souhaitez supprimer votre compte, veuillez taper votre adresse e-mail ci-dessous.",
+        "email_mismatch": "L'adresse e-mail que vous avez saisie ne correspond pas à l'e-mail de votre compte."
+      }
     },
     "notifications": {
       "notifications": "Notifications",
