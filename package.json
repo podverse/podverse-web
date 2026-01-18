@@ -15,7 +15,7 @@
     "build": "next build",
     "predev": "npm run i18n-compile",
     "dev": "next dev",
-    "dev:watch": "nodemon --watch $(realpath node_modules/podverse-helpers) --exec \"npm run dev\"",
+    "dev:watch": "nodemon --watch $(realpath node_modules/podverse-helpers/dist/index.js)",
     "lint": "next lint",
     "start": "next start",
     "i18n-llm-translations": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-llm-translations.ts",

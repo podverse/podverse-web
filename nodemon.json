@@ -1,0 +1,6 @@
+{
+  "legacyWatch": true,
+  "delay": "1000ms",
+  "exec": "npm run dev",
+  "ext": "js,json,ts"
+}
