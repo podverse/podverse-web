@@ -8,10 +8,6 @@
   margin-bottom: 1.75rem;
 }
 
-.wrapper:last-child {
-  margin-bottom: 0;
-}
-
 .headerRow {
   @include formHeaderRow;
 }

@@ -458,6 +458,13 @@
     },
     "account": {
       "account": "Account",
+      "change_email": "Change Email",
+      "change_email_description": "Change your email address. A verification email will be sent to your new email address.",
+      "change_email_modal": {
+        "title": "Change Email Address",
+        "message": "Enter the new email address you want to use. A verification email will be sent to that address.",
+        "email_sent": "A verification email has been sent to your new email address. Please check your email for a confirmation link."
+      },
       "delete_account": "Delete Account",
       "delete_account_description": "Permanently delete your account and all associated data. This action cannot be undone.",
       "delete_account_modal": {

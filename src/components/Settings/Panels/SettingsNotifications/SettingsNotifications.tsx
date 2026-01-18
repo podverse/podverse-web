@@ -15,6 +15,7 @@ import { Divider } from '../../../../components/Divider/Divider'
 import { TextInput } from '../../../../components/Form/TextInput'
 import { Button } from '../../../../components/Button/Button'
 import { InlineForm, InlineFormInfo, InlineFormButtons, InlineFormFieldGroup } from '../../../../components/Form/InlineForm'
+import { SettingsSection } from '../../SettingsSection'
 import styles from '../../../../styles/components/Settings/Panels/SettingsNotifications/SettingsNotifications.module.scss'
 
 export function SettingsNotifications() {
@@ -266,88 +267,92 @@ export function SettingsNotifications() {
       <Divider withSpacing />
 
       {/* Unified Push (Secondary) */}
-      <SwitchButton
-        id="unifiedpush"
-        label={tSettings("notifications.unified_push")}
-        checked={upRegistered}
-        onChange={handleUPToggle}
-        loading={!!loadingMap['unifiedpush']}
-        helpText={tSettings("notifications.unified_push_help")}
-        aria-describedby="unifiedpush-help"
-      />
+      <SettingsSection>
+        <SwitchButton
+          id="unifiedpush"
+          label={tSettings("notifications.unified_push")}
+          checked={upRegistered}
+          onChange={handleUPToggle}
+          loading={!!loadingMap['unifiedpush']}
+          helpText={tSettings("notifications.unified_push_help")}
+          aria-describedby="unifiedpush-help"
+        />
 
-      {/* UP Form - shown when toggle is clicked to enable */}
-      {showUPForm && !upRegistered && (
-        <InlineForm>
-          <InlineFormInfo>
-            {tSettings("notifications.up_endpoint_info")}
-          </InlineFormInfo>
-          <TextInput
-            id="up-endpoint"
-            value={upEndpointInput}
-            onChange={(e) => {
-              setUPEndpointInput(e.target.value);
-              setUPEndpointError(undefined);
-            }}
-            placeholder={tSettings("notifications.up_endpoint_placeholder")}
-            eyebrow={tSettings("notifications.up_endpoint_label")}
-            infoError={upEndpointError}
-            aria-invalid={!!upEndpointError}
-          />
-          <InlineFormFieldGroup>
+        {/* UP Form - shown when toggle is clicked to enable */}
+        {showUPForm && !upRegistered && (
+          <InlineForm>
             <InlineFormInfo>
-              {tSettings("notifications.up_auth_key_info")}
+              {tSettings("notifications.up_endpoint_info")}
             </InlineFormInfo>
             <TextInput
-              id="up-auth-key"
-              value={upAuthKeyInput}
-              onChange={(e) => setUPAuthKeyInput(e.target.value)}
-              placeholder={tSettings("notifications.up_auth_key_placeholder")}
-              eyebrow={tSettings("notifications.up_auth_key_label")}
-              type="password"
+              id="up-endpoint"
+              value={upEndpointInput}
+              onChange={(e) => {
+                setUPEndpointInput(e.target.value);
+                setUPEndpointError(undefined);
+              }}
+              placeholder={tSettings("notifications.up_endpoint_placeholder")}
+              eyebrow={tSettings("notifications.up_endpoint_label")}
+              infoError={upEndpointError}
+              aria-invalid={!!upEndpointError}
             />
-          </InlineFormFieldGroup>
-          <InlineFormButtons>
-            <Button variant="secondary" onClick={cancelUPForm}>
-              {tSettings("notifications.cancel")}
-            </Button>
-            <Button 
-              variant="primary" 
-              onClick={validateAndEnableUP}
-              disabled={!upEndpointInput.trim()}
-            >
-              {tSettings("notifications.enable")}
-            </Button>
-          </InlineFormButtons>
-        </InlineForm>
-      )}
+            <InlineFormFieldGroup>
+              <InlineFormInfo>
+                {tSettings("notifications.up_auth_key_info")}
+              </InlineFormInfo>
+              <TextInput
+                id="up-auth-key"
+                value={upAuthKeyInput}
+                onChange={(e) => setUPAuthKeyInput(e.target.value)}
+                placeholder={tSettings("notifications.up_auth_key_placeholder")}
+                eyebrow={tSettings("notifications.up_auth_key_label")}
+                type="password"
+              />
+            </InlineFormFieldGroup>
+            <InlineFormButtons>
+              <Button variant="secondary" onClick={cancelUPForm}>
+                {tSettings("notifications.cancel")}
+              </Button>
+              <Button 
+                variant="primary" 
+                onClick={validateAndEnableUP}
+                disabled={!upEndpointInput.trim()}
+              >
+                {tSettings("notifications.enable")}
+              </Button>
+            </InlineFormButtons>
+          </InlineForm>
+        )}
 
-      {/* Show current UP endpoint when registered */}
-      {upRegistered && upEndpoint && (
-        <div className={styles.upEndpointDisplay}>
-          <span className={styles.upEndpointLabel}>{tSettings("notifications.up_current_endpoint")}</span>
-          <span className={styles.upEndpointValue}>{upEndpoint}</span>
-        </div>
-      )}
+        {/* Show current UP endpoint when registered */}
+        {upRegistered && upEndpoint && (
+          <div className={styles.upEndpointDisplay}>
+            <span className={styles.upEndpointLabel}>{tSettings("notifications.up_current_endpoint")}</span>
+            <span className={styles.upEndpointValue}>{upEndpoint}</span>
+          </div>
+        )}
+      </SettingsSection>
 
       {/* Default notification types - only show when a notification method is enabled */}
       {anyNotificationEnabled && (
         <>
           <Divider withSpacing />
-          {defaultTypes.map(dt => (
-            <SwitchButton
-              key={dt.key}
-              id={`notifications-${dt.key}`}
-              label={dt.label}
-              checked={
-                !!loggedInAccount?.account_settings?.account_settings_notification?.account_settings_notification_types?.find(t => t.type === dt.key)
-              }
-              onChange={async (next) => await toggleDefaultType(dt.key, next)}
-              loading={!!loadingMap[`notifications.${dt.key}`]}
-              helpText={tSettings(`notifications.default_${dt.key}_help`)}
-              aria-describedby={`notifications-help-${dt.key}`}
-            />
-          ))}
+          <SettingsSection>
+            {defaultTypes.map(dt => (
+              <SwitchButton
+                key={dt.key}
+                id={`notifications-${dt.key}`}
+                label={dt.label}
+                checked={
+                  !!loggedInAccount?.account_settings?.account_settings_notification?.account_settings_notification_types?.find(t => t.type === dt.key)
+                }
+                onChange={async (next) => await toggleDefaultType(dt.key, next)}
+                loading={!!loadingMap[`notifications.${dt.key}`]}
+                helpText={tSettings(`notifications.default_${dt.key}_help`)}
+                aria-describedby={`notifications-help-${dt.key}`}
+              />
+            ))}
+          </SettingsSection>
         </>
       )}
     </>
