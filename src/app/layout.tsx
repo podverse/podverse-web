@@ -74,31 +74,39 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Manifest />
       </head>
       <body>
-        <AuthSessionChecker ssrShouldLogout={ssrShouldLogout} />
-        <Providers
-          locale={locale}
-          ssrLoggedInAccount={ssrLoggedInAccount}
-          ssrLocalSettings={ssrLocalSettings}
-          ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}
-          messages={messages}
-          categories={categories}>
-          <WindowWrapper>
-            <AppWrapper>
-              <SideBar />
-              <PageWrapper>
-                <NavBar />
-                {children}
-              </PageWrapper>
-            </AppWrapper>
-            <MediaPlayer />
-            <Modals />
-          </WindowWrapper>
-          <MediaPlayerController />
-          <QueueController />
-          <QueueResourcesAbridgedController />
-          <Toast />
-          <MembershipExpirationToast />
-        </Providers>
+        {
+          ssrShouldLogout && (
+            <AuthSessionChecker ssrShouldLogout={ssrShouldLogout} />
+          )
+        }
+        {
+          !ssrShouldLogout && (
+            <Providers
+              locale={locale}
+              ssrLoggedInAccount={ssrLoggedInAccount}
+              ssrLocalSettings={ssrLocalSettings}
+              ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}
+              messages={messages}
+              categories={categories}>
+              <WindowWrapper>
+                <AppWrapper>
+                  <SideBar />
+                  <PageWrapper>
+                    <NavBar />
+                    {children}
+                  </PageWrapper>
+                </AppWrapper>
+                <MediaPlayer />
+                <Modals />
+              </WindowWrapper>
+              <MediaPlayerController />
+              <QueueController />
+              <QueueResourcesAbridgedController />
+              <Toast />
+              <MembershipExpirationToast />
+            </Providers>
+          )
+        }
       </body>
     </html>
   );

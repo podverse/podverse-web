@@ -11,7 +11,13 @@ const AuthSessionChecker = ({ ssrShouldLogout }: AuthSessionCheckerProps) => {
   useEffect(() => {
     if (ssrShouldLogout) {
       (async () => {
-        await apiRequestService.reqAuthLogout();
+        try {
+          await apiRequestService.reqAuthLogout();
+        } catch {
+          // Logout may fail if session is already invalid, that's ok
+        }
+        // Reload to clear client state and show logged-out UI
+        window.location.reload();
       })();
     }
   }, [ssrShouldLogout]);
