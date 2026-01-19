@@ -1,11 +1,11 @@
 @use 'breakpoints';
 
 .sideContent {
-  margin: -0.125rem -0.25rem 0 1.75rem;
-  padding: 0.25rem;
+  margin: calc(var(--spacing-xs) * -1) calc(var(--spacing-sm) * -1) var(--spacing-none) var(--spacing-3xl);
+  padding: var(--spacing-sm);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--spacing-lg);
   overflow: hidden;
 }
 

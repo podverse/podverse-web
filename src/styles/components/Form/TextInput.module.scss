@@ -1,5 +1,5 @@
 .textInput {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-2xl);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   flex-direction: row;
   border-radius: var(--border-radius);
   border: var(--button-border-size) solid transparent;
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-form-input);
   background-color: var(--background-color-tertiary);
 }
 
@@ -28,32 +28,32 @@
   color: var(--text-color-link);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  margin: 0 0 2px;
+  margin: 0 0 var(--spacing-form-label-bottom);
 }
 
 .input {
   all: unset;
   font-size: var(--font-size-md);
   width: 100%;
-  padding: 0.25rem 0 0.25rem 0;
+  padding: var(--spacing-form-input-inner);
 }
 
 .textInputInfo {
-  margin: 1rem 1rem 0 1rem;
+  margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
   font-size: var(--text-size-sm);
   font-weight: var(--font-weight-light);
   color: var(--text-color-secondary);
 }
 
 .textInputInfoError {
-  margin: 1rem 1rem 0 1rem;
+  margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
   font-size: var(--text-size-sm);
   font-weight: var(--font-weight-light);
   color: var(--text-color-danger);
 }
 
 .button {
-  margin-left: 1rem;
+  margin-left: var(--spacing-lg);
 }
 
 .buttonIcon {
@@ -66,9 +66,9 @@
 }
 
 .buttonIconStart {
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-md);
 }
 
 .buttonIconEnd {
-  margin-left: 0.5rem;
+  margin-left: var(--spacing-md);
 }

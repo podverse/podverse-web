@@ -1,5 +1,5 @@
 .comparison {
-  margin: 2rem 0;
+  margin: var(--spacing-4xl) var(--spacing-none);
 }
 
 .table {
@@ -9,14 +9,14 @@
 
 .featureHeader {
   text-align: left;
-  padding: 0.75rem 1rem;
+  padding: var(--spacing-base) var(--spacing-lg);
   font-weight: var(--font-weight-bold);
   border-bottom: 1px solid var(--border-color-opaque);
 }
 
 .tierHeader {
   text-align: center;
-  padding: 0.75rem 1rem;
+  padding: var(--spacing-base) var(--spacing-lg);
   font-weight: var(--font-weight-bold);
   border-bottom: 1px solid var(--border-color-opaque);
 }
@@ -26,12 +26,12 @@
 }
 
 .featureCell {
-  padding: 0.75rem 1rem;
+  padding: var(--spacing-base) var(--spacing-lg);
   text-align: left;
 }
 
 .tierCell {
-  padding: 0.75rem 1rem;
+  padding: var(--spacing-base) var(--spacing-lg);
   text-align: center;
   width: 120px;
 }

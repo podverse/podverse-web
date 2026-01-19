@@ -3,7 +3,7 @@
 
 .header {
   background-color: var(--background-color-secondary);
-  padding: 0 1.5rem;
+  padding: 0 var(--spacing-2xl);
   display: flex;
   align-items: center;
 }
@@ -23,8 +23,8 @@
 .buttons {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-left: 2rem;
+  gap: var(--spacing-lg);
+  margin-left: var(--spacing-4xl);
 }
 
 @media (max-width: breakpoints.$breakpoint-md-max) {
@@ -34,11 +34,11 @@
     justify-content: center;
     align-items: flex-start;
     text-align: left;
-    gap: 0.75rem;
+    gap: var(--spacing-base);
   }
 
   .buttons {
     margin-left: 0;
-    margin-bottom: 0.375rem;
+    margin-bottom: 0.375rem; // Keep specific value for mobile layout
   }
 }

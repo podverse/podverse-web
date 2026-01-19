@@ -3,8 +3,8 @@
 .link {
   color: var(--text-color-primary);
   text-decoration: none !important;
-  padding: 0.75rem;
-  margin: 0.25rem 0.5rem;
+  padding: var(--spacing-base);
+  margin: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-base);
 }
 

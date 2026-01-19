@@ -1,7 +1,7 @@
 .listWrapper {
-  margin: 1rem 0;
+  margin: var(--spacing-container-y);
 }
 
 .paginationControls {
-  margin-top: 1rem;
+  margin-top: var(--spacing-lg);
 }

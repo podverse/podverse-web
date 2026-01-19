@@ -10,7 +10,7 @@
   align-items: center;
   background: none;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-form-input);
   cursor: pointer;
 }
 
@@ -25,12 +25,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-md);
 }
 
 .profileIcon {
   font-size: var(--font-size-lg);
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-md);
 }
 
 @media (max-width: breakpoints.$breakpoint-sm-max) {

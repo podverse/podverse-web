@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   width: 520px;
-  gap: 0.25rem;
-  margin-bottom: 0.125rem;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .mediaPlayerProgressTime, .mediaPlayerProgressTimeMobile {
@@ -26,7 +26,7 @@
   flex: 1;
   height: 0.75rem;
   background: transparent;
-  margin: 0 8px;
+  margin: 0 var(--spacing-md);
   display: flex;
   cursor: pointer;
   position: relative;
@@ -78,7 +78,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-md);
   }
 
   .mediaPlayerProgressTimeMobile {

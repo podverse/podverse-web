@@ -1,5 +1,5 @@
 .contentWrapper {
-  margin: 1rem 0;
+  margin: var(--spacing-container-y);
 }
 
 .messageSection {
@@ -10,5 +10,5 @@
   flex-direction: column;
   text-align: center;
   font-size: var(--font-size-lg);
-  gap: 1.5rem;
+  gap: var(--spacing-2xl);
 }

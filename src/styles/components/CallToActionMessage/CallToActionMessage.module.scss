@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  gap: 1rem;
-  margin: 2rem 0;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-4xl) var(--spacing-none);
 }
 
 .message p {

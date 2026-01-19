@@ -1,5 +1,5 @@
 .wrapper {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-2xl);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   flex-direction: row;
   border-radius: var(--border-radius);
   border: var(--button-border-size) solid transparent;
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-form-input);
   background-color: var(--background-color-tertiary);
 }
 
@@ -28,14 +28,14 @@
   color: var(--text-color-link);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  margin: 0 0 2px;
+  margin: 0 0 var(--spacing-form-label-bottom);
 }
 
 .textArea {
   all: unset;
   font-size: var(--font-size-md);
   width: 100%;
-  padding: 0.5rem 0rem;
+  padding: var(--spacing-md) var(--spacing-none);
   box-sizing: border-box;
   resize: vertical;
 }
@@ -43,6 +43,6 @@
 .textAreaCounter {
   display: flex;
   justify-content: flex-end;
-  margin: 0.625rem 1rem 0 1rem;
+  margin: 0.625rem var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
   font-size: var(--font-size-sm);
 }

@@ -5,10 +5,10 @@
 
 .incrementButton {
   display: flex;
-  margin-bottom: 0.125rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 .decrementButton {
   display: flex;
-  margin-top: 0.125rem;
+  margin-top: var(--spacing-xs);
 }

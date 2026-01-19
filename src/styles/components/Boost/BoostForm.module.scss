@@ -1,5 +1,5 @@
 .form {
-  margin-top: 1.5rem;
+  margin-top: var(--spacing-2xl);
 }
 
 .boostAmountInputs {
@@ -7,11 +7,11 @@
 }
 
 .moreInfo {
-  margin-top: 1.5rem;
+  margin-top: var(--spacing-2xl);
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.5rem;
+  margin-top: var(--spacing-2xl);
 }

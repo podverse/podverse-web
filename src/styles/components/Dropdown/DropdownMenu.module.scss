@@ -5,16 +5,16 @@
   background: var(--background-color-primary);
   border: 1px solid var(--border-color-opaque);
   border-radius: var(--border-radius);
-  margin-top: 0.25rem;
-  padding: 0.25rem 0;
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-form-input-vertical);
   z-index: 1000000;
   list-style: none;
   width: max-content;
 }
 
 .menuItem {
-  padding: 0.5rem 1.25rem;
-  margin: 0.5rem;
+  padding: var(--spacing-md) var(--spacing-xl);
+  margin: var(--spacing-md);
   cursor: pointer;
   background: none;
   border: none;

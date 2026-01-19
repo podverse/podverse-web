@@ -1,21 +1,21 @@
 .listWrapper {
-  margin: 1.5rem 0;
+  margin: var(--spacing-section-y);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--spacing-xl);
 }
 
 .listTracks {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }
 
 .queueList {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-2xl);
 }

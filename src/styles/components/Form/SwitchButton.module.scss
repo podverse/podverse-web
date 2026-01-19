@@ -3,7 +3,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.75rem;
+  margin-bottom: var(--spacing-3xl);
 }
 
 .wrapper:last-child {
@@ -17,7 +17,7 @@
 .labelWrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-md);
 }
 
 .label {
@@ -31,13 +31,13 @@
 .controlRow {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-base);
 }
 
 .loadingWrapper {
   display: flex;
   align-items: center;
-  margin-left: 0.25rem;
+  margin-left: var(--spacing-sm);
 }
 
 .switch {
@@ -46,7 +46,7 @@
   height: 1.75rem;
   border-radius: 999px;
   border: none;
-  padding: 0.125rem;
+  padding: var(--spacing-xs);
   display: inline-flex;
   align-items: center;
   background-color: var(--background-color-tertiary);

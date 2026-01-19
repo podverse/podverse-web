@@ -1,4 +1,46 @@
 :root {
-  --header-padding: 1rem 1.25rem;
-  --form-gap: 1.75rem;
+  // Base spacing scale (8px base = 0.5rem)
+  --spacing-none: 0;
+  --spacing-xs: 0.125rem; // 2px
+  --spacing-sm: 0.25rem; // 4px
+  --spacing-md: 0.5rem; // 8px
+  --spacing-base: 0.75rem; // 12px
+  --spacing-lg: 1rem; // 16px
+  --spacing-xl: 1.25rem; // 20px
+  --spacing-2xl: 1.5rem; // 24px
+  --spacing-3xl: 1.75rem; // 28px
+  --spacing-4xl: 2rem; // 32px
+
+  // Semantic spacing variables
+  --spacing-section-y: 1.5rem 0;
+  --spacing-section-bottom: 1.5rem;
+  --spacing-section-top: 1.5rem;
+  --spacing-form-input: 0.5rem 1rem;
+  --spacing-form-input-vertical: 0.25rem 0;
+  --spacing-form-input-inner: 0.25rem 0 0.25rem 0;
+  --spacing-form-label-bottom: 2px; // Keep as px for precise spacing
+  --spacing-form-label-bottom-rem: 0.125rem; // Alternative rem version
+  --spacing-button-default: 0 1rem;
+  --spacing-button-small: 0 0.75rem;
+  --spacing-button-medium: 0 1rem;
+  --spacing-button-large: 0 16px; // Keep as px for button consistency
+  --spacing-modal-content: 1.5rem;
+  --spacing-modal-padding: 1.5rem 1.5rem 2rem 1.5rem;
+  --spacing-container: 1rem 1.25rem;
+  --spacing-container-y: 1rem 0;
+  --spacing-container-top: 1rem;
+  --spacing-card-padding: 1rem 0.5rem;
+  --spacing-card-padding-full: 1rem;
+  --spacing-gap-base: 0.5rem;
+  --spacing-gap-sm: 0.25rem;
+  --spacing-gap-lg: 1rem;
+  --spacing-gap-xl: 1.25rem;
+  --spacing-gap-2xl: 1.5rem;
+  --spacing-gap-3xl: 1.75rem;
+  --spacing-gap-4xl: 2rem;
+  --spacing-modal-side: 100px; // Special case for modal side margins
+
+  // Legacy variables (kept for backward compatibility)
+  --header-padding: var(--spacing-container);
+  --form-gap: var(--spacing-3xl);
 }

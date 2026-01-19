@@ -1,6 +1,6 @@
 .buttonTabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--spacing-lg);
   min-width: 0;
 }

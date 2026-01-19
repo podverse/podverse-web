@@ -3,18 +3,18 @@
 .listHeader {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: var(--spacing-none);
 }
 
 .listHeaderTop {
   display: flex;
-  gap: 1.25rem;
+  gap: var(--spacing-xl);
 }
 
 .sideButtons {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }
 
 .listHeaderBottom {

@@ -2,5 +2,5 @@
 
 .buttons {
   display: flex;
-  gap: 0.125rem;
+  gap: var(--spacing-xs);
 }

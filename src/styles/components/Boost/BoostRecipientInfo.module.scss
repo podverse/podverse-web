@@ -1,5 +1,5 @@
 .table {
-  margin-top: 1.5rem;
+  margin-top: var(--spacing-2xl);
   border-spacing: 0px;
   border-collapse: separate;
   border: 1px solid var(--border-color-tertiary);
@@ -7,7 +7,7 @@
 
 .headerRow th {
   border-right: 1px solid var(--border-color-tertiary);
-  padding: 0.5rem 0.75rem;
+  padding: var(--spacing-md) var(--spacing-base);
   white-space: nowrap;
   font-weight: var(--font-weight-bold);
 }

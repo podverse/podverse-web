@@ -1,9 +1,9 @@
 .message {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .buttonWrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.75rem;
+  margin-top: var(--spacing-3xl);
 }

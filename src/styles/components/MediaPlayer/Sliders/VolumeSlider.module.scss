@@ -1,7 +1,7 @@
 .volumeSliderWrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-md);
   max-width: 120px;
   width: 100%;
 }
@@ -11,7 +11,7 @@
   height: 0.625rem;
   background: transparent;
   border-radius: var(--border-radius-round);
-  margin: 0 4px;
+  margin: 0 var(--spacing-xs);
   display: flex;
   overflow: hidden;
   cursor: pointer;

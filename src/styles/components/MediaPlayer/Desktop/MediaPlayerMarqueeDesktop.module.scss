@@ -11,12 +11,12 @@
   height: var(--media-player-height-top-section);
   background-color: var(--background-color-special);
   font-weight: var(--font-weight-light);
-  padding: 0 1.5rem;
+  padding: 0 var(--spacing-2xl);
 }
 
 .marqueeText {
   @include line-clamp(1);
-  padding: 0 1rem;
+  padding: 0 var(--spacing-lg);
 }
 
 .prevChapter {

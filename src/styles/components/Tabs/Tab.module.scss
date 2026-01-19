@@ -2,8 +2,8 @@
 
 .tab {
   position: relative;
-  margin-right: -3px;
-  padding: 0.5rem 1.5rem;
+  margin-right: -3px; // Keep negative margin for tab overlap
+  padding: var(--spacing-md) var(--spacing-2xl);
   color: var(--button-secondary-color);
   font-weight: var(--font-weight-light);
   background-color: var(--background-color-primary);

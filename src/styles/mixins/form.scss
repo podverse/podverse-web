@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 @mixin formHeaderLabel {
@@ -13,6 +13,6 @@
 @mixin formButtonsWrapper {
   display: flex;
   justify-content: flex-end;
-  gap: 1.5rem;
-  margin-top: 2.25rem;
+  gap: var(--spacing-2xl);
+  margin-top: 2.25rem; // Keep specific value for form button spacing
 }

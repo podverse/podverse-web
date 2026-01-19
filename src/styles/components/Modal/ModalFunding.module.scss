@@ -1,15 +1,15 @@
 .fundingLinksList {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: var(--spacing-none);
+  margin: var(--spacing-none);
 }
 
 .fundingLinkItem {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--spacing-xl);
 }
 
 .fundingLinkItem:last-child {
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .fundingLink {

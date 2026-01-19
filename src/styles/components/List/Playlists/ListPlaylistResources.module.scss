@@ -1,17 +1,17 @@
 .listWrapper {
-  margin: 0.5rem 0;
+  margin: var(--spacing-md) var(--spacing-none);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--spacing-xl);
 }
 
 .listTracks {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }
 
 .row {

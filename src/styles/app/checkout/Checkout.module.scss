@@ -1,14 +1,14 @@
 .pricingSection {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: var(--spacing-4xl);
+  margin-bottom: var(--spacing-4xl);
   flex-wrap: wrap;
 }
 
 .pricingPlan {
   flex: 1;
   min-width: 200px;
-  padding: 1.5rem;
+  padding: var(--spacing-2xl);
   border: 1px solid var(--border-color-opaque);
   border-radius: var(--border-radius);
   background: var(--background-color-secondary);
@@ -17,14 +17,14 @@
 .planTitle {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-light);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
   color: var(--text-color-primary);
 }
 
 .planPriceContainer {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
+  gap: var(--spacing-lg);
   flex-wrap: wrap;
   align-items: center;
 }
@@ -35,7 +35,7 @@
   color: var(--text-color-primary);
   display: flex;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: var(--spacing-md);
 }
 
 .planPeriod {
@@ -45,7 +45,7 @@
 
 .savingsBadge {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: var(--spacing-sm) var(--spacing-base);
   background: var(--button-success-bg);
   color: var(--button-success-color);
   border-radius: var(--border-radius);
@@ -54,18 +54,18 @@
 }
 
 .formSection {
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-4xl);
 }
 
 .buttonSection {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3rem; // Keep specific value for button section spacing
 }
 
 .disabledSection {
-  margin-bottom: 2rem;
-  padding: 1rem;
+  margin-bottom: var(--spacing-4xl);
+  padding: var(--spacing-lg);
   background: var(--background-color-secondary);
   border-radius: var(--border-radius);
   text-align: center;
@@ -74,5 +74,5 @@
 .disabledSection p {
   font-size: var(--font-size-lg);
   color: var(--text-color-primary);
-  margin: 0;
+  margin: var(--spacing-none);
 }

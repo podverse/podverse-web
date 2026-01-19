@@ -1,7 +1,7 @@
 .belowButtonsWrapper {
   display: flex;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: var(--spacing-2xl);
   flex: 1;
 }
 
@@ -11,5 +11,5 @@
 
 .sideButtonsWrapper {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }

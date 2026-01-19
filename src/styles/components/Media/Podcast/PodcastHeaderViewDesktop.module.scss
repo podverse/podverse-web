@@ -13,8 +13,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  margin: 0.125rem 1.5rem 0.25rem 1.5rem;
-  gap: 1rem;
+  margin: var(--spacing-xs) var(--spacing-2xl) var(--spacing-sm) var(--spacing-2xl);
+  gap: var(--spacing-lg);
 }
 
 .title {

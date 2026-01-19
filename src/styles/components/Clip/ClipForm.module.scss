@@ -4,20 +4,20 @@
 
 .timeInputs {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--spacing-2xl);
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 2.25rem;
+  gap: var(--spacing-lg);
+  margin-top: 2.25rem; // Keep specific value for form button spacing
 }
 
 .bottomSection {
-  margin-top: 1.75rem;
+  margin-top: var(--spacing-3xl);
 }
 
 .bottomSectionButtons {
-  margin: 1.75rem 0;
+  margin: var(--spacing-3xl) var(--spacing-none);
 }

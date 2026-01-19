@@ -5,13 +5,13 @@
 .buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }
 
 .bottomSection {
-  margin-top: 1.75rem;
+  margin-top: var(--spacing-3xl);
 }
 
 .bottomSectionButtons {
-  margin: 1.75rem 0;
+  margin: var(--spacing-3xl) var(--spacing-none);
 }

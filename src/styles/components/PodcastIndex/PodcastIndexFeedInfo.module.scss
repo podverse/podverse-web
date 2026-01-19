@@ -6,13 +6,13 @@
 .explanation {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-light);
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--spacing-xl);
 }
 
 .buttonRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }
 
 .addFeedButton {
@@ -28,13 +28,13 @@
 }
 
 .buttonIcon {
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-md);
 }
 
 .image {
   object-fit: cover;
   border-radius: var(--border-radius);
-  margin: 1.75rem 0 1.25rem 0;
+  margin: var(--spacing-3xl) var(--spacing-none) var(--spacing-xl) var(--spacing-none);
 }
 
 .content {
@@ -43,19 +43,19 @@
 }
 
 .title {
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.7rem; // Keep specific value for title spacing
 }
 
 .author {
   font-weight: var(--font-weight-light);
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.375rem; // Keep specific value for author spacing
 }
 
 .lastUpdateTime {
   font-weight: var(--font-weight-light);
   font-size: var(--font-size-sm);
   color: var(--text-color-link);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .description {

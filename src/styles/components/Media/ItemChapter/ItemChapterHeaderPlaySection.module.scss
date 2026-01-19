@@ -18,7 +18,7 @@
 .sectionStart {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-base);
 }
 
 .timeSection {

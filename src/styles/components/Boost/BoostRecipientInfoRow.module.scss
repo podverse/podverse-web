@@ -1,7 +1,7 @@
 .row td {
   border-top: 1px solid var(--border-color-tertiary);
   border-right: 1px solid var(--border-color-tertiary);
-  padding: 0.75rem;
+  padding: var(--spacing-base);
   overflow-wrap: break-word;
   word-break: break-all;
 }
@@ -11,7 +11,7 @@
 }
 
 .address {
-  margin-top: 0.75rem;
+  margin-top: var(--spacing-base);
 }
 
 .percent {

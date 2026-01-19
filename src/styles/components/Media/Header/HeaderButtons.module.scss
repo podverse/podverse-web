@@ -1,7 +1,7 @@
 .buttons {
-  margin-top: 0.875rem;
+  margin-top: 0.875rem; // Keep specific value for header button spacing
   display: flex;
-  gap: 1.125rem;
+  gap: 1.125rem; // Keep specific value for header button spacing
   overflow-x: auto;
   width: 100%;
   padding: 0 0.25rem 0.25rem 0; // Add horizontal padding to prevent focus ring cutoff on right

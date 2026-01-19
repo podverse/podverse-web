@@ -35,7 +35,7 @@
 }
 
 .modalCloseButton {
-  margin-left: 1rem;
+  margin-left: var(--spacing-lg);
   background: var(--background-color-tertiary);
   border: none;
   cursor: pointer;
@@ -49,7 +49,7 @@
 }
 
 .modalChildren {
-  margin-top: 1rem;
+  margin-top: var(--spacing-lg);
 }
 
 .modalContent {
@@ -58,7 +58,7 @@
   background: var(--background-color-primary);
   border-radius: var(--border-radius);
   z-index: 1;
-  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  padding: var(--spacing-modal-padding);
   display: flex;
   flex-direction: column;
   min-width: 360px;

@@ -21,7 +21,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 1.25rem;
+  padding: 0 0 0 var(--spacing-xl);
   flex: 1;
   justify-content: space-around;
 }
@@ -35,20 +35,20 @@
 .subtitle {
   @include line-clamp(1);
   color: var(--text-color-secondary);
-  margin: 0.25rem 0 0 0;
+  margin: var(--spacing-sm) var(--spacing-none) var(--spacing-none) var(--spacing-none);
   font-weight: var(--font-weight-light);
 }
 
 .bottomSection {
   display: flex;
   flex: 0;
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-md);
 }
 
 .bottomSectionStart {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-base);
   flex: 1;
 }
 

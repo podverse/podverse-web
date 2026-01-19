@@ -32,11 +32,11 @@
   font-weight: var(--font-weight-light);
   color: var(--text-color-accent) !important;
   @include line-clamp(1);
-  margin-top: 0.25rem;
+  margin-top: var(--spacing-sm);
 }
 
 .imageWrapper {
-  margin-top: 1.25rem;
+  margin-top: var(--spacing-xl);
   flex: 1 1 0;
   min-height: 0;
   position: relative;
@@ -72,13 +72,13 @@
   color: var(--text-color-primary) !important;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-light);
-  margin-top: 1rem;
+  margin-top: var(--spacing-lg);
   @include line-clamp(1);
 }
 
 .timeRange {
   font-size: var(--font-size-sm);
   color: var(--text-color-link);
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-md);
   @include line-clamp(1);
 }

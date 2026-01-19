@@ -1,7 +1,7 @@
 .infoWrapper {
-  padding: 1rem;
+  padding: var(--spacing-card-padding-full);
   background-color: var(--background-color-glow);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .infoWrapper p {

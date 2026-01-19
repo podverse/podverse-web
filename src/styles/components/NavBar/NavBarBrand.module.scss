@@ -11,6 +11,6 @@
 @media (max-width: breakpoints.$breakpoint-sm-max) {
   .brand {
     display: flex;
-    padding: 0 1rem;
+    padding: 0 var(--spacing-lg);
   }
 }

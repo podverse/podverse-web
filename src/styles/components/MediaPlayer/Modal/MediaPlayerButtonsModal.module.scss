@@ -3,7 +3,7 @@
 .buttons {
   display: flex;
   flex-direction: column;
-  margin-top: 1.25rem;
+  margin-top: var(--spacing-xl);
 }
 
 .startSection {
@@ -11,7 +11,7 @@
   height: 24px;
   align-items: center;
   justify-content: center;
-  gap: 1.75rem;
+  gap: var(--spacing-3xl);
 }
 
 .startSection > button {

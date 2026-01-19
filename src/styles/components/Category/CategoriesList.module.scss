@@ -1,14 +1,14 @@
 .categoryList {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: var(--spacing-none);
+  margin: var(--spacing-none);
   font-size: var(--font-size-md);
 }
 
 .categoryList ul {
-  margin: 1rem 0 0 1rem;
+  margin: var(--spacing-lg) var(--spacing-none) var(--spacing-none) var(--spacing-lg);
 }
 
 .categoryList li {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
 }

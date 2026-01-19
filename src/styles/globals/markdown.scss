@@ -1,12 +1,12 @@
 .markdown {
   h1 {
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-lg);
     font-size: var(--font-size-2xl);
   }
 
   h2, h3, h4, h5, h6 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-lg);
   }
 
   h2 {
@@ -30,6 +30,6 @@
   }
 
   p {
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-lg);
   }
 }

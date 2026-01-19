@@ -9,7 +9,7 @@
 .listItem {
   display: flex;
   align-items: center;
-  padding: 1rem 0.5rem;
+  padding: var(--spacing-card-padding);
   border-radius: var(--border-radius);
 
   &:hover,
@@ -36,12 +36,12 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-light);
   color: var(--text-color-primary);
-  margin-top: 0.25rem;
+  margin-top: var(--spacing-sm);
 }
 
 .creator {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--text-color-link);
-  margin-top: 0.25rem;
+  margin-top: var(--spacing-sm);
 }

@@ -4,13 +4,13 @@
 }
 
 .message {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-2xl);
   color: var(--text-color-secondary);
 }
 
 .buttons {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-lg);
   justify-content: flex-end;
-  margin-top: 1rem;
+  margin-top: var(--spacing-lg);
 }

@@ -2,6 +2,6 @@
   display: flex;
   overflow-x: auto;
   flex: 1;
-  margin: -0.25rem;
-  padding: 0.25rem 0;
+  margin: calc(var(--spacing-sm) * -1);
+  padding: var(--spacing-form-input-vertical);
 }

@@ -17,8 +17,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
   border-radius: 8px;
   max-width: 350px;
 }
@@ -26,7 +26,7 @@
 .toastContentColumn {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-md);
   flex: 1;
 }
 
@@ -36,7 +36,7 @@
   color: currentColor;
   font-size: 1.5rem;
   line-height: 1;
-  padding: 0;
+  padding: var(--spacing-none);
   cursor: pointer;
   opacity: 0.8;
   transition: opacity 0.15s ease;

@@ -10,13 +10,13 @@
   font-weight: var(--font-weight-bold);
   height: 44px;
   min-width: 9rem;
-  padding: 0 16px;
+  padding: 0 var(--spacing-lg);
   overflow: hidden;
 }
 
 .button.unstyled {
   min-width: auto;
-  padding: 0;
+  padding: var(--spacing-none);
   height: auto;
   border-radius: 0;
 }
@@ -50,8 +50,8 @@
 }
 
 .chevronIcon {
-  margin-left: 0.5rem;
-  padding-top: 1px;
+  margin-left: var(--spacing-md);
+  padding-top: 1px; // Keep 1px for visual centering
 }
 
 .primary {
@@ -149,7 +149,7 @@
   border: var(--button-border-size) solid var(--border-color-primary);
   height: 2rem;
   font-size: var(--font-size-sm);
-  padding: 0 1rem;
+  padding: var(--spacing-button-default);
   min-width: auto;
   font-weight: var(--font-weight-normal);
 }
@@ -160,7 +160,7 @@
   border: 1px solid var(--border-color-primary);
   height: 2rem;
   font-size: var(--font-size-sm);
-  padding: 0 1rem;
+  padding: var(--spacing-button-default);
   min-width: auto;
   font-weight: var(--font-weight-normal);
 }
@@ -171,7 +171,7 @@
   border: var(--button-border-size) solid var(--border-color-primary);
   height: 2rem;
   font-size: var(--font-size-sm);
-  padding: 0 1rem;
+  padding: var(--spacing-button-default);
   min-width: auto;
   font-weight: var(--font-weight-bold);
 }
@@ -182,7 +182,7 @@
   border: var(--button-border-size) solid var(--border-color-warning);
   height: 2rem;
   font-size: var(--font-size-sm);
-  padding: 0 1rem;
+  padding: var(--spacing-button-default);
   min-width: auto;
   font-weight: var(--font-weight-bold);
 }
@@ -193,7 +193,7 @@
   border: var(--button-border-size) solid var(--button-opaque-danger-border);
   height: 2rem;
   font-size: var(--font-size-sm);
-  padding: 0 1rem;
+  padding: var(--spacing-button-default);
   min-width: auto;
   font-weight: var(--font-weight-bold);
 }
@@ -201,11 +201,11 @@
 .buttonWrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--spacing-xl);
 }
 
 .buttonDescription {
-  margin: 0;
+  margin: var(--spacing-none);
   color: var(--text-color-secondary);
   font-size: var(--font-size-base);
 }

@@ -1,8 +1,8 @@
 @mixin editingButtons {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-right: 1rem;
+  gap: var(--spacing-md);
+  margin-right: var(--spacing-lg);
   font-size: var(--font-size-lg);
   cursor: pointer;
 }

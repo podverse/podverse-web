@@ -5,7 +5,7 @@
   border-width: 1px;
   width: 100%;
   border-color: var(--border-color-opaque);
-  margin: 0.5rem 0;
+  margin: var(--spacing-md) var(--spacing-none);
 }
 
 @media (max-width: breakpoints.$breakpoint-sm-max) {

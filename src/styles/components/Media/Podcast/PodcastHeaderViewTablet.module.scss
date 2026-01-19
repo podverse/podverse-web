@@ -19,13 +19,13 @@
 
 .bottomSection {
   display: flex;
-  margin-top: 1rem;
+  margin-top: var(--spacing-lg);
 }
 
 .title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-light);
-  margin-left: 1.5rem;
+  margin-left: var(--spacing-2xl);
 }
 
 @media (min-width: breakpoints.$breakpoint-lg-min) {

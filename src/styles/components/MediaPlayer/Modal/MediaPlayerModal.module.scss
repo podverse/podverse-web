@@ -18,6 +18,6 @@
 
 @media (min-width: breakpoints.$breakpoint-lg-min) {
   .mediaPlayerModal {
-    margin: 0 100px;
+    margin: 0 var(--spacing-modal-side);
   }
 }

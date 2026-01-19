@@ -11,7 +11,7 @@
   height: 36px;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.75em;
+  gap: var(--spacing-base);
 }
 
 .startSection > button {
