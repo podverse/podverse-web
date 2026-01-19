@@ -1,4 +1,6 @@
 @use 'breakpoints';
+@use '../../mixins/flexbox' as *;
+@use '../../mixins/media-queries' as *;
 
 .sidebar {
   width: var(--sidebar-desktop-width);
@@ -7,8 +9,7 @@
   background: var(--background-color-tertiary);
   color: var(--text-color-primary);
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
 }
 
 .stickyTop {
@@ -16,8 +17,7 @@
   top: 0;
   z-index: 1;
   background: inherit;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   margin-bottom: var(--spacing-md);
 }
 
@@ -29,8 +29,7 @@
   flex: 1 1 auto;
   overflow-y: auto;
   min-height: 0;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   padding-bottom: var(--spacing-4xl);
 }
 
@@ -39,7 +38,7 @@
   margin: 0 var(--spacing-md);
 }
 
-@media (max-width: breakpoints.$breakpoint-sm-max) {
+@include mobile {
   .sidebar, .stickyTop {
     display: none;   
   }

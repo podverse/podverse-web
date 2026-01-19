@@ -1,8 +1,9 @@
+@use '../../mixins/flexbox' as *;
+
 .checkbox {
   margin-bottom: var(--spacing-2xl);
   position: relative;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   flex: 1;
 }
 

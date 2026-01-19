@@ -1,4 +1,5 @@
 @use "breakpoints";
+@use '../../../mixins/media-queries' as *;
 
 .playerMobile {
   flex: 1;
@@ -13,7 +14,7 @@
   box-sizing: border-box;
 }
 
-@media (min-width: breakpoints.$breakpoint-lg-min) {
+@include desktop(lg-min) {
   .playerMobile {
     display: none;
   }

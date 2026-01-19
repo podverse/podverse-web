@@ -1,4 +1,4 @@
-@use '../../mixins/form.scss' as *;
+@use '../../mixins/form' as *;
 
 .wrapper {
   position: relative;
@@ -17,14 +17,7 @@
 }
 
 .dropdownWrapper {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  flex-direction: row;
-  border-radius: var(--border-radius);
-  border: var(--button-border-size) solid transparent;
-  padding: var(--spacing-form-input);
-  background-color: var(--background-color-tertiary);
+  @include formInputWrapper;
 }
 
 .dropdownInnerWrapper {

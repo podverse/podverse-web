@@ -1,21 +1,17 @@
+@use '../../../mixins/flexbox' as *;
+
 .listWrapper {
   margin: var(--spacing-section-y);
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
+  @include flexColumn(var(--spacing-xl));
 }
 
 .listTracks {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
+  @include flexColumn(var(--spacing-lg));
 }
 
 .queueList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2xl);
+  @include flexColumn(var(--spacing-2xl));
 }

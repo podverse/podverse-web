@@ -1,3 +1,5 @@
+@use '../../mixins/flexbox' as *;
+
 .toast {
   background: var(--background-color-contrast) !important;
   color: var(--text-color-contrast) !important;
@@ -24,9 +26,7 @@
 }
 
 .toastContentColumn {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+  @include flexColumn(var(--spacing-md));
   flex: 1;
 }
 

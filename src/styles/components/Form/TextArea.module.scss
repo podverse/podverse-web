@@ -1,26 +1,20 @@
+@use '../../mixins/form' as *;
+@use '../../mixins/flexbox' as *;
+
 .wrapper {
   margin-bottom: var(--spacing-2xl);
   position: relative;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   flex: 1;
 }
 
 .textAreaWrapper {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  flex-direction: row;
-  border-radius: var(--border-radius);
-  border: var(--button-border-size) solid transparent;
-  padding: var(--spacing-form-input);
-  background-color: var(--background-color-tertiary);
+  @include formInputWrapper;
 }
 
 .textInnerAreaWrapper {
-  display: flex;
+  @include flexColumn;
   flex: 1 1;
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -41,8 +35,7 @@
 }
 
 .textAreaCounter {
-  display: flex;
-  justify-content: flex-end;
+  @include flexEnd;
   margin: 0.625rem var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
   font-size: var(--font-size-sm);
 }

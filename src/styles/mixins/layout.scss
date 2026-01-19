@@ -1,0 +1,42 @@
+// Layout and positioning utility mixins
+
+/// Centers an absolutely positioned element both horizontally and vertically
+/// Uses the transform translate technique for true centering
+/// @example
+///   .overlay-content {
+///     position: absolute;
+///     @include absoluteCenter;
+///   }
+@mixin absoluteCenter {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/// Creates a full coverage overlay/backdrop element
+/// @param {String} $position - Position value (default: 'absolute', can be 'fixed')
+/// @example
+///   .backdrop {
+///     @include fullCoverage(fixed);
+///     background: rgba(0, 0, 0, 0.7);
+///   }
+@mixin fullCoverage($position: absolute) {
+  position: #{$position};
+  inset: 0;
+}
+
+/// Creates a full coverage element with optional backdrop filter
+/// @param {String} $position - Position value (default: 'absolute')
+/// @param {String} $backdrop-blur - Backdrop filter blur value (default: null)
+/// @example
+///   .modal-backdrop {
+///     @include fullCoverageWithBackdrop(fixed, 12px);
+///     background: rgba(0, 0, 0, 0.7);
+///   }
+@mixin fullCoverageWithBackdrop($position: absolute, $backdrop-blur: null) {
+  @include fullCoverage($position);
+  @if $backdrop-blur {
+    backdrop-filter: blur($backdrop-blur);
+    -webkit-backdrop-filter: blur($backdrop-blur);
+  }
+}

@@ -1,4 +1,6 @@
 @use "breakpoints";
+@use '../../../mixins/flexbox' as *;
+@use '../../../mixins/media-queries' as *;
 
 .playerDesktop {
   flex: 1;
@@ -6,16 +8,14 @@
 }
 
 .bottomSection {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter;
   padding: var(--spacing-base) var(--spacing-xl);
   flex: 1;
   height: var(--media-player-height);
   box-sizing: border-box;
 }
 
-@media (max-width: breakpoints.$breakpoint-md-max) {
+@include mobile(md-max) {
   .playerDesktop {
     display: none;
   }

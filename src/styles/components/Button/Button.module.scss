@@ -1,10 +1,10 @@
 @use '../../keyframes/' as *;
+@use '../../mixins/flexbox' as *;
+@use '../../mixins/layout' as *;
 
 .button {
-  align-items: center;
-  display: flex;
+  @include flexCenter;
   flex: 0 0 auto;
-  justify-content: center;
   position: relative;
   border-radius: 36px;
   font-weight: var(--font-weight-bold);
@@ -22,9 +22,7 @@
 }
 
 .buttonContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter;
   width: 100%;
 }
 
@@ -34,12 +32,8 @@
 
 .spinnerWrapper {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include absoluteCenter;
+  @include flexCenter;
   pointer-events: none;
 }
 
@@ -199,9 +193,7 @@
 }
 
 .buttonWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
+  @include flexColumn(var(--spacing-xl));
 }
 
 .buttonDescription {

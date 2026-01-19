@@ -16,3 +16,20 @@
   gap: var(--spacing-2xl);
   margin-top: 2.25rem; // Keep specific value for form button spacing
 }
+
+/// Form input wrapper pattern used across TextInput, TextArea, and FormDropdown
+/// Provides consistent styling for form input containers
+/// @example
+///   .inputWrapper {
+///     @include formInputWrapper;
+///   }
+@mixin formInputWrapper {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: row;
+  border-radius: var(--border-radius);
+  border: var(--button-border-size) solid transparent;
+  padding: var(--spacing-form-input);
+  background-color: var(--background-color-tertiary);
+}

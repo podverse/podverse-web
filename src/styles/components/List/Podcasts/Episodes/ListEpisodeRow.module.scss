@@ -1,6 +1,8 @@
 @use '../../../../mixins/lineClamp' as *;
 @use '../../../../mixins/timeText' as *;
 @use '../../../../mixins/listRow' as *;
+@use '../../../../mixins/flexbox' as *;
+@use '../../../../mixins/media-queries' as *;
 @use 'breakpoints';
 
 .row {
@@ -19,16 +21,14 @@
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   padding: 0 0 0 var(--spacing-xl);
   flex: 1;
   justify-content: space-around;
 }
 
 .topSection {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
   color: var(--text-color-secondary);
 }
 
@@ -97,11 +97,9 @@
 }
 
 .trackWrapper {
-  display: flex;
+  @include flexBetween;
   padding: 0 0 0 var(--spacing-xl);
   flex: 1;
-  justify-content: space-between;
-  align-items: center;
   gap: var(--spacing-xl);
 }
 
@@ -125,7 +123,7 @@
 }
 
 
-@media (max-width: breakpoints.$breakpoint-sm-max) {
+@include mobile {
   .image {
     display: none;
   }

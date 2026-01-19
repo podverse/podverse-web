@@ -1,3 +1,5 @@
+@use '../../mixins/flexbox' as *;
+
 .mainInnerWrapper {
   display: flex;
   flex-direction: row-reverse;

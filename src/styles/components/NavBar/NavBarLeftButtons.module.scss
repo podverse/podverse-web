@@ -1,11 +1,13 @@
 @use 'breakpoints';
+@use '../../mixins/flexbox' as *;
+@use '../../mixins/media-queries' as *;
 
 .leftButtons {
   display: flex;
   gap: var(--spacing-base);
 }
 
-@media (max-width: breakpoints.$breakpoint-sm-max) {
+@include mobile {
   .leftButtons {
     display: none;
   }

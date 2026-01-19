@@ -1,16 +1,16 @@
 @use 'breakpoints';
+@use '../../mixins/flexbox' as *;
+@use '../../mixins/media-queries' as *;
 
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flexBetween;
   padding: 0 var(--spacing-md) 0 var(--spacing-2xl);
   background: var(--background-color-secondary);
   height: var(--navbar-desktop-height);
   min-height: var(--navbar-desktop-height);
 }
 
-@media (max-width: breakpoints.$breakpoint-sm-max) {
+@include mobile {
   .navbar {
     background-color: var(--background-color-quaternary);
     padding: var(--spacing-none);

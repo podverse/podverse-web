@@ -1,14 +1,14 @@
+@use '../../mixins/flexbox' as *;
+
 .container {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter;
 }
 
 .iconButton {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter;
   cursor: pointer;
   color: var(--text-color-secondary);
   transition: color 150ms ease;

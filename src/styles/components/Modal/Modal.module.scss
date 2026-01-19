@@ -1,20 +1,17 @@
 @use "breakpoints";
+@use '../mixins/flexbox' as *;
+@use '../mixins/layout' as *;
 
 .modalRoot {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter;
 }
 
 .modalBackdrop {
-  position: absolute;
-  inset: 0;
+  @include fullCoverageWithBackdrop(absolute, 12px);
   background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .modalHeader {

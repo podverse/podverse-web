@@ -1,17 +1,15 @@
+@use '../../../mixins/flexbox' as *;
+
 .listWrapper {
   margin: var(--spacing-md) var(--spacing-none);
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
+  @include flexColumn(var(--spacing-xl));
 }
 
 .listTracks {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
+  @include flexColumn(var(--spacing-lg));
 }
 
 .row {

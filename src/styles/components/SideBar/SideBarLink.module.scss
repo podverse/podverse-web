@@ -1,4 +1,5 @@
 @use 'breakpoints';
+@use '../../mixins/media-queries' as *;
 
 .link {
   color: var(--text-color-primary);
@@ -13,7 +14,7 @@
   text-decoration: none;
 }
 
-@media (max-width: breakpoints.$breakpoint-md-max) {
+@include mobile(md-max) {
   .link {
     justify-content: center;
   }

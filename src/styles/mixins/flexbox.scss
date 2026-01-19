@@ -1,0 +1,74 @@
+// Flexbox utility mixins for common layout patterns
+
+/// Centers content both horizontally and vertically using flexbox
+/// @example
+///   .centered-content {
+///     @include flexCenter;
+///   }
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Creates a flex container with space-between alignment
+/// Commonly used for headers and navigation bars
+/// @example
+///   .header {
+///     @include flexBetween;
+///   }
+@mixin flexBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/// Creates a flex column container with optional gap
+/// @param {Length} $gap - Gap between flex items (default: null)
+/// @example
+///   .column-list {
+///     @include flexColumn(var(--spacing-lg));
+///   }
+@mixin flexColumn($gap: null) {
+  display: flex;
+  flex-direction: column;
+  @if $gap {
+    gap: $gap;
+  }
+}
+
+/// Creates a flex row container with optional gap
+/// @param {Length} $gap - Gap between flex items (default: null)
+/// @example
+///   .row-items {
+///     @include flexRow(var(--spacing-md));
+///   }
+@mixin flexRow($gap: null) {
+  display: flex;
+  flex-direction: row;
+  @if $gap {
+    gap: $gap;
+  }
+}
+
+/// Flex container with items aligned to the start
+/// @example
+///   .start-aligned {
+///     @include flexStart;
+///   }
+@mixin flexStart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/// Flex container with items aligned to the end
+/// @example
+///   .end-aligned {
+///     @include flexEnd;
+///   }
+@mixin flexEnd {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

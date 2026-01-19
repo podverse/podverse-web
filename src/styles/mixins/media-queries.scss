@@ -1,0 +1,187 @@
+@use '../variables/breakpoints' as *;
+
+// Media query helper mixins for responsive design
+
+/// Mobile breakpoint mixin (max-width)
+/// @param {String} $breakpoint - Breakpoint to use (default: 'sm-max')
+///   Options: 'xs-max', 'sm-max', 'md-max', 'lg-max', 'xl-max', 'xxl-max'
+/// @example
+///   .component {
+///     font-size: 1rem;
+///     @include mobile {
+///       font-size: 0.875rem;
+///     }
+///   }
+@mixin mobile($breakpoint: sm-max) {
+  @if $breakpoint == 'xs-max' {
+    @media (max-width: $breakpoint-xs-max) {
+      @content;
+    }
+  } @else if $breakpoint == 'sm-max' {
+    @media (max-width: $breakpoint-sm-max) {
+      @content;
+    }
+  } @else if $breakpoint == 'md-max' {
+    @media (max-width: $breakpoint-md-max) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg-max' {
+    @media (max-width: $breakpoint-lg-max) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl-max' {
+    @media (max-width: $breakpoint-xl-max) {
+      @content;
+    }
+  } @else if $breakpoint == 'xxl-max' {
+    @media (max-width: $breakpoint-xxl-max) {
+      @content;
+    }
+  }
+}
+
+/// Tablet breakpoint mixin (max-width)
+/// @param {String} $breakpoint - Breakpoint to use (default: 'md-max')
+/// @example
+///   .component {
+///     @include tablet {
+///       width: 50%;
+///     }
+///   }
+@mixin tablet($breakpoint: md-max) {
+  @include mobile($breakpoint) {
+    @content;
+  }
+}
+
+/// Desktop breakpoint mixin (min-width)
+/// @param {String} $breakpoint - Breakpoint to use (default: 'lg-min')
+///   Options: 'xs-min', 'sm-min', 'md-min', 'lg-min', 'xl-min', 'xxl-min'
+/// @example
+///   .component {
+///     @include desktop(lg-min) {
+///       display: block;
+///     }
+///   }
+@mixin desktop($breakpoint: lg-min) {
+  @if $breakpoint == 'xs-min' {
+    @media (min-width: $breakpoint-xs-min) {
+      @content;
+    }
+  } @else if $breakpoint == 'sm-min' {
+    @media (min-width: $breakpoint-sm-min) {
+      @content;
+    }
+  } @else if $breakpoint == 'md-min' {
+    @media (min-width: $breakpoint-md-min) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg-min' {
+    @media (min-width: $breakpoint-lg-min) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl-min' {
+    @media (min-width: $breakpoint-xl-min) {
+      @content;
+    }
+  } @else if $breakpoint == 'xxl-min' {
+    @media (min-width: $breakpoint-xxl-min) {
+      @content;
+    }
+  }
+}
+
+/// Breakpoint range mixin (min-width and max-width)
+/// @param {String} $min - Minimum breakpoint (e.g., 'xs-min', 'sm-min')
+/// @param {String} $max - Maximum breakpoint (e.g., 'xs-max', 'sm-max')
+/// @example
+///   .component {
+///     @include breakpointRange(xs-min, xs-max) {
+///       grid-template-columns: repeat(2, minmax(0, 1fr));
+///     }
+///   }
+@mixin breakpointRange($min, $max) {
+  $min-value: null;
+  $max-value: null;
+
+  // Resolve min breakpoint
+  @if $min == 'xs-min' {
+    $min-value: $breakpoint-xs-min;
+  } @else if $min == 'sm-min' {
+    $min-value: $breakpoint-sm-min;
+  } @else if $min == 'md-min' {
+    $min-value: $breakpoint-md-min;
+  } @else if $min == 'lg-min' {
+    $min-value: $breakpoint-lg-min;
+  } @else if $min == 'xl-min' {
+    $min-value: $breakpoint-xl-min;
+  } @else if $min == 'xxl-min' {
+    $min-value: $breakpoint-xxl-min;
+  }
+
+  // Resolve max breakpoint
+  @if $max == 'xs-max' {
+    $max-value: $breakpoint-xs-max;
+  } @else if $max == 'sm-max' {
+    $max-value: $breakpoint-sm-max;
+  } @else if $max == 'md-max' {
+    $max-value: $breakpoint-md-max;
+  } @else if $max == 'lg-max' {
+    $max-value: $breakpoint-lg-max;
+  } @else if $max == 'xl-max' {
+    $max-value: $breakpoint-xl-max;
+  } @else if $max == 'xxl-max' {
+    $max-value: $breakpoint-xxl-max;
+  }
+
+  @if $min-value and $max-value {
+    @media (min-width: $min-value) and (max-width: $max-value) {
+      @content;
+    }
+  }
+}
+
+/// Responsive grid mixin that generates grid-template-columns for multiple breakpoints
+/// @param {Map} $breakpoints - Map of breakpoint to column count
+///   Example: (xs: 2, sm: 3, md: 3, lg: 4, xl: 5, xxl: 6)
+/// @param {Length} $gap - Gap between grid items (default: 1rem)
+/// @example
+///   .grid {
+///     display: grid;
+///     @include responsiveGrid((xs: 2, sm: 3, md: 3, lg: 4, xl: 5, xxl: 6));
+///   }
+@mixin responsiveGrid($breakpoints, $gap: 1rem) {
+  @each $breakpoint, $columns in $breakpoints {
+    @if $breakpoint == 'xs' {
+      @include breakpointRange(xs-min, xs-max) {
+        grid-template-columns: repeat($columns, minmax(0, 1fr));
+        gap: $gap;
+      }
+    } @else if $breakpoint == 'sm' {
+      @include breakpointRange(sm-min, sm-max) {
+        grid-template-columns: repeat($columns, minmax(0, 1fr));
+        gap: $gap;
+      }
+    } @else if $breakpoint == 'md' {
+      @include breakpointRange(md-min, md-max) {
+        grid-template-columns: repeat($columns, minmax(0, 1fr));
+        gap: $gap;
+      }
+    } @else if $breakpoint == 'lg' {
+      @include breakpointRange(lg-min, lg-max) {
+        grid-template-columns: repeat($columns, minmax(0, 1fr));
+        gap: $gap;
+      }
+    } @else if $breakpoint == 'xl' {
+      @include breakpointRange(xl-min, xl-max) {
+        grid-template-columns: repeat($columns, minmax(0, 1fr));
+        gap: $gap;
+      }
+    } @else if $breakpoint == 'xxl' {
+      @include desktop(xxl-min) {
+        grid-template-columns: repeat($columns, minmax(0, 1fr));
+        gap: $gap;
+      }
+    }
+  }
+}

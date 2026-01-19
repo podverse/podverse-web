@@ -1,59 +1,16 @@
 @use "breakpoints";
+@use '../../mixins/flexbox' as *;
+@use '../../mixins/media-queries' as *;
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
+  @include flexColumn(1.25rem);
 }
 
 .listTracks {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
+  @include flexColumn(1rem);
 }
 
 .grid {
   display: grid;
-}
-
-@media (min-width: breakpoints.$breakpoint-xs-min) and (max-width: breakpoints.$breakpoint-xs-max) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (min-width: breakpoints.$breakpoint-sm-min) and (max-width: breakpoints.$breakpoint-sm-max) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (min-width: breakpoints.$breakpoint-md-min) and (max-width: breakpoints.$breakpoint-md-max) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (min-width: breakpoints.$breakpoint-lg-min) and (max-width: breakpoints.$breakpoint-lg-max) {
-  .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (min-width: breakpoints.$breakpoint-xl-min) and (max-width: breakpoints.$breakpoint-xl-max) {
-  .grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (min-width: breakpoints.$breakpoint-xxl-min) {
-  .grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--spacing-lg);
-  }
+  @include responsiveGrid((xs: 2, sm: 3, md: 3, lg: 4, xl: 5, xxl: 6), 1rem);
 }

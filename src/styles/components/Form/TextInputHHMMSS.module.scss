@@ -1,3 +1,6 @@
+@use '../../mixins/form' as *;
+@use '../../mixins/flexbox' as *;
+
 .hhmmss {
   margin-bottom: var(--spacing-2xl);
   position: relative;
@@ -39,17 +42,13 @@
 }
 
 .buttonWrapper {
-  display: flex;
+  @include flexCenter;
   height: 2rem;
   width: 2rem;
-  justify-content: center;
-  align-items: center;
   border-radius: var(--border-radius-round);
 }
 
 .playIcon {
   font-size: var(--font-size-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter;
 }
