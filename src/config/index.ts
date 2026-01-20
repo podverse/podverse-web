@@ -63,5 +63,8 @@ export const config = {
       contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || ''
     },
     server_env: process.env.NEXT_PUBLIC_SERVER_ENV || ""
+  },
+  proxy: {
+    userAgent: process.env.NEXT_PUBLIC_PROXY_USER_AGENT || ""
   }
 };
