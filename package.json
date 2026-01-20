@@ -11,9 +11,10 @@
     "Mitch Downey"
   ],
   "scripts": {
-    "prebuild": "npm run i18n-compile",
+    "prebuild": "npm run validate-env && npm run i18n-compile",
     "build": "next build",
-    "predev": "npm run i18n-compile",
+    "validate-env": "ts-node --project tsconfig.scripts.json scripts/validate-env.ts",
+    "predev": "npm run validate-env && npm run i18n-compile",
     "dev": "next dev",
     "dev:watch": "nodemon --watch $(realpath node_modules/podverse-helpers/dist/index.js)",
     "lint": "next lint",
