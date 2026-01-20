@@ -1,0 +1,347 @@
+# Podverse-Web Development Rules
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript with strict mode enabled (`noImplicitAny: true`, `noImplicitReturns: true`, `noUnusedLocals: true`)
+- **Styling**: SCSS Modules (NOT Tailwind CSS, NOT CSS-in-JS)
+- **React**: Version 19
+- **Internationalization**: next-intl for all user-facing strings
+- **API Client**: Uses `podverse-helpers` package with `ApiRequestService`
+- **Icons**: react-icons (primarily from `fa6` and `fa` packages)
+
+## Architecture Patterns
+
+### Server vs Client Components
+
+- **Default to Server Components**: All components are server components by default in Next.js App Router
+- **Use "use client" only when necessary**: Add `"use client"` directive only for:
+  - Interactive components (onClick, useState, useEffect, etc.)
+  - Components that use browser-only APIs
+  - Components that use React Context hooks
+  - Components that need event handlers
+- **Server Component Examples**: Layout files, page files that fetch data, static content
+- **Client Component Examples**: Forms, modals, interactive buttons, components using hooks
+
+### File Organization
+
+- **Pages**: `src/app/` directory following Next.js App Router conventions
+- **Components**: `src/components/` directory, organized by feature/domain
+- **Contexts**: `src/contexts/` directory for React Context providers
+- **Styles**: `src/styles/` directory with SCSS modules
+  - Component styles: `src/styles/components/[ComponentName]/[ComponentName].module.scss`
+  - App-level styles: `src/styles/app/[route]/[route].module.scss`
+- **Utils**: `src/utils/` directory for utility functions
+- **Hooks**: `src/hooks/` directory for custom React hooks
+- **Config**: `src/config/` directory for configuration
+- **Factories**: `src/factories/` directory for factory functions (e.g., `apiRequestService`)
+
+### API Request Patterns
+
+- **Client Components**: Use `apiRequestService` from `src/factories/apiRequestService`
+  ```typescript
+  import { apiRequestService } from '../../factories/apiRequestService';
+  const result = await apiRequestService.reqAccountGet();
+  ```
+
+- **Server Components**: Use `getSSRApiRequestService(jwt)` from `src/factories/apiRequestService`
+  ```typescript
+  import { getSSRApiRequestService } from '../factories/apiRequestService';
+  const jwt = await getSSRJwtFromCookies();
+  const ssrApiRequestService = getSSRApiRequestService(jwt);
+  const result = await ssrApiRequestService.reqAccountGet();
+  ```
+
+- **Error Handling**: Use `handleRateLimitAlert()` utility from `src/utils/rateLimit/rateLimitAlert` for API errors
+
+### Context Provider Pattern
+
+- Context providers follow the pattern in `src/providers/Providers.tsx`
+- Providers are nested in a specific order (see `Providers.tsx` for the exact hierarchy)
+- All providers are client components (marked with `"use client"`)
+- Server components pass initial/SSR data to providers via props
+
+### Component Patterns
+
+- **Component Structure**: Functional components with TypeScript interfaces
+- **Component Props**: Define TypeScript interfaces for props, use `React.FC<PropsType>` or explicit typing
+  ```typescript
+  type ComponentProps = {
+    prop1: string;
+    prop2?: number;
+  };
+  
+  export const Component: React.FC<ComponentProps> = ({ prop1, prop2 }) => {
+    // component code
+  };
+  ```
+
+- **Styling**: Import SCSS modules and use `classNames` utility
+  ```typescript
+  import classNames from 'classnames';
+  import styles from '../../styles/components/Button/Button.module.scss';
+  
+  <button className={classNames(styles.button, styles[variant], className)}>
+  ```
+
+- **Accessibility**: Always include proper ARIA labels, semantic HTML, and keyboard navigation support
+  ```typescript
+  <button
+    aria-label={ariaLabel}
+    aria-describedby={ariaDescribedBy}
+    aria-pressed={ariaPressed}
+    title={title}
+  >
+  ```
+
+## Code Quality Standards
+
+### TypeScript
+
+- **No `any` types**: Always use proper TypeScript types
+- **Use types from podverse-helpers**: Import types like `DTOAccount`, `DTOChannel`, `DTOItem`, `DTOCategory`, etc. from `podverse-helpers`
+- **Strict typing**: Follow the strict TypeScript configuration in `tsconfig.json`
+- **Type definitions**: Define interfaces/types for all component props, function parameters, and return types
+
+### Internationalization
+
+- **CRITICAL: ALL user-facing text MUST use `useTranslations()` hook from `next-intl`**
+- **NO EXCEPTIONS**: Never hardcode strings like "Submit", "Cancel", "Error", "Loading", etc.
+- **MANDATORY**: Every string visible to users must come from translation files
+- **Translation keys**: Use namespaced keys (e.g., `useTranslations("features")`, `useTranslations("misc")`)
+- **Translation files**: Located in `i18n/originals/` and `i18n/overrides/`
+- **If a key doesn't exist**: Add it to `i18n/originals/en.json` first, then use it
+- **Applies to**: All components, pages, error boundaries, modals, buttons, placeholders, error messages, etc.
+- **Example**:
+  ```typescript
+  const tFeatures = useTranslations("features");
+  const tMisc = useTranslations("misc");
+  <button>{tFeatures("button_label")}</button>  // ✅ Correct
+  <button>Submit</button>  // ❌ WRONG - Never do this
+  ```
+
+### Error Handling
+
+- **API Errors**: Use `handleRateLimitAlert()` for rate limit errors
+- **Error Boundaries**: Consider error boundaries for component error handling
+- **Try-Catch**: Use try-catch blocks for async operations that might fail
+
+### State Management
+
+- **React Context**: Use Context API for global state (see `src/contexts/`)
+- **Local State**: Use `useState` for component-local state
+- **Server State**: Fetch data in server components, pass as props to client components
+
+## Common Patterns
+
+### Creating a New Page
+
+1. Create a `page.tsx` file in `src/app/[route]/`
+2. Make it an async server component by default
+3. Fetch data using `getSSRApiRequestService()` if needed
+4. Pass data to a client component for interactivity
+5. Example structure:
+   ```typescript
+   export default async function MyPage({ params, searchParams }: PageProps) {
+     const jwt = await getSSRJwtFromCookies();
+     const ssrApiRequestService = getSSRApiRequestService(jwt);
+     const data = await ssrApiRequestService.reqSomeEndpoint();
+     
+     return <MyPageClient ssrData={data} />;
+   }
+   ```
+
+### Creating a Client Component with Translations
+
+1. Add `"use client"` directive at the top
+2. Import and use `useTranslations()` hook
+3. Use translation keys for all user-facing text
+4. Example:
+   ```typescript
+   "use client";
+   
+   import { useTranslations } from "next-intl";
+   
+   export const MyComponent: React.FC<Props> = () => {
+     const t = useTranslations("features");
+     return <div>{t("my_text_key")}</div>;
+   };
+   ```
+
+### Creating a New Modal
+
+1. Create modal component in `src/components/Modal/`
+2. Use the `Modal` base component from `src/components/Modal/Modal.tsx`
+3. Add modal state to `src/contexts/Modals.tsx`
+4. Register modal in `src/components/Modals/Modals.tsx`
+5. Use `useModals()` hook to open/close the modal
+
+### Creating a New List Component
+
+1. Create list component in `src/components/List/[Feature]/`
+2. Follow existing list patterns (e.g., `ListPodcasts`, `ListEpisodes`)
+3. Use SCSS modules for styling
+4. Support different view modes (list/grid) if applicable
+5. Include pagination if needed
+
+### Adding a New Context Provider
+
+1. Create context file in `src/contexts/`
+2. Export provider component and custom hook
+3. Add provider to `src/providers/Providers.tsx` in the correct order
+4. Use TypeScript for context value types
+
+## Styling Guidelines
+
+- **SCSS Modules**: Always use SCSS modules, never global CSS or inline styles (except for dynamic styles)
+- **Naming**: Use camelCase for class names in SCSS modules
+- **Variables**: Use SCSS variables from `src/styles/variables/`
+- **Mixins**: Use mixins from `src/styles/mixins/` for common patterns
+- **Themes**: Support UI themes via `data-ui-theme` attribute (see `src/styles/ui-themes/`)
+- **Responsive**: Use mixins for media queries (see `src/styles/mixins/media-queries.scss`)
+
+## Import Conventions
+
+- **Absolute imports**: Use relative imports (e.g., `../../components/Button`)
+- **External packages**: Import from `node_modules` normally
+- **podverse-helpers**: Import types and utilities from `podverse-helpers`
+- **Local utilities**: Import from `src/utils/`, `src/hooks/`, etc.
+
+## Testing & Documentation
+
+- **Comments**: Add comments for complex logic or non-obvious decisions
+- **Type safety**: Leverage TypeScript for documentation and safety
+- **Component documentation**: Use TypeScript interfaces as documentation
+
+## What NOT to Do
+
+- **Don't use Tailwind CSS**: This project uses SCSS Modules
+- **Don't use CSS-in-JS**: Use SCSS Modules instead
+- **Don't use `any` types**: Always provide proper TypeScript types
+- **Don't hardcode strings**: Use `useTranslations()` for all user-facing text
+- **Don't mix server and client code**: Keep server and client components separate
+- **Don't use global CSS**: Use SCSS modules for component styles
+- **Don't skip accessibility**: Always include ARIA labels and semantic HTML
+
+## Skills System
+
+### Overview
+
+The "skills" system consists of two complementary files that help guide development patterns:
+
+1. **`.cursorrules`** (this file): Contains architectural rules, standards, and guidelines that define how the codebase should be structured and what patterns to follow.
+
+2. **`.cursor/skills/podverse-web-patterns/SKILL.md`**: Contains detailed code examples and patterns for common development tasks, showing how to implement specific features following the rules.
+
+### File Locations
+
+- Cursor Rules: `/Users/mitcheldowney/repos/podverse-web/.cursorrules`
+- Skills File: `/Users/mitcheldowney/repos/podverse-web/.cursor/skills/podverse-web-patterns/SKILL.md`
+
+### Updating Skills
+
+When the user requests to "update skills" or asks to update the skills system:
+
+1. **Read both files** to understand current content and structure
+2. **Identify what needs updating** based on the user's request or discovered patterns
+3. **Update both files appropriately**:
+   - **`.cursorrules`**: Update for architectural changes, new standards, rules, or guidelines
+   - **`SKILL.md`**: Update for new patterns, code examples, or implementation details
+4. **Maintain consistency** between both files - they should complement each other
+5. **Preserve existing content** unless explicitly asked to remove or replace it
+
+### Automatic Skill Update Proposals
+
+As you work on the codebase, proactively identify opportunities to improve the skills system:
+
+**When to Propose Updates:**
+- You discover a recurring pattern that isn't documented
+- You notice a common mistake or deviation from patterns that could be prevented
+- You implement something that follows a good pattern that should be standardized
+- You find inconsistencies between actual code patterns and documented patterns
+- You identify a better way to document existing patterns
+
+**How to Propose Updates:**
+- After completing a task, review what patterns were used
+- If a useful pattern emerged that would help future similar work, propose adding it to the skills
+- Show the user what would be added to each file (`.cursorrules` and/or `SKILL.md`)
+- Explain why the update would be helpful
+- Ensure proposed updates align with the existing codebase structure and don't conflict with current patterns
+
+**What to Include in Proposals:**
+- Clear description of the pattern or rule to add/update
+- Specific file paths for where changes would go
+- Example code snippets if applicable
+- Reasoning for why this would be helpful for future development
+
+**Conflict Prevention:**
+- Always verify against existing codebase patterns before proposing
+- Check that the proposed pattern doesn't contradict existing rules
+- Ensure the pattern is actually used in the codebase (not theoretical)
+- Make sure the pattern follows the technology stack (e.g., SCSS Modules, not Tailwind)
+
+### Plan Mode vs Agent Mode Guidelines
+
+**Plan Mode Responsibilities:**
+
+Plan mode should actively identify and recommend improvements and optimizations to the code:
+
+1. **Recommend Improvements**: When reviewing code or planning tasks, identify opportunities for:
+   - Performance optimizations
+   - Code quality improvements
+   - Better architectural patterns
+   - Enhanced maintainability
+   - Improved user experience
+
+2. **Suggest Pattern Alternatives**: Plan mode should be bold in suggesting better patterns, even if they:
+   - Deviate significantly from current project patterns
+   - Would require restructuring existing code
+   - Introduce new architectural approaches
+   - Challenge established conventions
+
+3. **Evaluate Trade-offs**: When proposing significant changes, plan mode should:
+   - Clearly explain the benefits of the new pattern
+   - Identify potential drawbacks or migration costs
+   - Suggest implementation strategies if the change is approved
+   - Consider both short-term and long-term implications
+
+4. **Document Recommendations**: Include in the plan:
+   - What pattern is currently being used
+   - What improved pattern is being recommended
+   - Why the new pattern would be better
+   - How significant the deviation would be
+   - Steps to implement if approved
+
+**Agent Mode Responsibilities:**
+
+Agent mode should be conservative about implementing dramatic changes:
+
+1. **Follow Existing Patterns**: When implementing features or fixes, use established patterns from the codebase unless explicitly directed otherwise.
+
+2. **Do NOT Automatically Implement Pattern Deviations**: Agent mode should NOT automatically:
+   - Refactor code to use new patterns unless explicitly asked
+   - Implement significant architectural changes
+   - Migrate existing code to better patterns without approval
+   - Make dramatic changes that deviate from current project structure
+
+3. **Respect Plan Mode Decisions**: If plan mode has recommended a new pattern and the user has approved it in the plan, agent mode should:
+   - Follow the plan's recommendations
+   - Implement the approved pattern changes
+   - Update skills documentation if new patterns are adopted
+
+4. **Suggest, Don't Implement**: When agent mode identifies a potentially better pattern during implementation:
+   - Mention it but continue with the current pattern
+   - Suggest that plan mode could evaluate this alternative
+   - Complete the task using existing patterns unless explicitly told to do otherwise
+
+**Summary:**
+- **Plan Mode**: Be proactive and bold in recommending improvements, optimizations, and better patterns (even dramatic ones)
+- **Agent Mode**: Be conservative and follow existing patterns unless plan mode has specifically approved changes or the user explicitly requests deviation
+
+### Skill Update Best Practices
+
+- **Keep rules general** in `.cursorrules` - focus on principles and standards
+- **Keep examples specific** in `SKILL.md` - show actual code patterns
+- **Cross-reference** between files when appropriate (e.g., rules can reference skill examples)
+- **Maintain version consistency** - update both files together when patterns change
+- **Validate against codebase** - ensure documented patterns match actual implementation

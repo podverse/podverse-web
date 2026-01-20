@@ -1,0 +1,42 @@
+# Build artifacts and generated files
+.next/
+dist/
+node_modules/
+i18n/compiled/
+
+# Logs
+*.log
+logs/
+
+# Environment files (may contain secrets)
+.env*
+!**/.env.example
+!**/.env.openai.example
+!**/local.env
+!**/alpha.env
+!**/beta.env
+!**/production.env
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+*.iml
+.vscode/
+
+# Temporary files
+temp/
+tsconfig.tsbuildinfo
+
+# Build outputs
+**/dist/**
+**/build/**
+
+# Dependencies
+node_modules/
+bower_components/
+
+# Git
+.git/
