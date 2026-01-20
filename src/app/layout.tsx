@@ -25,6 +25,7 @@ import { QueueResourcesAbridgedController } from '../components/Queue/QueueResou
 import { getParsedLocalSettings } from '../utils/localSettings/localSettings';
 import { useLocaleDetect } from '../hooks/useLocaleDetect';
 import { setSSRAccountForLocale } from '../i18n/request';
+import { ErrorBoundaryWrapper } from '../components/ErrorBoundary/ErrorBoundaryWrapper';
 
 export const metadata = {
   title: config.public.brand.name,
@@ -96,8 +97,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     {children}
                   </PageWrapper>
                 </AppWrapper>
-                <MediaPlayer />
-                <Modals />
+                <ErrorBoundaryWrapper>
+                  <MediaPlayer />
+                </ErrorBoundaryWrapper>
+                <ErrorBoundaryWrapper>
+                  <Modals />
+                </ErrorBoundaryWrapper>
               </WindowWrapper>
               <MediaPlayerController />
               <QueueController />
