@@ -10,7 +10,7 @@
 
 .topSection {
   display: flex;
-  font-size: 24px;
+  font-size: var(--font-size-xl);
   gap: var(--spacing-4xl);
   align-items: center;
 }

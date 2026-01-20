@@ -4,7 +4,7 @@
   display: none;
   background: none;
   border: none;
-  font-size: 1.375rem;
+  font-size: var(--font-size-xl);
   padding: var(--spacing-form-input);
   align-items: center;
 }

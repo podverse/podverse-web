@@ -29,7 +29,7 @@ LocalSettingsState Legend:
 */
 
 export type FilterDefaultsPage = 'home' | 'playlists' | 'podcasts' | 'podcasts-livestreams'
-  | 'music-livestreams' | 'episodes' | 'tracks' | 'albums' | 'artists' | 'clips';
+  | 'music-livestreams' | 'episodes' | 'tracks' | 'albums' | 'artists' | 'clips' | 'profiles';
 
 export interface HomeFilterDefaults {
   medium: QueryParamsMedium;
@@ -82,6 +82,12 @@ export interface ClipsFilterDefaults {
   category: CategoryMappingKeys | null;
 }
 
+export interface ProfilesFilterDefaults {
+  type: QueryParamsSubscribedType;
+  sort: QueryParamsSubscribedFullSort;
+  range: QueryParamsStatsRange | null;
+}
+
 export interface PodcastsLivestreamsFilterDefaults {
   type: QueryParamsSubscribedType;
   sort: QueryParamsSubscribedPartialSort;
@@ -108,6 +114,7 @@ export interface FilterDefaults {
   albums?: AlbumsFilterDefaults;
   artists?: ArtistsFilterDefaults;
   clips?: ClipsFilterDefaults;
+  profiles?: ProfilesFilterDefaults;
 }
 
 export interface LocalSettingsState {

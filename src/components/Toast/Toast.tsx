@@ -45,11 +45,7 @@ export function showToastCustom(
 
 			return (
 				<div
-					className={`${toastClassName} ${styles.toastCustomWrapper}`}
-					style={{
-						opacity: t.visible ? 1 : 0,
-						transition: "opacity 0.2s ease-in-out"
-					}}
+					className={`${toastClassName} ${styles.toastCustomWrapper} ${t.visible ? styles.toastCustomWrapperVisible : styles.toastCustomWrapperHidden}`}
 				>
 					<div className={styles.toastContentColumn}>
 						<div>{message}</div>

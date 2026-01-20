@@ -14,6 +14,7 @@ export interface FormDropdownProps {
   menuItems: DropdownMenuItem[];
   value: string;
   onChange: (value: string) => void;
+  info?: string;
 };
 
 export const FormDropdown: React.FC<FormDropdownProps> = ({
@@ -22,10 +23,12 @@ export const FormDropdown: React.FC<FormDropdownProps> = ({
   label,
   menuItems,
   value,
-  onChange
+  onChange,
+  info
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
+  const infoId = info ? `${id}-info` : undefined;
 
   const currentSelectedItem = useMemo(() => {
     return menuItems.find(item => item.value === value) || menuItems[0];
@@ -57,11 +60,15 @@ export const FormDropdown: React.FC<FormDropdownProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.headerRow}>
-        <label htmlFor={id} className={styles.label}>
-          {label}
-        </label>
-      </div>
+      {
+        label && (
+          <div className={styles.headerRow}>
+            <label htmlFor={id} className={styles.label}>
+              {label}
+            </label>
+          </div>
+        )
+      }
       <div className={styles.dropdownWrapper}>
         <div className={styles.dropdownInnerWrapper}>
           {eyebrow && (
@@ -75,6 +82,7 @@ export const FormDropdown: React.FC<FormDropdownProps> = ({
             className={styles.dropdownButton}
             aria-haspopup="menu"
             aria-expanded={open}
+            aria-describedby={info ? infoId : undefined}
             onClick={() => setOpen(v => !v)}
             onKeyDown={e => handleButtonKeyDown(e)}
             type="button"
@@ -97,6 +105,11 @@ export const FormDropdown: React.FC<FormDropdownProps> = ({
         position="left"
         fullWidth
       />
+      {info && (
+        <div id={infoId} className={styles.formDropdownInfo}>
+          {info}
+        </div>
+      )}
     </div>
   );
 };

@@ -117,13 +117,12 @@ export const TextInput: React.FC<TextInputProps> = ({
             aria-label={ariaLabel}
             aria-describedby={info ? infoId : ariaDescribedBy}
             aria-required={ariaRequired}
-            className={styles.input}
+            className={classNames(styles.input, { [styles.numberInput]: type === 'number' })}
             aria-invalid={ariaInvalid}
             onWheel={onWheel}
             min={min}
             max={max}
             step={step}
-            style={type === 'number' ? { MozAppearance: 'textfield' } : undefined}
             {...rest}
           />
         </div>

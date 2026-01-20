@@ -48,7 +48,6 @@ export const ListPlaylists: React.FC<Props> = ({ page, setPage, playlists, total
           <div className={styles.listWrapper}>
             <Pagination
               currentPage={page}
-              maxButtons={5}
               totalPages={totalPages}
               setPage={setPage}
               paginationControlsClassName={styles.paginationControls}>

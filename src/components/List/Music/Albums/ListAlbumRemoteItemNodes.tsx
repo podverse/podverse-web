@@ -19,7 +19,7 @@ interface Params {
 export function ListAlbumRemoteItemNodes({ channelsAdded, channelsUnadded, viewSelected }: Params): React.ReactNode {  
   if (viewSelected === "rows") {
     return (
-      <div key="list" className={styles.list} style={{ gap: '0.125rem' }}>
+      <div key="list" className={styles.listTight}>
         {
           channelsAdded.map((channelAdded, idx) => (
             <React.Fragment key={channelAdded.id}>

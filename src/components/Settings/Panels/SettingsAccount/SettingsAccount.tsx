@@ -26,7 +26,6 @@ export function SettingsAccount() {
           onClick={() => setIsChangeEmailModalOpen(true)}
           variant="primary"
           description={tSettings('account.change_email_description')}
-          style={{ width: 'fit-content', paddingLeft: '20px', paddingRight: '20px' }}
         >
           {tSettings('account.change_email')}
         </Button>
@@ -43,7 +42,6 @@ export function SettingsAccount() {
           onClick={() => setIsDeleteModalOpen(true)}
           variant="danger"
           description={tSettings('account.delete_account_description')}
-          style={{ width: 'fit-content', paddingLeft: '20px', paddingRight: '20px' }}
         >
           {tSettings('account.delete_account')}
         </Button>

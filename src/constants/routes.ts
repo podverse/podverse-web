@@ -29,6 +29,7 @@ export const ROUTES = {
   PODCASTS: '/podcasts',
   PODCASTS_LIVESTREAMS: '/podcasts/livestreams',
   PODCAST_INDEX: '/podcast-index',
+  PROFILE: '/profile',
   PROFILES: '/profiles',
   QUEUES: '/queues',
   SEARCH: '/search',

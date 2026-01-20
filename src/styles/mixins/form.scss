@@ -33,3 +33,31 @@
   padding: var(--spacing-form-input);
   background-color: var(--background-color-tertiary);
 }
+
+/// Form info text pattern for helper/description text below form inputs
+/// Provides consistent styling for info text across form components
+/// @param {Length} $margin - Optional margin override (default: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg))
+/// @example
+///   .inputInfo {
+///     @include formInfoText;
+///   }
+@mixin formInfoText($margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg)) {
+  margin: $margin;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-secondary);
+}
+
+/// Form info error text pattern for error messages below form inputs
+/// Provides consistent styling for error text across form components
+/// @param {Length} $margin - Optional margin override (default: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg))
+/// @example
+///   .inputError {
+///     @include formInfoTextError;
+///   }
+@mixin formInfoTextError($margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg)) {
+  margin: $margin;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-danger);
+}

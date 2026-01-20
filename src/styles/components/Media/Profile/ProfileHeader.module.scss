@@ -1,0 +1,5 @@
+@use '../../../mixins/headers.scss' as *;
+
+.header {
+  @include headerStyles;
+}

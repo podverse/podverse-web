@@ -88,9 +88,18 @@ export const TextArea: React.FC<TextAreaProps> = ({
           />
         </div>
       </div>
-      {typeof maxLength === 'number' && (
-        <div className={styles.textAreaCounter}>
-          <span>{value.length} / {maxLength}</span>
+      {(info || typeof maxLength === 'number') && (
+        <div className={styles.textAreaInfoRow}>
+          {info && (
+            <div id={infoId} className={styles.textAreaInfo}>
+              {info}
+            </div>
+          )}
+          {typeof maxLength === 'number' && (
+            <div className={styles.textAreaCounter}>
+              <span>{value.length} / {maxLength}</span>
+            </div>
+          )}
         </div>
       )}
     </div>

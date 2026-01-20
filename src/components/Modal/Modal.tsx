@@ -59,13 +59,6 @@ export const Modal = ({
             <span
               className={styles.modalHeaderText}
               title={header}
-              style={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                flex: 1,
-                minWidth: 0,
-              }}
             >
               {header}
             </span>
@@ -86,8 +79,7 @@ export const Modal = ({
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className={styles.modalCloseButton}
-            style={{ position: 'absolute', top: "1rem", right: "1rem" }}
+            className={`${styles.modalCloseButton} ${styles.modalCloseButtonAbsolute}`}
           >
             <FaTimes />
           </button>

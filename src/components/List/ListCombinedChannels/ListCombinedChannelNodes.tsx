@@ -17,7 +17,7 @@ interface Params {
 export function ListCombinedChannelNodes({ channels, viewSelected, filterMedium }: Params): React.ReactNode {
   if (viewSelected === "rows") {
     return (
-      <div key="list" className={styles.list} style={{ gap: '0.125rem' }}>
+      <div key="list" className={styles.listTight}>
         {
           channels.map((channel, idx) => (
             <React.Fragment key={channel.id}>

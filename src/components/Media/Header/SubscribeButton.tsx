@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, DTOPlaylist } from "podverse-helpers";
+import { DTOAccount, DTOChannel, DTOPlaylist } from "podverse-helpers";
 import React from "react";
 import { Button } from "../../Button/Button";
 import { useAccount } from "../../../contexts/Account";
@@ -10,8 +10,8 @@ import { apiRequestService } from "../../../factories/apiRequestService";
 import styles from "../../../styles/components/Media/Header/SubscribeButton.module.scss";
 
 type SubscribeButtonProps = {
-  entity: DTOChannel | DTOPlaylist;
-  kind: "podcast" | "artist" | "album" | "playlist";
+  entity: DTOChannel | DTOPlaylist | DTOAccount;
+  kind: "podcast" | "artist" | "album" | "playlist" | "profile";
   onEdit?: () => void;
 }
 
@@ -82,6 +82,42 @@ export const SubscribeButton: React.FC<SubscribeButtonProps> = ({ entity, kind, 
     return (
       <Button className={styles.button} variant="miniGlow" onClick={toggleSubscribePlaylist}>
         {isSubscribedPlaylist ? tFeatures("unsubscribe") : tFeatures("subscribe")}
+      </Button>
+    )
+  } else if (kind === "profile") {
+    const account = entity as DTOAccount;
+    const isOwner = loggedInAccount?.id_text === account?.id_text;
+
+    const isFollowingAccount = loggedInAccount?.account_following_accounts?.some(
+      account_following_account => account_following_account.following_account_id === account.id
+    );
+
+    const toggleFollowAccount = async () => {
+      if (!loggedInAccount) {
+        setModalLoginRequired({ title: null, message: tInstructions("login_to_subscribe") });
+        return;
+      }
+
+      if (isFollowingAccount) {
+        const updatedAccount = await apiRequestService.reqAccountUnfollowAccount({ following_account_id_text: account.id_text });
+        await setLoggedInAccount(updatedAccount);
+      } else {
+        const updatedAccount = await apiRequestService.reqAccountFollowAccount({ following_account_id_text: account.id_text });
+        await setLoggedInAccount(updatedAccount);
+      }
+    };
+
+    if (isOwner) {
+      return (
+        <Button className={styles.button} variant="miniGlowWarning" onClick={onEdit}>
+          {tMisc("edit")}
+        </Button>
+      )
+    }
+
+    return (
+      <Button className={styles.button} variant="miniGlow" onClick={toggleFollowAccount}>
+        {isFollowingAccount ? tFeatures("unsubscribe") : tFeatures("subscribe")}
       </Button>
     )
   }

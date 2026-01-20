@@ -51,7 +51,6 @@ export const ListPodcasts: React.FC<Props> = ({ page, setPage,
         showPagination && (
           <Pagination
             currentPage={page}
-            maxButtons={5}
             totalPages={totalPages}
             setPage={setPage}
             paginationControlsClassName={styles.paginationControls}>

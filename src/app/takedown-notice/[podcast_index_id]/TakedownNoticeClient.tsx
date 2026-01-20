@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { SideContent } from "../../../components/SideContent/SideContent";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
+import styles from "./TakedownNoticeClient.module.scss";
 
 type TakedownNoticeClientProps = {
   ssrFeed: DTOFeed | null;
@@ -54,7 +55,7 @@ export function TakedownNoticeClient({ ssrFeed }: TakedownNoticeClientProps) {
         <MainInnerWrapper>
           <SideContent />
           <MainInnerContentWrapper>
-            <h3 style={{ marginBottom: "1rem" }}>{tLegal(policyKey)}</h3>
+            <h3 className={styles.heading}>{tLegal(policyKey)}</h3>
             <p>{tLegal(explanationKey)}</p>
           </MainInnerContentWrapper>
         </MainInnerWrapper>

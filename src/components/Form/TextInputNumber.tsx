@@ -40,7 +40,6 @@ const TextInputNumber: React.FC<TextInputNumberProps> = ({
         max={max}
         step={step}
         eyebrow={eyebrow}
-        style={{ MozAppearance: 'textfield' }}
         onWheel={e => (e.target as HTMLInputElement).blur()} // Prevent scroll changing value
         {...rest}
       />

@@ -1,3 +1,9 @@
 .section {
   margin-bottom: var(--spacing-2xl);
 }
+
+.description {
+  margin-top: 0.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+}

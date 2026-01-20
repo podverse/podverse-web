@@ -4,6 +4,10 @@
   padding: var(--spacing-md) var(--spacing-none);
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .speaker {
   display: flex;
   font-weight: var(--font-weight-medium);

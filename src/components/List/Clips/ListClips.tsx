@@ -49,7 +49,6 @@ export const ListClips: React.FC<Props> = ({ page, setPage,
         showPagination && (
           <Pagination
             currentPage={page}
-            maxButtons={5}
             totalPages={totalPages}
             setPage={setPage}>
             {clips.map((clip) => (

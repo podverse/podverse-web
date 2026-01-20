@@ -46,7 +46,6 @@ export const ListHistoryResources: React.FC<Props> = ({
           <div className={styles.listWrapper}>
             <Pagination
               currentPage={page}
-              maxButtons={5}
               totalPages={totalPages}
               setPage={setPage}>
               <div className={styles.list}>

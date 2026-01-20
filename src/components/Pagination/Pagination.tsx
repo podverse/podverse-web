@@ -3,6 +3,7 @@
 import React from "react";
 import classNames from "classnames";
 import NavArrowButton from "../NavArrowButton/NavArrowButton";
+import { PAGINATION_MAX_BUTTONS } from "../../constants/pagination";
 import styles from "../../styles/components/Pagination/Pagination.module.scss";
 
 interface PaginationProps {
@@ -45,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   setPage,
   children,
-  maxButtons = 5,
+  maxButtons = PAGINATION_MAX_BUTTONS,
   paginationControlsClassName = "",
 }) => {
   const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);

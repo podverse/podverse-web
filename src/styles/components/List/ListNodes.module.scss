@@ -6,6 +6,10 @@
   @include flexColumn(1.25rem);
 }
 
+.listTight {
+  @include flexColumn(0.125rem);
+}
+
 .listTracks {
   @include flexColumn(1rem);
 }

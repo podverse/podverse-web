@@ -30,7 +30,6 @@ export const ListCombinedChannels: React.FC<ListCombinedChannelsProps> = ({
   return (
     <Pagination
       currentPage={page}
-      maxButtons={5}
       totalPages={totalPages}
       setPage={setPage}
       paginationControlsClassName={styles.paginationControls}>

@@ -1,14 +1,27 @@
-import React from "react";
-import { MainHeader } from "../../components/Main/MainHeader";
-import { MainWrapper } from "../../components/Main/MainWrapper";
+import { redirect } from "next/navigation";
+import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { MyProfileClient } from "./MyProfileClient";
 
-export default function MyProfilePage() {
+export default async function MyProfilePage() {
+  const { isValidAuthSession, ssrApiRequestService } = await getSSRAuthService();
+
+  if (!isValidAuthSession) {
+    redirect("/");
+    return;
+  }
+
+  try {
+    const ssrAccount = await ssrApiRequestService.reqAuthMe();
+    
+    if (!ssrAccount) {
+      redirect("/");
+      return;
+    }
+
   return (
-    <>
-      <MainHeader title="My Profile" />
-      <MainWrapper>
-        <p>Coming Soon</p>
-      </MainWrapper>
-    </>
+      <MyProfileClient ssrAccount={ssrAccount} />
   );
+  } catch (error) {
+    redirect("/");
+  }
 }

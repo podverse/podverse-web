@@ -26,7 +26,6 @@ export const ListItemChapters: React.FC<ListItemChaptersProps> = ({
   return (
     <Pagination
       currentPage={page}
-      maxButtons={5}
       totalPages={totalPages}
       setPage={setPage}>
       {item_chapters.map((item_chapter) => (

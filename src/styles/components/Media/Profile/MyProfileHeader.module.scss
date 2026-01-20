@@ -1,0 +1,20 @@
+.wrapper {
+  position: relative;
+}
+
+.editButtonContainer {
+  position: absolute;
+  top: var(--header-padding);
+  right: var(--header-padding);
+  display: flex;
+  align-items: center;
+}
+
+.editButton {
+  align-self: center;
+  height: 1.75rem;
+}
+
+.editButton span {
+  font-size: var(--font-size-sm);
+}

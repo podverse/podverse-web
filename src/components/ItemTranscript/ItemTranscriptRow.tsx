@@ -13,10 +13,10 @@ export const ItemTranscriptRow = ({ row, highlight, onClick }: ItemTranscriptRow
     <div
       className={[
         styles.itemTranscriptRow,
-        highlight ? "highlighted-text" : ''
-      ].join(' ')}
+        highlight ? "highlighted-text" : '',
+        onClick ? styles.clickable : ''
+      ].filter(Boolean).join(' ')}
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : undefined }}
     >
       {row.speaker && (
         <div className={styles.speaker}>{row.speaker}</div>

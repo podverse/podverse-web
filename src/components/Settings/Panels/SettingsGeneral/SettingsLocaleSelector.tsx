@@ -3,6 +3,7 @@
 import React from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { SharableStatusEnum } from 'podverse-helpers'
 import { writeCookie } from '../../../../utils/cookie'
 import { FormDropdown } from '../../../Form/FormDropdown'
 import type { DropdownMenuItem } from '../../../Dropdown/Dropdown'
@@ -48,10 +49,15 @@ export const SettingsLocaleSelector: React.FC = () => {
       // swallow
     }
 
-    // If user is logged in, update account settings locale
+    // If user is logged in, update account with all 4 fields
     if (loggedInAccount) {
       try {
-        const updatedAccount = await apiRequestService.reqAccountSettingsLocaleUpdate({ locale: value });
+        const updatedAccount = await apiRequestService.reqAccountUpdate({
+          display_name: loggedInAccount.account_profile?.display_name || null,
+          bio: loggedInAccount.account_profile?.bio || null,
+          sharable_status: loggedInAccount.sharable_status_id || SharableStatusEnum.Private,
+          locale: value
+        });
         setLoggedInAccount(updatedAccount);
       } catch (err) {
         console.error('Failed to update account locale:', err);

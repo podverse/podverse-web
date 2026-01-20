@@ -1,0 +1,41 @@
+@use "breakpoints";
+
+.contentDesktop {
+  display: flex;
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.textSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: var(--spacing-none) var(--spacing-none) var(--spacing-sm) var(--spacing-none);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0;
+}
+
+.bio {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-secondary);
+  margin: 0;
+}
+
+.bottomSection {
+  display: flex;
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .contentDesktop {
+    display: none;
+  }
+}

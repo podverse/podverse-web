@@ -34,8 +34,23 @@
   resize: vertical;
 }
 
+.textAreaInfoRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
+  gap: var(--spacing-md);
+}
+
+.textAreaInfo {
+  @include formInfoText;
+  margin: 0;
+  flex: 1;
+}
+
 .textAreaCounter {
-  @include flexEnd;
-  margin: 0.625rem var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
   font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  white-space: nowrap;
+  margin: 0 0 0 0.5rem;
 }

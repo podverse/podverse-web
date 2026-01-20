@@ -23,6 +23,15 @@
   padding: var(--spacing-lg);
   border-radius: 8px;
   max-width: 350px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.toastCustomWrapperVisible {
+  opacity: 1;
+}
+
+.toastCustomWrapperHidden {
+  opacity: 0;
 }
 
 .toastContentColumn {
@@ -34,7 +43,7 @@
   background: none;
   border: none;
   color: currentColor;
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   line-height: 1;
   padding: var(--spacing-none);
   cursor: pointer;

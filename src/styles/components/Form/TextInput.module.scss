@@ -32,18 +32,16 @@
   padding: var(--spacing-form-input-inner);
 }
 
+.numberInput {
+  -moz-appearance: textfield;
+}
+
 .textInputInfo {
-  margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
-  font-size: var(--text-size-sm);
-  font-weight: var(--font-weight-light);
-  color: var(--text-color-secondary);
+  @include formInfoText;
 }
 
 .textInputInfoError {
-  margin: var(--spacing-lg) var(--spacing-lg) var(--spacing-none) var(--spacing-lg);
-  font-size: var(--text-size-sm);
-  font-weight: var(--font-weight-light);
-  color: var(--text-color-danger);
+  @include formInfoTextError;
 }
 
 .button {

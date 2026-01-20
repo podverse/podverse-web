@@ -10,6 +10,7 @@
   font-weight: var(--font-weight-bold);
   height: 44px;
   min-width: 9rem;
+  width: auto;
   padding: 0 var(--spacing-lg);
   overflow: hidden;
 }
@@ -23,7 +24,8 @@
 
 .buttonContent {
   @include flexCenter;
-  width: 100%;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .invisible {
@@ -194,6 +196,8 @@
 
 .buttonWrapper {
   @include flexColumn(var(--spacing-xl));
+  align-items: flex-start;
+  width: fit-content;
 }
 
 .buttonDescription {

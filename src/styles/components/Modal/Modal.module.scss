@@ -45,6 +45,13 @@
   z-index: 10000;
 }
 
+.modalCloseButtonAbsolute {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  margin-left: 0;
+}
+
 .modalChildren {
   margin-top: var(--spacing-lg);
 }

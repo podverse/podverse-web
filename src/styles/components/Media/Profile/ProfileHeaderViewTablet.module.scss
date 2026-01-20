@@ -1,0 +1,57 @@
+@use "breakpoints";
+
+.contentTablet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.topSection {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+}
+
+.textSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.bottomSection {
+  display: flex;
+  margin-top: var(--spacing-lg);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0;
+  margin-left: var(--spacing-2xl);
+}
+
+.bio {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-secondary);
+  margin: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+@media (min-width: breakpoints.$breakpoint-lg-min) {
+  .contentTablet {
+    display: none;
+  }
+}
+
+@media (max-width: breakpoints.$breakpoint-sm-max) {
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+}

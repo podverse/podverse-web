@@ -49,3 +49,7 @@
 .dropdownSelectedItemText {
   flex: 1;
 }
+
+.formDropdownInfo {
+  @include formInfoText;
+}

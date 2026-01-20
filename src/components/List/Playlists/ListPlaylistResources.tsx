@@ -205,7 +205,6 @@ export const ListPlaylistResources: React.FC<Props> = ({
       <div className={styles.listWrapper}>
         <Pagination
           currentPage={page ?? 1}
-          maxButtons={5}
           totalPages={totalPages ?? 1}
           setPage={setPage}
         >
