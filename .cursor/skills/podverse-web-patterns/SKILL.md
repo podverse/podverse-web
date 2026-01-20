@@ -708,7 +708,7 @@ When working on a task and you identify potential improvements that are **outsid
 
 When you start working on a documented improvement:
 1. Change **Status** from "Pending" to "In Progress"
-2. When completed, change to "Completed" and add completion date
+2. **When completed, remove the entire item from the document** - Do not mark as "Completed" or keep completed items in the document
 3. If intentionally deferred, change to "Ignored" and add reason in Notes
 
 ### Integration with Plan Mode
