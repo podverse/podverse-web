@@ -11,32 +11,7 @@ This document tracks all identified areas for improvement in the Podverse Web co
 
 ## Critical Issues
 
-
-### 2. API Proxy Route Security
-**Status**: Pending  
-**Priority**: Critical  
-**Severity**: High
-
-**Issue**: The `/api/proxy/route.ts` endpoint has no security measures:
-- No rate limiting
-- No URL validation/whitelist
-- No size limits
-- Could be used for SSRF attacks
-
-**Recommendation**: Add:
-- Rate limiting (per IP)
-- URL validation/whitelist
-- Content-Type validation
-- Response size limits
-- Timeout handling
-
-**File**: `src/app/api/proxy/route.ts`
-
-**Notes**: Security vulnerability that needs immediate attention.
-
----
-
-### 3. Console Statements in Production
+### 2. Console Statements in Production
 **Status**: Ignored (for now)  
 **Priority**: Medium  
 **Severity**: Medium
@@ -380,9 +355,8 @@ async headers() {
 ## Summary
 
 ### Active Priorities
-1. **Critical**: API proxy security
-2. **High**: Code splitting, Image optimization
-3. **Medium**: Content Security Policy
+1. **High**: Code splitting, Image optimization
+2. **Medium**: Content Security Policy
 
 ---
 
