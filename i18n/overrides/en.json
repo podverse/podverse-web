@@ -334,9 +334,17 @@
       "minute_remaining": "Rate limited: {minutes} minute until you can use this action again.",
       "minutes_remaining": "Rate limited: {minutes} minutes until you can use this action again."
     },
-    "errors": {
-      "generic": "Something went wrong. Please try again later, or contact support for assistance."
-    }
+    "try_again": "Try again",
+    "reload_page": "Reload page",
+    "go_to_home": "Go to Home"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again later, or contact support for assistance.",
+    "boundary_title": "Something went wrong",
+    "boundary_message": "An unexpected error occurred. Please try again.",
+    "global_title": "Application Error",
+    "global_message": "A critical error occurred. Please refresh the page.",
+    "details_development_only": "Error details (development only)"
   },
   "instructions": {
     "login_required": "Login Required",
