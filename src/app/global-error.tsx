@@ -11,6 +11,17 @@ type GlobalErrorProps = {
 
 // Helper to get translations for global-error (rendered outside provider tree)
 async function getGlobalErrorTranslations(): Promise<{ errors: Record<string, string>; misc: Record<string, any> }> {
+  // Helper to filter out nested objects and only keep string values
+  const filterStrings = (obj: any): Record<string, string> => {
+    const result: Record<string, string> = {};
+    for (const [key, value] of Object.entries(obj || {})) {
+      if (typeof value === 'string') {
+        result[key] = value;
+      }
+    }
+    return result;
+  };
+
   try {
     // Try to get locale from cookie
     const localeCookie = document.cookie
@@ -21,7 +32,7 @@ async function getGlobalErrorTranslations(): Promise<{ errors: Record<string, st
     // Load translation file
     const messages = await import(`../../i18n/originals/${localeCookie}.json`);
     return {
-      errors: messages.default.errors || {},
+      errors: filterStrings(messages.default.errors),
       misc: messages.default.misc || {}
     };
   } catch {
@@ -29,7 +40,7 @@ async function getGlobalErrorTranslations(): Promise<{ errors: Record<string, st
     try {
       const messages = await import(`../../i18n/originals/en.json`);
       return {
-        errors: messages.default.errors || {},
+        errors: filterStrings(messages.default.errors),
         misc: messages.default.misc || {}
       };
     } catch {
