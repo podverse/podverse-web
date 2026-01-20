@@ -2,6 +2,7 @@
 
 import { DTOAccount, DTOChannel, DTOClip, DTOPlaylist, getTotalPages } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 
@@ -54,7 +55,26 @@ export const MyProfileContentContextProvider = ({
   children,
   account
 }: MyProfileContentContextProviderProps) => {
-  const [selectedTab, setSelectedTab] = useState<MyProfileContentTab>('podcasts');
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  // Check for tab query param on mount
+  const tabFromQuery = searchParams.get('tab');
+  const isValidTab = tabFromQuery === 'podcasts' || tabFromQuery === 'albums' || 
+                     tabFromQuery === 'playlists' || tabFromQuery === 'clips';
+  const initialTab = (isValidTab ? tabFromQuery : 'podcasts') as MyProfileContentTab;
+  
+  const [selectedTab, setSelectedTabState] = useState<MyProfileContentTab>(initialTab);
+  
+  // Wrapper to clear query params when tab changes
+  const setSelectedTab = useCallback((tab: MyProfileContentTab) => {
+    setSelectedTabState(tab);
+    // Clear query params when user clicks a tab
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('tab');
+    const newPath = `/my-profile${params.toString() ? `?${params.toString()}` : ''}`;
+    router.replace(newPath);
+  }, [searchParams, router]);
   
   // Podcasts state
   const [podcasts, setPodcasts] = useState<DTOChannel[]>([]);

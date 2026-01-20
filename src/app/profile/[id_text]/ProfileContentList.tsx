@@ -8,6 +8,7 @@ import { ListPlaylists } from "../../../components/List/Playlists/ListPlaylists"
 import { ListClips } from "../../../components/List/Clips/ListClips";
 import { NoResults } from "../../../components/NoResults/NoResults";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
+import styles from "../../../styles/app/profile/ProfileContentList.module.scss";
 
 export const ProfileContentList: React.FC = () => {
   const {
@@ -137,14 +138,16 @@ export const ProfileContentList: React.FC = () => {
 
     return (
       <>
-        <ListClips
-          page={clipsPage}
-          setPage={setClipsPage}
-          clips={clips}
-          totalPages={clipsTotalPages}
-          showSubscribeMessage={false}
-          showItemInfo={true}
-        />
+        <div className={styles.clipsWrapper}>
+          <ListClips
+            page={clipsPage}
+            setPage={setClipsPage}
+            clips={clips}
+            totalPages={clipsTotalPages}
+            showSubscribeMessage={false}
+            showItemInfo={true}
+          />
+        </div>
         <LoadingSpinnerOverlay isLoading={isLoading && clipsLoaded} />
       </>
     );

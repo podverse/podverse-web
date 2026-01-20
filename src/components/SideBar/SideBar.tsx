@@ -64,7 +64,7 @@ export const SideBar: React.FC = () => {
               <SideBarLink href={ROUTES.QUEUES}>{tFeatures("queue.queues")}</SideBarLink>
               <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history.history")}</SideBarLink>
               <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlist.playlists")}</SideBarLink>
-              <SideBarLink disabled href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
+              <SideBarLink href={`${ROUTES.MY_PROFILE}?tab=clips`}>{tFeatures("my_clips")}</SideBarLink>
               <SideBarLink href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>
             </>
           }
