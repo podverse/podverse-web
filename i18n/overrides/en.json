@@ -482,6 +482,10 @@
       "bio": "Bio",
       "bio_placeholder": "Tell us about yourself...",
       "bio_description": "A brief description about yourself (optional).",
+      "sharable_status": "Profile Visibility",
+      "sharable_status_public_description": "Your profile is visible to everyone and can be found in public profile listings.",
+      "sharable_status_unlisted_description": "Your profile is visible to anyone with the direct link, but won't appear in public profile listings.",
+      "sharable_status_private_description": "Your profile is only visible to you. Others cannot view your profile even with a direct link.",
       "update_success": "Profile updated successfully"
     },
     "notifications": {
