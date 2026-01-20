@@ -6,6 +6,9 @@ import { MainWrapper } from "../../components/Main/MainWrapper";
 import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentWrapper";
 import { ProfileHeader } from "../../components/Media/Profile/ProfileHeader";
+import { MyProfileContentContextProvider } from "./MyProfileContentContext";
+import { MyProfileContentList } from "./MyProfileContentList";
+import { MyProfileContentListHeader } from "./MyProfileContentListHeader";
 
 interface MyProfileClientProps {
   ssrAccount: DTOAccount;
@@ -15,13 +18,16 @@ export function MyProfileClient(props: MyProfileClientProps) {
   const { ssrAccount } = props;
 
   return (
-    <MainWrapper>
-      <ProfileHeader account={ssrAccount} isOwnProfile={true} />
-      <MainInnerWrapper>
-        <MainInnerContentWrapper>
-          <div>My Profile Client</div>
-        </MainInnerContentWrapper>
-      </MainInnerWrapper>
-    </MainWrapper>
+    <MyProfileContentContextProvider account={ssrAccount}>
+      <MainWrapper>
+        <ProfileHeader account={ssrAccount} isOwnProfile={true} />
+        <MainInnerWrapper>
+          <MainInnerContentWrapper>
+            <MyProfileContentListHeader />
+            <MyProfileContentList />
+          </MainInnerContentWrapper>
+        </MainInnerWrapper>
+      </MainWrapper>
+    </MyProfileContentContextProvider>
   );
 }

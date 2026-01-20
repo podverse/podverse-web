@@ -8,6 +8,9 @@ import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { ProfileHeader } from "../../../components/Media/Profile/ProfileHeader";
 import { useAccount } from "../../../contexts/Account";
+import { ProfileContentContextProvider } from "./ProfileContentContext";
+import { ProfileContentList } from "./ProfileContentList";
+import { ProfileContentListHeader } from "./ProfileContentListHeader";
 
 interface ProfileClientProps {
   ssrAccount: DTOAccount;
@@ -33,13 +36,16 @@ export function ProfileClient(props: ProfileClientProps) {
   }
 
   return (
-    <MainWrapper>
-      <ProfileHeader account={ssrAccount} isOwnProfile={isOwnProfile} />
-      <MainInnerWrapper>
-        <MainInnerContentWrapper>
-          <div>Profile Client</div>
-        </MainInnerContentWrapper>
-      </MainInnerWrapper>
-    </MainWrapper>
+    <ProfileContentContextProvider account={ssrAccount}>
+      <MainWrapper>
+        <ProfileHeader account={ssrAccount} isOwnProfile={isOwnProfile} />
+        <MainInnerWrapper>
+          <MainInnerContentWrapper>
+            <ProfileContentListHeader />
+            <ProfileContentList />
+          </MainInnerContentWrapper>
+        </MainInnerWrapper>
+      </MainWrapper>
+    </ProfileContentContextProvider>
   );
 }

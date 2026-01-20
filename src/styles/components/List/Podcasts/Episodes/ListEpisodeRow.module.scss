@@ -91,6 +91,7 @@
 .trackClickable {
   display: flex !important;
   flex: 1 !important;
+  justify-content: flex-start !important;
   margin-right: var(--spacing-xl) !important;
   border-radius: var(--border-radius) !important;
   padding-left: var(--spacing-md) !important;
