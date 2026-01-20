@@ -39,20 +39,9 @@
 ### API Request Patterns
 
 - **Client Components**: Use `apiRequestService` from `src/factories/apiRequestService`
-  ```typescript
-  import { apiRequestService } from '../../factories/apiRequestService';
-  const result = await apiRequestService.reqAccountGet();
-  ```
-
-- **Server Components**: Use `getSSRApiRequestService(jwt)` from `src/factories/apiRequestService`
-  ```typescript
-  import { getSSRApiRequestService } from '../factories/apiRequestService';
-  const jwt = await getSSRJwtFromCookies();
-  const ssrApiRequestService = getSSRApiRequestService(jwt);
-  const result = await ssrApiRequestService.reqAccountGet();
-  ```
-
+- **Server Components**: Use `getSSRApiRequestService(jwt)` from `src/factories/apiRequestService` (get JWT via `getSSRAuthService()`)
 - **Error Handling**: Use `handleRateLimitAlert()` utility from `src/utils/rateLimit/rateLimitAlert` for API errors
+- **For detailed examples**: See `.cursor/skills/podverse-web-patterns/02-api-data-fetching.md`
 
 ### Context Provider Pattern
 
@@ -65,34 +54,9 @@
 
 - **Component Structure**: Functional components with TypeScript interfaces
 - **Component Props**: Define TypeScript interfaces for props, use `React.FC<PropsType>` or explicit typing
-  ```typescript
-  type ComponentProps = {
-    prop1: string;
-    prop2?: number;
-  };
-  
-  export const Component: React.FC<ComponentProps> = ({ prop1, prop2 }) => {
-    // component code
-  };
-  ```
-
 - **Styling**: Import SCSS modules and use `classNames` utility
-  ```typescript
-  import classNames from 'classnames';
-  import styles from '../../styles/components/Button/Button.module.scss';
-  
-  <button className={classNames(styles.button, styles[variant], className)}>
-  ```
-
 - **Accessibility**: Always include proper ARIA labels, semantic HTML, and keyboard navigation support
-  ```typescript
-  <button
-    aria-label={ariaLabel}
-    aria-describedby={ariaDescribedBy}
-    aria-pressed={ariaPressed}
-    title={title}
-  >
-  ```
+- **For detailed examples**: See `.cursor/skills/podverse-web-patterns/01-component-patterns.md`
 
 ## Code Quality Standards
 
@@ -110,6 +74,7 @@
 - **MANDATORY**: Every string visible to users must come from translation files
 - **Translation keys**: Use namespaced keys (e.g., `useTranslations("features")`, `useTranslations("misc")`)
 - **Translation files**: Located in `i18n/originals/` and `i18n/overrides/`
+- **CRITICAL: Only edit `i18n/originals/en.json`** - Do NOT add translations to override files or other language files. The `i18n-compile` script automatically processes `originals/en.json` and generates all necessary translation files, overrides, and alternate languages. `i18n/originals/en.json` is the single source of truth.
 - **If a key doesn't exist**: Add it to `i18n/originals/en.json` first, then use it
 - **Applies to**: All components, pages, error boundaries, modals, buttons, placeholders, error messages, etc.
 - **Example**:
@@ -125,6 +90,8 @@
 - **API Errors**: Use `handleRateLimitAlert()` for rate limit errors
 - **Error Boundaries**: Consider error boundaries for component error handling
 - **Try-Catch**: Use try-catch blocks for async operations that might fail
+- **Catch Block Pattern**: If the error variable in a catch block is not used, omit the parameter entirely. If empty but needed, add a comment explaining why.
+- **For detailed examples**: See `.cursor/skills/podverse-web-patterns/05-code-quality.md` (Error Handling section)
 
 ### State Management
 
@@ -132,64 +99,27 @@
 - **Local State**: Use `useState` for component-local state
 - **Server State**: Fetch data in server components, pass as props to client components
 
-## Common Patterns
+## Implementation Patterns
 
-### Creating a New Page
+**For detailed step-by-step patterns and complete code examples, see the skills files:**
 
-1. Create a `page.tsx` file in `src/app/[route]/`
-2. Make it an async server component by default
-3. Fetch data using `getSSRApiRequestService()` if needed
-4. Pass data to a client component for interactivity
-5. Example structure:
-   ```typescript
-   export default async function MyPage({ params, searchParams }: PageProps) {
-     const jwt = await getSSRJwtFromCookies();
-     const ssrApiRequestService = getSSRApiRequestService(jwt);
-     const data = await ssrApiRequestService.reqSomeEndpoint();
-     
-     return <MyPageClient ssrData={data} />;
-   }
-   ```
+- **Component Patterns** (`.cursor/skills/podverse-web-patterns/01-component-patterns.md`): Creating pages with SSR, client components, modals, lists, contexts, server/client split
+- **API & Data Fetching** (`.cursor/skills/podverse-web-patterns/02-api-data-fetching.md`): API endpoint calls, SSR patterns, error handling
+- **Styling** (`.cursor/skills/podverse-web-patterns/03-styling.md`): SCSS Modules patterns and file structure
+- **Configuration** (`.cursor/skills/podverse-web-patterns/04-configuration.md`): Environment variables, constants, config object, User-Agent patterns
+- **Code Quality** (`.cursor/skills/podverse-web-patterns/05-code-quality.md`): Error handling patterns, type safety, translations
+- **Development Workflow** (`.cursor/skills/podverse-web-patterns/06-development-workflow.md`): Plan mode vs Agent mode, documenting improvements
+- **Reusable Utilities** (`.cursor/skills/podverse-web-patterns/07-reusable-utilities.md`): When to use podverse-helpers
+- **Best Practices** (`.cursor/skills/podverse-web-patterns/08-best-practices.md`): Quick reference checklist
 
-### Creating a Client Component with Translations
-
-1. Add `"use client"` directive at the top
-2. Import and use `useTranslations()` hook
-3. Use translation keys for all user-facing text
-4. Example:
-   ```typescript
-   "use client";
-   
-   import { useTranslations } from "next-intl";
-   
-   export const MyComponent: React.FC<Props> = () => {
-     const t = useTranslations("features");
-     return <div>{t("my_text_key")}</div>;
-   };
-   ```
-
-### Creating a New Modal
-
-1. Create modal component in `src/components/Modal/`
-2. Use the `Modal` base component from `src/components/Modal/Modal.tsx`
-3. Add modal state to `src/contexts/Modals.tsx`
-4. Register modal in `src/components/Modals/Modals.tsx`
-5. Use `useModals()` hook to open/close the modal
-
-### Creating a New List Component
-
-1. Create list component in `src/components/List/[Feature]/`
-2. Follow existing list patterns (e.g., `ListPodcasts`, `ListEpisodes`)
-3. Use SCSS modules for styling
-4. Support different view modes (list/grid) if applicable
-5. Include pagination if needed
-
-### Adding a New Context Provider
-
-1. Create context file in `src/contexts/`
-2. Export provider component and custom hook
-3. Add provider to `src/providers/Providers.tsx` in the correct order
-4. Use TypeScript for context value types
+**Quick Reference:**
+- Creating a new page → See `01-component-patterns.md` (Creating a New Page with SSR)
+- Creating a client component → See `01-component-patterns.md` (Creating a Client Component with Translations)
+- Creating a modal → See `01-component-patterns.md` (Adding a New Modal)
+- Creating a list → See `01-component-patterns.md` (Creating a New List Component)
+- Creating a context → See `01-component-patterns.md` (Creating a New Context Provider)
+- API calls → See `02-api-data-fetching.md`
+- Styling → See `03-styling.md`
 
 ## Styling Guidelines
 
@@ -199,6 +129,7 @@
 - **Mixins**: Use mixins from `src/styles/mixins/` for common patterns
 - **Themes**: Support UI themes via `data-ui-theme` attribute (see `src/styles/ui-themes/`)
 - **Responsive**: Use mixins for media queries (see `src/styles/mixins/media-queries.scss`)
+- **For detailed examples**: See `.cursor/skills/podverse-web-patterns/03-styling.md`
 
 ## Import Conventions
 
@@ -207,11 +138,36 @@
 - **podverse-helpers**: Import types and utilities from `podverse-helpers`
 - **Local utilities**: Import from `src/utils/`, `src/hooks/`, etc.
 
+### Reusable Utilities and podverse-helpers
+
+- **CRITICAL: Reusable utilities go to podverse-helpers** - If a utility function could be useful in other Podverse applications (React Native mobile app, other Next.js apps, API services, etc.), it should be placed in the `podverse-helpers` project, not in the web app
+- **Examples that belong in podverse-helpers**: URL validation, SSRF protection, date/time formatting, string manipulation, validation functions (email, password, URL), type guards, security utilities
+- **Examples that stay in podverse-web**: Next.js-specific utilities (SSR helpers, API route helpers), React/Next.js component-specific utilities, web-specific UI utilities
+- **Pattern**: Before creating a new utility, ask "Could this be useful in React Native or other apps?" If yes, place it in podverse-helpers
+
 ## Testing & Documentation
 
 - **Comments**: Add comments for complex logic or non-obvious decisions
 - **Type safety**: Leverage TypeScript for documentation and safety
 - **Component documentation**: Use TypeScript interfaces as documentation
+- **Document out-of-scope improvements**: When working on a task and identifying improvements that are outside the scope, automatically document them in `docs/todo/improvements.md` with the standard format (Status, Priority, Severity, Issue, Recommendation, Files affected, Notes)
+
+## Configuration & Constants
+
+### Constants
+
+- **CRITICAL: Use constants instead of hardcoded values** - Define named constants in separate files for magic numbers, timeouts, limits, and configuration values
+- **Nest all constants within a single feature object**: All constants for a feature should be nested under one object (e.g., `PROXY`, `IMAGES`, `API_CONFIG`)
+- **Use `as const`**: Ensures TypeScript treats values as literals and provides better type inference
+- **For detailed examples**: See `.cursor/skills/podverse-web-patterns/04-configuration.md` (Using Constants Instead of Hardcoded Values)
+
+### Environment Variables
+
+- **CRITICAL: Always use config object for environment variables** - Import and use `config` from `src/config/index.ts` instead of accessing `process.env` directly
+- **All environment variables must use `NEXT_PUBLIC_` prefix** - Even if only used server-side, all podverse-web env vars are public and should use this prefix for consistency
+- **When adding new environment variables**: Add to config object, update validation script if required, update `.env.example` and all `env/` files with synchronized comments
+- **Keep .env files synchronized**: `.env.example` and all files in `env/` directory should mirror each other closely in terms of comments and structure, only differing in values
+- **For detailed examples and patterns**: See `.cursor/skills/podverse-web-patterns/04-configuration.md` (Environment Variables and Configuration section)
 
 ## What NOT to Do
 
@@ -222,6 +178,9 @@
 - **Don't mix server and client code**: Keep server and client components separate
 - **Don't use global CSS**: Use SCSS modules for component styles
 - **Don't skip accessibility**: Always include ARIA labels and semantic HTML
+- **Don't access `process.env` directly**: Use the `config` object from `src/config/index.ts`
+- **Don't hardcode magic numbers**: Use named constants nested in feature objects
+- **Don't add translations to override files**: Only edit `i18n/originals/en.json`
 
 ## Skills System
 
