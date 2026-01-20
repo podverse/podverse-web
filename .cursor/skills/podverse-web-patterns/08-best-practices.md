@@ -26,6 +26,11 @@
 - Even in error pages: Use translations (with fallback for global-error.tsx)
 
 **If you see hardcoded English strings in user-facing code, you MUST:**
-1. Add the translation key to `i18n/originals/en.json`
+1. Add the translation key to `i18n/originals/en.json` **ONLY** - Do NOT add translations to override files or other language files. The i18n translation script handles generating overrides and alternate languages automatically.
 2. Replace the hardcoded string with `useTranslations()` call
 3. This applies to ALL components, pages, error boundaries, etc.
+
+**CRITICAL**: When adding new translation keys:
+- **Only edit `i18n/originals/en.json`** - This is the source of truth
+- **Do NOT edit** override files (e.g., `i18n/overrides/en.json`) or other language files
+- The `i18n-compile` script automatically processes `originals/en.json` and generates all necessary translation files

@@ -107,3 +107,11 @@ const tInstructions = useTranslations("instructions");
 <button>{tFeatures("button_label")}</button>
 <p>{tMisc("helper_text")}</p>
 ```
+
+### Adding New Translation Keys
+
+**CRITICAL**: When adding new translation keys, **only add them to `i18n/originals/en.json`**:
+- Do NOT add translations to override files (e.g., `i18n/overrides/en.json`)
+- Do NOT add translations to other language files
+- The `i18n-compile` script automatically processes `originals/en.json` and generates all necessary translation files, overrides, and alternate languages
+- `i18n/originals/en.json` is the single source of truth for all translations
