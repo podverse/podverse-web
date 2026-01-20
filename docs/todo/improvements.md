@@ -11,26 +11,6 @@ This document tracks all identified areas for improvement in the Podverse Web co
 
 ## Critical Issues
 
-### 1. Missing Error Boundaries
-**Status**: Pending  
-**Priority**: Critical  
-**Severity**: High
-
-**Issue**: No error boundaries found in the codebase. React errors will crash the entire application.
-
-**Recommendation**: Implement error boundaries at key levels:
-- Root layout level (`src/app/error.tsx` and `src/app/global-error.tsx`)
-- Route/page level
-- Critical component sections (MediaPlayer, Modals, etc.)
-
-**Files to create**:
-- `src/components/ErrorBoundary/ErrorBoundary.tsx`
-- `src/app/error.tsx` (Next.js error page)
-- `src/app/global-error.tsx` (Next.js global error page)
-
-**Notes**: Essential for production stability.
-
----
 
 ### 2. API Proxy Route Security
 **Status**: Pending  
@@ -355,22 +335,6 @@ async headers() {
 
 ---
 
-### 17. Environment Variables
-**Status**: Completed  
-**Priority**: Low  
-**Severity**: Low
-
-**Issue**: Review environment variable usage for:
-- Exposed secrets in client code
-- Missing validation
-- Type safety
-
-**Recommendation**: N/A - All environment variables in this project are intended to be public (except the OpenAI API key, used for a local script), so env var exposure is not a risk.
-
-**Notes**: Verified as not a concern for this project.
-
----
-
 ## Accessibility
 
 ### 18. ARIA Attributes
@@ -416,27 +380,9 @@ async headers() {
 ## Summary
 
 ### Active Priorities
-1. **Critical**: Error boundaries, API proxy security
+1. **Critical**: API proxy security
 2. **High**: Code splitting, Image optimization
 3. **Medium**: Content Security Policy
-
-### Deferred (Ignored for Now)
-- Console statement cleanup
-- Memoization improvements
-- Deep provider nesting optimization
-- useEffect optimization
-- ESLint configuration
-- Metadata improvements
-- Testing infrastructure
-- TypeScript improvements
-- Bundle size analysis
-- API error handling standardization
-- Loading state standardization
-- Accessibility audit
-- Performance monitoring
-
-### Completed
-- Environment variable security review (verified as not a concern)
 
 ---
 
