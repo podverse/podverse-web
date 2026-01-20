@@ -344,7 +344,32 @@
     "boundary_message": "An unexpected error occurred. Please try again.",
     "global_title": "Application Error",
     "global_message": "A critical error occurred. Please refresh the page.",
-    "details_development_only": "Error details (development only)"
+    "details_development_only": "Error details (development only)",
+    "test_page": {
+      "test_error_boundaries_title": "Error Boundary Test Page",
+      "test_error_boundaries_description": "This page allows you to test various error boundary scenarios. Click the buttons below to trigger different types of errors.",
+      "test_error_boundaries_warning": "This page is only available in development mode.",
+      "test_error_boundaries_section_1_title": "1. Component Render Error (Caught by Error Boundary)",
+      "test_error_boundaries_section_1_description": "This error is thrown during component render and will be caught by the error boundary.",
+      "test_error_boundaries_section_2_title": "2. Error in useEffect (Caught by Error Boundary)",
+      "test_error_boundaries_section_2_description": "This error is thrown in useEffect and will be caught by the error boundary.",
+      "test_error_boundaries_section_3_title": "3. Conditional Error (Caught by Error Boundary)",
+      "test_error_boundaries_section_3_description": "This error is thrown conditionally based on state and will be caught by the error boundary.",
+      "test_error_boundaries_section_4_title": "4. Event Handler Error (NOT Caught by Error Boundary)",
+      "test_error_boundaries_section_4_description": "Errors in event handlers are NOT caught by error boundaries. This will show in the console.",
+      "test_error_boundaries_section_5_title": "5. Route-Level Error (Next.js error.tsx)",
+      "test_error_boundaries_section_5_description": "This will trigger the Next.js route-level error page (error.tsx).",
+      "test_error_boundaries_section_6_title": "6. Nested Error Boundaries",
+      "test_error_boundaries_section_6_description": "Test nested error boundaries - inner boundary catches error, outer continues to work.",
+      "test_error_boundaries_trigger_render_error": "Trigger Render Error",
+      "test_error_boundaries_trigger_useeffect_error": "Trigger useEffect Error",
+      "test_error_boundaries_trigger_conditional_error": "Trigger Conditional Error",
+      "test_error_boundaries_trigger_event_handler_error": "Trigger Event Handler Error (not caught)",
+      "test_error_boundaries_trigger_route_error": "Trigger Route Error",
+      "test_error_boundaries_trigger_nested_error": "Trigger Nested Error",
+      "test_error_boundaries_reset_all": "Reset All",
+      "test_error_boundaries_nested_outer_content": "Outer boundary content (should remain visible)"
+    }
   },
   "instructions": {
     "login_required": "Login Required",

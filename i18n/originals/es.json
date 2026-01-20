@@ -297,6 +297,8 @@
     "untitled": "Sin Título",
     "optional": "Opcional",
     "submit": "Enviar",
+    "save": "Guardar",
+    "saving": "Guardando...",
     "cancel": "Cancelar",
     "close": "Cerrar",
     "on": "Activado",
@@ -332,8 +334,41 @@
       "minute_remaining": "Límite de tasa: {minutes} minuto hasta que puedas usar esta acción nuevamente.",
       "minutes_remaining": "Límite de tasa: {minutes} minutos hasta que puedas usar esta acción nuevamente."
     },
-    "errors": {
-      "generic": "Algo salió mal. Por favor intenta nuevamente más tarde, o contacta al soporte para asistencia."
+    "try_again": "Intenta de nuevo",
+    "reload_page": "Recargar página",
+    "go_to_home": "Ir a Inicio"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor, inténtalo de nuevo más tarde o contacta con soporte para asistencia.",
+    "boundary_title": "Algo salió mal",
+    "boundary_message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "global_title": "Error de Aplicación",
+    "global_message": "Ocurrió un error crítico. Por favor, actualiza la página.",
+    "details_development_only": "Detalles del error (solo para desarrollo)",
+    "test_page": {
+      "test_error_boundaries_title": "Página de Prueba de Límites de Error",
+      "test_error_boundaries_description": "Esta página te permite probar varios escenarios de límites de error. Haz clic en los botones a continuación para activar diferentes tipos de errores.",
+      "test_error_boundaries_warning": "Esta página solo está disponible en modo de desarrollo.",
+      "test_error_boundaries_section_1_title": "1. Error de Renderizado de Componente (Recogido por el Límite de Error)",
+      "test_error_boundaries_section_1_description": "Este error se lanza durante el renderizado del componente y será recogido por el límite de error.",
+      "test_error_boundaries_section_2_title": "2. Error en useEffect (Recogido por el Límite de Error)",
+      "test_error_boundaries_section_2_description": "Este error se lanza en useEffect y será recogido por el límite de error.",
+      "test_error_boundaries_section_3_title": "3. Error Condicional (Recogido por el Límite de Error)",
+      "test_error_boundaries_section_3_description": "Este error se lanza de manera condicional basado en el estado y será recogido por el límite de error.",
+      "test_error_boundaries_section_4_title": "4. Error en el Manejador de Eventos (NO Recogido por el Límite de Error)",
+      "test_error_boundaries_section_4_description": "Los errores en los manejadores de eventos NO son recogidos por los límites de error. Esto se mostrará en la consola.",
+      "test_error_boundaries_section_5_title": "5. Error a Nivel de Ruta (Next.js error.tsx)",
+      "test_error_boundaries_section_5_description": "Esto activará la página de error a nivel de ruta de Next.js (error.tsx).",
+      "test_error_boundaries_section_6_title": "6. Límites de Error Anidados",
+      "test_error_boundaries_section_6_description": "Prueba límites de error anidados - el límite interno recoge el error, el externo continúa funcionando.",
+      "test_error_boundaries_trigger_render_error": "Activar Error de Renderizado",
+      "test_error_boundaries_trigger_useeffect_error": "Activar Error de useEffect",
+      "test_error_boundaries_trigger_conditional_error": "Activar Error Condicional",
+      "test_error_boundaries_trigger_event_handler_error": "Activar Error en el Manejador de Eventos (no recogido)",
+      "test_error_boundaries_trigger_route_error": "Activar Error de Ruta",
+      "test_error_boundaries_trigger_nested_error": "Activar Error Anidado",
+      "test_error_boundaries_reset_all": "Restablecer Todo",
+      "test_error_boundaries_nested_outer_content": "Contenido del límite externo (debería permanecer visible)"
     }
   },
   "instructions": {
@@ -458,13 +493,33 @@
     },
     "account": {
       "account": "Cuenta",
-      "delete_account": "Eliminar Cuenta",
-      "delete_account_description": "Eliminar permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
+      "change_email": "Cambiar correo electrónico",
+      "change_email_description": "Cambia tu dirección de correo electrónico. Se enviará un correo de verificación a tu nueva dirección de correo electrónico.",
+      "change_email_modal": {
+        "title": "Cambiar dirección de correo electrónico",
+        "message": "Ingresa la nueva dirección de correo electrónico que deseas usar. Se enviará un correo de verificación a esa dirección.",
+        "email_sent": "Se ha enviado un correo de verificación a tu nueva dirección de correo electrónico. Por favor, revisa tu correo para un enlace de confirmación."
+      },
+      "delete_account": "Eliminar cuenta",
+      "delete_account_description": "Elimina permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
       "delete_account_modal": {
-        "title": "Eliminar Cuenta",
+        "title": "Eliminar cuenta",
         "message": "Esta acción no se puede deshacer. Para confirmar que deseas eliminar tu cuenta, por favor escribe tu dirección de correo electrónico a continuación.",
-        "email_mismatch": "La dirección de correo electrónico que ingresaste no coincide con el correo de tu cuenta."
+        "email_mismatch": "La dirección de correo electrónico que ingresaste no coincide con el correo electrónico de tu cuenta."
       }
+    },
+    "profile": {
+      "profile": "Perfil",
+      "display_name": "Nombre para mostrar",
+      "display_name_description": "Tu nombre para mostrar aparece en tu perfil. Si se deja vacío, se mostrará como Anónimo.",
+      "bio": "Biografía",
+      "bio_placeholder": "Cuéntanos sobre ti...",
+      "bio_description": "Una breve descripción sobre ti (opcional).",
+      "sharable_status": "Visibilidad del perfil",
+      "sharable_status_public_description": "Tu perfil es visible para todos y puede encontrarse en listados de perfiles públicos.",
+      "sharable_status_unlisted_description": "Tu perfil es visible para anyone con el enlace directo, pero no aparecerá en listados de perfiles públicos.",
+      "sharable_status_private_description": "Tu perfil solo es visible para ti. Otros no pueden ver tu perfil ni siquiera con un enlace directo.",
+      "update_success": "Perfil actualizado con éxito"
     },
     "notifications": {
       "notifications": "Notificaciones",
