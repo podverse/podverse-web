@@ -20,6 +20,7 @@ The patterns are organized into the following subject areas:
 6. **[Development Workflow](06-development-workflow.md)** - Plan mode vs Agent mode, documenting improvements
 7. **[Reusable Utilities](07-reusable-utilities.md)** - When to use podverse-helpers
 8. **[Best Practices](08-best-practices.md)** - Quick reference checklist and critical requirements
+9. **[Performance Optimization](09-performance-optimization.md)** - Code splitting, memoization, image optimization, caching, monitoring
 
 ## Quick Start
 
@@ -72,3 +73,14 @@ For the most critical patterns, see:
 ### [08-best-practices.md](08-best-practices.md)
 - Best Practices Summary (Quick Reference Checklist)
 - Translation Requirements (CRITICAL)
+
+### [09-performance-optimization.md](09-performance-optimization.md)
+- Performance Optimization Principles
+- Code Splitting Patterns
+- Memoization Patterns (React.memo, useMemo, useCallback)
+- Image Optimization Patterns
+- Data Fetching Optimization
+- Rendering Optimization
+- Bundle Optimization
+- Performance Monitoring
+- Common Anti-Patterns

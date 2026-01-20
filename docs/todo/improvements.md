@@ -1,289 +1,494 @@
 # Podverse Web - Code Improvement Tracking
 
-This document tracks all identified areas for improvement in the Podverse Web codebase. Items are organized by category and priority, with status tracking.
+This document tracks all identified areas for improvement in the Podverse Web codebase. Items are organized by impact, with highest impact items first.
 
-## Status Legend
+## Performance Optimizations (Highest Impact)
 
-- **Pending**: Not yet started
-- **In Progress**: Currently being worked on
-- **Completed**: Finished and verified
-- **Ignored**: Intentionally deferred (with reason noted)
-
-## Critical Issues
-
-### 2. Console Statements in Production
-**Status**: Ignored (for now)  
-**Priority**: Medium  
-**Severity**: Medium
-
-**Issue**: Found 46 instances of `console.log/error/warn` across 20 files. These should be removed or replaced with proper logging.
-
-**Recommendation**: 
-- Remove or replace with a logging service
-- Use environment-based logging
-- Consider using a logging library (e.g., `pino`, `winston`)
-
-**Files affected**: 20 files with console statements
-
-**Notes**: Currently ignored per project priorities.
-
----
-
-## Performance Optimizations
-
-### 4. Limited Code Splitting
-**Status**: Pending  
+### 1. Limited Code Splitting
 **Priority**: High  
 **Severity**: Medium
 
-**Issue**: No dynamic imports found. Heavy components are loaded synchronously, increasing initial bundle size.
+**Issue**: No dynamic imports found. Heavy components are loaded synchronously, increasing initial bundle size. This impacts First Contentful Paint (FCP) and Time to Interactive (TTI).
 
 **Recommendations**:
-- Lazy load heavy components: `MediaPlayer`, `Modals`, `Video.js`, `react-virtuoso`
-- Use `next/dynamic` for route-based code splitting
-- Lazy load non-critical features (settings, profile editing)
+- **Lazy load heavy components**:
+  - `MediaPlayer` component (loaded in `src/app/layout.tsx` line 101) - large component with video player dependencies
+  - `Modals` component (loaded in `src/app/layout.tsx` line 104) - loads all modal components synchronously
+  - Video.js dependencies (if used in MediaPlayer)
+  - `react-virtuoso` (already used for virtualization, but can be lazy loaded)
+- **Route-based code splitting**: Use `next/dynamic` for non-critical routes
+- **Lazy load non-critical features**: Settings pages, profile editing, admin features
 
-**Example**:
+**Implementation**:
 ```typescript
-// In layout.tsx or page.tsx
+// In src/app/layout.tsx
+import dynamic from 'next/dynamic';
+
 const MediaPlayer = dynamic(() => import('../components/MediaPlayer/MediaPlayer'), {
+  ssr: false,
+  loading: () => <div>Loading player...</div>
+});
+
+const Modals = dynamic(() => import('../components/Modals/Modals'), {
   ssr: false
 });
 ```
 
-**Notes**: Will significantly improve initial load time.
+**Expected Impact**: 
+- Reduce initial bundle size by ~200-400KB
+- Improve FCP by 0.5-1.0s
+- Improve TTI by 1.0-2.0s
+
+**Files affected**:
+- `src/app/layout.tsx` (lines 101, 104)
+- Route pages that could benefit from lazy loading
+
+**Notes**: Will significantly improve initial load time. See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for detailed patterns.
 
 ---
 
-### 5. Insufficient Memoization
-**Status**: Ignored (for now)  
-**Priority**: Medium  
+### 2. Insufficient Memoization
+**Priority**: High  
 **Severity**: Medium
 
-**Issue**: Only 44 instances of `React.memo`, `useMemo`, or `useCallback` across a large codebase (194 app files, 282 component files). Many components could benefit from memoization.
+**Issue**: Only 44 instances of `React.memo`, `useMemo`, or `useCallback` across a large codebase (194 app files, 282 component files). Many components re-render unnecessarily, causing performance issues especially in lists and forms.
 
 **Recommendations**:
-- Memoize expensive list components (`ListPodcastRow`, `ListEpisodeRow`, etc.)
-- Use `useCallback` for event handlers passed to child components
-- Use `useMemo` for expensive computations (filtering, sorting)
-- Memoize context providers that pass functions
+- **Memoize expensive list components**: 
+  - `ListPodcastRow`, `ListEpisodeRow`, `ListClipRow` (frequently re-rendered in long lists)
+  - Any component rendered in `.map()` with >10 items
+- **Use `useCallback` for event handlers** passed to child components to prevent unnecessary re-renders
+- **Use `useMemo` for expensive computations**: filtering, sorting, data transformations
+- **Memoize context providers** that pass functions or complex objects
+- **Memoize context consumers** that only need specific values
 
-**High-priority components to memoize**:
-- List row components (frequently re-rendered)
-- Form components
-- Media player components
-- Context providers with complex state
+**High-priority components to memoize** (in order):
+1. **List row components** - `src/components/List/Podcasts/ListPodcastRow.tsx`, `src/components/List/Podcasts/Episodes/ListEpisodeRow.tsx`, `src/components/List/Clips/ListClipRow.tsx`
+2. **Form components** - Any form input that re-renders on parent state changes
+3. **Media player components** - Components that update frequently during playback
+4. **Context providers** - Providers in `src/providers/Providers.tsx` that pass functions/objects
 
-**Notes**: Currently ignored per project priorities.
+**Implementation Pattern**:
+```typescript
+// For list rows
+export const ListPodcastRow = React.memo<ListPodcastRowProps>(({ podcast, onSelect }) => {
+  // component code
+}, (prevProps, nextProps) => {
+  // Custom comparison if needed
+  return prevProps.podcast.id === nextProps.podcast.id && 
+         prevProps.podcast.updatedAt === nextProps.podcast.updatedAt;
+});
+
+// For event handlers
+const handleClick = useCallback((id: string) => {
+  // handler code
+}, [/* dependencies */]);
+
+// For expensive computations
+const sortedItems = useMemo(() => {
+  return items.sort((a, b) => a.name.localeCompare(b.name));
+}, [items]);
+```
+
+**Expected Impact**:
+- Reduce re-renders by 30-50% in list views
+- Improve scroll performance in long lists
+- Reduce CPU usage during interactions
+
+**Files affected**: Multiple list components, form components, context providers
+
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for detailed memoization patterns and when to use each technique.
 
 ---
 
-### 6. Image Optimization Issues
-**Status**: Pending  
+### 3. Image Optimization Issues
 **Priority**: Medium  
 **Severity**: Low-Medium
 
-**Issue**: The `Image` component is missing optimization props:
-- No `loading="lazy"` (though Next.js Image handles this)
-- No `priority` prop for above-the-fold images
-- No `placeholder="blur"` for better UX
-- Missing `sizes` prop for responsive images
+**Issue**: The `Image` component (`src/components/Image/Image.tsx`) is missing critical optimization props, leading to:
+- Larger than necessary image downloads
+- Slower LCP (Largest Contentful Paint) for above-the-fold images
+- Poor responsive image handling
+- Missing visual feedback during loading
+
+**Missing optimizations**:
+- No `priority` prop for above-the-fold images (hero images, podcast covers in lists)
+- No `sizes` prop for responsive images (causes downloading full-size images on mobile)
+- No `placeholder="blur"` or `placeholder="empty"` for better UX
+- No `loading` prop control (Next.js defaults to lazy, but should be explicit)
 
 **Recommendation**: Enhance `src/components/Image/Image.tsx`:
 ```typescript
-<NextImage
-  src={finalSrc}
-  alt={alt}
-  width={width}
-  height={height}
-  className={className}
-  loading={priority ? "eager" : "lazy"}
-  priority={priority}
+interface ImageProps {
+  src?: string | null;
+  alt: string;
+  width: number;
+  height: number;
+  className?: string;
+  skipProxy?: boolean;
+  priority?: boolean; // NEW: For above-the-fold images
+  sizes?: string; // NEW: For responsive images
+  placeholder?: 'blur' | 'empty'; // NEW: Loading placeholder
+}
+
+export const Image: React.FC<ImageProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  skipProxy,
+  priority = false,
+  sizes,
+  placeholder = 'empty'
+}) => {
+  // ... existing code ...
+  
+  return (
+    <NextImage
+      src={finalSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      priority={priority}
+      sizes={sizes || `(max-width: 768px) ${width}px, ${width}px`}
+      placeholder={placeholder}
+      loading={priority ? "eager" : "lazy"}
+      onError={() => setImageError(true)}
+    />
+  );
+};
+```
+
+**Usage examples**:
+```typescript
+// Above-the-fold hero image
+<Image src={heroImage} alt="Hero" width={1200} height={600} priority />
+
+// List item image (below fold)
+<Image 
+  src={podcastImage} 
+  alt={podcastTitle} 
+  width={100} 
+  height={100}
+  sizes="(max-width: 768px) 100px, 100px"
+/>
+
+// Responsive grid image
+<Image 
+  src={coverImage} 
+  alt={title} 
+  width={300} 
+  height={300}
   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-  onError={() => setImageError(true)}
 />
 ```
 
-**File**: `src/components/Image/Image.tsx`
+**Expected Impact**:
+- Reduce image payload by 30-50% on mobile devices
+- Improve LCP by 0.5-1.5s for above-the-fold images
+- Better perceived performance with placeholders
+
+**Files affected**:
+- `src/components/Image/Image.tsx` (primary)
+- All components using `Image` component (update to pass `priority` where appropriate)
+
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for image optimization best practices.
 
 ---
 
-### 7. Deep Provider Nesting
-**Status**: Ignored (for now)  
-**Priority**: Low  
-**Severity**: Low
-
-**Issue**: 12 nested context providers in `Providers.tsx`. This can cause performance issues with frequent context updates.
-
-**Recommendation**: 
-- Consider combining related providers
-- Use React Context selectors (e.g., `use-context-selector`)
-- Split providers by feature/domain
-- Consider state management library for complex state (Zustand, Jotai)
-
-**File**: `src/providers/Providers.tsx`
-
-**Notes**: Currently ignored per project priorities.
-
----
-
-### 8. useEffect Optimization
-**Status**: Ignored (for now)  
+### 4. Server Component Optimization
 **Priority**: Medium  
 **Severity**: Medium
 
-**Issue**: 126 instances of `useEffect` across 44 files. Some may have missing dependencies or unnecessary re-renders.
+**Issue**: Some components that could be server components are client components, increasing bundle size and reducing initial render performance. Next.js 15 App Router provides excellent server component support that should be leveraged more.
 
 **Recommendations**:
-- Audit all `useEffect` hooks for:
-  - Missing dependencies in dependency arrays
-  - Unnecessary re-renders
-  - Memory leaks (missing cleanup functions)
-  - Race conditions in async operations
-- Consider using `useEffectEvent` (React 19) for stable event handlers
-- Replace some `useEffect` with event handlers or derived state
+- **Audit client components** to identify which could be server components:
+  - Components that only fetch and display data (no interactivity)
+  - Static content components
+  - Components that don't use hooks or browser APIs
+- **Move data fetching to server components** where possible
+- **Use server components for layouts** and static sections
+- **Keep client components minimal** - only mark interactive parts as client
 
-**Notes**: Currently ignored per project priorities.
+**Benefits**:
+- Reduced JavaScript bundle size
+- Faster initial page loads
+- Better SEO (fully rendered HTML)
+- Lower client-side CPU usage
+
+**Files to review**:
+- Page components in `src/app/` that might be unnecessarily client components
+- Layout components that could be server components
+
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for server component patterns.
 
 ---
 
-## Code Quality Issues
-
-### 9. Missing ESLint Configuration
-**Status**: Ignored (for now)  
+### 5. API Response Caching
 **Priority**: Medium  
 **Severity**: Medium
 
-**Issue**: No ESLint configuration file found. The project has a `lint` script but no visible config.
+**Issue**: API responses are fetched on every page load/component mount without caching, leading to:
+- Unnecessary network requests
+- Slower page loads
+- Higher API server load
+- Poor offline experience
 
-**Recommendation**: 
-- Add `.eslintrc.json` or `eslint.config.mjs`
-- Configure Next.js ESLint plugin
-- Add TypeScript ESLint rules
-- Set up pre-commit hooks with linting
+**Recommendations**:
+- **Implement response caching** for:
+  - Static/semi-static data (categories, podcast metadata)
+  - User-specific data with appropriate cache invalidation
+  - List data with pagination caching
+- **Use Next.js caching** for server component data fetching:
+  - `fetch` with `cache: 'force-cache'` for static data
+  - `revalidate` for time-based revalidation
+  - `cache: 'no-store'` only when necessary
+- **Client-side caching** for frequently accessed data:
+  - React Query or SWR for client-side data fetching
+  - Local storage for user preferences
+  - Session storage for temporary data
 
-**Notes**: Currently ignored per project priorities.
-
----
-
-### 10. Incomplete Metadata
-**Status**: Ignored (for now)  
-**Priority**: Low  
-**Severity**: Low
-
-**Issue**: Root layout has placeholder metadata:
+**Implementation**:
 ```typescript
-description: 'Add meta description here'
+// Server component with caching
+export default async function MyPage() {
+  // Cached for 1 hour
+  const data = await fetch(url, {
+    next: { revalidate: 3600 }
+  });
+  
+  return <MyClientComponent data={data} />;
+}
 ```
 
-**Recommendation**: Add proper SEO metadata:
-- Dynamic descriptions per route
-- Open Graph tags
-- Twitter Card tags
-- Structured data (JSON-LD)
+**Expected Impact**:
+- Reduce API calls by 40-60% for cached data
+- Improve page load times by 0.5-1.0s
+- Better offline experience
 
-**File**: `src/app/layout.tsx`
+**Files affected**: Server components with data fetching, API request utilities
 
-**Notes**: Currently ignored per project priorities.
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for caching strategies.
 
 ---
 
-### 11. No Testing Infrastructure
-**Status**: Ignored (for now)  
+### 6. Web Vitals Monitoring
 **Priority**: Medium  
 **Severity**: Medium
 
-**Issue**: No test files found (`.test.*`, `.spec.*`). No testing framework configured.
+**Issue**: No Core Web Vitals monitoring or tracking. Cannot measure real-world performance or identify performance regressions.
 
-**Recommendation**: Set up testing:
-- Jest + React Testing Library
-- Unit tests for utilities and hooks
-- Component tests for critical components
-- E2E tests with Playwright or Cypress
-- Test coverage reporting
+**Recommendations**:
+- **Implement Web Vitals tracking**:
+  - Use `next/web-vitals` package
+  - Track LCP, FID, CLS, TTFB, FCP
+  - Send metrics to analytics service
+- **Set performance budgets**:
+  - LCP: < 2.5s
+  - FID: < 100ms
+  - CLS: < 0.1
+  - TTFB: < 800ms
+- **Monitor in production**: Track metrics over time
+- **Alert on regressions**: Set up alerts for performance degradation
 
-**Notes**: Currently ignored per project priorities.
+**Implementation**:
+```typescript
+// src/app/layout.tsx or _app.tsx
+import { onCLS, onFID, onLCP } from 'next/web-vitals';
+
+function sendToAnalytics(metric: Metric) {
+  // Send to your analytics service
+  console.log(metric);
+}
+
+export function reportWebVitals() {
+  onCLS(sendToAnalytics);
+  onFID(sendToAnalytics);
+  onLCP(sendToAnalytics);
+}
+```
+
+**Expected Impact**:
+- Visibility into real-world performance
+- Early detection of performance issues
+- Data-driven optimization decisions
+
+**Files affected**: `src/app/layout.tsx` or analytics setup
+
+**Notes**: Critical for maintaining performance over time.
 
 ---
 
-### 12. TypeScript Improvements
-**Status**: Ignored (for now)  
+### 7. useEffect Optimization
+**Priority**: Medium  
+**Severity**: Medium
+
+**Issue**: 126 instances of `useEffect` across 44 files. Some may have:
+- Missing dependencies in dependency arrays (causing stale closures)
+- Unnecessary re-renders (dependencies changing too frequently)
+- Memory leaks (missing cleanup functions)
+- Race conditions in async operations
+- Effects that could be replaced with event handlers or derived state
+
+**Audit Checklist**:
+For each `useEffect`:
+- [ ] All dependencies are included in dependency array
+- [ ] Cleanup function added if effect sets up subscriptions, timers, or event listeners
+- [ ] Async operations handle component unmounting (use AbortController or flags)
+- [ ] Effect is necessary (could it be an event handler instead?)
+- [ ] Dependencies are stable (use `useCallback`/`useMemo` if needed)
+- [ ] No infinite loops (dependencies don't change on every render)
+
+**Common Issues Found**:
+- Context providers with effects that re-run on every context update
+- Data fetching effects without cleanup/abort logic
+- Effects that could be replaced with React 19 `useEffectEvent` for stable handlers
+
+**Recommendations**:
+- **Use `useEffectEvent` (React 19)** for stable event handlers in effects
+- **Replace effects with event handlers** where the effect responds to user actions
+- **Use derived state** instead of effects that sync state from props
+- **Add cleanup functions** for all subscriptions, timers, and event listeners
+- **Use AbortController** for async operations in effects
+
+**Example fixes**:
+```typescript
+// ❌ Bad: Missing cleanup, potential memory leak
+useEffect(() => {
+  const interval = setInterval(() => {
+    updateTime();
+  }, 1000);
+}, []);
+
+// ✅ Good: With cleanup
+useEffect(() => {
+  const interval = setInterval(() => {
+    updateTime();
+  }, 1000);
+  return () => clearInterval(interval);
+}, []);
+
+// ❌ Bad: Race condition
+useEffect(() => {
+  fetchData(id).then(setData);
+}, [id]);
+
+// ✅ Good: With abort controller
+useEffect(() => {
+  const controller = new AbortController();
+  fetchData(id, { signal: controller.signal }).then(setData);
+  return () => controller.abort();
+}, [id]);
+```
+
+**Files to audit**:
+- `src/app/*/Context.tsx` files (multiple context providers with effects)
+- `src/hooks/*.tsx` files (custom hooks with effects)
+- Components with data fetching in effects
+
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for useEffect optimization patterns.
+
+---
+
+### 8. Bundle Size Analysis and Monitoring
+**Priority**: Medium  
+**Severity**: Medium
+
+**Issue**: No bundle size analysis or monitoring. Large dependencies may be included unnecessarily, and bundle size may grow over time without detection.
+
+**Recommendations**:
+- **Add `@next/bundle-analyzer`**:
+  ```typescript
+  // next.config.ts
+  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+  });
+  ```
+- **Set bundle size budgets**:
+  - Initial JS: < 200KB gzipped
+  - Total JS: < 500KB gzipped
+  - Individual chunks: < 100KB gzipped
+- **Monitor in CI/CD**: Add bundle size check to build process
+- **Identify large dependencies**: 
+  - Video.js (if used)
+  - react-virtuoso
+  - Other heavy libraries
+- **Tree-shake unused code**: Ensure proper ES module imports
+
+**Implementation**:
+```json
+// package.json
+{
+  "scripts": {
+    "analyze": "ANALYZE=true npm run build"
+  }
+}
+```
+
+**Expected Impact**:
+- Identify optimization opportunities
+- Prevent bundle size regressions
+- Guide dependency decisions
+
+**Files affected**: `next.config.ts`, `package.json`, CI/CD configuration
+
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for bundle optimization patterns.
+
+---
+
+### 9. Virtual Scrolling Best Practices
 **Priority**: Low  
 **Severity**: Low
 
-**Issue**: Some areas could use better typing:
-- `useSkipInitialEffect` uses `any[]` for dependencies
-- Some error handling uses `unknown` without proper type guards
-- Missing return type annotations in some functions
+**Issue**: `react-virtuoso` is already used (`src/components/VirtualizedList/VirtualizedList.tsx`), but best practices should be documented and applied consistently.
 
-**Recommendation**: 
-- Replace `any` types with proper types
-- Add explicit return types
-- Use type guards for error handling
-- Enable additional strict TypeScript flags
+**Recommendations**:
+- **Document virtual scrolling patterns** for long lists
+- **Ensure consistent usage** across all long lists (>50 items)
+- **Optimize item rendering** in virtualized lists:
+  - Memoize list items
+  - Use stable keys
+  - Minimize item component complexity
+- **Consider virtual scrolling** for:
+  - Podcast lists
+  - Episode lists
+  - Clip lists
+  - Any list with >50 items
 
-**Notes**: Currently ignored per project priorities.
+**Files affected**: List components that could benefit from virtualization
 
----
-
-## Architecture Recommendations
-
-### 13. Bundle Size Analysis
-**Status**: Ignored (for now)  
-**Priority**: Medium  
-**Severity**: Medium
-
-**Issue**: No bundle size analysis or monitoring.
-
-**Recommendation**:
-- Add `@next/bundle-analyzer` to analyze bundle size
-- Set up bundle size budgets
-- Monitor bundle size in CI/CD
-- Identify and split large dependencies
-
-**Notes**: Currently ignored per project priorities.
+**Notes**: See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for virtual scrolling patterns.
 
 ---
 
-### 14. API Error Handling
-**Status**: Ignored (for now)  
-**Priority**: Medium  
-**Severity**: Medium
-
-**Issue**: Error handling is inconsistent. Some components handle errors, others don't.
-
-**Recommendation**:
-- Create a centralized error handling utility
-- Implement retry logic for failed requests
-- Add user-friendly error messages
-- Log errors to monitoring service
-- Handle network errors gracefully
-
-**Notes**: Currently ignored per project priorities.
-
----
-
-### 15. Loading States
-**Status**: Ignored (for now)  
+### 10. Font Optimization
 **Priority**: Low  
 **Severity**: Low
 
-**Issue**: Some components show loading states, but it's inconsistent.
+**Issue**: Web fonts may not be optimized for performance, causing:
+- Layout shifts during font loading
+- Blocking render
+- Large font file downloads
 
-**Recommendation**:
-- Standardize loading state patterns
-- Use Suspense boundaries for async components
-- Add skeleton loaders for better UX
-- Implement optimistic updates where appropriate
+**Recommendations**:
+- **Use `next/font`** for automatic font optimization
+- **Preload critical fonts** in layout
+- **Use `font-display: swap`** for non-critical fonts
+- **Subset fonts** to only include needed characters
+- **Consider variable fonts** to reduce file size
 
-**Notes**: Currently ignored per project priorities.
+**Files affected**: `src/app/layout.tsx` (font loading)
+
+**Notes**: Lower priority but important for perceived performance.
 
 ---
 
 ## Security Enhancements
 
-### 16. Content Security Policy
-**Status**: Pending  
+### 11. Content Security Policy
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -310,10 +515,105 @@ async headers() {
 
 ---
 
+## Code Quality Improvements
+
+### 12. Missing ESLint Configuration
+**Priority**: Medium  
+**Severity**: Medium
+
+**Issue**: No ESLint configuration file found. The project has a `lint` script but no visible config.
+
+**Recommendation**: 
+- Add `.eslintrc.json` or `eslint.config.mjs`
+- Configure Next.js ESLint plugin
+- Add TypeScript ESLint rules
+- Set up pre-commit hooks with linting
+
+---
+
+### 13. No Testing Infrastructure
+**Priority**: Medium  
+**Severity**: Medium
+
+**Issue**: No test files found (`.test.*`, `.spec.*`). No testing framework configured.
+
+**Recommendation**: Set up testing:
+- Jest + React Testing Library
+- Unit tests for utilities and hooks
+- Component tests for critical components
+- E2E tests with Playwright or Cypress
+- Test coverage reporting
+
+---
+
+### 14. API Error Handling
+**Priority**: Medium  
+**Severity**: Medium
+
+**Issue**: Error handling is inconsistent. Some components handle errors, others don't.
+
+**Recommendation**:
+- Create a centralized error handling utility
+- Implement retry logic for failed requests
+- Add user-friendly error messages
+- Log errors to monitoring service
+- Handle network errors gracefully
+
+---
+
+### 15. Loading States
+**Priority**: Low  
+**Severity**: Low
+
+**Issue**: Some components show loading states, but it's inconsistent.
+
+**Recommendation**:
+- Standardize loading state patterns
+- Use Suspense boundaries for async components
+- Add skeleton loaders for better UX
+- Implement optimistic updates where appropriate
+
+---
+
+### 16. Incomplete Metadata
+**Priority**: Low  
+**Severity**: Low
+
+**Issue**: Root layout has placeholder metadata:
+```typescript
+description: 'Add meta description here'
+```
+
+**Recommendation**: Add proper SEO metadata:
+- Dynamic descriptions per route
+- Open Graph tags
+- Twitter Card tags
+- Structured data (JSON-LD)
+
+**File**: `src/app/layout.tsx`
+
+---
+
+### 17. TypeScript Improvements
+**Priority**: Low  
+**Severity**: Low
+
+**Issue**: Some areas could use better typing:
+- `useSkipInitialEffect` uses `any[]` for dependencies
+- Some error handling uses `unknown` without proper type guards
+- Missing return type annotations in some functions
+
+**Recommendation**: 
+- Replace `any` types with proper types
+- Add explicit return types
+- Use type guards for error handling
+- Enable additional strict TypeScript flags
+
+---
+
 ## Accessibility
 
 ### 18. ARIA Attributes
-**Status**: Ignored (for now)  
 **Priority**: Low  
 **Severity**: Low
 
@@ -329,48 +629,20 @@ async headers() {
 - WAVE
 - Manual keyboard navigation testing
 
-**Notes**: Currently ignored per project priorities.
-
----
-
-## Monitoring & Analytics
-
-### 19. Performance Monitoring
-**Status**: Ignored (for now)  
-**Priority**: Medium  
-**Severity**: Medium
-
-**Issue**: No visible performance monitoring setup.
-
-**Recommendation**: Add:
-- Web Vitals monitoring
-- Error tracking (Sentry, LogRocket)
-- Performance metrics collection
-- Real User Monitoring (RUM)
-
-**Notes**: Currently ignored per project priorities.
-
----
-
-## Summary
-
-### Active Priorities
-1. **High**: Code splitting, Image optimization
-2. **Medium**: Content Security Policy
-
 ---
 
 ## How to Use This Document
 
-1. **When starting work on an item**: Change status from "Pending" to "In Progress"
-2. **When completing work**: Change status to "Completed" and add completion date
+1. **When starting work on an item**: Begin implementation
+2. **When completing work**: Remove the entire item from the document
 3. **When identifying new improvements**: Add them to the appropriate section with full details
-4. **When deferring work**: Change status to "Ignored" and add reason in Notes
+4. **Organization**: Items are ordered by impact - highest impact items appear first
 
 ## Adding New Improvements
 
 When identifying improvements outside the scope of current work:
-1. Add a new entry in the appropriate category
-2. Include: Issue description, Recommendation, Priority, Severity, Status
+1. Add a new entry in the appropriate category (or create new category if needed)
+2. Include: Issue description, Recommendation, Priority, Severity
 3. Link to relevant files when possible
 4. Provide code examples when helpful
+5. Order items by impact within each category
