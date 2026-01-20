@@ -3,6 +3,39 @@
  * Aborts the build process if any required variables are missing or invalid.
  */
 
+import { config } from 'dotenv';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
+
+// Load .env file based on NODE_ENV
+// Next.js loads .env files automatically, but this script runs standalone via ts-node
+// In production builds (Docker), env files are copied to .env.production
+// In development, use .env.local (if exists) or .env
+const nodeEnv = process.env.NODE_ENV || 'development';
+const cwd = process.cwd();
+
+if (nodeEnv === 'production') {
+  // Production: Try .env.production first (as set in Dockerfile), then .env
+  const prodPath = resolve(cwd, '.env.production');
+  const envPath = resolve(cwd, '.env');
+  
+  if (existsSync(prodPath)) {
+    config({ path: prodPath });
+  } else if (existsSync(envPath)) {
+    config({ path: envPath });
+  }
+} else {
+  // Development: Try .env.local first (Next.js priority), then .env
+  const localPath = resolve(cwd, '.env.local');
+  const envPath = resolve(cwd, '.env');
+  
+  if (existsSync(localPath)) {
+    config({ path: localPath });
+  } else if (existsSync(envPath)) {
+    config({ path: envPath });
+  }
+}
+
 // List of required environment variables
 const REQUIRED_ENV_VARS = [
   'NEXT_PUBLIC_PROXY_USER_AGENT',

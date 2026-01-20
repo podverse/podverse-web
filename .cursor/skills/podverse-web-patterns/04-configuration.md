@@ -241,6 +241,46 @@ userAgent: process.env.PROXY_USER_AGENT || "Podverse/Local/2/Web-API"
 **In Plan Mode**: When planning to add a new environment variable, you MUST ask the user:
 - "Should this new environment variable be required (added to validation script) or optional?"
 
+#### NODE_ENV and Environment File Loading
+
+**CRITICAL**: The validation script handles different `NODE_ENV` values differently, matching Next.js's behavior:
+
+**Production (`NODE_ENV=production`)**:
+- In Docker builds, environment files from `env/` directory are copied to `.env.production` (see Dockerfile)
+- Validation script loads `.env.production` first, then falls back to `.env`
+- This matches Next.js's automatic loading of `.env.production` when `NODE_ENV=production`
+
+**Development (`NODE_ENV=development` or unset)**:
+- Validation script loads `.env.local` first (if exists), then falls back to `.env`
+- This matches Next.js's priority order for development
+
+**Pattern for validation scripts**:
+```typescript
+// Always check NODE_ENV and load appropriate .env file
+const nodeEnv = process.env.NODE_ENV || 'development';
+
+if (nodeEnv === 'production') {
+  // Try .env.production first (Docker builds), then .env
+  if (existsSync('.env.production')) {
+    config({ path: '.env.production' });
+  } else if (existsSync('.env')) {
+    config({ path: '.env' });
+  }
+} else {
+  // Development: Try .env.local first, then .env
+  if (existsSync('.env.local')) {
+    config({ path: '.env.local' });
+  } else if (existsSync('.env')) {
+    config({ path: '.env' });
+  }
+}
+```
+
+**Docker Build Context**:
+- Dockerfiles copy environment-specific files from `env/` directory to `.env.production` during build
+- Example: `COPY ./env/alpha.env ./.env.production`
+- The validation script must account for this when running in production build context
+
 ### Updating .env Files
 
 **Note**: In podverse-web, all environment variables are intended to be public, so it's safe to update `.env` files directly.
