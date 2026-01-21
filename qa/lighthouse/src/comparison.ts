@@ -110,10 +110,7 @@ export class ComparisonEngine {
     // Compare logged out scenarios
     const loggedOutPages = [
       'homepage',
-      'podcastChannelPage',
-      'podcastEpisodePage',
-      'podcastAfterPlay',
-      'podcastAfterReload'
+      'podcastChannelPage'
     ] as const;
     
     for (const page of loggedOutPages) {

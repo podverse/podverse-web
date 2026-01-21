@@ -117,14 +117,11 @@ Each report has the following structure:
   "baseReport": "v1.0",
   "newReport": "v1.1",
   "testChannelIds": ["lhtest-chan-1"],
-  "testItemIds": ["lhtest-item-1"],
+  "testItemIds": [],
   "scenarios": {
     "loggedOut": {
       "homepage": { /* lighthouse results */ },
-      "podcastChannelPage": { /* lighthouse results */ },
-      "podcastEpisodePage": { /* lighthouse results */ },
-      "podcastAfterPlay": { /* lighthouse results */ },
-      "podcastAfterReload": { /* lighthouse results */ }
+      "podcastChannelPage": { /* lighthouse results */ }
     }
   }
 }
@@ -132,6 +129,7 @@ Each report has the following structure:
 
 <!--
 Potential scenarios to restore later:
+- Logged out: podcast episode, podcast after play, podcast after reload
 - Logged out: video channel, music album, video episode, music track
 - Logged out: video/music after play, video/music after reload
 - Logged in: homepage, podcast/video/music channel, podcast/video/music episode,

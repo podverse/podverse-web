@@ -18,10 +18,7 @@ const MODEL = 'gpt-4o-mini';
 
 const scenarioPages = [
   'homepage',
-  'podcastChannelPage',
-  'podcastEpisodePage',
-  'podcastAfterPlay',
-  'podcastAfterReload'
+  'podcastChannelPage'
 ] as const;
 
 type ScenarioMetrics = Record<

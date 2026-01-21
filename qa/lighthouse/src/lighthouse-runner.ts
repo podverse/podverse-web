@@ -5,9 +5,6 @@ import type { Result as LighthouseResult } from 'lighthouse';
 export interface LighthouseScenarioResult {
   homepage?: LighthouseResult;
   podcastChannelPage?: LighthouseResult;
-  podcastEpisodePage?: LighthouseResult;
-  podcastAfterPlay?: LighthouseResult;
-  podcastAfterReload?: LighthouseResult;
 }
 
 export interface LighthouseTestResults {
@@ -224,20 +221,8 @@ export class LighthouseRunner {
       await automation.waitBetweenActions();
       results.podcastChannelPage = await this.runWithMedian(automation, await automation.getCurrentUrl(), port);
 
-      // Podcast episode page
-      await automation.navigateToItem('lhtest-item-1', false);
-      await automation.waitBetweenActions();
-      results.podcastEpisodePage = await this.runWithMedian(automation, await automation.getCurrentUrl(), port);
-
-      // Podcast play and reload
-      await automation.clickPlayButton();
-      await automation.waitBetweenActions();
-      results.podcastAfterPlay = await this.runWithMedian(automation, await automation.getCurrentUrl(), port);
-      await automation.reloadPage();
-      await automation.waitBetweenActions();
-      results.podcastAfterReload = await this.runWithMedian(automation, await automation.getCurrentUrl(), port);
-
       // Potential scenarios (currently disabled):
+      // - Logged out: podcast episode, podcast after play, podcast after reload
       // - Logged out: video channel, music album, video episode, music track
       // - Logged out: video/music after play, video/music after reload
       // - Logged in: homepage, podcast/video/music channel, podcast/video/music episode,

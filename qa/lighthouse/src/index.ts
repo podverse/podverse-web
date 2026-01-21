@@ -385,14 +385,6 @@ async function main() {
       console.error('   ⚠️  Error closing browser:', error);
     }
 
-    // Close database connection
-    try {
-      await userManager.closeDatabase();
-      console.log('   ✅ Database connection closed');
-    } catch (error) {
-      console.error('   ⚠️  Error closing database:', error);
-    }
-
     // Stop web app
     if (webAppManager) {
       try {

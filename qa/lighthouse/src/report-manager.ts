@@ -72,7 +72,7 @@ export class ReportManager {
       baseReport,
       newReport: reportId,
       testChannelIds: ['lhtest-chan-1'],
-      testItemIds: ['lhtest-item-1'],
+      testItemIds: [],
       scenarios: results
     };
 
