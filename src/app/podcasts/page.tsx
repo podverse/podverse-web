@@ -13,6 +13,7 @@ import { z } from "zod";
 import { PodcastsClient } from "./PodcastsClient";
 import { getPodcastsFilterParams, PodcastsDropdownConfigCurrentParams } from "./PodcastsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { guardSubscribedSsrFilter, safeSsrListRequest } from "../../utils/filters/ssrFilterGuards";
 import { getParsedLocalSettings, PodcastsFilterDefaults } from '../../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
@@ -41,14 +42,18 @@ export default async function PodcastsPage({ searchParams }: PodcastsPageProps) 
     await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const medium: QueryParamsMedium = "av";
-  const response: ApiListResponse<DTOChannel> = await ssrApiRequestService.reqChannelGetMany({
-    page: currentPage,
-    medium,
-    type: currentType,
-    sort: currentSort,
-    range: currentRange,
-    category: currentCategory
-  });
+  const response: ApiListResponse<DTOChannel> = await safeSsrListRequest(
+    () =>
+    ssrApiRequestService.reqChannelGetMany({
+      page: currentPage,
+      medium,
+      type: currentType,
+      sort: currentSort,
+      range: currentRange,
+      category: currentCategory
+    }),
+    currentPage
+  );
 
   const ssrChannels = response.data;
   const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
@@ -77,22 +82,54 @@ function parseSearchParams(
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
+    const guarded = guardSubscribedSsrFilter({
+      isAuthenticated,
+      type: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+      sort: cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "recent"),
+      range: cookieDefaults?.range ?? null,
+      category: cookieDefaults?.category ?? null,
+      page: 1,
+      fallback: {
+        type: "global",
+        sort: "recent",
+        range: null,
+        category: null,
+        page: 1
+      }
+    });
+
     return {
-      currentType: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
-      currentSort: cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "recent"),
-      currentRange: cookieDefaults?.range ?? null,
-      currentCategory: cookieDefaults?.category ?? null,
-      currentPage: 1
+      currentType: guarded.type ?? "global",
+      currentSort: guarded.sort ?? "recent",
+      currentRange: guarded.range,
+      currentCategory: guarded.category,
+      currentPage: guarded.page
     };
   }
 
   const data = parsed.data;
 
-  return getPodcastsFilterParams({
-    page: data.page,
+  const guarded = guardSubscribedSsrFilter({
+    isAuthenticated,
     type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
     sort: data.sort ?? cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "recent"),
     range: data.range ?? cookieDefaults?.range ?? null,
-    category: data.category ?? cookieDefaults?.category ?? null
+    category: data.category ?? cookieDefaults?.category ?? null,
+    page: data.page,
+    fallback: {
+      type: "global",
+      sort: "recent",
+      range: null,
+      category: null,
+      page: 1
+    }
+  });
+
+  return getPodcastsFilterParams({
+    page: guarded.page,
+    type: guarded.type ?? "global",
+    sort: guarded.sort ?? "recent",
+    range: guarded.range,
+    category: guarded.category
   }, isAuthenticated);
 }

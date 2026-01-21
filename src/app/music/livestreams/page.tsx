@@ -8,6 +8,7 @@ import { ApiListResponse, DTOItem, getTotalPages,
 import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 import { LivestreamsClient } from "../../podcasts/livestreams/LivestreamsClient";
 import { getLivestreamsFilterParams, LivestreamsDropdownConfigCurrentParams } from "../../podcasts/livestreams/LivestreamsDropdownConfig";
+import { guardSubscribedSsrFilter, safeSsrListRequest } from "../../../utils/filters/ssrFilterGuards";
 import { getParsedLocalSettings, MusicLivestreamsFilterDefaults } from '../../../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
@@ -37,16 +38,20 @@ export default async function MusicLivestreamsPage({ searchParams }: MusicLivest
     await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const medium: QueryParamsMedium = "music";
-  let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqLiveItemGetMany(
-    {
-      page: currentPage,
-      medium,
-      type: currentType,
-      sort: currentSort,
-      range: currentRange,
-      category: null
-    },
-    currentLiveItemType
+  let response: ApiListResponse<DTOItem> = await safeSsrListRequest(
+    () =>
+      ssrApiRequestService.reqLiveItemGetMany(
+        {
+          page: currentPage,
+          medium,
+          type: currentType,
+          sort: currentSort,
+          range: currentRange,
+          category: null
+        },
+        currentLiveItemType
+      ),
+    currentPage
   );
 
   const ssrItems = response.data;
@@ -78,23 +83,55 @@ function parseSearchParams(
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
+    const guarded = guardSubscribedSsrFilter({
+      isAuthenticated,
+      type: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+      sort: cookieDefaults?.sort ?? "recent",
+      range: cookieDefaults?.range ?? null,
+      category: null,
+      page: 1,
+      fallback: {
+        type: "global",
+        sort: "recent",
+        range: null,
+        category: null,
+        page: 1
+      }
+    });
+
     return {
-      currentType: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
-      currentSort: cookieDefaults?.sort ?? "recent",
-      currentRange: cookieDefaults?.range ?? null,
-      currentCategory: null,
-      currentPage: 1,
+      currentType: guarded.type ?? "global",
+      currentSort: guarded.sort ?? "recent",
+      currentRange: guarded.range,
+      currentCategory: guarded.category,
+      currentPage: guarded.page,
       currentLiveItemType: cookieDefaults?.liveItemType ?? "live"
     };
   }
 
   const data = parsed.data;
 
-  return getLivestreamsFilterParams({
-    page: data.page,
+  const guarded = guardSubscribedSsrFilter({
+    isAuthenticated,
     type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
     sort: data.sort ?? cookieDefaults?.sort ?? "recent",
     range: data.range ?? cookieDefaults?.range ?? null,
+    category: null,
+    page: data.page,
+    fallback: {
+      type: "global",
+      sort: "recent",
+      range: null,
+      category: null,
+      page: 1
+    }
+  });
+
+  return getLivestreamsFilterParams({
+    page: guarded.page,
+    type: guarded.type ?? "global",
+    sort: guarded.sort ?? "recent",
+    range: guarded.range,
     category: null,
     liveItemType: data.liveItemType ?? cookieDefaults?.liveItemType ?? "live"
   }, isAuthenticated);

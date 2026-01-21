@@ -5,6 +5,7 @@ import { ApiListResponse, DTOItem, getTotalPages,
   QueryParamsMedium } from "podverse-helpers";
   import { cookies } from 'next/headers';
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { guardSubscribedSsrFilter, safeSsrListRequest } from "../../utils/filters/ssrFilterGuards";
 import { TracksDropdownConfigCurrentParams, getTracksFilterParams } from "./TracksDropdownConfig";
 import { TracksClient } from "./TracksClient";
 import { getParsedLocalSettings, TracksFilterDefaults } from '../../utils/localSettings/localSettings';
@@ -34,14 +35,18 @@ export default async function TracksPage({ searchParams }: TracksPageProps) {
     await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const medium: QueryParamsMedium = "music";
-  let response: ApiListResponse<DTOItem> = await ssrApiRequestService.reqItemGetMany({
-    page: currentPage,
-    medium,
-    type: currentType,
-    sort: currentSort,
-    range: currentRange,
-    category: null
-  });
+  let response: ApiListResponse<DTOItem> = await safeSsrListRequest(
+    () =>
+      ssrApiRequestService.reqItemGetMany({
+        page: currentPage,
+        medium,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange,
+        category: null
+      }),
+    currentPage
+  );
 
   const ssrItems = response.data;
   const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
@@ -69,21 +74,49 @@ function parseSearchParams(
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
+    const guarded = guardSubscribedSsrFilter({
+      isAuthenticated,
+      type: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+      sort: cookieDefaults?.sort ?? "recent",
+      range: cookieDefaults?.range ?? null,
+      page: 1,
+      fallback: {
+        type: "global",
+        sort: "recent",
+        range: null,
+        page: 1
+      }
+    });
+
     return {
-      currentType: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
-      currentSort: cookieDefaults?.sort ?? "recent",
-      currentRange: cookieDefaults?.range ?? null,
-      currentPage: 1
+      currentType: guarded.type ?? "global",
+      currentSort: guarded.sort ?? "recent",
+      currentRange: guarded.range,
+      currentPage: guarded.page
     };
   }
 
   const data = parsed.data;
 
-  return getTracksFilterParams({
-    page: data.page,
+  const guarded = guardSubscribedSsrFilter({
+    isAuthenticated,
     type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
     sort: data.sort ?? cookieDefaults?.sort ?? "recent",
-    range: data.range ?? cookieDefaults?.range ?? null
+    range: data.range ?? cookieDefaults?.range ?? null,
+    page: data.page,
+    fallback: {
+      type: "global",
+      sort: "recent",
+      range: null,
+      page: 1
+    }
+  });
+
+  return getTracksFilterParams({
+    page: guarded.page,
+    type: guarded.type ?? "global",
+    sort: guarded.sort ?? "recent",
+    range: guarded.range
   }, isAuthenticated);
 }
 

@@ -11,6 +11,7 @@ import { z } from "zod";
 import { PlaylistsClient } from "./PlaylistsClient";
 import { getPlaylistsFilterParams } from "./PlaylistsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { guardSubscribedSsrFilter, safeSsrListRequest } from "../../utils/filters/ssrFilterGuards";
 import { getParsedLocalSettings, PlaylistsFilterDefaults } from '../../utils/localSettings/localSettings';
 
 const searchParamsSchema = z.object({
@@ -38,13 +39,17 @@ export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps
   const { currentType, currentSort, currentRange, currentMedium,
     currentPage } = await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
-  const response = await ssrApiRequestService.reqPlaylistGetMany({
-    page: currentPage,
-    type: currentType,
-    sort: currentSort,
-    range: currentRange,
-    medium: currentMedium
-  });
+  const response = await safeSsrListRequest<DTOPlaylist>(
+    () =>
+      ssrApiRequestService.reqPlaylistGetMany({
+        page: currentPage,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange,
+        medium: currentMedium
+      }),
+    currentPage
+  );
 
   const ssrPlaylists: DTOPlaylist[] = response.data;
   const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
@@ -80,22 +85,50 @@ function parseSearchParams(
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
+    const guarded = guardSubscribedSsrFilter({
+      isAuthenticated,
+      type: cookieDefaults?.type ?? (isAuthenticated ? "private" : "public"),
+      sort: cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "top"),
+      range: cookieDefaults?.range ?? (isAuthenticated ? null : "week"),
+      page: 1,
+      fallback: {
+        type: "public",
+        sort: "top",
+        range: "week",
+        page: 1
+      }
+    });
+
     return {
-      currentPage: 1,
-      currentType: cookieDefaults?.type ?? (isAuthenticated ? "private" : "public"),
-      currentSort: cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "top"),
-      currentRange: cookieDefaults?.range ?? (isAuthenticated ? null : "week"),
+      currentPage: guarded.page,
+      currentType: guarded.type ?? "public",
+      currentSort: guarded.sort ?? "top",
+      currentRange: guarded.range,
       currentMedium: cookieDefaults?.medium ?? "av"
     };
   }
 
   const data = parsed.data;
 
-  return getPlaylistsFilterParams({
-    page: data.page,
+  const guarded = guardSubscribedSsrFilter({
+    isAuthenticated,
     type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "private" : "public"),
     sort: data.sort ?? cookieDefaults?.sort ?? (isAuthenticated ? "a_z" : "top"),
     range: data.range ?? cookieDefaults?.range ?? (isAuthenticated ? null : "week"),
+    page: data.page,
+    fallback: {
+      type: "public",
+      sort: "top",
+      range: "week",
+      page: 1
+    }
+  });
+
+  return getPlaylistsFilterParams({
+    page: guarded.page,
+    type: guarded.type ?? "public",
+    sort: guarded.sort ?? "top",
+    range: guarded.range,
     medium: data.medium ?? cookieDefaults?.medium ?? "av"
   }, isAuthenticated);
 }

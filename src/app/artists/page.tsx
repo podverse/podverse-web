@@ -11,6 +11,7 @@ import { cookies } from 'next/headers';
 import { z } from "zod";
 import { ArtistsClient } from "./ArtistsClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
+import { guardSubscribedSsrFilter, safeSsrListRequest } from "../../utils/filters/ssrFilterGuards";
 import { ArtistsDropdownConfigCurrentParams, getArtistsFilterParams } from "./ArtistsDropdownConfig";
 import { getParsedLocalSettings, ArtistsFilterDefaults } from '../../utils/localSettings/localSettings';
 
@@ -39,14 +40,18 @@ export default async function ArtistsPage({ searchParams }: ArtistsPageProps) {
     await parseSearchParams(queryParams, isValidAuthSession, ssrFilterDefaults);
   
   const medium: QueryParamsMedium = "publisher-music";
-  const response: ApiListResponse<DTOChannel> = await ssrApiRequestService.reqChannelGetMany({
-    page: currentPage,
-    medium,
-    type: currentType,
-    sort: currentSort,
-    range: currentRange,
-    category: null
-  });
+  const response: ApiListResponse<DTOChannel> = await safeSsrListRequest(
+    () =>
+      ssrApiRequestService.reqChannelGetMany({
+        page: currentPage,
+        medium,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange,
+        category: null
+      }),
+    currentPage
+  );
 
   const ssrChannels = response.data;
   const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit, response.data.length, currentPage);
@@ -74,20 +79,48 @@ function parseSearchParams(
   const parsed = searchParamsSchema.safeParse(queryParams);
 
   if (!parsed.success) {
+    const guarded = guardSubscribedSsrFilter({
+      isAuthenticated,
+      type: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
+      sort: cookieDefaults?.sort ?? "recent",
+      range: cookieDefaults?.range ?? null,
+      page: 1,
+      fallback: {
+        type: "global",
+        sort: "recent",
+        range: null,
+        page: 1
+      }
+    });
+
     return {
-      currentType: cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
-      currentSort: cookieDefaults?.sort ?? "recent",
-      currentRange: cookieDefaults?.range ?? null,
-      currentPage: 1
+      currentType: guarded.type ?? "global",
+      currentSort: guarded.sort ?? "recent",
+      currentRange: guarded.range,
+      currentPage: guarded.page
     };
   }
 
   const data = parsed.data;
 
-  return getArtistsFilterParams({
-    page: data.page,
+  const guarded = guardSubscribedSsrFilter({
+    isAuthenticated,
     type: data.type ?? cookieDefaults?.type ?? (isAuthenticated ? "subscribed" : "global"),
     sort: data.sort ?? cookieDefaults?.sort ?? "recent",
-    range: data.range ?? cookieDefaults?.range ?? null
+    range: data.range ?? cookieDefaults?.range ?? null,
+    page: data.page,
+    fallback: {
+      type: "global",
+      sort: "recent",
+      range: null,
+      page: 1
+    }
+  });
+
+  return getArtistsFilterParams({
+    page: guarded.page,
+    type: guarded.type ?? "global",
+    sort: guarded.sort ?? "recent",
+    range: guarded.range
   }, isAuthenticated);
 }
