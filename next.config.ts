@@ -32,4 +32,19 @@ const nextConfig: NextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(nextConfig);
+
+// Conditionally add bundle analyzer when ANALYZE env var is set
+let config = withNextIntl(nextConfig);
+if (process.env.ANALYZE === 'true') {
+  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: true,
+    analyzerMode: 'static',
+    openAnalyzer: false,
+    generateStatsFile: true,
+    statsFilename: ({ name }: { name: string }) => `stats-${name}.json`,
+    reportFilename: ({ name }: { name: string }) => `${name}.html`,
+  });
+  config = withBundleAnalyzer(config);
+}
+
+export default config;

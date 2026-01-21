@@ -1,0 +1,20 @@
+{
+  "name": "bundle-analyzer-qa",
+  "version": "1.0.0",
+  "description": "Bundle size analysis for podverse-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "analyze": "tsx src/index.ts"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^15.1.6",
+    "@types/inquirer": "^8.2.10",
+    "@types/node": "^24.5.0",
+    "dotenv": "^17.2.2",
+    "inquirer": "^8.2.6",
+    "openai": "^5.20.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.2"
+  }
+}
