@@ -5,14 +5,12 @@ import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
 import Manifest from '../components/Head/Manifest';
 import { AppWrapper } from '../components/App/AppWrapper';
-import { MediaPlayer } from '../components/MediaPlayer/MediaPlayer';
 import NavBar from '../components/NavBar/NavBar';;
 import PageWrapper from '../components/PageWrapper/PageWrapper';
 import { SideBar } from '../components/SideBar/SideBar';
 import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import { toUITheme } from '../utils/localSettings/uiTheme';
-import { Modals } from '../components/Modals/Modals';
 import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
 import { getSSRApiRequestService } from '../factories/apiRequestService';
@@ -25,7 +23,7 @@ import { QueueResourcesAbridgedController } from '../components/Queue/QueueResou
 import { getParsedLocalSettings } from '../utils/localSettings/localSettings';
 import { useLocaleDetect } from '../hooks/useLocaleDetect';
 import { setSSRAccountForLocale } from '../i18n/request';
-import { ErrorBoundaryWrapper } from '../components/ErrorBoundary/ErrorBoundaryWrapper';
+import { LazyLoadedComponents } from '../components/LazyLoadedComponents/LazyLoadedComponents';
 
 export const metadata = {
   title: config.public.brand.name,
@@ -97,12 +95,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     {children}
                   </PageWrapper>
                 </AppWrapper>
-                <ErrorBoundaryWrapper>
-                  <MediaPlayer />
-                </ErrorBoundaryWrapper>
-                <ErrorBoundaryWrapper>
-                  <Modals />
-                </ErrorBoundaryWrapper>
+                <LazyLoadedComponents />
               </WindowWrapper>
               <MediaPlayerController />
               <QueueController />

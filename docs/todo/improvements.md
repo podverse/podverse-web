@@ -4,50 +4,7 @@ This document tracks all identified areas for improvement in the Podverse Web co
 
 ## Performance Optimizations (Highest Impact)
 
-### 1. Limited Code Splitting
-**Priority**: High  
-**Severity**: Medium
-
-**Issue**: No dynamic imports found. Heavy components are loaded synchronously, increasing initial bundle size. This impacts First Contentful Paint (FCP) and Time to Interactive (TTI).
-
-**Recommendations**:
-- **Lazy load heavy components**:
-  - `MediaPlayer` component (loaded in `src/app/layout.tsx` line 101) - large component with video player dependencies
-  - `Modals` component (loaded in `src/app/layout.tsx` line 104) - loads all modal components synchronously
-  - Video.js dependencies (if used in MediaPlayer)
-  - `react-virtuoso` (already used for virtualization, but can be lazy loaded)
-- **Route-based code splitting**: Use `next/dynamic` for non-critical routes
-- **Lazy load non-critical features**: Settings pages, profile editing, admin features
-
-**Implementation**:
-```typescript
-// In src/app/layout.tsx
-import dynamic from 'next/dynamic';
-
-const MediaPlayer = dynamic(() => import('../components/MediaPlayer/MediaPlayer'), {
-  ssr: false,
-  loading: () => <div>Loading player...</div>
-});
-
-const Modals = dynamic(() => import('../components/Modals/Modals'), {
-  ssr: false
-});
-```
-
-**Expected Impact**: 
-- Reduce initial bundle size by ~200-400KB
-- Improve FCP by 0.5-1.0s
-- Improve TTI by 1.0-2.0s
-
-**Files affected**:
-- `src/app/layout.tsx` (lines 101, 104)
-- Route pages that could benefit from lazy loading
-
-**Notes**: Will significantly improve initial load time. See `.cursor/skills/podverse-web-patterns/09-performance-optimization.md` for detailed patterns.
-
----
-
-### 2. Insufficient Memoization
+### 1. Insufficient Memoization
 **Priority**: High  
 **Severity**: Medium
 
@@ -101,7 +58,7 @@ const sortedItems = useMemo(() => {
 
 ---
 
-### 3. Image Optimization Issues
+### 2. Image Optimization Issues
 **Priority**: Medium  
 **Severity**: Low-Medium
 
@@ -198,7 +155,7 @@ export const Image: React.FC<ImageProps> = ({
 
 ---
 
-### 4. Server Component Optimization
+### 3. Server Component Optimization
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -227,7 +184,7 @@ export const Image: React.FC<ImageProps> = ({
 
 ---
 
-### 5. API Response Caching
+### 4. API Response Caching
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -275,7 +232,7 @@ export default async function MyPage() {
 
 ---
 
-### 6. Web Vitals Monitoring
+### 5. Web Vitals Monitoring
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -322,7 +279,7 @@ export function reportWebVitals() {
 
 ---
 
-### 7. useEffect Optimization
+### 6. useEffect Optimization
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -393,7 +350,7 @@ useEffect(() => {
 
 ---
 
-### 8. Bundle Size Analysis and Monitoring
+### 7. Bundle Size Analysis and Monitoring
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -439,7 +396,7 @@ useEffect(() => {
 
 ---
 
-### 9. Virtual Scrolling Best Practices
+### 8. Virtual Scrolling Best Practices
 **Priority**: Low  
 **Severity**: Low
 
@@ -464,7 +421,7 @@ useEffect(() => {
 
 ---
 
-### 10. Font Optimization
+### 9. Font Optimization
 **Priority**: Low  
 **Severity**: Low
 
@@ -488,7 +445,7 @@ useEffect(() => {
 
 ## Security Enhancements
 
-### 11. Content Security Policy
+### 10. Content Security Policy
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -517,7 +474,7 @@ async headers() {
 
 ## Code Quality Improvements
 
-### 12. Missing ESLint Configuration
+### 11. Missing ESLint Configuration
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -531,7 +488,7 @@ async headers() {
 
 ---
 
-### 13. No Testing Infrastructure
+### 12. No Testing Infrastructure
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -546,7 +503,7 @@ async headers() {
 
 ---
 
-### 14. API Error Handling
+### 13. API Error Handling
 **Priority**: Medium  
 **Severity**: Medium
 
@@ -561,7 +518,7 @@ async headers() {
 
 ---
 
-### 15. Loading States
+### 14. Loading States
 **Priority**: Low  
 **Severity**: Low
 
@@ -575,7 +532,7 @@ async headers() {
 
 ---
 
-### 16. Incomplete Metadata
+### 15. Incomplete Metadata
 **Priority**: Low  
 **Severity**: Low
 
@@ -594,7 +551,7 @@ description: 'Add meta description here'
 
 ---
 
-### 17. TypeScript Improvements
+### 16. TypeScript Improvements
 **Priority**: Low  
 **Severity**: Low
 
@@ -613,7 +570,7 @@ description: 'Add meta description here'
 
 ## Accessibility
 
-### 18. ARIA Attributes
+### 17. ARIA Attributes
 **Priority**: Low  
 **Severity**: Low
 

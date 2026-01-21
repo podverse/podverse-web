@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from 'next/dynamic';
+import { ErrorBoundaryWrapper } from '../ErrorBoundary/ErrorBoundaryWrapper';
 
 const LazyMediaPlayer = dynamic(() => import('../MediaPlayer/MediaPlayer').then(mod => ({ default: mod.MediaPlayer })), {
   ssr: false,
@@ -14,8 +15,12 @@ const LazyModals = dynamic(() => import('../Modals/Modals').then(mod => ({ defau
 export function LazyLoadedComponents() {
   return (
     <>
-      <LazyMediaPlayer />
-      <LazyModals />
+      <ErrorBoundaryWrapper>
+        <LazyMediaPlayer />
+      </ErrorBoundaryWrapper>
+      <ErrorBoundaryWrapper>
+        <LazyModals />
+      </ErrorBoundaryWrapper>
     </>
   );
 }
