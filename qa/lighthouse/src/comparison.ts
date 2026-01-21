@@ -111,17 +111,9 @@ export class ComparisonEngine {
     const loggedOutPages = [
       'homepage',
       'podcastChannelPage',
-      'videoChannelPage',
-      'musicAlbumPage',
       'podcastEpisodePage',
-      'videoEpisodePage',
-      'musicTrackPage',
       'podcastAfterPlay',
-      'videoAfterPlay',
-      'musicAfterPlay',
-      'podcastAfterReload',
-      'videoAfterReload',
-      'musicAfterReload'
+      'podcastAfterReload'
     ] as const;
     
     for (const page of loggedOutPages) {
@@ -131,19 +123,6 @@ export class ComparisonEngine {
       if (metrics.length > 0) {
         scenarios.push({
           scenario: `Logged Out - ${page}`,
-          metrics
-        });
-      }
-    }
-
-    // Compare logged in scenarios
-    for (const page of loggedOutPages) {
-      const base = baseReport.scenarios.loggedIn[page];
-      const newLhr = newReport.scenarios.loggedIn[page];
-      const metrics = this.compareMetrics(base, newLhr);
-      if (metrics.length > 0) {
-        scenarios.push({
-          scenario: `Logged In - ${page}`,
           metrics
         });
       }

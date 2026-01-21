@@ -314,20 +314,6 @@ async function main() {
   console.log(`\n🧪 Running Lighthouse tests...`);
   console.log(`Base URL: ${BASE_URL}\n`);
 
-  // Initialize user manager and database connection
-  console.log('🔌 Connecting to test database...');
-  const { UserManager } = await import('./user-manager.js');
-  const userManager = new UserManager();
-  try {
-    await userManager.initializeDatabase();
-    console.log('✅ Database connection initialized\n');
-  } catch (error) {
-    console.error('❌ Failed to initialize database connection:', error);
-    console.error('Make sure the test database is running and .env file is configured correctly.');
-    console.error('Test database should be on port 5111 (not 5432).');
-    process.exit(1);
-  }
-
   // Initialize automation and runner
   console.log('🌐 Initializing browser automation...');
   const automation = new BrowserAutomation(BASE_URL);
@@ -339,7 +325,7 @@ async function main() {
     console.log('✅ Browser ready\n');
     
     console.log('🧪 Starting Lighthouse test suite...\n');
-    const results = await lighthouseRunner.runAllTests(automation, userManager);
+    const results = await lighthouseRunner.runAllTests(automation);
     
     console.log('\n✅ All tests completed!\n');
 

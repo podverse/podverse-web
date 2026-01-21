@@ -116,42 +116,27 @@ Each report has the following structure:
   "timestamp": "2024-01-15T10:30:00Z",
   "baseReport": "v1.0",
   "newReport": "v1.1",
-  "testChannelIds": ["lhtest-chan-1", "lhtest-chan-2", "lhtest-chan-3"],
-  "testItemIds": ["lhtest-item-1", "lhtest-item-2", "lhtest-item-3"],
+  "testChannelIds": ["lhtest-chan-1"],
+  "testItemIds": ["lhtest-item-1"],
   "scenarios": {
     "loggedOut": {
       "homepage": { /* lighthouse results */ },
       "podcastChannelPage": { /* lighthouse results */ },
-      "videoChannelPage": { /* lighthouse results */ },
-      "musicAlbumPage": { /* lighthouse results */ },
       "podcastEpisodePage": { /* lighthouse results */ },
-      "videoEpisodePage": { /* lighthouse results */ },
-      "musicTrackPage": { /* lighthouse results */ },
       "podcastAfterPlay": { /* lighthouse results */ },
-      "videoAfterPlay": { /* lighthouse results */ },
-      "musicAfterPlay": { /* lighthouse results */ },
-      "podcastAfterReload": { /* lighthouse results */ },
-      "videoAfterReload": { /* lighthouse results */ },
-      "musicAfterReload": { /* lighthouse results */ }
-    },
-    "loggedIn": {
-      "homepage": { /* lighthouse results */ },
-      "podcastChannelPage": { /* lighthouse results */ },
-      "videoChannelPage": { /* lighthouse results */ },
-      "musicAlbumPage": { /* lighthouse results */ },
-      "podcastEpisodePage": { /* lighthouse results */ },
-      "videoEpisodePage": { /* lighthouse results */ },
-      "musicTrackPage": { /* lighthouse results */ },
-      "podcastAfterPlay": { /* lighthouse results */ },
-      "videoAfterPlay": { /* lighthouse results */ },
-      "musicAfterPlay": { /* lighthouse results */ },
-      "podcastAfterReload": { /* lighthouse results */ },
-      "videoAfterReload": { /* lighthouse results */ },
-      "musicAfterReload": { /* lighthouse results */ }
+      "podcastAfterReload": { /* lighthouse results */ }
     }
   }
 }
 ```
+
+<!--
+Potential scenarios to restore later:
+- Logged out: video channel, music album, video episode, music track
+- Logged out: video/music after play, video/music after reload
+- Logged in: homepage, podcast/video/music channel, podcast/video/music episode,
+  podcast/video/music after play, podcast/video/music after reload
+-->
 
 ## Comparison Analysis
 

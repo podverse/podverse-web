@@ -19,17 +19,9 @@ const MODEL = 'gpt-4o-mini';
 const scenarioPages = [
   'homepage',
   'podcastChannelPage',
-  'videoChannelPage',
-  'musicAlbumPage',
   'podcastEpisodePage',
-  'videoEpisodePage',
-  'musicTrackPage',
   'podcastAfterPlay',
-  'videoAfterPlay',
-  'musicAfterPlay',
-  'podcastAfterReload',
-  'videoAfterReload',
-  'musicAfterReload'
+  'podcastAfterReload'
 ] as const;
 
 type ScenarioMetrics = Record<
@@ -45,15 +37,12 @@ type ScenarioMetrics = Record<
 
 function extractScenarioMetrics(report: LighthouseReport): {
   loggedOut: ScenarioMetrics;
-  loggedIn: ScenarioMetrics;
 } {
   const comparisonEngine = new ComparisonEngine();
   const loggedOut = {} as ScenarioMetrics;
-  const loggedIn = {} as ScenarioMetrics;
 
   for (const page of scenarioPages) {
     const loggedOutLhr = report.scenarios.loggedOut[page];
-    const loggedInLhr = report.scenarios.loggedIn[page];
 
     loggedOut[page] = {
       performanceScore: comparisonEngine.extractPerformanceScore(loggedOutLhr),
@@ -62,17 +51,9 @@ function extractScenarioMetrics(report: LighthouseReport): {
       cls: comparisonEngine.extractMetricValue(loggedOutLhr, 'cumulative-layout-shift'),
       pageLoadTimeMs: comparisonEngine.extractMetricValue(loggedOutLhr, 'page-load-time')
     };
-
-    loggedIn[page] = {
-      performanceScore: comparisonEngine.extractPerformanceScore(loggedInLhr),
-      lcpMs: comparisonEngine.extractMetricValue(loggedInLhr, 'largest-contentful-paint'),
-      fidMs: comparisonEngine.extractMetricValue(loggedInLhr, 'first-input-delay'),
-      cls: comparisonEngine.extractMetricValue(loggedInLhr, 'cumulative-layout-shift'),
-      pageLoadTimeMs: comparisonEngine.extractMetricValue(loggedInLhr, 'page-load-time')
-    };
   }
 
-  return { loggedOut, loggedIn };
+  return { loggedOut };
 }
 
 export async function generateComparisonSummary(

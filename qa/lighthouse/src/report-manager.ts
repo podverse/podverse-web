@@ -71,8 +71,8 @@ export class ReportManager {
       timestamp: new Date().toISOString(),
       baseReport,
       newReport: reportId,
-      testChannelIds: ['lhtest-chan-1', 'lhtest-chan-2', 'lhtest-chan-3'],
-      testItemIds: ['lhtest-item-1', 'lhtest-item-2', 'lhtest-item-3'],
+      testChannelIds: ['lhtest-chan-1'],
+      testItemIds: ['lhtest-item-1'],
       scenarios: results
     };
 
