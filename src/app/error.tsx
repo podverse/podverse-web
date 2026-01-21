@@ -24,40 +24,36 @@ export default function Error({ error, reset }: ErrorPageProps) {
   };
 
   return (
-    <html>
-      <body>
-        <div className={styles.errorBoundary}>
-          <div className={styles.errorBoundaryContent}>
-            <h2 className={styles.errorBoundaryTitle}>
-              {tErrors("boundary_title")}
-            </h2>
-            <p className={styles.errorBoundaryMessage}>
-              {tErrors("boundary_message")}
-            </p>
-            {process.env.NODE_ENV === "development" && (
-              <details className={styles.errorDetails}>
-                <summary className={styles.errorDetailsSummary}>{tErrors("details_development_only")}</summary>
-                <pre className={styles.errorDetailsContent}>
-                  {error.toString()}
-                  {error.stack && `\n\n${error.stack}`}
-                  {error.digest && `\n\nDigest: ${error.digest}`}
-                </pre>
-              </details>
-            )}
-            <div className={styles.errorBoundaryActions}>
-              <Button onClick={reset} variant="primary">
-                {tMisc("try_again")}
-              </Button>
-              <Button onClick={handleReload} variant="secondary">
-                {tMisc("reload_page")}
-              </Button>
-              <Button onClick={handleGoHome} variant="outline">
-                {tMisc("go_to_home")}
-              </Button>
-            </div>
-          </div>
+    <div className={styles.errorBoundary}>
+      <div className={styles.errorBoundaryContent}>
+        <h2 className={styles.errorBoundaryTitle}>
+          {tErrors("boundary_title")}
+        </h2>
+        <p className={styles.errorBoundaryMessage}>
+          {tErrors("boundary_message")}
+        </p>
+        {process.env.NODE_ENV === "development" && (
+          <details className={styles.errorDetails}>
+            <summary className={styles.errorDetailsSummary}>{tErrors("details_development_only")}</summary>
+            <pre className={styles.errorDetailsContent}>
+              {error.toString()}
+              {error.stack && `\n\n${error.stack}`}
+              {error.digest && `\n\nDigest: ${error.digest}`}
+            </pre>
+          </details>
+        )}
+        <div className={styles.errorBoundaryActions}>
+          <Button onClick={reset} variant="primary">
+            {tMisc("try_again")}
+          </Button>
+          <Button onClick={handleReload} variant="secondary">
+            {tMisc("reload_page")}
+          </Button>
+          <Button onClick={handleGoHome} variant="outline">
+            {tMisc("go_to_home")}
+          </Button>
         </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }
