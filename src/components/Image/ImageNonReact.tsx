@@ -31,7 +31,7 @@ export const ImageNonReact: React.FC<ImageNonReactProps> = ({
     );
   }
 
-  const finalSrc = skipProxy ? src : PROXY.PATH + src;
+  const finalSrc = skipProxy ? src : PROXY.PATH + encodeURIComponent(src);
 
   return (
     <img
