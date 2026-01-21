@@ -20,7 +20,7 @@ export interface LighthouseReport {
 export class ReportManager {
   private reportsDir: string;
 
-  constructor(reportsDir: string = path.join(__dirname, '../reports')) {
+  constructor(reportsDir: string = path.join(__dirname, '../../reports/lighthouse')) {
     this.reportsDir = reportsDir;
     // Ensure reports directory exists
     if (!fs.existsSync(this.reportsDir)) {
