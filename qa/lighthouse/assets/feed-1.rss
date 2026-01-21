@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+  <channel>
+    <title>Lighthouse Test Podcast</title>
+    <description>Test feed for Lighthouse performance testing (Podcast)</description>
+    <link>http://localhost:2111/feed-1.rss</link>
+    <language>en</language>
+    <podcast:medium>podcast</podcast:medium>
+    <image>
+      <url>http://localhost:2111/chan-1-image.jpg</url>
+    </image>
+    <item>
+      <title>Lighthouse Test Podcast Episode</title>
+      <description>Test podcast episode for Lighthouse performance testing.</description>
+      <guid isPermaLink="false">http://localhost:2111/feed-1.rss#lhtest-item-1</guid>
+      <pubDate>Thu, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <enclosure url="http://localhost:2111/item-1-podcast.mp3" type="audio/mpeg" length="0"/>
+      <image>
+        <url>http://localhost:2111/item-1-image.jpg</url>
+      </image>
+    </item>
+  </channel>
+</rss>
