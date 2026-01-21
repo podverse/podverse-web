@@ -42,6 +42,15 @@ export class ComparisonEngine {
     return audit.numericValue;
   }
 
+  extractLcpElement(lhr: LighthouseResult | undefined): string | null {
+    if (!lhr || !lhr.audits) return null;
+    const audit = lhr.audits['largest-contentful-paint-element'];
+    if (!audit || !audit.details || !Array.isArray((audit.details as any).items)) return null;
+    const items = (audit.details as any).items;
+    if (items.length === 0 || !items[0].node) return null;
+    return items[0].node.nodeLabel || items[0].node.snippet || null;
+  }
+
   compareMetrics(
     baseLhr: LighthouseResult | undefined,
     newLhr: LighthouseResult | undefined

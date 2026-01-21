@@ -45,16 +45,7 @@ export class LighthouseRunner {
         cpuSlowdownMultiplier: 4
       },
       disableStorageReset: true,
-      skipAudits: [
-        // Skip audits that depend on RootCauses gatherer to suppress warnings
-        // These audits fail with "Cannot read properties of undefined (reading 'frame_sequence')"
-        'layout-shifts',
-        'layout-shift-elements',
-        'largest-contentful-paint-element',
-        'lcp-lazy-loaded',
-        'non-composited-animations',
-        'prioritize-lcp-image'
-      ]
+      skipAudits: []
     });
 
     if (!result?.lhr) {
