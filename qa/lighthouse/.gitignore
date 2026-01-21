@@ -9,9 +9,6 @@ assets/*.mp4
 !assets/*.rss
 !assets/README.md
 
-# Reports directory
-reports/
-
 # Node modules
 node_modules/
 
