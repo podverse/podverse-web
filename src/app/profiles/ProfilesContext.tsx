@@ -6,6 +6,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { useFilterDefaults } from "../../hooks/useFilterDefaults";
+import { useListPageCache } from "../../hooks/useListPageCache";
 import { getProfilesFilterParams } from "./ProfilesDropdownConfig";
 
 export type ProfilesQueryParams = {
@@ -43,9 +44,19 @@ export const ProfilesContextProvider = ({
   ssrAccounts,
   ssrTotalPages
 }: ProfilesContextProviderProps) => {
-  const [filterParams, setFilterParams] = useState<ProfilesQueryParams>(initialQueryParams);
-  const [accounts, setAccounts] = useState<DTOAccount[]>(ssrAccounts || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
+  // Use the list page cache hook for back navigation caching
+  const {
+    filterParams, setFilterParams,
+    data: accounts, setData: setAccounts,
+    totalPages, setTotalPages,
+    shouldSkipFetch
+  } = useListPageCache<ProfilesQueryParams, DTOAccount[]>({
+    routeKey: "profiles",
+    initialParams: initialQueryParams,
+    ssrData: ssrAccounts ?? [],
+    ssrTotalPages,
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
@@ -53,6 +64,12 @@ export const ProfilesContextProvider = ({
   useFilterDefaults('profiles', filterParams);
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (shouldSkipFetch.current) {
+      shouldSkipFetch.current = false;
+      return;
+    }
+
     async function fetchAccounts() {
       if (filterParams.type === "subscribed") {
         if (!loggedInAccount) {

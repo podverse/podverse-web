@@ -6,6 +6,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { useFilterDefaults } from "../../hooks/useFilterDefaults";
+import { useListPageCache } from "../../hooks/useListPageCache";
 import { getTracksFilterParams } from "./TracksDropdownConfig";
 
 interface TracksContextType {
@@ -36,9 +37,19 @@ export const TracksContextProvider = ({
   ssrItems,
   ssrTotalPages
 }: TracksContextProviderProps) => {
-  const [filterParams, setFilterParams] = useState<QueryParamsGetManyPartialMusic>(initialQueryParams);
-  const [items, setItems] = useState<DTOItem[]>(ssrItems || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
+  // Use the list page cache hook for back navigation caching
+  const {
+    filterParams, setFilterParams,
+    data: items, setData: setItems,
+    totalPages, setTotalPages,
+    shouldSkipFetch
+  } = useListPageCache<QueryParamsGetManyPartialMusic, DTOItem[]>({
+    routeKey: "tracks",
+    initialParams: initialQueryParams,
+    ssrData: ssrItems ?? [],
+    ssrTotalPages,
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
@@ -47,6 +58,12 @@ export const TracksContextProvider = ({
   useFilterDefaults('tracks', filterParams);
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (shouldSkipFetch.current) {
+      shouldSkipFetch.current = false;
+      return;
+    }
+
     async function fetchItems() {
       if (filterParams.type === "subscribed") {
         if (!loggedInAccount) {

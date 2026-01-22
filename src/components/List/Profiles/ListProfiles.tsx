@@ -2,11 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { DTOAccount, QueryParamsSubscribedType } from "podverse-helpers";
-import React from "react";
+import React, { useRef } from "react";
 import { ListProfileNodes } from "./ListProfileNodes";
 import { CallToActionMessage } from "../../CallToActionMessage/CallToActionMessage";
 import Pagination from "../../Pagination/Pagination";
 import { useModals } from "../../../contexts/Modals";
+import { checkBackNavFlag } from "../../../contexts/Navigation";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../utils/scroll";
 import styles from "../../../styles/components/List/Profiles/ListProfiles.module.scss";
@@ -25,8 +26,16 @@ export const ListProfiles: React.FC<Props> = ({ page, setPage,
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalAuthLogin } = useModals();
+  
+  // Track if we should skip scroll on the first effect run (back navigation case)
+  const skipScrollOnceRef = useRef(checkBackNavFlag());
 
   useSkipInitialEffect(() => {
+    // Skip scroll-to-top once if this is a back navigation
+    if (skipScrollOnceRef.current) {
+      skipScrollOnceRef.current = false;
+      return;
+    }
     scrollMainToTop();
   }, [accounts]);
   

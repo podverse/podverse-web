@@ -7,6 +7,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { useFilterDefaults } from "../../hooks/useFilterDefaults";
+import { useListPageCache } from "../../hooks/useListPageCache";
 import { ROUTES } from "../../constants/routes";
 import { getEpisodesFilterParams } from "../episodes/EpisodesDropdownConfig";
 
@@ -41,9 +42,20 @@ export const ClipsContextProvider = ({
   ssrTotalPages
 }: ClipsContextProviderProps) => {
   const router = useRouter();
-  const [filterParams, setFilterParams] = useState<QueryParamsGetManyPartial>(initialQueryParams);
-  const [clips, setClips] = useState<DTOClip[]>(ssrClips || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
+  
+  // Use the list page cache hook for back navigation caching
+  const {
+    filterParams, setFilterParams,
+    data: clips, setData: setClips,
+    totalPages, setTotalPages,
+    shouldSkipFetch
+  } = useListPageCache<QueryParamsGetManyPartial, DTOClip[]>({
+    routeKey: "clips",
+    initialParams: initialQueryParams,
+    ssrData: ssrClips ?? [],
+    ssrTotalPages,
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
@@ -52,6 +64,12 @@ export const ClipsContextProvider = ({
   useFilterDefaults('clips', filterParams);
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (shouldSkipFetch.current) {
+      shouldSkipFetch.current = false;
+      return;
+    }
+
     async function fetchItems() {
       if (filterParams.type === "subscribed") {
         if (!loggedInAccount) {

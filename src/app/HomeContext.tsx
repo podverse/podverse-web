@@ -6,6 +6,7 @@ import { apiRequestService } from "../factories/apiRequestService";
 import { useAccount } from "../contexts/Account";
 import { useSkipInitialEffect } from "../hooks/useSkipInitialEffect";
 import { useFilterDefaults } from "../hooks/useFilterDefaults";
+import { useListPageCache } from "../hooks/useListPageCache";
 import { getHomeFilterParams } from "./HomeDropdownConfig";
 
 interface HomeContextType {
@@ -34,15 +35,31 @@ export const HomeContextProvider = ({
   ssrChannels,
   ssrTotalPages
 }: HomeContextProviderProps) => {
-  const [filterParams, setFilterParams] = useState<QueryParamsHome>(initialQueryParams);
-  const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
+  // Use the list page cache hook for back navigation caching
+  const {
+    filterParams, setFilterParams,
+    data: channels, setData: setChannels,
+    totalPages, setTotalPages,
+    shouldSkipFetch
+  } = useListPageCache<QueryParamsHome, DTOChannel[]>({
+    routeKey: "home",
+    initialParams: initialQueryParams,
+    ssrData: ssrChannels ?? [],
+    ssrTotalPages,
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
 
   useFilterDefaults('home', filterParams);
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (shouldSkipFetch.current) {
+      shouldSkipFetch.current = false;
+      return;
+    }
+
     async function fetchChannels() {
       if (!loggedInAccount) {
         setChannels([]);

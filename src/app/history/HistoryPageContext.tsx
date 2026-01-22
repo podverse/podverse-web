@@ -1,9 +1,18 @@
 "use client";
 
 import { DTOQueue, DTOQueueResource, getQueueMediumIdFromType, getTotalPages, QueryParamsHistory } from "podverse-helpers";
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect, useRef } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
+import { checkBackNavFlag } from "../../contexts/Navigation";
+import { usePageStateCache } from "../../hooks/usePageStateCache";
+import { getPageState } from "../../utils/pageStateCache";
+
+// Type for cached data
+interface HistoryCachedData {
+  queueResources: DTOQueueResource[];
+  totalPages: number;
+}
 
 interface HistoryPageContextType {
   filterParams: QueryParamsHistory;
@@ -33,14 +42,48 @@ export const HistoryPageContextProvider = ({
   ssrQueues,
   ssrQueueResources
 }: HistoryPageContextProviderProps) => {
-  const [filterParams, setFilterParams] = useState<QueryParamsHistory>(initialQueryParams);
-  const [queueResources, setQueueResources] = useState<DTOQueueResource[]>(ssrQueueResources || []);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  // Use synchronous sessionStorage check instead of async React state
+  const isBackNav = checkBackNavFlag();
+  
+  // Check for cached state on back navigation
+  const cachedState = isBackNav 
+    ? getPageState<QueryParamsHistory, HistoryCachedData>("history") 
+    : null;
+  const restoredFromCacheRef = useRef(!!cachedState?.data);
+  
+  const [filterParams, setFilterParams] = useState<QueryParamsHistory>(
+    cachedState?.filterParams ?? initialQueryParams
+  );
+  const [queueResources, setQueueResources] = useState<DTOQueueResource[]>(
+    cachedState?.data?.queueResources ?? ssrQueueResources ?? []
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(!cachedState?.data); // Not loading if restored from cache
+  const [totalPages, setTotalPages] = useState<number>(
+    cachedState?.data?.totalPages ?? 1
+  );
   const [showLoginMessage, setShowLoginMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
 
+  // Hook to save/restore page state for back navigation
+  usePageStateCache<QueryParamsHistory, HistoryCachedData>({
+    routeKey: "history",
+    filterParams,
+    setFilterParams,
+    data: { queueResources, totalPages },
+    setData: (cached) => {
+      setQueueResources(cached.queueResources);
+      setTotalPages(cached.totalPages);
+    },
+    cachedScrollPosition: cachedState?.scrollPosition,
+  });
+
   useEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (restoredFromCacheRef.current) {
+      restoredFromCacheRef.current = false;
+      return;
+    }
+
     async function fetchQueueResources() {
       if (!loggedInAccount) {
         setQueueResources([]);

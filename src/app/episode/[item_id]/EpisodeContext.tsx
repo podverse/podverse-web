@@ -3,12 +3,24 @@
 import { useParams } from "next/navigation";
 import { DTOClip, DTOItemChapter, DTOItemSoundbite, getTotalPages,
   QueryParamsItem, TranscriptRow } from "podverse-helpers";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useRef } from "react";
 import { useAccount } from "../../../contexts/Account";
+import { checkBackNavFlag } from "../../../contexts/Navigation";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
+import { usePageStateCache } from "../../../hooks/usePageStateCache";
+import { getPageState } from "../../../utils/pageStateCache";
 import { getEpisodeFilterParams } from "./EpisodeDropdownConfig";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { getTranscriptRowsFromTranscriptString } from "../../../utils/transcript";
+
+// Type for cached data
+interface EpisodeCachedData {
+  itemChapters: DTOItemChapter[];
+  itemSoundbites: DTOItemSoundbite[];
+  clips: DTOClip[];
+  totalPages: number;
+  transcriptRows: TranscriptRow[];
+}
 
 interface EpisodeContextType {
   filterParams: QueryParamsItem;
@@ -41,23 +53,68 @@ export const EpisodeContextProvider = ({
   initialQueryParams
 }: EpisodeContextProviderProps) => {
   const params = useParams();
-  const [filterParams, setFilterParams] = useState<QueryParamsItem>(initialQueryParams);
-  const [itemChapters, setItemChapters] = useState<DTOItemChapter[]>([]);
-  const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>([]);
-  const [clips, setClips] = useState<DTOClip[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([]);
-  const [autoScrollOn, setAutoScrollOn] = useState<boolean>(true);
-  const { loggedInAccount } = useAccount();
   
   if (!params.item_id) {
     return null
   }
 
   const item_id = params.item_id as string;
+  const routeKey = `episode-${item_id}`;
+  
+  // Use synchronous sessionStorage check instead of async React state
+  const isBackNav = checkBackNavFlag();
+  
+  // Check for cached state on back navigation
+  const cachedState = isBackNav 
+    ? getPageState<QueryParamsItem, EpisodeCachedData>(routeKey) 
+    : null;
+  const restoredFromCacheRef = useRef(!!cachedState?.data);
+  
+  const [filterParams, setFilterParams] = useState<QueryParamsItem>(
+    cachedState?.filterParams ?? initialQueryParams
+  );
+  const [itemChapters, setItemChapters] = useState<DTOItemChapter[]>(
+    cachedState?.data?.itemChapters ?? []
+  );
+  const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>(
+    cachedState?.data?.itemSoundbites ?? []
+  );
+  const [clips, setClips] = useState<DTOClip[]>(
+    cachedState?.data?.clips ?? []
+  );
+  const [totalPages, setTotalPages] = useState<number>(
+    cachedState?.data?.totalPages ?? 1
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>(
+    cachedState?.data?.transcriptRows ?? []
+  );
+  const [autoScrollOn, setAutoScrollOn] = useState<boolean>(true);
+  const { loggedInAccount } = useAccount();
+
+  // Hook to save/restore page state for back navigation
+  usePageStateCache<QueryParamsItem, EpisodeCachedData>({
+    routeKey,
+    filterParams,
+    setFilterParams,
+    data: { itemChapters, itemSoundbites, clips, totalPages, transcriptRows },
+    setData: (cached) => {
+      setItemChapters(cached.itemChapters);
+      setItemSoundbites(cached.itemSoundbites);
+      setClips(cached.clips);
+      setTotalPages(cached.totalPages);
+      setTranscriptRows(cached.transcriptRows);
+    },
+    cachedScrollPosition: cachedState?.scrollPosition,
+  });
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (restoredFromCacheRef.current) {
+      restoredFromCacheRef.current = false;
+      return;
+    }
+
     if (filterParams.type === "summary") {
       return;
     }

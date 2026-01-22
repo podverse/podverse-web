@@ -6,6 +6,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { useFilterDefaults } from "../../hooks/useFilterDefaults";
+import { useListPageCache } from "../../hooks/useListPageCache";
 import { getPlaylistsFilterParams } from "./PlaylistsDropdownConfig";
 
 interface PlaylistsContextType {
@@ -36,9 +37,19 @@ export const PlaylistsContextProvider = ({
   ssrPlaylists,
   ssrTotalPages
 }: PlaylistsContextProviderProps) => {
-  const [filterParams, setFilterParams] = useState<QueryParamsPlaylists>(initialQueryParams);
-  const [playlists, setPlaylists] = useState<DTOPlaylist[]>(ssrPlaylists || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
+  // Use the list page cache hook for back navigation caching
+  const {
+    filterParams, setFilterParams,
+    data: playlists, setData: setPlaylists,
+    totalPages, setTotalPages,
+    shouldSkipFetch
+  } = useListPageCache<QueryParamsPlaylists, DTOPlaylist[]>({
+    routeKey: "playlists",
+    initialParams: initialQueryParams,
+    ssrData: ssrPlaylists ?? [],
+    ssrTotalPages,
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showLoginMessage, setShowLoginMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
@@ -46,6 +57,12 @@ export const PlaylistsContextProvider = ({
   useFilterDefaults('playlists', filterParams);
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (shouldSkipFetch.current) {
+      shouldSkipFetch.current = false;
+      return;
+    }
+
     async function fetchPlaylists() {
       if (filterParams.type === "private" || filterParams.type === "private_followed") {
         if (!loggedInAccount) {

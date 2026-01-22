@@ -2,11 +2,22 @@
 
 import { useParams } from "next/navigation";
 import { DTOClip, DTOItem, DTOItemSoundbite, getTotalPages, QueryParamsChannel } from "podverse-helpers";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useRef } from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
+import { checkBackNavFlag } from "../../../contexts/Navigation";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
+import { usePageStateCache } from "../../../hooks/usePageStateCache";
+import { getPageState } from "../../../utils/pageStateCache";
 import { getPodcastFilterParams } from "./PodcastDropdownConfig";
+
+// Type for cached data
+interface PodcastCachedData {
+  items: DTOItem[];
+  itemSoundbites: DTOItemSoundbite[];
+  clips: DTOClip[];
+  totalPages: number;
+}
 
 interface PodcastContextType {
   filterParams: QueryParamsChannel;
@@ -45,18 +56,60 @@ export const PodcastContextProvider = ({
   ssrTotalPages
 }: PodcastContextProviderProps) => {
   const params = useParams();
-  const [filterParams, setFilterParams] = useState<QueryParamsChannel>(initialQueryParams);
-  const [items, setItems] = useState<DTOItem[]>(ssrItems || []);
-  const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>(ssrItemSoundbites || []);
-  const [clips, setClips] = useState<DTOClip[]>(ssrClips || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { loggedInAccount } = useAccount();
   
   if (!params.channel_id) return;
   const channel_id = params.channel_id as string;
+  const routeKey = `podcast-${channel_id}`;
+  
+  // Use synchronous sessionStorage check instead of async React state
+  const isBackNav = checkBackNavFlag();
+  
+  // Check for cached state on back navigation
+  const cachedState = isBackNav 
+    ? getPageState<QueryParamsChannel, PodcastCachedData>(routeKey) 
+    : null;
+  const restoredFromCacheRef = useRef(!!cachedState?.data);
+  
+  const [filterParams, setFilterParams] = useState<QueryParamsChannel>(
+    cachedState?.filterParams ?? initialQueryParams
+  );
+  const [items, setItems] = useState<DTOItem[]>(
+    cachedState?.data?.items ?? ssrItems ?? []
+  );
+  const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>(
+    cachedState?.data?.itemSoundbites ?? ssrItemSoundbites ?? []
+  );
+  const [clips, setClips] = useState<DTOClip[]>(
+    cachedState?.data?.clips ?? ssrClips ?? []
+  );
+  const [totalPages, setTotalPages] = useState<number>(
+    cachedState?.data?.totalPages ?? ssrTotalPages ?? 1
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { loggedInAccount } = useAccount();
+
+  // Hook to save/restore page state for back navigation
+  usePageStateCache<QueryParamsChannel, PodcastCachedData>({
+    routeKey,
+    filterParams,
+    setFilterParams,
+    data: { items, itemSoundbites, clips, totalPages },
+    setData: (cached) => {
+      setItems(cached.items);
+      setItemSoundbites(cached.itemSoundbites);
+      setClips(cached.clips);
+      setTotalPages(cached.totalPages);
+    },
+    cachedScrollPosition: cachedState?.scrollPosition,
+  });
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (restoredFromCacheRef.current) {
+      restoredFromCacheRef.current = false;
+      return;
+    }
+
     if (filterParams.type === "about" || filterParams.type === "podroll") {
       return;
     }

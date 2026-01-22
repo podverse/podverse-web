@@ -7,6 +7,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { useFilterDefaults } from "../../hooks/useFilterDefaults";
+import { useListPageCache } from "../../hooks/useListPageCache";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
 import { ROUTES } from "../../constants/routes";
 
@@ -41,9 +42,20 @@ export const PodcastsContextProvider = ({
   ssrTotalPages
 }: PodcastsContextProviderProps) => {
   const router = useRouter();
-  const [filterParams, setFilterParams] = useState<QueryParamsGetMany>(initialQueryParams);
-  const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
-  const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
+  
+  // Use the list page cache hook for back navigation caching
+  const {
+    filterParams, setFilterParams,
+    data: channels, setData: setChannels,
+    totalPages, setTotalPages,
+    shouldSkipFetch
+  } = useListPageCache<QueryParamsGetMany, DTOChannel[]>({
+    routeKey: "podcasts",
+    initialParams: initialQueryParams,
+    ssrData: ssrChannels ?? [],
+    ssrTotalPages,
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [showCategoriesModal, setShowCategoriesModal] = useState<boolean>(false);
@@ -53,6 +65,12 @@ export const PodcastsContextProvider = ({
   useFilterDefaults('podcasts', filterParams);
 
   useSkipInitialEffect(() => {
+    // Skip fetch if we just restored from cache - data is already correct
+    if (shouldSkipFetch.current) {
+      shouldSkipFetch.current = false;
+      return;
+    }
+
     async function fetchChannels() {
       if (filterParams.type === "subscribed") {
         if (!loggedInAccount) {
