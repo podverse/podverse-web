@@ -144,6 +144,25 @@ export function showToastPromise<T>(
   return p;
 }
 
+/**
+ * Shows a loading toast that persists until manually dismissed.
+ * Returns the toast ID for later dismissal.
+ */
+export function showToastLoading(message: string, options?: ToastOptions): string {
+  return toast.loading(message, {
+    ...options,
+    className: styles.toast,
+    duration: Infinity
+  });
+}
+
+/**
+ * Dismisses a toast by its ID.
+ */
+export function dismissToast(toastId: string): void {
+  toast.dismiss(toastId);
+}
+
 export const Toast: React.FC = () => (
 	<Toaster
 		position="top-right"
