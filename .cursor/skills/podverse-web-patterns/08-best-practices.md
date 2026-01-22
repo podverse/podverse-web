@@ -13,8 +13,9 @@
 9. **Type safety** - Use types from `podverse-helpers` package
 10. **Document out-of-scope improvements** - Add to `docs/todo/improvements.md` automatically
 11. **Use constants instead of hardcoded values** - Define named constants in separate files for magic numbers, timeouts, limits, and configuration values
-12. **CRITICAL: Reusable utilities go to podverse-helpers** - If a utility function could be useful in React Native, other Next.js apps, or any other Podverse application, it belongs in `podverse-helpers`, not in the web app
-13. **CRITICAL: Always use config object for environment variables** - Import and use `config` from `src/config/index.ts` instead of accessing `process.env` directly. Update `.env.example` and all env files in `env/` directory when adding new variables
+12. **CRITICAL: Always use constants for image paths** - All image paths from the public directory must be defined in `src/constants/images.ts` under the `IMAGES` object. Never hardcode image paths like `"/images/..."` in components. Use `IMAGES.MOBILE.APP_STORES.APP_STORE` instead of `"/images/mobile/app-stores/..."`. See `04-configuration.md` for examples.
+13. **CRITICAL: Reusable utilities go to podverse-helpers** - If a utility function could be useful in React Native, other Next.js apps, or any other Podverse application, it belongs in `podverse-helpers`, not in the web app
+14. **CRITICAL: Always use config object for environment variables** - Import and use `config` from `src/config/index.ts` instead of accessing `process.env` directly. Update `.env.example` and all env files in `env/` directory when adding new variables
 
 ## Translation Requirements (CRITICAL)
 

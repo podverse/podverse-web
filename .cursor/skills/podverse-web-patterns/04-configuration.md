@@ -78,6 +78,60 @@ export const IMAGES = {
 } as const;
 ```
 
+### Example: Image Path Constants
+
+**CRITICAL: Always use constants for image paths from the public directory**
+
+All image paths should be defined in `src/constants/images.ts` under the `IMAGES.SRC` or appropriate nested structure. Never hardcode image paths in components.
+
+```typescript
+// src/constants/images.ts
+export const IMAGES = {
+  SRC: {
+    PLACEHOLDER: "/images/placeholder-image.png"
+  },
+  MOBILE: {
+    APP_STORES: {
+      APP_STORE: "/images/mobile/app-stores/download-badge-download-on-the-app-store.svg",
+      GOOGLE_PLAY: "/images/mobile/app-stores/download-badge-get-it-on-google-play.png",
+      F_DROID: "/images/mobile/app-stores/download-badge-get-it-on-fdroid.png"
+    }
+  }
+} as const;
+```
+
+### Usage in Components
+
+```typescript
+// src/app/about/page.tsx
+import { IMAGES } from "../../constants/images";
+import Image from "next/image";
+
+// ✅ CORRECT: Use constants
+<Image
+  src={IMAGES.MOBILE.APP_STORES.APP_STORE}
+  alt="Download on the App Store"
+  width={135}
+  height={40}
+/>
+
+// ❌ WRONG: Hardcoded path
+<Image
+  src="/images/mobile/app-stores/download-badge-download-on-the-app-store.svg"
+  alt="Download on the App Store"
+  width={135}
+  height={40}
+/>
+```
+
+### Why Use Constants for Image Paths
+
+- **Single source of truth**: Update path in one place if files move
+- **Type safety**: TypeScript can catch typos and missing paths
+- **Refactoring**: Easy to find all usages of an image path
+- **Consistency**: Ensures all images follow the same pattern
+- **Documentation**: Constants file serves as a catalog of available images
+
 ### Key Points
 
 - **CRITICAL: Nest all constants within a single feature object**: All constants for a feature should be nested under one object (e.g., `PROXY`, `IMAGES`, `API_CONFIG`)
