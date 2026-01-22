@@ -463,6 +463,15 @@
     "free_trial": "free trial",
     "premium_membership": "Premium membership"
   },
+  "about": {
+    "title": "About",
+    "intro_text": "Podverse is a FOSS podcast manager for iOS, Android, F-Droid, and web.",
+    "download_app_store": "Download on the App Store",
+    "download_google_play": "GET IT ON Google Play",
+    "download_f_droid": "GET IT ON F-Droid",
+    "licensing_text": "All Podverse software is provided under a free and open source (FOSS) licence. Features that require updating our servers are available only with a Premium membership. Sign up today and get a 3 month free trial. 🥳",
+    "features_title": "Features"
+  },
   "checkout": {
     "checkout": "Checkout",
     "payment_plan": "Payment Plan",

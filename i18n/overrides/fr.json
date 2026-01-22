@@ -463,6 +463,15 @@
     "free_trial": "essai gratuit",
     "premium_membership": "adhésion Premium"
   },
+  "about": {
+    "title": "À propos",
+    "intro_text": "Podverse est un gestionnaire de podcasts FOSS pour iOS, Android, F-Droid et web.",
+    "download_app_store": "Télécharger sur l'App Store",
+    "download_google_play": "OBTENEZ-LE SUR Google Play",
+    "download_f_droid": "OBTENEZ-LE SUR F-Droid",
+    "licensing_text": "Tout le logiciel Podverse est proposé sous une licence libre et open source (FOSS). Les fonctionnalités nécessitant la mise à jour de nos serveurs sont disponibles uniquement avec un abonnement Premium. Inscrivez-vous aujourd'hui et obtenez un essai gratuit de 3 mois. 🥳",
+    "features_title": "Fonctionnalités"
+  },
   "checkout": {
     "checkout": "Commander",
     "payment_plan": "Plan de paiement",

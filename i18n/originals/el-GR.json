@@ -463,6 +463,15 @@
     "free_trial": "δωρεάν δοκιμή",
     "premium_membership": "Premium μέλος"
   },
+  "about": {
+    "title": "Σχετικά",
+    "intro_text": "Το Podverse είναι ένας διαχειριστής podcast FOSS για iOS, Android, F-Droid και web.",
+    "download_app_store": "Λήψη από το App Store",
+    "download_google_play": "ΠΡΟΜΗΘΕΥΤΕΙΤΕ ΤΟ ΣΤΟ Google Play",
+    "download_f_droid": "ΠΡΟΜΗΘΕΥΤΕΙΤΕ ΤΟ ΣΤΟ F-Droid",
+    "licensing_text": "Όλο το λογισμικό του Podverse παρέχεται υπό άδεια ελεύθερου και ανοιχτού κώδικα (FOSS). Λειτουργίες που απαιτούν αναβάθμιση των διακομιστών μας είναι διαθέσιμες μόνο με premium συνδρομή. Εγγραφείτε σήμερα και αποκτήστε δωρεάν δοκιμή 3 μηνών. 🥳",
+    "features_title": "Χαρακτηριστικά"
+  },
   "checkout": {
     "checkout": "Πληρωμή",
     "payment_plan": "Σχέδιο Πληρωμής",

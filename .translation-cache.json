@@ -575,7 +575,14 @@
     "settings.profile.sharable_status_public_description": "Tu perfil es visible para todos y puede encontrarse en listados de perfiles públicos.",
     "settings.profile.sharable_status_unlisted_description": "Tu perfil es visible para anyone con el enlace directo, pero no aparecerá en listados de perfiles públicos.",
     "settings.profile.sharable_status_private_description": "Tu perfil solo es visible para ti. Otros no pueden ver tu perfil ni siquiera con un enlace directo.",
-    "settings.profile.update_success": "Perfil actualizado con éxito"
+    "settings.profile.update_success": "Perfil actualizado con éxito",
+    "about.title": "Acerca de",
+    "about.intro_text": "Podverse es un gestor de podcasts FOSS para iOS, Android, F-Droid y web.",
+    "about.download_app_store": "Descargar en la App Store",
+    "about.download_google_play": "OBTÉNLO EN Google Play",
+    "about.download_f_droid": "OBTÉNLO EN F-Droid",
+    "about.licensing_text": "Todo el software de Podverse se proporciona bajo una licencia libre y de código abierto (FOSS). Las funciones que requieren actualizar nuestros servidores están disponibles solo con una membresía Premium. Regístrate hoy y obtén una prueba gratuita de 3 meses. 🥳",
+    "about.features_title": "Características"
   },
   "French": {
     "media.podcast.audio": "Audio",
@@ -1153,7 +1160,14 @@
     "settings.profile.sharable_status_public_description": "Votre profil est visible par tous et peut être trouvé dans les annuaires de profils publics.",
     "settings.profile.sharable_status_unlisted_description": "Votre profil est visible par toute personne ayant le lien direct, mais n'apparaîtra pas dans les annuaires de profils publics.",
     "settings.profile.sharable_status_private_description": "Votre profil n'est visible que par vous. Les autres ne peuvent pas consulter votre profil même avec un lien direct.",
-    "settings.profile.update_success": "Profil mis à jour avec succès"
+    "settings.profile.update_success": "Profil mis à jour avec succès",
+    "about.title": "À propos",
+    "about.intro_text": "Podverse est un gestionnaire de podcasts FOSS pour iOS, Android, F-Droid et web.",
+    "about.download_app_store": "Télécharger sur l'App Store",
+    "about.download_google_play": "OBTENEZ-LE SUR Google Play",
+    "about.download_f_droid": "OBTENEZ-LE SUR F-Droid",
+    "about.licensing_text": "Tout le logiciel Podverse est proposé sous une licence libre et open source (FOSS). Les fonctionnalités nécessitant la mise à jour de nos serveurs sont disponibles uniquement avec un abonnement Premium. Inscrivez-vous aujourd'hui et obtenez un essai gratuit de 3 mois. 🥳",
+    "about.features_title": "Fonctionnalités"
   },
   "Greek": {
     "media.podcast.audio": "Ήχος",
@@ -1731,6 +1745,13 @@
     "settings.profile.sharable_status_public_description": "Το προφίλ σας είναι ορατό σε όλους και μπορεί να βρεθεί σε δημόσιες λίστες προφίλ.",
     "settings.profile.sharable_status_unlisted_description": "Το προφίλ σας είναι ορατό σε οποιονδήποτε έχει τον άμεσο σύνδεσμο, αλλά δεν θα εμφανιστεί σε δημόσιες λίστες προφίλ.",
     "settings.profile.sharable_status_private_description": "Το προφίλ σας είναι ορατό μόνο σε εσάς. Οι άλλοι δεν μπορούν να δουν το προφίλ σας ακόμη και με άμεσο σύνδεσμο.",
-    "settings.profile.update_success": "Το προφίλ ενημερώθηκε με επιτυχία"
+    "settings.profile.update_success": "Το προφίλ ενημερώθηκε με επιτυχία",
+    "about.title": "Σχετικά",
+    "about.intro_text": "Το Podverse είναι ένας διαχειριστής podcast FOSS για iOS, Android, F-Droid και web.",
+    "about.download_app_store": "Λήψη από το App Store",
+    "about.download_google_play": "ΠΡΟΜΗΘΕΥΤΕΙΤΕ ΤΟ ΣΤΟ Google Play",
+    "about.download_f_droid": "ΠΡΟΜΗΘΕΥΤΕΙΤΕ ΤΟ ΣΤΟ F-Droid",
+    "about.licensing_text": "Όλο το λογισμικό του Podverse παρέχεται υπό άδεια ελεύθερου και ανοιχτού κώδικα (FOSS). Λειτουργίες που απαιτούν αναβάθμιση των διακομιστών μας είναι διαθέσιμες μόνο με premium συνδρομή. Εγγραφείτε σήμερα και αποκτήστε δωρεάν δοκιμή 3 μηνών. 🥳",
+    "about.features_title": "Χαρακτηριστικά"
   }
 }
