@@ -42,7 +42,7 @@ export const AuthSignUpForm: React.FC = () => {
         });
         setIsAccountCreated(true);
       } catch (err) {
-        const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+        const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc);
         if (!rateLimitErrorHandled) {
           console.error('Sign up failed:', err);
           alert(tMisc("errors.generic"));

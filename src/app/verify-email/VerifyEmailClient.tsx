@@ -45,7 +45,7 @@ export function VerifyEmailClient({ token }: VerifyEmailClientProps) {
           window.location.href = "/";
         }, 3000);
       } catch (err: any) {
-        const rateLimitHandled = handleRateLimitAlert(err, locale, tMisc);
+        const rateLimitHandled = await handleRateLimitAlert(err, locale, tMisc);
         if (!rateLimitHandled) {
           setIsError(true);
         }

@@ -77,7 +77,7 @@ export const ModalDeleteAccount: React.FC<ModalDeleteAccountProps> = ({
       // Reload to clear client state and show logged-out UI
       window.location.href = '/'
     } catch (err: any) {
-      const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc)
+      const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc)
       if (!rateLimitErrorHandled) {
         setErrorMessage(err?.response?.data?.message || tMisc('errors.generic'))
         setShowErrorMessage(true)

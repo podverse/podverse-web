@@ -31,7 +31,7 @@ export const AuthEmailChangeForm: React.FC = () => {
         await apiRequestService.reqAccountSendChangeEmailAddressEmail({ new_email: email });
         setIsEmailSent(true);
       } catch (err) {
-        const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+        const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc);
         if (!rateLimitErrorHandled) {
           console.error('Send change email address email failed:', err);
           alert(tMisc("errors.generic"));

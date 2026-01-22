@@ -1,17 +1,35 @@
-export function handleRateLimitAlert(
+export async function handleRateLimitAlert(
   error: unknown,
   locale?: string,
   tMisc?: (key: string, values?: Record<string, any>) => string
-): boolean {
+): Promise<boolean> {
   const status =
     (error as any)?.response?.status ??
     (error as any)?.status ??
     (error as any)?.code;
 
-  const data =
+  let data =
     (error as any)?.response?.data ??
     (error as any)?.data ??
     (error as any)?.body;
+
+  // If data is a Blob (can happen with responseType: 'blob'), convert to JSON
+  if (status === 429 && data instanceof Blob) {
+    try {
+      const blobText = await data.text();
+      data = JSON.parse(blobText);
+      // Update the error object with parsed data for consistency
+      if ((error as any)?.response) {
+        (error as any).response.data = data;
+      } else if ((error as any)?.data) {
+        (error as any).data = data;
+      }
+    } catch (parseError) {
+      // If parsing fails, can't handle rate limit
+      console.error('[handleRateLimitAlert] Failed to parse blob error response:', parseError);
+      return false;
+    }
+  }
 
   if (status === 429 && data?.tooManyRequests) {
     const minutesRemaining = data.minutesRemaining;

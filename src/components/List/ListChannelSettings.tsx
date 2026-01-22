@@ -41,7 +41,7 @@ export const ListChannelSettings = ({ channel }: ListChannelSettingsProps) => {
         });
         alert(tSettings('feed.check_feed_added_to_queue'));
       } catch (error) {
-        const rateLimitErrorHandled = handleRateLimitAlert(error, locale, tMisc);
+        const rateLimitErrorHandled = await handleRateLimitAlert(error, locale, tMisc);
         if (!rateLimitErrorHandled) {
           console.error(error);
           alert("Error performing action.");

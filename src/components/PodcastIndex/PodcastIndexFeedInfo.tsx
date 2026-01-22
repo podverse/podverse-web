@@ -82,7 +82,7 @@ export const PodcastIndexFeedInfo: React.FC<PodcastIndexFeedInfoProps> = ({ podc
         
         startPollingForChannel(podcastIndexFeed.id);
       } catch (error) {
-        const rateLimitErrorHandled = handleRateLimitAlert(error, locale, tMisc);
+        const rateLimitErrorHandled = await handleRateLimitAlert(error, locale, tMisc);
         if (!rateLimitErrorHandled) {
           console.error(error);
           alert("Error performing action.");

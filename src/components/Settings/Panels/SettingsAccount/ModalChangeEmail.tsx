@@ -81,7 +81,7 @@ export const ModalChangeEmail: React.FC<ModalChangeEmailProps> = ({
       await apiRequestService.reqAccountSendChangeEmailAddressEmail({ new_email: email })
       setIsEmailSent(true)
     } catch (err: any) {
-      const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc)
+      const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc)
       if (!rateLimitErrorHandled) {
         setErrorMessage(err?.response?.data?.message || tMisc('errors.generic'))
         setShowErrorMessage(true)

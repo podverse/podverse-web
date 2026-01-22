@@ -46,7 +46,7 @@ export const AuthResetPasswordForm: React.FC<AuthResetPasswordFormProps> = ({ to
         await apiRequestService.reqAccountResetPassword({ token, password: password1 });
         setIsPasswordResetComplete(true);
       } catch (err) {
-        const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+        const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc);
         if (!rateLimitErrorHandled) {
           console.error('Password reset failed:', err);
           alert(tMisc("errors.generic"));

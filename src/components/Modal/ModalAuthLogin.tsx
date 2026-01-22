@@ -38,7 +38,7 @@ export const ModalAuthLogin: React.FC = () => {
       await apiRequestService.reqAuthLogin({ email, password });
       window.location.reload();
     } catch (err: any) {
-      const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+      const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc);
       if (!rateLimitErrorHandled) {
         const responseMessage = err?.response?.data?.message;
         if (responseMessage === ERROR_MESSAGES.ACCOUNT.NOT_VERIFIED) {
@@ -57,7 +57,7 @@ export const ModalAuthLogin: React.FC = () => {
       await apiRequestService.reqAccountSendVerificationEmail({ email });
       setVerificationEmailSent(true);
     } catch (err) {
-      const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+      const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc);
       if (!rateLimitErrorHandled) {
         console.error('Resend verification email failed:', err);
       }

@@ -31,7 +31,7 @@ export const AuthForgotPasswordForm: React.FC = () => {
         await apiRequestService.reqAccountSendResetPasswordEmail({ email });
         setIsEmailSent(true);
       } catch (err) {
-        const rateLimitErrorHandled = handleRateLimitAlert(err, locale, tMisc);
+        const rateLimitErrorHandled = await handleRateLimitAlert(err, locale, tMisc);
         if (!rateLimitErrorHandled) {
           console.error('Send forgot password email failed:', err);
           alert(tMisc("errors.generic"));
