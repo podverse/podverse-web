@@ -79,7 +79,6 @@ export function SettingsProfile() {
         <h3>{tSettings('profile.sharable_status')}</h3>
         <FormDropdown
           id="sharable_status"
-          eyebrow={tMisc("sharable_status.sharable_status")}
           menuItems={sharableStatusMenuItems}
           value={sharableStatus}
           onChange={(value) => setSharableStatus(value)}
