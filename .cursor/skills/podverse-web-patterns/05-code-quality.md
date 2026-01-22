@@ -66,23 +66,34 @@ try {
 
 ```typescript
 import { handleRateLimitAlert } from "../../utils/rateLimit/rateLimitAlert";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const MyComponent: React.FC = () => {
   const tMisc = useTranslations("misc");
+  const locale = useLocale();
   
   const handleAction = async () => {
     try {
       await apiRequestService.reqSomeEndpoint();
     } catch (error) {
-      if (!handleRateLimitAlert(error, undefined, tMisc)) {
-        // Handle other errors
+      // handleRateLimitAlert is async - always use await
+      const rateLimitHandled = await handleRateLimitAlert(error, locale, tMisc);
+      if (!rateLimitHandled) {
+        // Handle other errors only if rate limit wasn't handled
         console.error("Error:", error);
       }
     }
   };
 };
 ```
+
+**CRITICAL: Rate Limits Require Both API and Client Handling**
+
+Rate limits are a special case that must be handled on both the API and client sides:
+- **API side**: Must use `rateLimitAuthEndpoint()` or `rateLimitEndpoint()` from `podverse-api/src/lib/rateLimiter.ts` to return 429 with structured JSON (`tooManyRequests`, `minutesRemaining`)
+- **Client side**: Must use `await handleRateLimitAlert()` to detect and display rate limit errors to users
+
+See [API & Data Fetching Patterns - Rate Limit Handling](../02-api-data-fetching.md#rate-limit-handling-special-case) for complete details.
 
 ## Type Safety with podverse-helpers
 
