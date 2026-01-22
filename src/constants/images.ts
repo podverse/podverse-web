@@ -135,5 +135,19 @@ export const IMAGES = {
   },
   SRC: {
     PLACEHOLDER: "/images/placeholder-image.png"
+  },
+  MOBILE: {
+    APP_STORES: {
+      DESKTOP: {
+        APP_STORE: "/images/mobile/app-stores/download-badge-download-on-the-app-store.svg",
+        GOOGLE_PLAY: "/images/mobile/app-stores/download-badge-get-it-on-google-play.png",
+        F_DROID: "/images/mobile/app-stores/download-badge-get-it-on-fdroid.png"
+      },
+      MOBILE: {
+        APP_STORE: "/images/mobile/app-stores/download-badge-download-on-the-app-store.svg",
+        GOOGLE_PLAY: "/images/mobile/app-stores/download-badge-get-it-on-google-play.png",
+        F_DROID: "/images/mobile/app-stores/download-badge-get-it-on-fdroid.png"
+      }
+    }
   }
 };
