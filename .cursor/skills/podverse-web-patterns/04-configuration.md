@@ -257,7 +257,7 @@ import { PROXY_RATE_LIMIT, PROXY_SIZE_LIMITS, PROXY_TIMEOUT_MS } from "./constan
 export const config = {
   // ... existing config ...
   proxy: {
-    userAgent: process.env.NEXT_PUBLIC_PROXY_USER_AGENT || "Podverse/Local/2/Web-API"
+    userAgent: process.env.NEXT_PUBLIC_PROXY_USER_AGENT || "Podverse Bot Local/Web-API/5"
   }
 };
 
@@ -272,25 +272,32 @@ const response = await fetch(url, {
 // ❌ Bad: Direct process.env
 const response = await fetch(url, {
   headers: {
-    "User-Agent": process.env.NEXT_PUBLIC_PROXY_USER_AGENT || "Podverse/Local/2/Web-API"
+    "User-Agent": process.env.NEXT_PUBLIC_PROXY_USER_AGENT || "Podverse Bot Local/Web-API/5"
   }
 });
 
 // ❌ Bad: Missing NEXT_PUBLIC_ prefix (even for server-only vars in podverse-web)
-userAgent: process.env.PROXY_USER_AGENT || "Podverse/Local/2/Web-API"
+userAgent: process.env.PROXY_USER_AGENT || "Podverse Bot Local/Web-API/5"
 ```
 
 ### Environment Variable Validation
 
-**CRITICAL**: A validation script (`scripts/validate-env.ts`) runs before every build to ensure required environment variables are set. If any required variables are missing, the build will abort.
+**CRITICAL**: A validation script (`scripts/validate-env.ts`) runs before every build to ensure required environment variables are set and properly formatted. If any required variables are missing or invalid, the build will abort.
 
 **Required Environment Variables**:
 - `NEXT_PUBLIC_PROXY_USER_AGENT` - User-Agent string for proxy requests
+  - **Format**: `BrandName Bot Environment/AppName/Version` (3 parts separated by slashes)
+  - **Requirements**: 
+    - Must have exactly 3 parts: `[first part]/[second part]/[third part]`
+    - First part must include "Bot" (e.g., "Podverse Bot Local")
+    - Example: `"Podverse Bot Local/Web-API/5"`
+  - **Validation**: The script validates both the format pattern and the "Bot" requirement
 
 **Adding a new required variable**:
 1. Add the variable name to the `REQUIRED_ENV_VARS` array in `scripts/validate-env.ts`
-2. The validation script will automatically check it before build
-3. Update `.env.example` and all environment files in `env/` directory
+2. If format validation is needed, add a validation function (see `validateUserAgentFormat` as an example)
+3. The validation script will automatically check it before build
+4. Update `.env.example` and all environment files in `env/` directory
 
 **In Plan Mode**: When planning to add a new environment variable, you MUST ask the user:
 - "Should this new environment variable be required (added to validation script) or optional?"
@@ -351,50 +358,55 @@ When adding a new environment variable:
 **Example**: If `.env.example` has:
 ```env
 # User-Agent string sent when proxying external image requests
-# Format: BrandName/Environment/Version/AppName
-# Example: Podverse/Local/2/Web-API
+# Format: BrandName Bot Environment/AppName/Version
+# Example: Podverse Bot Local/Web-API/5
 # Required: Yes (validated before build)
-NEXT_PUBLIC_PROXY_USER_AGENT=Podverse/Local/2/Web-API
+# Note: The first part must include "Bot" (e.g., "Podverse Bot Local")
+NEXT_PUBLIC_PROXY_USER_AGENT="Podverse Bot Local/Web-API/5"
 ```
 
 Then `env/local.env` and `env/alpha.env` should have:
 ```env
 # User-Agent string sent when proxying external image requests
-# Format: BrandName/Environment/Version/AppName
-# Example: Podverse/Local/2/Web-API
+# Format: BrandName Bot Environment/AppName/Version
+# Example: Podverse Bot Local/Web-API/5
 # Required: Yes (validated before build)
-NEXT_PUBLIC_PROXY_USER_AGENT=Podverse/Local/2/Web-API  # (or Podverse/Alpha/2/Web-API for alpha)
+# Note: The first part must include "Bot" (e.g., "Podverse Bot Local")
+NEXT_PUBLIC_PROXY_USER_AGENT="Podverse Bot Local/Web-API/5"  # (or "Podverse Bot Alpha/Web-API/5" for alpha)
 ```
 
 **Keep comments synchronized**: When updating comments in `.env.example`, update them in all `env/*.env` files as well.
 
 ### User-Agent String Pattern
 
-**CRITICAL**: Use a consistent User-Agent hierarchy pattern across all Podverse projects.
+**CRITICAL**: Use a consistent User-Agent format pattern across all Podverse projects.
 
-**Pattern**: `Podverse/{Environment}/{Version}/{PlatformType}`
+**Pattern**: `BrandName Bot Environment/AppName/Version`
 
 **Components**:
-- `Podverse` - Brand name (always first)
-- `{Environment}` - Environment identifier (Local, Alpha, Beta, Prod)
-- `{Version}` - Version number (e.g., `2`)
-- `{PlatformType}` - Platform/type identifier (Web-API, API, iOS, Android, etc.)
+- `BrandName Bot Environment` - First part (before first slash), must include "Bot" (e.g., "Podverse Bot Local", "Podverse Bot Alpha")
+- `AppName` - Application identifier (e.g., "Web-API", "API", "Management-API")
+- `Version` - Version number (e.g., `5`)
+
+**Format Rules**:
+- Must have exactly 3 parts separated by forward slashes (`/`)
+- First part must include the word "Bot" (e.g., "Podverse Bot Local", not "Podverse Local")
+- First part can contain spaces (e.g., "Podverse Bot Local")
+- Second part is the application name (e.g., "Web-API", "API", "Management-API")
+- Third part is the version number (e.g., "5")
 
 **Examples**:
-- `Podverse/Local/2/Web-API` - Local development, Web API (differentiated from podverse-api's "API")
-- `Podverse/Alpha/2/Web-API` - Alpha environment, Web API
-- `Podverse/Prod/2/API` - Production, API (from podverse-api project)
-- `Podverse/Beta/2/iOS` - Beta environment, iOS app
-- `Podverse/Prod/2/Android` - Production, Android app
+- `"Podverse Bot Local/Web-API/5"` - Local development, Web API (podverse-web)
+- `"Podverse Bot Alpha/Web-API/5"` - Alpha environment, Web API (podverse-web)
+- `"Podverse Bot Local/API/5"` - Local development, API (podverse-api)
+- `"Podverse Bot Local/Management-API/5"` - Local development, Management API (podverse-management-api)
+- `"Podverse Bot/Web-API/5"` - Production, Web API (no environment in first part for prod)
 
-**Rules**:
-- Always start with `Podverse`
-- Use forward slashes (`/`) to separate major components
-- `{PlatformType}` is a single component that may contain a hyphen if needed for differentiation
-- Use hyphens (`-`) in `{PlatformType}` only when necessary to differentiate from similar platforms (e.g., "Web-API" vs "API")
-- Environment should match the deployment environment (Local, Alpha, Beta, Prod)
-- Version should be the major version number
-- PlatformType should be descriptive and identify both the platform and its purpose
+**Validation**:
+- The validation script (`scripts/validate-env.ts`) enforces this format
+- Must match pattern: `/^[^/]+\/[^/]+\/[^/]+$/` (3 parts separated by slashes)
+- First part must include "Bot"
+- Build will fail if format is incorrect
 
 **When to use**:
 - HTTP User-Agent headers for external requests
@@ -402,4 +414,4 @@ NEXT_PUBLIC_PROXY_USER_AGENT=Podverse/Local/2/Web-API  # (or Podverse/Alpha/2/We
 - Service-to-service communication
 - Any place where the application identifies itself to external services
 
-This pattern should be used consistently across all Podverse projects (podverse-web, podverse-api, podverse-workers, React Native app, etc.).
+This pattern should be used consistently across all Podverse projects (podverse-web, podverse-api, podverse-management-api, podverse-workers, etc.).
