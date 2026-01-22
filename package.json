@@ -71,8 +71,5 @@
     "openai": "^5.20.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
-  },
-  "overrides": {
-    "diff": "^8.0.3"
   }
 }
