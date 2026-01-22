@@ -139,11 +139,15 @@ export const IMAGES = {
   MOBILE: {
     APP_STORES: {
       DESKTOP: {
+        WIDTH: 135,
+        HEIGHT: 40,
         APP_STORE: "/images/mobile/app-stores/download-badge-download-on-the-app-store.svg",
         GOOGLE_PLAY: "/images/mobile/app-stores/download-badge-get-it-on-google-play.png",
         F_DROID: "/images/mobile/app-stores/download-badge-get-it-on-fdroid.png"
       },
       MOBILE: {
+        WIDTH: 270,
+        HEIGHT: 80,
         APP_STORE: "/images/mobile/app-stores/download-badge-download-on-the-app-store.svg",
         GOOGLE_PLAY: "/images/mobile/app-stores/download-badge-get-it-on-google-play.png",
         F_DROID: "/images/mobile/app-stores/download-badge-get-it-on-fdroid.png"

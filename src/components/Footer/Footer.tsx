@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
       <div className={styles.footerBottom}>
         <div className={styles.footerLinks}>
           <Link href={ROUTES.CONTACT}>{tContact("contact")}</Link>
-          <Link disabled href={ROUTES.ABOUT}>{tInfo("about")}</Link>
+          <Link href={ROUTES.ABOUT}>{tInfo("about")}</Link>
           <Link href={ROUTES.TERMS}>{tMisc("terms")}</Link>
           <Link href={ROUTES.MEMBERSHIP}>{tMembership("premium")}</Link>
           {/* <Link disabled href={ROUTES.MOBILE_APP}>{tMisc("mobile")}</Link> */}

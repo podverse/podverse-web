@@ -1,0 +1,86 @@
+@use '../../mixins/media-queries' as *;
+
+.intro {
+  margin-bottom: var(--spacing-4xl);
+}
+
+.intro p {
+  font-size: var(--font-size-lg);
+  color: var(--text-color-primary);
+}
+
+.downloadButtons {
+  display: flex;
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-4xl);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: 2px solid var(--text-color-link);
+    outline-offset: 2px;
+    border-radius: var(--border-radius);
+  }
+}
+
+.downloadButtonImageDesktop {
+  display: block;
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+
+.downloadButtonImageMobile {
+  display: none;
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+.licensing {
+  margin-bottom: var(--spacing-4xl);
+}
+
+.licensing p {
+  font-size: var(--font-size-lg);
+  color: var(--text-color-primary);
+}
+
+.featuresSection {
+  margin-bottom: var(--spacing-4xl);
+}
+
+.comparisonTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-light);
+  margin-bottom: var(--spacing-2xl);
+  color: var(--text-color-primary);
+}
+
+@include mobile('xs-max') {
+  .downloadButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .downloadButtonImageDesktop {
+    display: none;
+  }
+
+  .downloadButtonImageMobile {
+    display: block;
+  }
+}
