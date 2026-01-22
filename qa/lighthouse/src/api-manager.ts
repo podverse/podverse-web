@@ -123,7 +123,7 @@ export class ApiManager {
       // KeyvalDB configuration (use existing podverse_local_keyvaldb)
       KEYVALDB_HOST: '127.0.0.1',
       KEYVALDB_PORT: '6379',
-      // KeyvalDB password is optional (not set in podverse-local-keyvaldb.env)
+      KEYVALDB_PASSWORD: "mysecretpw",
       // Log level
       LOG_LEVEL: process.env.LOG_LEVEL || 'info',
     };
