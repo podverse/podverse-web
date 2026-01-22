@@ -515,7 +515,12 @@
         "title": "Supprimer le compte",
         "message": "Cette action ne peut pas être annulée. Pour confirmer que vous souhaitez supprimer votre compte, veuillez taper votre adresse e-mail ci-dessous.",
         "email_mismatch": "L'adresse e-mail que vous avez saisie ne correspond pas à l'e-mail de votre compte."
-      }
+      },
+      "download_my_data": "Télécharger mes données",
+      "download_my_data_description": "Télécharger toutes vos données de compte au format JSON",
+      "download_my_data_loading": "Préparation de vos données...",
+      "download_my_data_success": "Données téléchargées avec succès",
+      "download_my_data_error": "Échec du téléchargement des données"
     },
     "profile": {
       "profile": "Profil",

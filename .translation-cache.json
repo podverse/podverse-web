@@ -582,7 +582,12 @@
     "about.download_google_play": "OBTÉNLO EN Google Play",
     "about.download_f_droid": "OBTÉNLO EN F-Droid",
     "about.licensing_text": "Todo el software de Podverse se proporciona bajo una licencia libre y de código abierto (FOSS). Las funciones que requieren actualizar nuestros servidores están disponibles solo con una membresía Premium. Regístrate hoy y obtén una prueba gratuita de 3 meses. 🥳",
-    "about.features_title": "Características"
+    "about.features_title": "Características",
+    "settings.account.download_my_data": "Descargar Mis Datos",
+    "settings.account.download_my_data_description": "Descarga todos los datos de tu cuenta como un archivo JSON",
+    "settings.account.download_my_data_loading": "Preparando tus datos...",
+    "settings.account.download_my_data_success": "Datos descargados con éxito",
+    "settings.account.download_my_data_error": "Error al descargar los datos"
   },
   "French": {
     "media.podcast.audio": "Audio",
@@ -1167,7 +1172,12 @@
     "about.download_google_play": "OBTENEZ-LE SUR Google Play",
     "about.download_f_droid": "OBTENEZ-LE SUR F-Droid",
     "about.licensing_text": "Tout le logiciel Podverse est proposé sous une licence libre et open source (FOSS). Les fonctionnalités nécessitant la mise à jour de nos serveurs sont disponibles uniquement avec un abonnement Premium. Inscrivez-vous aujourd'hui et obtenez un essai gratuit de 3 mois. 🥳",
-    "about.features_title": "Fonctionnalités"
+    "about.features_title": "Fonctionnalités",
+    "settings.account.download_my_data": "Télécharger mes données",
+    "settings.account.download_my_data_description": "Télécharger toutes vos données de compte au format JSON",
+    "settings.account.download_my_data_loading": "Préparation de vos données...",
+    "settings.account.download_my_data_success": "Données téléchargées avec succès",
+    "settings.account.download_my_data_error": "Échec du téléchargement des données"
   },
   "Greek": {
     "media.podcast.audio": "Ήχος",
@@ -1752,6 +1762,11 @@
     "about.download_google_play": "ΠΡΟΜΗΘΕΥΤΕΙΤΕ ΤΟ ΣΤΟ Google Play",
     "about.download_f_droid": "ΠΡΟΜΗΘΕΥΤΕΙΤΕ ΤΟ ΣΤΟ F-Droid",
     "about.licensing_text": "Όλο το λογισμικό του Podverse παρέχεται υπό άδεια ελεύθερου και ανοιχτού κώδικα (FOSS). Λειτουργίες που απαιτούν αναβάθμιση των διακομιστών μας είναι διαθέσιμες μόνο με premium συνδρομή. Εγγραφείτε σήμερα και αποκτήστε δωρεάν δοκιμή 3 μηνών. 🥳",
-    "about.features_title": "Χαρακτηριστικά"
+    "about.features_title": "Χαρακτηριστικά",
+    "settings.account.download_my_data": "Κατέβασμα των Δεδομένων Μου",
+    "settings.account.download_my_data_description": "Κατεβάστε όλα τα δεδομένα του λογαριασμού σας ως αρχείο JSON",
+    "settings.account.download_my_data_loading": "Ετοιμάζω τα δεδομένα σας...",
+    "settings.account.download_my_data_success": "Τα δεδομένα κατέβηκαν με επιτυχία",
+    "settings.account.download_my_data_error": "Αποτυχία στο κατέβασμα των δεδομένων"
   }
 }

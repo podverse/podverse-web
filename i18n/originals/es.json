@@ -515,7 +515,12 @@
         "title": "Eliminar cuenta",
         "message": "Esta acción no se puede deshacer. Para confirmar que deseas eliminar tu cuenta, por favor escribe tu dirección de correo electrónico a continuación.",
         "email_mismatch": "La dirección de correo electrónico que ingresaste no coincide con el correo electrónico de tu cuenta."
-      }
+      },
+      "download_my_data": "Descargar Mis Datos",
+      "download_my_data_description": "Descarga todos los datos de tu cuenta como un archivo JSON",
+      "download_my_data_loading": "Preparando tus datos...",
+      "download_my_data_success": "Datos descargados con éxito",
+      "download_my_data_error": "Error al descargar los datos"
     },
     "profile": {
       "profile": "Perfil",

@@ -515,7 +515,12 @@
         "title": "Delete Account",
         "message": "This action cannot be undone. To confirm you want to delete your account, please type your email address below.",
         "email_mismatch": "The email address you entered does not match your account email."
-      }
+      },
+      "download_my_data": "Download My Data",
+      "download_my_data_description": "Download all of your account data as a JSON file",
+      "download_my_data_loading": "Preparing your data...",
+      "download_my_data_success": "Data downloaded successfully",
+      "download_my_data_error": "Failed to download data"
     },
     "profile": {
       "profile": "Profile",
