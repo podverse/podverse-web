@@ -15,6 +15,7 @@ import { AutoQueueProvider } from '../contexts/AutoQueue';
 import { MediaPlayerVideoProvider } from '../contexts/MediaPlayerVideo';
 import { LocalSettingsState } from '../utils/localSettings/localSettings';
 import { NotificationsProvider } from '../contexts/Notifications';
+import { NavigationProvider } from '../contexts/Navigation';
 
 export default function Providers({
   children,
@@ -35,31 +36,33 @@ export default function Providers({
 }) {
   return (
     <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/Chicago">
-      <LocalSettingsProvider ssrLocalSettings={ssrLocalSettings}>
-        <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
-          <NotificationsProvider>
-            <QueuesProvider>
-              <QueueResourcesAbridgedIndexProvider ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}>
-                <PlaylistsFavoritesProvider>
-                  <MediaPlayerCurrentTimeProvider>
-                    <MediaPlayerProvider>
-                      <MediaPlayerVideoProvider>
-                        <AutoQueueProvider ssrLocalSettings={ssrLocalSettings}>
-                          <ModalsProvider>
-                            <CategoriesProvider ssrCategories={categories}>
-                              {children}
-                            </CategoriesProvider>
-                          </ModalsProvider>
-                        </AutoQueueProvider>
-                      </MediaPlayerVideoProvider>
-                    </MediaPlayerProvider>
-                  </MediaPlayerCurrentTimeProvider>
-                </PlaylistsFavoritesProvider>
-              </QueueResourcesAbridgedIndexProvider>
-            </QueuesProvider>
-          </NotificationsProvider>
-        </AccountProvider>
-      </LocalSettingsProvider>
+      <NavigationProvider>
+        <LocalSettingsProvider ssrLocalSettings={ssrLocalSettings}>
+          <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
+            <NotificationsProvider>
+              <QueuesProvider>
+                <QueueResourcesAbridgedIndexProvider ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}>
+                  <PlaylistsFavoritesProvider>
+                    <MediaPlayerCurrentTimeProvider>
+                      <MediaPlayerProvider>
+                        <MediaPlayerVideoProvider>
+                          <AutoQueueProvider ssrLocalSettings={ssrLocalSettings}>
+                            <ModalsProvider>
+                              <CategoriesProvider ssrCategories={categories}>
+                                {children}
+                              </CategoriesProvider>
+                            </ModalsProvider>
+                          </AutoQueueProvider>
+                        </MediaPlayerVideoProvider>
+                      </MediaPlayerProvider>
+                    </MediaPlayerCurrentTimeProvider>
+                  </PlaylistsFavoritesProvider>
+                </QueueResourcesAbridgedIndexProvider>
+              </QueuesProvider>
+            </NotificationsProvider>
+          </AccountProvider>
+        </LocalSettingsProvider>
+      </NavigationProvider>
     </NextIntlClientProvider>
   );
 }
