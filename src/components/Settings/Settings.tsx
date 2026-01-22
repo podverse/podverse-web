@@ -10,20 +10,36 @@ import { SettingsGeneral } from './Panels/SettingsGeneral/SettingsGeneral'
 import { SettingsNotifications } from './Panels/SettingsNotifications/SettingsNotifications'
 import { SettingsProfile } from './Panels/SettingsProfile/SettingsProfile'
 import { Tabs } from '../Tabs/Tabs'
+import { useAccount } from '../../contexts/Account'
 
 export function Settings() {
   const tSettings = useTranslations('settings')
   const tContact = useTranslations('contact')
   const searchParams = useSearchParams()
   const router = useRouter()
+  const { loggedInAccount } = useAccount()
   
   // Check for tab query param on mount
   const tabFromQuery = searchParams.get('tab')
-  const initialTab = (tabFromQuery === 'profile' ? 'profile' : 
-                      tabFromQuery === 'account' ? 'account' :
-                      tabFromQuery === 'notifications' ? 'notifications' : 'general') as 'account'|'general'|'notifications'|'profile'
+  // For non-logged-in users, default to 'general' even if query param specifies a restricted tab
+  const initialTab = loggedInAccount
+    ? (tabFromQuery === 'profile' ? 'profile' : 
+       tabFromQuery === 'account' ? 'account' :
+       tabFromQuery === 'notifications' ? 'notifications' : 'general') as 'account'|'general'|'notifications'|'profile'
+    : 'general'
   
   const [tab, setTab] = React.useState<'account'|'general'|'notifications'|'profile'>(initialTab)
+
+  // Redirect non-logged-in users to 'general' tab if they try to access restricted tabs
+  React.useEffect(() => {
+    if (!loggedInAccount && tab !== 'general') {
+      setTab('general')
+      // Update URL to remove tab param
+      const params = new URLSearchParams(searchParams.toString())
+      params.delete('tab')
+      router.replace(`/settings${params.toString() ? `?${params.toString()}` : ''}`)
+    }
+  }, [loggedInAccount, tab, searchParams, router])
 
   const handleTabChange = (newTab: 'account'|'general'|'notifications'|'profile') => {
     setTab(newTab)
@@ -33,7 +49,8 @@ export function Settings() {
     router.replace(`/settings${params.toString() ? `?${params.toString()}` : ''}`)
   }
 
-  const tabData = [
+  // Filter tabs based on login status
+  const allTabs = [
     {
       key: 'general',
       label: tContact('general'),
@@ -60,6 +77,8 @@ export function Settings() {
     }
   ]
 
+  const tabData = loggedInAccount ? allTabs : [allTabs[0]] // Only show General tab for non-logged-in users
+
   return (
     <div>
       <ListHeader
@@ -72,9 +91,9 @@ export function Settings() {
       />
       <SettingsWrapper>
         {tab === 'general' && <SettingsGeneral />}
-        {tab === 'account' && <SettingsAccount />}
-        {tab === 'profile' && <SettingsProfile />}
-        {tab === 'notifications' && <SettingsNotifications />}
+        {loggedInAccount && tab === 'account' && <SettingsAccount />}
+        {loggedInAccount && tab === 'profile' && <SettingsProfile />}
+        {loggedInAccount && tab === 'notifications' && <SettingsNotifications />}
       </SettingsWrapper>
     </div>
   )
