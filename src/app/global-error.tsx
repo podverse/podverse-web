@@ -27,7 +27,7 @@ async function getGlobalErrorTranslations(): Promise<{ errors: Record<string, st
     const localeCookie = document.cookie
       .split('; ')
       .find(row => row.startsWith('NEXT_LOCALE='))
-      ?.split('=')[1] || 'en';
+      ?.split('=')[1] || 'en-US';
     
     // Load translation file
     const messages = await import(`../../i18n/originals/${localeCookie}.json`);
@@ -38,7 +38,7 @@ async function getGlobalErrorTranslations(): Promise<{ errors: Record<string, st
   } catch {
     // Fallback to English
     try {
-      const messages = await import(`../../i18n/originals/en.json`);
+      const messages = await import(`../../i18n/originals/en-US.json`);
       return {
         errors: filterStrings(messages.default.errors),
         misc: messages.default.misc || {}
