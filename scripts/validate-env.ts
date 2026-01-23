@@ -6,7 +6,7 @@
 import { config } from 'dotenv';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
-import { ValidationResult, ValidationSummary, validateRequired, validateOptional, getAllAvailableOrListMessage, validateSupportedLocalesList, validateLocale } from 'podverse-helpers';
+import { ValidationResult, ValidationSummary, validateRequired, validateOptional, getAllAvailableOrListMessage, validateSupportedLocalesList, validateLocale, SERVER_ENV_VALUES, isValidServerEnv } from 'podverse-helpers';
 
 // Valid themes for theme validation
 const VALID_THEMES = ['dark', 'light', 'dracula'];
@@ -95,7 +95,7 @@ const validateAllEnvironmentVariables = (): ValidationSummary => {
   results.push(validateOptional('NEXT_PUBLIC_SOCIAL_X', 'Social Media', 'Blank'));
 
   // General
-  results.push(validateOptional('NEXT_PUBLIC_SERVER_ENV', 'General', 'Blank'));
+  results.push(validateServerEnv());
 
   // Calculate summary
   const total = results.length;
@@ -362,6 +362,45 @@ const validateSupportedThemes = (): ValidationResult => {
     isRequired: true,
     message: `Valid themes: ${themes.join(', ')}`,
     category: 'Brand & Features'
+  };
+};
+
+/**
+ * Validates NEXT_PUBLIC_SERVER_ENV
+ * Must be one of: prod, beta, alpha, local
+ */
+const validateServerEnv = (): ValidationResult => {
+  const serverEnv = process.env.NEXT_PUBLIC_SERVER_ENV || '';
+
+  if (!serverEnv) {
+    return {
+      name: 'NEXT_PUBLIC_SERVER_ENV',
+      isSet: false,
+      isValid: false,
+      isRequired: true,
+      message: `Missing - must be one of: ${SERVER_ENV_VALUES.join(', ')}`,
+      category: 'General'
+    };
+  }
+
+  if (!isValidServerEnv(serverEnv)) {
+    return {
+      name: 'NEXT_PUBLIC_SERVER_ENV',
+      isSet: true,
+      isValid: false,
+      isRequired: true,
+      message: `Invalid value: "${serverEnv}" - must be one of: ${SERVER_ENV_VALUES.join(', ')}`,
+      category: 'General'
+    };
+  }
+
+  return {
+    name: 'NEXT_PUBLIC_SERVER_ENV',
+    isSet: true,
+    isValid: true,
+    isRequired: true,
+    message: `Set to "${serverEnv}"`,
+    category: 'General'
   };
 };
 

@@ -461,7 +461,8 @@
     "membership_expired_danger": "Votre {type} a expiré. Renouvelez maintenant pour continuer à profiter des fonctionnalités Premium.",
     "membership_link_text": "Aller à la page d'adhésion",
     "free_trial": "essai gratuit",
-    "premium_membership": "adhésion Premium"
+    "premium_membership": "adhésion Premium",
+    "free_trial_not_allowed": "Cette fonctionnalité n'est disponible que pour les comptes premium et n'est pas accessible aux essais gratuits"
   },
   "about": {
     "title": "À propos",

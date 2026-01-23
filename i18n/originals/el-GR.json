@@ -461,7 +461,8 @@
     "membership_expired_danger": "Η {type} σας έχει λήξει. Ανανεώστε τώρα για να συνεχίσετε να απολαμβάνετε Premium χαρακτηριστικά.",
     "membership_link_text": "Μεταβείτε στη Σελίδα Μέλους",
     "free_trial": "δωρεάν δοκιμή",
-    "premium_membership": "Premium μέλος"
+    "premium_membership": "Premium μέλος",
+    "free_trial_not_allowed": "Αυτή η λειτουργία είναι διαθέσιμη μόνο σε premium λογαριασμούς και δεν είναι διαθέσιμη για δωρεάν δοκιμές"
   },
   "about": {
     "title": "Σχετικά",

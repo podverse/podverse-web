@@ -461,7 +461,8 @@
     "membership_expired_danger": "Your {type} has expired. Renew now to continue enjoying Premium features.",
     "membership_link_text": "Go to Membership Page",
     "free_trial": "free trial",
-    "premium_membership": "Premium membership"
+    "premium_membership": "Premium membership",
+    "free_trial_not_allowed": "This feature is only available to premium accounts and is not available to free trials"
   },
   "about": {
     "title": "About",

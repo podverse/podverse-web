@@ -94,7 +94,7 @@ export class WebAppManager {
       NEXT_PUBLIC_API_PORT: '1111',
       NEXT_PUBLIC_API_PREFIX: '/api',
       NEXT_PUBLIC_API_VERSION: '/v2',
-      NEXT_PUBLIC_SERVER_ENV: '',
+      NEXT_PUBLIC_SERVER_ENV: 'local',
       // Disable env validation for faster startup (Next.js will handle it)
       SKIP_ENV_VALIDATION: 'true',
       // Allow localhost proxy for Lighthouse test assets (even in production mode)

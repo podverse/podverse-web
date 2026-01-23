@@ -587,7 +587,9 @@
     "settings.account.download_my_data_description": "Descarga todos los datos de tu cuenta como un archivo JSON",
     "settings.account.download_my_data_loading": "Preparando tus datos...",
     "settings.account.download_my_data_success": "Datos descargados con éxito",
-    "settings.account.download_my_data_error": "Error al descargar los datos"
+    "settings.account.download_my_data_error": "Error al descargar los datos",
+    "membership.free_trial_not_allowed": "Esta función solo está disponible para cuentas premium y no está disponible para pruebas gratuitas",
+    "language.languages.en-US": "Inglés"
   },
   "French": {
     "media.podcast.audio": "Audio",
@@ -1177,7 +1179,9 @@
     "settings.account.download_my_data_description": "Télécharger toutes vos données de compte au format JSON",
     "settings.account.download_my_data_loading": "Préparation de vos données...",
     "settings.account.download_my_data_success": "Données téléchargées avec succès",
-    "settings.account.download_my_data_error": "Échec du téléchargement des données"
+    "settings.account.download_my_data_error": "Échec du téléchargement des données",
+    "membership.free_trial_not_allowed": "Cette fonctionnalité n'est disponible que pour les comptes premium et n'est pas accessible aux essais gratuits",
+    "language.languages.en-US": "Anglais"
   },
   "Greek": {
     "media.podcast.audio": "Ήχος",
@@ -1767,6 +1771,8 @@
     "settings.account.download_my_data_description": "Κατεβάστε όλα τα δεδομένα του λογαριασμού σας ως αρχείο JSON",
     "settings.account.download_my_data_loading": "Ετοιμάζω τα δεδομένα σας...",
     "settings.account.download_my_data_success": "Τα δεδομένα κατέβηκαν με επιτυχία",
-    "settings.account.download_my_data_error": "Αποτυχία στο κατέβασμα των δεδομένων"
+    "settings.account.download_my_data_error": "Αποτυχία στο κατέβασμα των δεδομένων",
+    "membership.free_trial_not_allowed": "Αυτή η λειτουργία είναι διαθέσιμη μόνο σε premium λογαριασμούς και δεν είναι διαθέσιμη για δωρεάν δοκιμές",
+    "language.languages.en-US": "Αγγλικά"
   }
 }

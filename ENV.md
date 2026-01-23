@@ -46,6 +46,13 @@ These variables are used for client-side API requests:
 - **`NEXT_PUBLIC_WEB_PROTOCOL`** (Required) - Web protocol (`http` or `https`)
 - **`NEXT_PUBLIC_WEB_DOMAIN`** (Required) - Web domain (e.g., `localhost:3000` or `podverse.fm`)
 
+### App / General
+
+- **`NEXT_PUBLIC_SERVER_ENV`** (Required) - Server environment
+  - Must be one of: `prod`, `beta`, `alpha`, `local`
+  - Controls environment-specific behavior (e.g., displaying environment warnings in non-production environments)
+  - See `podverse-helpers/src/lib/constants/serverEnv.ts` for the constant definition
+
 ### Brand & Features
 
 - **`NEXT_PUBLIC_FEATURES_SUPPORTED_LOCALES`** (Required)

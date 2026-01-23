@@ -19,6 +19,7 @@ export const ListChannelSettings = ({ channel }: ListChannelSettingsProps) => {
   const tSettings = useTranslations('settings');
   const tInstructions = useTranslations('instructions');
   const tMisc = useTranslations('misc');
+  const tMembership = useTranslations('membership');
   const { loggedInAccount, setLoggedInAccount } = useAccount();
   const { setModalLoginRequired } = useModals();
   const { loadingMap, withLoading, setLoadingFor } = useLoadingMap();
@@ -40,11 +41,29 @@ export const ListChannelSettings = ({ channel }: ListChannelSettingsProps) => {
           podcast_index_id: channel.feed.podcast_index_id
         });
         alert(tSettings('feed.check_feed_added_to_queue'));
-      } catch (error) {
+      } catch (error: any) {
         const rateLimitErrorHandled = await handleRateLimitAlert(error, locale, tMisc);
         if (!rateLimitErrorHandled) {
-          console.error(error);
-          alert("Error performing action.");
+          const errorStatus = error?.response?.status;
+          const errorData = error?.response?.data;
+          const i18nKey = errorData?.i18nKey;
+          
+          if (errorStatus === 403 && i18nKey) {
+            // Extract namespace and key from i18nKey (e.g., "membership.free_trial_not_allowed")
+            const [namespace, key] = i18nKey.split('.');
+            if (namespace === 'membership') {
+              setModalLoginRequired({
+                title: null,
+                message: tMembership(key)
+              });
+            } else {
+              console.error(error);
+              alert("Error performing action.");
+            }
+          } else {
+            console.error(error);
+            alert("Error performing action.");
+          }
         }
       }
     }
