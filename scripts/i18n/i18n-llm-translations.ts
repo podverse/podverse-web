@@ -176,7 +176,7 @@ async function translateObject(
 }
 
 async function run() {
-  const inputPath = path.resolve('./i18n/originals/en.json');
+  const inputPath = path.resolve('./i18n/originals/en-US.json');
   const enData = JSON.parse(fs.readFileSync(inputPath, 'utf-8'));
 
   const targets = [

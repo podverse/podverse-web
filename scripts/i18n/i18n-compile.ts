@@ -77,7 +77,7 @@ for (const locale of locales) {
   }
 
   let filledOverrides;
-  if (locale === 'en') {
+  if (locale === 'en-US') {
     filledOverrides = originals;
     fs.writeFileSync(overridesPath, JSON.stringify(originals, null, 2), 'utf8');
   } else {
