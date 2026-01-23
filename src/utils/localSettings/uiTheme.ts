@@ -26,7 +26,7 @@ export function getValidThemes(): UITheme[] {
       validThemes.push(theme);
     } else {
       if (typeof window !== "undefined") {
-        console.warn(`[Theme Config] Invalid theme "${theme}" in NEXT_PUBLIC_THEME_VALID. Valid themes are: ${ALL_POSSIBLE_THEMES.join(', ')}`);
+        console.warn(`[Theme Config] Invalid theme "${theme}" in NEXT_PUBLIC_SUPPORTED_THEMES. Valid themes are: ${ALL_POSSIBLE_THEMES.join(', ')}`);
       }
     }
   });
@@ -34,7 +34,7 @@ export function getValidThemes(): UITheme[] {
   // If no valid themes after filtering, return all themes
   if (validThemes.length === 0) {
     if (typeof window !== "undefined") {
-      console.warn(`[Theme Config] No valid themes found in NEXT_PUBLIC_THEME_VALID. Using all themes: ${ALL_POSSIBLE_THEMES.join(', ')}`);
+      console.warn(`[Theme Config] No valid themes found in NEXT_PUBLIC_SUPPORTED_THEMES. Using all themes: ${ALL_POSSIBLE_THEMES.join(', ')}`);
     }
     return ALL_POSSIBLE_THEMES;
   }
@@ -62,7 +62,7 @@ export function getDefaultTheme(): UITheme {
   // Validate default theme
   if (!ALL_POSSIBLE_THEMES.includes(defaultTheme)) {
     if (typeof window !== "undefined") {
-      console.warn(`[Theme Config] Invalid default theme "${defaultTheme}" in NEXT_PUBLIC_THEME_DEFAULT. Valid themes are: ${ALL_POSSIBLE_THEMES.join(', ')}. Using fallback.`);
+      console.warn(`[Theme Config] Invalid default theme "${defaultTheme}" in NEXT_PUBLIC_DEFAULT_THEME. Valid themes are: ${ALL_POSSIBLE_THEMES.join(', ')}. Using fallback.`);
     }
     // Use "dark" if valid, otherwise first valid theme
     if (validThemes.includes("dark")) {
