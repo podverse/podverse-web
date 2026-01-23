@@ -717,7 +717,7 @@
     "language": "Language",
     "select_language": "Select Language",
     "languages": {
-      "en": "English",
+      "en-US": "English",
       "es": "Spanish",
       "fr": "French",
       "el-GR": "Greek"
