@@ -74,8 +74,8 @@
 - **MANDATORY**: Every string visible to users must come from translation files
 - **Translation keys**: Use namespaced keys (e.g., `useTranslations("features")`, `useTranslations("misc")`)
 - **Translation files**: Located in `i18n/originals/` and `i18n/overrides/`
-- **CRITICAL: Only edit `i18n/originals/en.json`** - Do NOT add translations to override files or other language files. The `i18n-compile` script automatically processes `originals/en.json` and generates all necessary translation files, overrides, and alternate languages. `i18n/originals/en.json` is the single source of truth.
-- **If a key doesn't exist**: Add it to `i18n/originals/en.json` first, then use it
+- **CRITICAL: Only edit `i18n/originals/en-US.json`** - Do NOT add translations to override files or other language files. The `i18n-compile` script automatically processes `originals/en-US.json` and generates all necessary translation files, overrides, and alternate languages. `i18n/originals/en-US.json` is the single source of truth.
+- **If a key doesn't exist**: Add it to `i18n/originals/en-US.json` first, then use it
 - **Applies to**: All components, pages, error boundaries, modals, buttons, placeholders, error messages, etc.
 - **Example**:
   ```typescript
@@ -180,7 +180,7 @@
 - **Don't skip accessibility**: Always include ARIA labels and semantic HTML
 - **Don't access `process.env` directly**: Use the `config` object from `src/config/index.ts`
 - **Don't hardcode magic numbers**: Use named constants nested in feature objects
-- **Don't add translations to override files**: Only edit `i18n/originals/en.json`
+- **Don't add translations to override files**: Only edit `i18n/originals/en-US.json`
 
 ## Skills System
 

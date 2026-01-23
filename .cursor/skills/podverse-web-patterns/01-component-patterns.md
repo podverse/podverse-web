@@ -99,7 +99,7 @@ export const MyComponent: React.FC<MyComponentProps> = ({ title, onAction }) => 
 - **CRITICAL: ALWAYS use `useTranslations()` for ALL user-facing text** - Never hardcode strings like "Submit", "Cancel", "Error", etc.
 - **NO EXCEPTIONS**: Every string visible to users must come from translation files
 - Use namespaced translation keys (e.g., "features", "misc")
-- **CRITICAL: Only add translations to `i18n/originals/en.json`** - Do NOT add translations to override files or other language files. The i18n translation script handles generating overrides and alternate languages automatically.
+- **CRITICAL: Only add translations to `i18n/originals/en-US.json`** - Do NOT add translations to override files or other language files. The i18n translation script handles generating overrides and alternate languages automatically.
 - Define TypeScript interfaces for props
 - Use SCSS modules for styling
 
