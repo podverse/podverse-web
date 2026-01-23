@@ -84,7 +84,7 @@ const validateAllEnvironmentVariables = (): ValidationSummary => {
   results.push(validateOptional('NEXT_PUBLIC_WEBPUSH_VAPID_PUBLIC_KEY', 'Notifications', 'Blank'));
 
   // Account
-  results.push(validateOptional('NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE', 'Account', 'Use Default ("sign-up")'));
+  results.push(validateAccountSignupMode());
   results.push(validateOptional('NEXT_PUBLIC_CONTACT_EMAIL', 'Account', 'Blank'));
 
   // Social Media
@@ -446,6 +446,46 @@ const validateThemeDefault = (): ValidationResult => {
   };
 };
 
+/**
+ * Validates NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE
+ * This is a required environment variable with no default value.
+ * Valid values are: 'sign-up' or 'contact-only'
+ */
+const validateAccountSignupMode = (): ValidationResult => {
+  const signupMode = process.env.NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE || '';
+  const validModes = ['sign-up', 'contact-only'];
+
+  if (!signupMode) {
+    return {
+      name: 'NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE',
+      isSet: false,
+      isValid: false,
+      isRequired: true,
+      message: `Missing - must be one of: ${validModes.map(m => `"${m}"`).join(' or ')}`,
+      category: 'Account'
+    };
+  }
+
+  if (!validModes.includes(signupMode)) {
+    return {
+      name: 'NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE',
+      isSet: true,
+      isValid: false,
+      isRequired: true,
+      message: `Invalid value: "${signupMode}" - must be one of: ${validModes.map(m => `"${m}"`).join(' or ')}`,
+      category: 'Account'
+    };
+  }
+
+  return {
+    name: 'NEXT_PUBLIC_ACCOUNT_SIGNUP_MODE',
+    isSet: true,
+    isValid: true,
+    isRequired: true,
+    message: `Set to "${signupMode}"`,
+    category: 'Account'
+  };
+};
 
 /**
  * Displays validation results in a formatted table
