@@ -39,6 +39,8 @@ type RenderIntroTextParams = {
   contactLinkClassName: string;
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function MembershipPage() {
   const t = await getTranslations("membership");
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
