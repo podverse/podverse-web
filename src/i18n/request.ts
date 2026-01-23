@@ -1,21 +1,18 @@
-import { DTOAccount } from 'podverse-helpers';
+import { DTOAccount, SUPPORTED_LOCALES } from 'podverse-helpers';
 import { getRequestConfig } from 'next-intl/server';
 import { headers, cookies } from 'next/headers';
 
-// All available locales for which we have translations
-const allAvailableLocales = ['en', 'es', 'fr', 'el-GR'];
-
 function getSupportedLocales(): string[] {
-  const supportedLocalesEnv = process.env.NEXT_PUBLIC_FEATURES_SUPPORTED_LOCALES || 'all-available';
+  const supportedLocalesEnv = process.env.NEXT_PUBLIC_FEATURES_SUPPORTED_LOCALES!;
   if (supportedLocalesEnv === 'all-available') {
-    return allAvailableLocales;
+    return [...SUPPORTED_LOCALES];
   }
   const requested = supportedLocalesEnv.split(',').map(l => l.trim()).filter(Boolean);
-  return requested.filter(l => allAvailableLocales.includes(l));
+  return requested.filter(l => SUPPORTED_LOCALES.includes(l as typeof SUPPORTED_LOCALES[number]));
 }
 
 function getDefaultLocale(): string {
-  return process.env.NEXT_PUBLIC_FEATURES_DEFAULT_LOCALE || 'en';
+  return process.env.NEXT_PUBLIC_FEATURES_DEFAULT_LOCALE!;
 }
 
 async function detectLocale(ssrLoggedInAccount?: DTOAccount | null) {
@@ -65,8 +62,8 @@ async function detectLocale(ssrLoggedInAccount?: DTOAccount | null) {
     }
   }
 
-  // 5. Last resort: first supported locale or 'en'
-  return supportedLocales[0] || 'en';
+  // 5. Last resort: first supported locale or default
+  return supportedLocales[0] || SUPPORTED_LOCALES[0];
 }
 
 // Store the account in a module-level variable that can be set before calling getRequestConfig
@@ -93,10 +90,10 @@ export default getRequestConfig(async () => {
       }
     }
 
-    const enOriginals = (await import(`../../i18n/originals/en.json`)).default;
+    const enOriginals = (await import(`../../i18n/originals/en-US.json`)).default;
     originals = localeOriginals ? { ...enOriginals, ...localeOriginals } : enOriginals;
   } catch (e) {
-    originals = (await import(`../../i18n/originals/en.json`)).default;
+    originals = (await import(`../../i18n/originals/en-US.json`)).default;
   }
   
   return {
