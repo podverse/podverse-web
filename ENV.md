@@ -29,7 +29,7 @@ These variables are used for server-side rendering API requests:
 
 - **`NEXT_PUBLIC_SSR_API_PROTOCOL`** (Required) - API protocol (`http` or `https`)
 - **`NEXT_PUBLIC_SSR_API_HOST`** (Required) - API hostname
-- **`NEXT_PUBLIC_SSR_API_PORT`** (Required) - API port (must be a valid number)
+- **`NEXT_PUBLIC_SSR_API_PORT`** (Optional) - API port (must be a valid number if set)
 
 ### API Configuration (Client)
 
@@ -37,7 +37,7 @@ These variables are used for client-side API requests:
 
 - **`NEXT_PUBLIC_API_PROTOCOL`** (Required) - API protocol (`http` or `https`)
 - **`NEXT_PUBLIC_API_HOST`** (Required) - API hostname
-- **`NEXT_PUBLIC_API_PORT`** (Required) - API port (must be a valid number)
+- **`NEXT_PUBLIC_API_PORT`** (Optional) - API port (must be a valid number if set)
 - **`NEXT_PUBLIC_API_PREFIX`** (Required) - API route prefix (e.g., `/api`)
 - **`NEXT_PUBLIC_API_VERSION`** (Required) - API version (e.g., `v2`)
 
@@ -67,6 +67,18 @@ These variables are used for client-side API requests:
   - Example: `"dark"`
 
 ## Optional Variables
+
+### API Configuration (SSR)
+
+- **`NEXT_PUBLIC_SSR_API_PORT`** (Optional) - API port for server-side rendering requests
+  - Must be a valid positive number if set
+  - If not set, the port will be omitted from the API URL
+
+### API Configuration (Client)
+
+- **`NEXT_PUBLIC_API_PORT`** (Optional) - API port for client-side API requests
+  - Must be a valid positive number if set
+  - If not set, the port will be omitted from the API URL
 
 ### Brand & Features
 
@@ -109,10 +121,10 @@ These variables are used for client-side API requests:
 
 ### Numeric Validation
 
-Variables containing `PORT` or `INTERVAL` are automatically validated to ensure they are valid positive numbers:
-- `NEXT_PUBLIC_SSR_API_PORT`
-- `NEXT_PUBLIC_API_PORT`
-- `NEXT_PUBLIC_POLLING_INTERVAL_MS`
+Variables containing `PORT` or `INTERVAL` are validated to ensure they are valid positive numbers if set:
+- `NEXT_PUBLIC_SSR_API_PORT` (Optional - must be a valid number if set)
+- `NEXT_PUBLIC_API_PORT` (Optional - must be a valid number if set)
+- `NEXT_PUBLIC_POLLING_INTERVAL_MS` (Optional - must be a valid number if set)
 
 ### Format Validation
 

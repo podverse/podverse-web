@@ -7,12 +7,12 @@ export const config = {
       ssr: {
         protocol: process.env.NEXT_PUBLIC_SSR_API_PROTOCOL!,
         host: process.env.NEXT_PUBLIC_SSR_API_HOST!,
-        port: process.env.NEXT_PUBLIC_SSR_API_PORT!
+        port: process.env.NEXT_PUBLIC_SSR_API_PORT || ''
       },
       client: {
         protocol: process.env.NEXT_PUBLIC_API_PROTOCOL!,
         host: process.env.NEXT_PUBLIC_API_HOST!,
-        port: process.env.NEXT_PUBLIC_API_PORT!,
+        port: process.env.NEXT_PUBLIC_API_PORT || '',
       },
       prefix: process.env.NEXT_PUBLIC_API_PREFIX!,
       version: process.env.NEXT_PUBLIC_API_VERSION!

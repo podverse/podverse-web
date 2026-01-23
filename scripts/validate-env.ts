@@ -52,12 +52,12 @@ const validateAllEnvironmentVariables = (): ValidationSummary => {
   // API Configuration (SSR)
   results.push(validateRequired('NEXT_PUBLIC_SSR_API_PROTOCOL', 'API Configuration (SSR)'));
   results.push(validateRequired('NEXT_PUBLIC_SSR_API_HOST', 'API Configuration (SSR)'));
-  results.push(validateRequired('NEXT_PUBLIC_SSR_API_PORT', 'API Configuration (SSR)'));
+  results.push(validateSSRApiPort());
 
   // API Configuration (Client)
   results.push(validateRequired('NEXT_PUBLIC_API_PROTOCOL', 'API Configuration (Client)'));
   results.push(validateRequired('NEXT_PUBLIC_API_HOST', 'API Configuration (Client)'));
-  results.push(validateRequired('NEXT_PUBLIC_API_PORT', 'API Configuration (Client)'));
+  results.push(validateApiPort());
   results.push(validateRequired('NEXT_PUBLIC_API_PREFIX', 'API Configuration (Client)'));
   results.push(validateRequired('NEXT_PUBLIC_API_VERSION', 'API Configuration (Client)'));
 
@@ -171,6 +171,86 @@ const validateProxyUserAgent = (): ValidationResult => {
     isRequired: true,
     message: 'Valid format',
     category: 'Proxy Configuration'
+  };
+};
+
+/**
+ * Validates NEXT_PUBLIC_SSR_API_PORT (must be a positive number if set, optional)
+ */
+const validateSSRApiPort = (): ValidationResult => {
+  const value = process.env.NEXT_PUBLIC_SSR_API_PORT || '';
+  const isSet = value !== '';
+
+  if (!isSet) {
+    return {
+      name: 'NEXT_PUBLIC_SSR_API_PORT',
+      isSet: false,
+      isValid: true,
+      isRequired: false,
+      message: 'Blank',
+      category: 'API Configuration (SSR)'
+    };
+  }
+
+  const numValue = Number(value);
+  if (isNaN(numValue) || numValue <= 0) {
+    return {
+      name: 'NEXT_PUBLIC_SSR_API_PORT',
+      isSet: true,
+      isValid: false,
+      isRequired: false,
+      message: `Invalid number: "${value}"`,
+      category: 'API Configuration (SSR)'
+    };
+  }
+
+  return {
+    name: 'NEXT_PUBLIC_SSR_API_PORT',
+    isSet: true,
+    isValid: true,
+    isRequired: false,
+    message: 'Set',
+    category: 'API Configuration (SSR)'
+  };
+};
+
+/**
+ * Validates NEXT_PUBLIC_API_PORT (must be a positive number if set, optional)
+ */
+const validateApiPort = (): ValidationResult => {
+  const value = process.env.NEXT_PUBLIC_API_PORT || '';
+  const isSet = value !== '';
+
+  if (!isSet) {
+    return {
+      name: 'NEXT_PUBLIC_API_PORT',
+      isSet: false,
+      isValid: true,
+      isRequired: false,
+      message: 'Blank',
+      category: 'API Configuration (Client)'
+    };
+  }
+
+  const numValue = Number(value);
+  if (isNaN(numValue) || numValue <= 0) {
+    return {
+      name: 'NEXT_PUBLIC_API_PORT',
+      isSet: true,
+      isValid: false,
+      isRequired: false,
+      message: `Invalid number: "${value}"`,
+      category: 'API Configuration (Client)'
+    };
+  }
+
+  return {
+    name: 'NEXT_PUBLIC_API_PORT',
+    isSet: true,
+    isValid: true,
+    isRequired: false,
+    message: 'Set',
+    category: 'API Configuration (Client)'
   };
 };
 
