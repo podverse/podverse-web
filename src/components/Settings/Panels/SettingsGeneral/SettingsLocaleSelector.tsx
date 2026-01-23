@@ -20,7 +20,7 @@ export const SettingsLocaleSelector: React.FC = () => {
   // Get supported locales from config
   const supportedLocalesConfig = config.public.features.locales.supported;
   const allLanguages = [
-    { value: 'en', label: tLanguage('languages.en') },
+    { value: 'en-US', label: tLanguage('languages.en-US') },
     { value: 'es', label: tLanguage('languages.es') },
     { value: 'fr', label: tLanguage('languages.fr') },
     { value: 'el-GR', label: tLanguage('languages.el-GR') },
